@@ -34,4 +34,5 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - ModifyHealth
+  - ModifyHealthRPC
   DisableAutoOpenWizard: 1

@@ -2,7 +2,7 @@
 using UnityEngine;
 using Photon.Pun;
 
-public class Health : MonoBehaviour, IPunObservable
+public class Health : MonoBehaviourPunCallbacks
 {
 
     [SerializeField] private int maxHealth = 100;
@@ -10,12 +10,20 @@ public class Health : MonoBehaviour, IPunObservable
 
     public event Action<float> OnHealthModified = delegate { };
 
-    private void OnEnable()
+    public override void OnEnable()
     {
+        base.OnEnable();
+
         ResetHealth();
     }
 
     public void ModifyHealth(int amount)
+    {
+        photonView.RPC("ModifyHealthRPC", RpcTarget.AllBuffered, amount);
+    }
+
+    [PunRPC]
+    private void ModifyHealthRPC(int amount)
     {
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -41,17 +49,5 @@ public class Health : MonoBehaviour, IPunObservable
     private void Kill()
     {
         print(gameObject.name + " has died");
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(currentHealth);
-        }
-        else
-        {
-            currentHealth = (int)stream.ReceiveNext();
-        }
     }
 }
