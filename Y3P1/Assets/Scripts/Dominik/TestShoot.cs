@@ -7,6 +7,7 @@ public class TestShoot : MonoBehaviour
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform projectileSpawn;
     [SerializeField] private float force = 5f;
+    [SerializeField] private int damage = 10;
 
     private void Update()
     {
@@ -25,6 +26,6 @@ public class TestShoot : MonoBehaviour
     private void Fire(Vector3 position, Quaternion rotation)
     {
         Projectile newProjectile = Instantiate(projectile, position, rotation).GetComponent<Projectile>();
-        newProjectile.Fire(force);
+        newProjectile.Fire(force, damage);
     }
 }

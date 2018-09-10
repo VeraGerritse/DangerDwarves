@@ -35,4 +35,5 @@ MonoBehaviour:
   - RespawnSpaceship
   - ModifyHealth
   - ModifyHealthRPC
+  - DestroyProjectile
   DisableAutoOpenWizard: 1

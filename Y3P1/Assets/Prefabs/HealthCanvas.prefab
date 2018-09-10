@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 2788670990308533371}
   - component: {fileID: 7473915828267291140}
   - component: {fileID: 1632042074742679014}
+  - component: {fileID: 3230430368776370222}
   m_Layer: 5
   m_Name: HealthCanvas
   m_TagString: Untagged
@@ -336,3 +337,15 @@ MonoBehaviour:
   foregroundHealthBar: {fileID: 6192987289836115895}
   backgroundHealthBar: {fileID: 4261166414810637546}
   backgroundLerpTime: 1
+--- !u!114 &3230430368776370222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7972216441462917839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 583b770bbbd48eb47892bf39252b47c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

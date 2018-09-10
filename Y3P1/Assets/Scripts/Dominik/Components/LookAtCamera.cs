@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Y3P1;
 
-public class TestLookAt : MonoBehaviour 
+public class LookAtCamera : MonoBehaviour 
 {
 
     private Transform target;

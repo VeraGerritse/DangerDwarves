@@ -9,6 +9,7 @@ public class Health : MonoBehaviourPunCallbacks
     private int currentHealth;
 
     public event Action<float> OnHealthModified = delegate { };
+    public event Action OnDeath = delegate { };
 
     public override void OnEnable()
     {
@@ -49,5 +50,6 @@ public class Health : MonoBehaviourPunCallbacks
     private void Kill()
     {
         print(gameObject.name + " has died");
+        OnDeath();
     }
 }
