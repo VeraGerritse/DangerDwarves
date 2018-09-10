@@ -1,43 +1,38 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 
-public class TestSpawner : MonoBehaviourPunCallbacks
+public class TestSpawner : MonoBehaviourPunCallbacks, IPunObservable
 {
 
     public static GameObject aliveDummy;
-    private bool canSpawn = true;
+    //private bool initialised;
 
     [SerializeField] private GameObject dummyPrefab;
     [SerializeField] private float spawnRange;
 
-    //private void Awake()
-    //{
-    //    TestSpawner[] aliveSpawners = FindObjectsOfType<TestSpawner>();
-    //    if (aliveSpawners.Length > 1)
-    //    {
-    //        Destroy(gameObject);
-    //    }
-    //}
-
-    private void Update()
+    private void Awake()
     {
-        //if (photonView.IsMine)
+        //if (initialised)
         //{
-            if (!aliveDummy)
-            {
-                photonView.RPC("SpawnDummy", RpcTarget.All);
-            }
+        //    print("test spawner is already initialised");
+        //    return;
         //}
+
+        //initialised = true;
+
+        if (!aliveDummy)
+        {
+            SpawnDummy();
+        }
     }
 
-    [PunRPC]
     private void SpawnDummy()
     {
         Health newDummy = PhotonNetwork.Instantiate(dummyPrefab.name, GetRandomPos(), Quaternion.identity).GetComponent<Health>();
         newDummy.OnDeath += () =>
         {
-            FindObjectOfType<TestSpawner>().canSpawn = true;
             PhotonNetwork.Destroy(newDummy.gameObject);
+            SpawnDummy();
         };
 
         aliveDummy = newDummy.gameObject;
@@ -46,5 +41,19 @@ public class TestSpawner : MonoBehaviourPunCallbacks
     private Vector3 GetRandomPos()
     {
         return new Vector3(transform.position.x + Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + Random.Range(-spawnRange, spawnRange));
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(aliveDummy);
+            //stream.SendNext(initialised);
+        }
+        else
+        {
+            aliveDummy = (GameObject)stream.ReceiveNext();
+            //initialised = (GameObject)stream.ReceiveNext();
+        }
     }
 }

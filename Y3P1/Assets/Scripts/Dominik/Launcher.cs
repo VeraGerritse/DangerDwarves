@@ -62,7 +62,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = 5 }, null);
+        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = 10 }, null);
     }
 
     private void SetUpNameInputField()

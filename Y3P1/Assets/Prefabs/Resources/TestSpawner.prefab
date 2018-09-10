@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2257188909340220809}
   - component: {fileID: 2257188909340220808}
-  - component: {fileID: 2257188909340220811}
-  - component: {fileID: 2257188909340220810}
+  - component: {fileID: 4728300249022465296}
+  - component: {fileID: 1783342760417289563}
   m_Layer: 0
   m_Name: TestSpawner
   m_TagString: Untagged
@@ -48,7 +48,7 @@ MonoBehaviour:
   dummyPrefab: {fileID: 6357796064771890802, guid: d0330d00309a8c7408631cd6947cb30e,
     type: 3}
   spawnRange: 2
---- !u!114 &2257188909340220811
+--- !u!114 &4728300249022465296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,11 +66,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 2257188909340220810}
-  viewIdField: 1
-  InstantiationId: 1
+  - {fileID: 1783342760417289563}
+  - {fileID: 2257188909340220808}
+  viewIdField: 500
+  InstantiationId: 500
   isRuntimeInstantiated: 0
---- !u!114 &2257188909340220810
+--- !u!114 &1783342760417289563
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
