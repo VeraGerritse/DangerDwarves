@@ -1,32 +1,46 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 
-public class TestSpawner : MonoBehaviour
+public class TestSpawner : MonoBehaviourPunCallbacks
 {
 
+    public static GameObject aliveDummy;
     private bool canSpawn = true;
 
     [SerializeField] private GameObject dummyPrefab;
     [SerializeField] private float spawnRange;
 
+    //private void Awake()
+    //{
+    //    TestSpawner[] aliveSpawners = FindObjectsOfType<TestSpawner>();
+    //    if (aliveSpawners.Length > 1)
+    //    {
+    //        Destroy(gameObject);
+    //    }
+    //}
+
     private void Update()
     {
-        if (canSpawn)
-        {
-            SpawnDummy();
-        }
+        //if (photonView.IsMine)
+        //{
+            if (!aliveDummy)
+            {
+                photonView.RPC("SpawnDummy", RpcTarget.All);
+            }
+        //}
     }
 
+    [PunRPC]
     private void SpawnDummy()
     {
-        canSpawn = false;
-
         Health newDummy = PhotonNetwork.Instantiate(dummyPrefab.name, GetRandomPos(), Quaternion.identity).GetComponent<Health>();
         newDummy.OnDeath += () =>
         {
             FindObjectOfType<TestSpawner>().canSpawn = true;
-            Destroy(newDummy.gameObject);
+            PhotonNetwork.Destroy(newDummy.gameObject);
         };
+
+        aliveDummy = newDummy.gameObject;
     }
 
     private Vector3 GetRandomPos()

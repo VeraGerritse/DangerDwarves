@@ -45,3 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 8464704438644112518, guid: 35380d2f791b7ea4e95492d7ca46df30,
     type: 3}
+  testSpawnerSpawn: {x: 0, y: 0.1, z: 6}
+  testSpawner: {fileID: 2257188909340220807, guid: 6f03a9d9e2c39e04eb179ac90275aadc,
+    type: 3}

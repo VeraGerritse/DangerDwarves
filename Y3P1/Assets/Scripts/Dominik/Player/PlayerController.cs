@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     private void HandleRotation()
     {
         Ray ray = Player.localPlayer.playerCam.cameraComponent.ScreenPointToRay(Input.mousePosition);
-        Vector3 mouseInWorldPos = ray.GetPoint((transform.position - ray.origin).magnitude * 0.95f);
+        Vector3 mouseInWorldPos = ray.GetPoint((transform.position - ray.origin).magnitude * 1.1f);
 
         Vector3 lookAtTarget = new Vector3(mouseInWorldPos.x, body.position.y, mouseInWorldPos.z);
         body.LookAt(lookAtTarget);

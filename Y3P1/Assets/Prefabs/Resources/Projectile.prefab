@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1513465962598485992}
   - component: {fileID: 2496514084590928765}
   - component: {fileID: 8443090295309064472}
+  - component: {fileID: 1096704955231704107}
   m_Layer: 10
   m_Name: Projectile
   m_TagString: Untagged
@@ -141,6 +142,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 8443090295309064472}
+  - {fileID: 1096704955231704107}
   viewIdField: 1
   InstantiationId: 1
   isRuntimeInstantiated: 0
@@ -159,3 +161,19 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
+--- !u!114 &1096704955231704107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3716037247890611631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3

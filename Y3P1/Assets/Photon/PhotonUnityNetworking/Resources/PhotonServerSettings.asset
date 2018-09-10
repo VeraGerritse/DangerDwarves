@@ -36,4 +36,5 @@ MonoBehaviour:
   - ModifyHealth
   - ModifyHealthRPC
   - DestroyProjectile
+  - SpawnDummy
   DisableAutoOpenWizard: 1

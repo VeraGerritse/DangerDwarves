@@ -25,11 +25,12 @@ public class Projectile : MonoBehaviour
         Health health = other.GetComponent<Health>();
         if (health)
         {
-            if (photonView.IsMine)
-            {
+            //if (photonView.IsMine)
+            //{
                 health.ModifyHealth(-damage);
-                photonView.RPC("DestroyProjectile", RpcTarget.All);
-            }
+                Destroy(gameObject);
+                //photonView.RPC("DestroyProjectile", RpcTarget.All);
+            //}
         }
     }
 
