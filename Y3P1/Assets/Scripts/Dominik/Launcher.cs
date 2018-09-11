@@ -25,6 +25,12 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void Connect()
     {
+        // Player name is empty.
+        if (string.IsNullOrEmpty(nameInputField.text))
+        {
+            return;
+        }
+
         isConnecting = true;
 
         playMenuPanel.SetActive(false);

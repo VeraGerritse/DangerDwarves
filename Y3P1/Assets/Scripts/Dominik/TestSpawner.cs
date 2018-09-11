@@ -1,38 +1,36 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class TestSpawner : MonoBehaviourPunCallbacks, IPunObservable
 {
 
     public static GameObject aliveDummy;
-    //private bool initialised;
+    private bool canSpawn;
 
     [SerializeField] private GameObject dummyPrefab;
     [SerializeField] private float spawnRange;
 
-    private void Awake()
+    private void Update()
     {
-        //if (initialised)
-        //{
-        //    print("test spawner is already initialised");
-        //    return;
-        //}
+        canSpawn = PhotonNetwork.IsMasterClient ? true : false;
 
-        //initialised = true;
-
-        if (!aliveDummy)
+        if (PhotonNetwork.IsMasterClient)
         {
-            SpawnDummy();
+            if (canSpawn && !aliveDummy)
+            {
+                SpawnDummy();
+            }
         }
     }
 
     private void SpawnDummy()
     {
-        Health newDummy = PhotonNetwork.Instantiate(dummyPrefab.name, GetRandomPos(), Quaternion.identity).GetComponent<Health>();
+        Health newDummy = PhotonNetwork.InstantiateSceneObject(dummyPrefab.name, GetRandomPos(), Quaternion.identity).GetComponent<Health>();
         newDummy.OnDeath += () =>
         {
             PhotonNetwork.Destroy(newDummy.gameObject);
-            SpawnDummy();
+            //SpawnDummy();
         };
 
         aliveDummy = newDummy.gameObject;
@@ -48,12 +46,10 @@ public class TestSpawner : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(aliveDummy);
-            //stream.SendNext(initialised);
         }
         else
         {
             aliveDummy = (GameObject)stream.ReceiveNext();
-            //initialised = (GameObject)stream.ReceiveNext();
         }
     }
 }

@@ -7,12 +7,16 @@ public class HealthBar : MonoBehaviour
 
     private bool initialised;
 
+    private Animator anim;
+
     [SerializeField] private Image foregroundHealthBar;
     [SerializeField] private Image backgroundHealthBar;
     [SerializeField] private float backgroundLerpTime = 1;
 
     private void Awake()
     {
+        anim = GetComponent<Animator>();
+
         if (!initialised)
         {
             Initialise(GetComponentInParent<Health>());
@@ -30,6 +34,10 @@ public class HealthBar : MonoBehaviour
 
     private void Health_OnHealthModified(float percentage)
     {
+        // Check if health got decreased or added and play the according animation.
+        // TODO: Add 'IncreaseHealth' animation, it just plays the decrease animation now.
+        anim.SetTrigger(foregroundHealthBar.fillAmount > percentage ? "DecreaseHealth" : "DecreaseHealth");
+
         foregroundHealthBar.fillAmount = percentage;
         StartCoroutine(LerpBackgroundHealthBar(percentage));
     }

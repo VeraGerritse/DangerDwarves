@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2257188909340220809}
   - component: {fileID: 2257188909340220808}
-  - component: {fileID: 4728300249022465296}
-  - component: {fileID: 1783342760417289563}
   m_Layer: 0
   m_Name: TestSpawner
   m_TagString: Untagged
@@ -48,41 +46,3 @@ MonoBehaviour:
   dummyPrefab: {fileID: 6357796064771890802, guid: d0330d00309a8c7408631cd6947cb30e,
     type: 3}
   spawnRange: 2
---- !u!114 &4728300249022465296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2257188909340220807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 1783342760417289563}
-  - {fileID: 2257188909340220808}
-  viewIdField: 500
-  InstantiationId: 500
-  isRuntimeInstantiated: 0
---- !u!114 &1783342760417289563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2257188909340220807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 0
-  m_SynchronizeScale: 0

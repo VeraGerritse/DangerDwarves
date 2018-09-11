@@ -10,9 +10,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private GameObject playerPrefab;
 
-    [SerializeField] private Vector3 testSpawnerSpawn;
-    [SerializeField] private GameObject testSpawner;
-
     private void Awake()
     {
         if (!instance)
@@ -31,27 +28,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 2, 0), Quaternion.identity);
         }
-
-        //if (PhotonNetwork.IsMasterClient)
-        //{
-        //    print("I AM THE MASTER CLIENT");
-        //    PhotonNetwork.InstantiateSceneObject(testSpawner.name, testSpawnerSpawn, Quaternion.identity);
-        //}
-
-        //TestSpawner newTestSpawner = PhotonNetwork.Instantiate(testSpawner.name, testSpawnerSpawn, Quaternion.identity).GetComponent<TestSpawner>();
-        //foreach (TestSpawner testSpawner in FindObjectsOfType<TestSpawner>())
-        //{
-        //    if (testSpawner != newTestSpawner)
-        //    {
-        //        print("THIS SHOULD FUCKING DESTROY A SPAWNER");
-        //        PhotonNetwork.Destroy(testSpawner.gameObject);
-        //    }
-        //}
-    }
-
-    public void Test()
-    {
-        PhotonNetwork.InstantiateSceneObject(testSpawner.name, testSpawnerSpawn, Quaternion.identity);
     }
 
     public override void OnLeftRoom()
@@ -68,6 +44,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            print("LOADED HUB");
             PhotonNetwork.LoadLevel(1);
         }
     }
@@ -76,7 +53,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            LoadHub();
+            //LoadHub();
         }
     }
 
@@ -84,7 +61,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            LoadHub();
+            //LoadHub();
         }
     }
 }

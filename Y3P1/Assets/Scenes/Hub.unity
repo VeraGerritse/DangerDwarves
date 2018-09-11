@@ -699,6 +699,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 2257188909340220807, guid: 6f03a9d9e2c39e04eb179ac90275aadc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f03a9d9e2c39e04eb179ac90275aadc, type: 3}
 --- !u!1001 &6333753527670074792
@@ -767,5 +772,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6333753527317656724, guid: 36b1a774e937a844aa654ba866e16828,
+        type: 3}
+      propertyPath: dummyPrefab
+      value: 
+      objectReference: {fileID: 6357796064771890802, guid: d0330d00309a8c7408631cd6947cb30e,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36b1a774e937a844aa654ba866e16828, type: 3}
