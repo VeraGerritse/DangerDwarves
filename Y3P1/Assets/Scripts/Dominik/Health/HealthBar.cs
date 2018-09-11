@@ -13,6 +13,9 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Image backgroundHealthBar;
     [SerializeField] private float backgroundLerpTime = 1;
 
+    // TODO: Add this to object pooler and remove variable.
+    [SerializeField] private GameObject damageTextPrefab;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -32,7 +35,7 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    private void Health_OnHealthModified(float percentage)
+    private void Health_OnHealthModified(float percentage, int? amount)
     {
         // Check if health got decreased or added and play the according animation.
         // TODO: Add 'IncreaseHealth' animation, it just plays the decrease animation now.
@@ -40,6 +43,12 @@ public class HealthBar : MonoBehaviour
 
         foregroundHealthBar.fillAmount = percentage;
         StartCoroutine(LerpBackgroundHealthBar(percentage));
+
+        if (amount != null)
+        {
+            DamageText newDamageText = Instantiate(damageTextPrefab, transform.position, transform.rotation, transform).GetComponent<DamageText>();
+            newDamageText.Initialise((int)amount);
+        }
     }
 
     private IEnumerator LerpBackgroundHealthBar(float percentage)

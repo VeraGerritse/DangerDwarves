@@ -2672,7 +2672,8 @@ namespace Photon.Pun
 
             PhotonNetwork.IsMessageQueueRunning = false;
             loadingLevelAndPausedNetwork = true;
-            _AsyncLevelLoadingOperation = SceneManager.LoadSceneAsync(levelNumber,LoadSceneMode.Single);
+            //_AsyncLevelLoadingOperation = SceneManager.LoadSceneAsync(levelNumber,LoadSceneMode.Single);
+            Y3P1.SceneManager.instance.LoadScene(levelNumber, false);
         }
 
         /// <summary>Wraps loading a level to pause the network message-queue. Optionally syncs the loaded level in a room.</summary>

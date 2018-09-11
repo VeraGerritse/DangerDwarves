@@ -8,7 +8,7 @@ public class Health : MonoBehaviourPunCallbacks
     [SerializeField] private int maxHealth = 100;
     private int currentHealth;
 
-    public event Action<float> OnHealthModified = delegate { };
+    public event Action<float, int?> OnHealthModified = delegate { };
     public event Action OnDeath = delegate { };
 
     public override void OnEnable()
@@ -28,7 +28,7 @@ public class Health : MonoBehaviourPunCallbacks
     {
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-        OnHealthModified(GetHealthPercentage());
+        OnHealthModified(GetHealthPercentage(), amount);
 
         if (currentHealth <= 0)
         {
@@ -44,7 +44,7 @@ public class Health : MonoBehaviourPunCallbacks
     public void ResetHealth()
     {
         currentHealth = maxHealth;
-        OnHealthModified(GetHealthPercentage());
+        OnHealthModified(GetHealthPercentage(), null);
     }
 
     private void Kill()

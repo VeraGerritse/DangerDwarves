@@ -49,6 +49,19 @@ public class Setting_ScreenMode : Setting
         {
             Screen.fullScreenMode = newSetting;
             currentSetting = newSetting;
+
+            if (newSetting == FullScreenMode.ExclusiveFullScreen || newSetting == FullScreenMode.FullScreenWindow)
+            {
+                Screen.fullScreen = true;
+                Resolution resolution = Screen.currentResolution;
+                Screen.SetResolution(resolution.width, resolution.height, true);
+            }
+            else
+            {
+                Screen.fullScreen = false;
+                Resolution resolution = Screen.currentResolution;
+                Screen.SetResolution(resolution.width, resolution.height, false);
+            }
         }
     }
 }

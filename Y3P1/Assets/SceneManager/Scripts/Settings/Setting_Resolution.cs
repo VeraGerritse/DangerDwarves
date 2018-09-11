@@ -14,16 +14,16 @@ public class Setting_Resolution : Setting
     {
         base.Awake();
 
+        availableResolutions = Screen.resolutions.Select(resolution => new Resolution { width = resolution.width, height = resolution.height }).Distinct().Reverse().ToArray();
+        availableResolutions = availableResolutions.Where(resolution => resolution.width >= 800 && resolution.height >= 600).ToArray();
+        List<string> resolutionDropdownOptions = new List<string>();
+
         currentResolution = Screen.currentResolution;
         int currentResolutionDropdownIndex = 0;
-
-        availableResolutions = Screen.resolutions.Select(resolution => new Resolution { width = resolution.width, height = resolution.height }).Distinct().Reverse().ToArray();
-        List<string> resolutionDropdownOptions = new List<string>();
 
         for (int i = 0; i < availableResolutions.Length; i++)
         {
             resolutionDropdownOptions.Add(availableResolutions[i].width + "x" + availableResolutions[i].height);
-
             if (availableResolutions[i].width == currentResolution.width && availableResolutions[i].height == currentResolution.height)
             {
                 currentResolutionDropdownIndex = i;
