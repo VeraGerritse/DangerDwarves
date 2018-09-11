@@ -699,11 +699,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestSpawner
       objectReference: {fileID: 0}
-    - target: {fileID: 2257188909340220807, guid: 6f03a9d9e2c39e04eb179ac90275aadc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f03a9d9e2c39e04eb179ac90275aadc, type: 3}
 --- !u!1001 &6333753527670074792

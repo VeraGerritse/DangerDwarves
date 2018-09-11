@@ -49,19 +49,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            //LoadHub();
-        }
-    }
+    //public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    //{
+    //    if (PhotonNetwork.IsMasterClient)
+    //    {
+    //        //LoadHub();
+    //    }
+    //}
 
-    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            //LoadHub();
-        }
-    }
+    //public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    //{
+    //    if (PhotonNetwork.IsMasterClient)
+    //    {
+    //        //LoadHub();
+    //    }
+    //}
 }

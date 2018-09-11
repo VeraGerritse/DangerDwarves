@@ -43,13 +43,13 @@ public class TestSpawner : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(aliveDummy);
-        }
-        else
-        {
-            aliveDummy = (GameObject)stream.ReceiveNext();
-        }
+        //if (stream.IsWriting)
+        //{
+        //    stream.SendNext(aliveDummy);
+        //}
+        //else
+        //{
+        //    aliveDummy = (GameObject)stream.ReceiveNext();
+        //}
     }
 }
