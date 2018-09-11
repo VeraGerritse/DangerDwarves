@@ -192,6 +192,7 @@ MonoBehaviour:
   playerCam: {fileID: 0}
   health: {fileID: 0}
   playerUIPrefab: {fileID: 241, guid: 61a5a60cfa7db844ba3daff3ea02dedd, type: 3}
+  playerUISpawnOffset: {x: 0, y: 3, z: 0.2}
 --- !u!114 &7267311020839716367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,6 +273,7 @@ MonoBehaviour:
     type: 3}
   projectileSpawn: {fileID: 6422078387798249425}
   force: 15
+  damage: 10
 --- !u!1 &8464704439221946170
 GameObject:
   m_ObjectHideFlags: 0
@@ -367,6 +369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraComponent: {fileID: 0}
+  lerp: 1
   moveSpeed: 4
 --- !u!1 &8464704439292004410
 GameObject:

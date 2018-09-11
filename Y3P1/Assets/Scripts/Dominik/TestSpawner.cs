@@ -2,7 +2,7 @@
 using Photon.Realtime;
 using UnityEngine;
 
-public class TestSpawner : MonoBehaviourPunCallbacks, IPunObservable
+public class TestSpawner : MonoBehaviourPunCallbacks
 {
 
     public static GameObject aliveDummy;
@@ -41,15 +41,11 @@ public class TestSpawner : MonoBehaviourPunCallbacks, IPunObservable
         return new Vector3(transform.position.x + Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + Random.Range(-spawnRange, spawnRange));
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public override void OnMasterClientSwitched(Player newMasterClient)
     {
-        //if (stream.IsWriting)
-        //{
-        //    stream.SendNext(aliveDummy);
-        //}
-        //else
-        //{
-        //    aliveDummy = (GameObject)stream.ReceiveNext();
-        //}
+        if (aliveDummy)
+        {
+            PhotonNetwork.Destroy(aliveDummy);
+        }
     }
 }

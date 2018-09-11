@@ -14,6 +14,7 @@ namespace Y3P1
         [HideInInspector] public PlayerCamera playerCam;
         [HideInInspector] public Health health;
         [SerializeField] private GameObject playerUIPrefab;
+        [SerializeField] private Vector3 playerUISpawnOffset = new Vector3(0, 3, 0.2f);
         [HideInInspector] private TestShoot testShoot;
 
 
@@ -51,7 +52,7 @@ namespace Y3P1
 
         private void CreatePlayerUI()
         {
-            PlayerUI playerUI = Instantiate(playerUIPrefab, transform.position, Quaternion.identity, transform).GetComponent<PlayerUI>();
+            PlayerUI playerUI = Instantiate(playerUIPrefab, transform.position + playerUISpawnOffset, Quaternion.identity, transform).GetComponent<PlayerUI>();
             playerUI.Initialise(this);
         }
     }

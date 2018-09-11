@@ -5,6 +5,7 @@ public class LookAtCamera : MonoBehaviour
 {
 
     private Transform target;
+    private Vector3 targetFixedPos;
 
     private void LateUpdate()
     {
@@ -15,7 +16,10 @@ public class LookAtCamera : MonoBehaviour
                 target = Player.localPlayerObject.GetComponent<Player>().playerCam.transform;
             }
 
-            transform.LookAt(target);
+            targetFixedPos = target.position;
+            targetFixedPos.x = transform.position.x;
+
+            transform.LookAt(targetFixedPos);
             transform.Rotate(0, 180, 0);
         }
     }

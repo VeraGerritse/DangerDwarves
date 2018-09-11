@@ -46,7 +46,7 @@ public class HealthBar : MonoBehaviour
 
         if (amount != null)
         {
-            DamageText newDamageText = Instantiate(damageTextPrefab, transform.position, transform.rotation, transform).GetComponent<DamageText>();
+            DamageText newDamageText = Instantiate(damageTextPrefab, transform.position, transform.rotation).GetComponent<DamageText>();
             newDamageText.Initialise((int)amount);
         }
     }
