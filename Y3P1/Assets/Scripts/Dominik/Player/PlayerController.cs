@@ -4,8 +4,17 @@ using Y3P1;
 public class PlayerController : MonoBehaviour
 {
 
+    private GameObject mouseHitPlane;
+    private Vector3 mouseInWorldPos;
+
     [SerializeField] private float moveSpeed;
     [SerializeField] Transform body;
+    [SerializeField] LayerMask mouseHitPlaneLayermask;
+
+    public void Initialise()
+    {
+        CreateMouseHitPlane();
+    }
 
     private void Update()
     {
@@ -35,13 +44,31 @@ public class PlayerController : MonoBehaviour
         Player.localPlayer.rb.MovePosition(transform.position + velocity);
     }
 
-    // Gets the position of a raycast firing from the camera to the mouse with a certain distance and uses that position for the player to rotate towards.
+    // Gets the position of a raycast firing from the camera in the direction of the mouse and onto an invisible plane and uses that position for the player to rotate towards.
     private void HandleRotation()
     {
-        Ray ray = Player.localPlayer.playerCam.cameraComponent.ScreenPointToRay(Input.mousePosition);
-        Vector3 mouseInWorldPos = ray.GetPoint((transform.position - ray.origin).magnitude * 1.1f);
+        //Ray ray = Player.localPlayer.playerCam.cameraComponent.ScreenPointToRay(Input.mousePosition);
+        //Vector3 mouseInWorldPos = ray.GetPoint((transform.position - ray.origin).magnitude * 1.1f);
+
+        RaycastHit hit;
+        if (Physics.Raycast(Player.localPlayer.playerCam.cameraComponent.ScreenPointToRay(Input.mousePosition), out hit, 50, mouseHitPlaneLayermask))
+        {
+            mouseInWorldPos = hit.point;
+        }
 
         Vector3 lookAtTarget = new Vector3(mouseInWorldPos.x, body.position.y, mouseInWorldPos.z);
         body.LookAt(lookAtTarget);
+    }
+
+    // Creates an invisible plane for the mouse to raycast on to.
+    private void CreateMouseHitPlane()
+    {
+        mouseHitPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        mouseHitPlane.layer = 11;
+        mouseHitPlane.transform.SetParent(Player.localPlayer.transform);
+        mouseHitPlane.transform.localPosition = Vector3.zero;
+        mouseHitPlane.transform.localScale = new Vector3(100, 1, 100);
+        mouseHitPlane.GetComponent<MeshRenderer>().enabled = false;
+        mouseHitPlane.GetComponent<MeshCollider>().convex = true;
     }
 }

@@ -18,7 +18,7 @@ public class TestShoot : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            GetComponent<Health>().ModifyHealth(-10);
+            GetComponentInChildren<Hitbox>().Hit(-10);
         }
     }
 

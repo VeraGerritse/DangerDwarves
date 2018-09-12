@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Stats : MonoBehaviour {
+[System.Serializable]
+[CreateAssetMenu(menuName = "Data/Stats")]
+public class Stats : ScriptableObject
+{
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public int stamina;
+    public int strength;
+    public int agility;
+    public int willpower;
+    public int defense;
 }

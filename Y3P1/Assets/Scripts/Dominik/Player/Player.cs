@@ -17,7 +17,6 @@ namespace Y3P1
         [SerializeField] private Vector3 playerUISpawnOffset = new Vector3(0, 3, 0.2f);
         [HideInInspector] private TestShoot testShoot;
 
-
         private void Awake()
         {
             playerController = GetComponentInChildren<PlayerController>();
@@ -46,6 +45,7 @@ namespace Y3P1
             localPlayer = this;
 
             playerCam.Initialize();
+            playerController.Initialise();
 
             DontDestroyOnLoad(gameObject);
         }

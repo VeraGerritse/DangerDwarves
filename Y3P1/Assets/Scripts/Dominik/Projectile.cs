@@ -22,22 +22,15 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Health health = other.GetComponent<Health>();
-        if (health)
+        Hitbox hitbox = other.GetComponent<Hitbox>();
+        if (hitbox)
         {
             if (photonView.IsMine)
             {
-                health.ModifyHealth(-damage);
-                //photonView.RPC("DestroyProjectile", RpcTarget.All);
+                hitbox.Hit(-damage);
             }
 
             Destroy(gameObject);
         }
-    }
-
-    [PunRPC]
-    private void DestroyProjectile()
-    {
-        Destroy(gameObject);
     }
 }

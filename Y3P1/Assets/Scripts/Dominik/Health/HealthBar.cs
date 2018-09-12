@@ -22,7 +22,7 @@ public class HealthBar : MonoBehaviour
 
         if (!initialised)
         {
-            Initialise(GetComponentInParent<Health>());
+            Initialise(transform.root.GetComponentInChildren<Health>());
         }
     }
 
