@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using Photon.Pun;
+using System;
 
-[RequireComponent(typeof(Health))]
-public class Entity : MonoBehaviour 
+public class Entity : MonoBehaviourPunCallbacks 
 {
 
-    private Health health;
-    [SerializeField] private Stats stats;
+    public Health health;
+    public Stats stats;
+    public event Action OnDeath = delegate { };
 
     [Space(10)]
 
@@ -14,7 +16,7 @@ public class Entity : MonoBehaviour
 
     private void Awake()
     {
-        health = GetComponent<Health>();
+        health.Initialise(this);
 
         if (!stats)
         {
@@ -26,7 +28,12 @@ public class Entity : MonoBehaviour
     public void Hit(int amount)
     {
         OnHitEvent.Invoke();
+        photonView.RPC("HitRPC", RpcTarget.AllBuffered, amount);
+    }
 
+    [PunRPC]
+    private void HitRPC(int amount)
+    {
         health.ModifyHealth(CalculateAmount(amount));
     }
 
@@ -39,5 +46,10 @@ public class Entity : MonoBehaviour
         }
 
         return (int)Mathf.Clamp((amount + stats.defense), -99999999999999999, 0);
+    }
+
+    public void Kill()
+    {
+        OnDeath();
     }
 }

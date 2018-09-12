@@ -2,38 +2,39 @@
 using UnityEngine;
 using Photon.Pun;
 
-public class Health : MonoBehaviourPunCallbacks
+[Serializable]
+public class Health
 {
+
+    private Entity myEntity;
 
     [SerializeField] private int maxHealth = 100;
     private int currentHealth;
 
     public event Action<float, int?> OnHealthModified = delegate { };
-    public event Action OnDeath = delegate { };
 
-    public override void OnEnable()
+    public void Initialise(Entity entity)
     {
-        base.OnEnable();
-
+        myEntity = entity;
         ResetHealth();
     }
 
     public void ModifyHealth(int amount)
     {
-        photonView.RPC("ModifyHealthRPC", RpcTarget.AllBuffered, amount);
-    }
-
-    [PunRPC]
-    private void ModifyHealthRPC(int amount)
-    {
+        //myEntity.photonView.RPC("ModifyHealthRPC", RpcTarget.AllBuffered, amount);
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnHealthModified(GetHealthPercentage(), amount);
 
         if (currentHealth <= 0)
         {
-            Kill();
+            myEntity.Kill();
         }
+    }
+
+    [PunRPC]
+    private void ModifyHealthRPC(int amount)
+    {
     }
 
     private float GetHealthPercentage()
@@ -45,11 +46,5 @@ public class Health : MonoBehaviourPunCallbacks
     {
         currentHealth = maxHealth;
         OnHealthModified(GetHealthPercentage(), null);
-    }
-
-    private void Kill()
-    {
-        print(gameObject.name + " has died");
-        OnDeath();
     }
 }

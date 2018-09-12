@@ -28,7 +28,7 @@ public class TestSpawner : MonoBehaviourPunCallbacks, IPunObservable
     {
         //Health newDummy = PhotonNetwork.InstantiateSceneObject(dummyPrefab.name, GetRandomPos(), Quaternion.identity).GetComponentInChildren<Health>();
         GameObject newDummy = PhotonNetwork.InstantiateSceneObject(dummyPrefab.name, GetRandomPos(), Quaternion.identity);
-        Health newDummyHealth = newDummy.GetComponentInChildren<Health>();
+        Entity newDummyHealth = newDummy.GetComponentInChildren<Entity>();
         newDummyHealth.OnDeath += () =>
         {
             PhotonNetwork.Destroy(newDummy);
@@ -54,7 +54,7 @@ public class TestSpawner : MonoBehaviourPunCallbacks, IPunObservable
         aliveDummy = PhotonView.Find(aliveDummyID).gameObject;
         if (aliveDummy)
         {
-            aliveDummy.GetComponentInChildren<Health>().OnDeath += () =>
+            aliveDummy.GetComponentInChildren<Entity>().OnDeath += () =>
             {
                 PhotonNetwork.Destroy(aliveDummy);
             };

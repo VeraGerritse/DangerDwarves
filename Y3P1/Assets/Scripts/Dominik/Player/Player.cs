@@ -12,7 +12,7 @@ namespace Y3P1
         private PlayerController playerController;
         [HideInInspector] public Rigidbody rb;
         [HideInInspector] public PlayerCamera playerCam;
-        [HideInInspector] public Health health;
+        [HideInInspector] public Entity entity;
         [SerializeField] private GameObject playerUIPrefab;
         [SerializeField] private Vector3 playerUISpawnOffset = new Vector3(0, 3, 0.2f);
         [HideInInspector] private TestShoot testShoot;
@@ -22,7 +22,7 @@ namespace Y3P1
             playerController = GetComponentInChildren<PlayerController>();
             rb = GetComponentInChildren<Rigidbody>();
             playerCam = GetComponentInChildren<PlayerCamera>();
-            health = GetComponentInChildren<Health>();
+            entity = GetComponentInChildren<Entity>();
             testShoot = GetComponentInChildren<TestShoot>();
 
             CreatePlayerUI();

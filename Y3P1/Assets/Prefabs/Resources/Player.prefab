@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1935907130575639396}
   - component: {fileID: 4317788233451723320}
-  - component: {fileID: 3510085750079607028}
   - component: {fileID: 6960628197386377692}
   - component: {fileID: 369534039127860333}
   m_Layer: 9
@@ -48,19 +47,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &3510085750079607028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3365887358606820787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53614fafc1f58e94692dfbcb91b23e38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
 --- !u!114 &6960628197386377692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,6 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb944ea6121cec94a9147d0853eaa725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health:
+    maxHealth: 100
   stats: {fileID: 11400000, guid: 399aec1b1e9daa749a826b2784f125b5, type: 2}
   OnHitEvent:
     m_PersistentCalls:
@@ -277,7 +265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   playerCam: {fileID: 0}
-  health: {fileID: 0}
+  entity: {fileID: 0}
   playerUIPrefab: {fileID: 241, guid: 61a5a60cfa7db844ba3daff3ea02dedd, type: 3}
   playerUISpawnOffset: {x: 0, y: 3, z: 0.2}
 --- !u!114 &7267311020839716367

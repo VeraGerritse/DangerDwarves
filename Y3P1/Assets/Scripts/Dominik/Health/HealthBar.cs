@@ -19,15 +19,15 @@ public class HealthBar : MonoBehaviour
 
         if (!initialised)
         {
-            Initialise(transform.root.GetComponentInChildren<Health>());
+            Initialise(transform.root.GetComponentInChildren<Entity>());
         }
     }
 
-    public void Initialise(Health health)
+    public void Initialise(Entity entity)
     {
-        if (health)
+        if (entity)
         {
-            health.OnHealthModified += Health_OnHealthModified;
+            entity.health.OnHealthModified += Health_OnHealthModified;
             initialised = true;
         }
     }

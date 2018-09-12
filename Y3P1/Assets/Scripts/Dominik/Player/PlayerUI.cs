@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using TMPro;
 using Y3P1;
 
@@ -34,7 +31,7 @@ public class PlayerUI : MonoBehaviour
             nameText.text = target.photonView.Owner.NickName;
         }
 
-        GetComponentInChildren<HealthBar>().Initialise(target.health);
+        GetComponentInChildren<HealthBar>().Initialise(target.entity);
 
         isInitialised = true;
     }
