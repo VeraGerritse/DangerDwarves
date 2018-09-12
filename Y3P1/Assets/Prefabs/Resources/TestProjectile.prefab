@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 8443090295309064472}
   - component: {fileID: 1096704955231704107}
   m_Layer: 10
-  m_Name: Projectile
+  m_Name: TestProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747753adf2cbc954a91ce764b48cf948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myPoolName: TestProjectile
 --- !u!114 &2496514084590928765
 MonoBehaviour:
   m_ObjectHideFlags: 0

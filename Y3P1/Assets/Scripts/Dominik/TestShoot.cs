@@ -25,7 +25,7 @@ public class TestShoot : MonoBehaviour
     [PunRPC]
     private void Fire(Vector3 position, Quaternion rotation)
     {
-        Projectile newProjectile = Instantiate(projectile, position, rotation).GetComponent<Projectile>();
+        Projectile newProjectile = ObjectPooler.instance.GrabFromPool("TestProjectile", position, rotation).GetComponent<Projectile>();
         newProjectile.Fire(force, damage);
     }
 }

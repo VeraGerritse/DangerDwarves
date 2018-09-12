@@ -13,9 +13,6 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Image backgroundHealthBar;
     [SerializeField] private float backgroundLerpTime = 1;
 
-    // TODO: Add this to object pooler and remove variable.
-    [SerializeField] private GameObject damageTextPrefab;
-
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -46,7 +43,7 @@ public class HealthBar : MonoBehaviour
 
         if (amount != null)
         {
-            DamageText newDamageText = Instantiate(damageTextPrefab, transform.position, transform.rotation).GetComponent<DamageText>();
+            DamageText newDamageText = ObjectPooler.instance.GrabFromPool("DamageText", transform.position, transform.rotation).GetComponent<DamageText>();
             newDamageText.Initialise((int)amount);
         }
     }

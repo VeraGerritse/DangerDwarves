@@ -38,8 +38,7 @@ public class DamageText : MonoBehaviour
         }
         else
         {
-            // TODO: Add to object pooler.
-            Destroy(gameObject);
+            ObjectPooler.instance.AddToPool("DamageText", gameObject);
         }
     }
 

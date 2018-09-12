@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour
     private PhotonView photonView;
     private int damage;
 
+    [SerializeField] private string myPoolName;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -30,7 +32,12 @@ public class Projectile : MonoBehaviour
                 hitbox.Hit(-damage);
             }
 
-            Destroy(gameObject);
+            ObjectPooler.instance.AddToPool(myPoolName, gameObject);
         }
+    }
+
+    private void OnDisable()
+    {
+        rb.velocity = Vector3.zero;
     }
 }
