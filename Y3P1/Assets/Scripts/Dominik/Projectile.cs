@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Hitbox hitbox = other.GetComponent<Hitbox>();
+        Entity hitbox = other.GetComponent<Entity>();
         if (hitbox)
         {
             if (photonView.IsMine)

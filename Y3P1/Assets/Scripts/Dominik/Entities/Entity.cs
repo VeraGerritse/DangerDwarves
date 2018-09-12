@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Health))]
-public class Hitbox : MonoBehaviour 
+public class Entity : MonoBehaviour 
 {
 
     private Health health;

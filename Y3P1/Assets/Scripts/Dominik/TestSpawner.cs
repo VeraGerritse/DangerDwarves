@@ -2,10 +2,10 @@
 using Photon.Realtime;
 using UnityEngine;
 
-public class TestSpawner : MonoBehaviourPunCallbacks
+public class TestSpawner : MonoBehaviourPunCallbacks, IPunObservable
 {
 
-    public static GameObject aliveDummy;
+    public GameObject aliveDummy;
     private bool canSpawn;
 
     [SerializeField] private GameObject dummyPrefab;
@@ -36,6 +36,9 @@ public class TestSpawner : MonoBehaviourPunCallbacks
         };
 
         aliveDummy = newDummy;
+
+        int newDummyID = newDummy.GetComponent<PhotonView>().ViewID;
+        photonView.RPC("SyncAliveDummy", RpcTarget.AllBuffered, newDummyID);
     }
 
     private Vector3 GetRandomPos()
@@ -43,11 +46,30 @@ public class TestSpawner : MonoBehaviourPunCallbacks
         return new Vector3(transform.position.x + Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + Random.Range(-spawnRange, spawnRange));
     }
 
-    public override void OnMasterClientSwitched(Player newMasterClient)
+    // Send the GameObject ID to sync it will all other clients so that when the master client disconnects all other clients will know exactly what to do with the leftover spawn.
+    // NOTE: THIS IS NOT A CLEAN AND A TEMPORARY FIX.
+    [PunRPC]
+    private void SyncAliveDummy(int aliveDummyID)
     {
+        aliveDummy = PhotonView.Find(aliveDummyID).gameObject;
         if (aliveDummy)
         {
-            PhotonNetwork.Destroy(aliveDummy);
+            aliveDummy.GetComponentInChildren<Health>().OnDeath += () =>
+            {
+                PhotonNetwork.Destroy(aliveDummy);
+            };
         }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //if (stream.IsWriting)
+        //{
+        //    stream.SendNext(aliveDummy);
+        //}
+        //else
+        //{
+        //    aliveDummy = (GameObject)stream.ReceiveNext();
+        //}
     }
 }

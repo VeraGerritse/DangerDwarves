@@ -18,7 +18,7 @@ public class TestShoot : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            GetComponentInChildren<Hitbox>().Hit(-10);
+            GetComponentInChildren<Entity>().Hit(-10);
         }
     }
 
