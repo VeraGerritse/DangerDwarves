@@ -21,7 +21,6 @@ public class Health
 
     public void ModifyHealth(int amount)
     {
-        //myEntity.photonView.RPC("ModifyHealthRPC", RpcTarget.AllBuffered, amount);
         currentHealth += amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnHealthModified(GetHealthPercentage(), amount);
@@ -30,11 +29,6 @@ public class Health
         {
             myEntity.Kill();
         }
-    }
-
-    [PunRPC]
-    private void ModifyHealthRPC(int amount)
-    {
     }
 
     private float GetHealthPercentage()

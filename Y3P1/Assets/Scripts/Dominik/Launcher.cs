@@ -2,6 +2,7 @@
 using Photon.Realtime;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
@@ -26,7 +27,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     public void Connect()
     {
         // Player name is empty.
-        if (string.IsNullOrEmpty(nameInputField.text))
+        if (string.IsNullOrEmpty(nameInputField.text) || nameInputField.text.All(char.IsWhiteSpace))
         {
             return;
         }
@@ -90,7 +91,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         if (string.IsNullOrEmpty(value))
         {
-            Debug.LogError("Player Name is null or empty");
             return;
         }
         PhotonNetwork.NickName = value;

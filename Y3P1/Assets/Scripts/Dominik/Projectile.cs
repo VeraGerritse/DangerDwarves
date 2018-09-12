@@ -24,12 +24,12 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Entity hitbox = other.GetComponent<Entity>();
-        if (hitbox)
+        Entity entity = other.GetComponent<Entity>();
+        if (entity)
         {
             if (photonView.IsMine)
             {
-                hitbox.Hit(-damage);
+                entity.Hit(-damage);
             }
 
             ObjectPooler.instance.AddToPool(myPoolName, gameObject);

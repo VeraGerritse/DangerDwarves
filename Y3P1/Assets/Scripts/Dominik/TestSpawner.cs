@@ -26,13 +26,11 @@ public class TestSpawner : MonoBehaviourPunCallbacks, IPunObservable
 
     private void SpawnDummy()
     {
-        //Health newDummy = PhotonNetwork.InstantiateSceneObject(dummyPrefab.name, GetRandomPos(), Quaternion.identity).GetComponentInChildren<Health>();
         GameObject newDummy = PhotonNetwork.InstantiateSceneObject(dummyPrefab.name, GetRandomPos(), Quaternion.identity);
         Entity newDummyHealth = newDummy.GetComponentInChildren<Entity>();
         newDummyHealth.OnDeath += () =>
         {
             PhotonNetwork.Destroy(newDummy);
-            //SpawnDummy();
         };
 
         aliveDummy = newDummy;

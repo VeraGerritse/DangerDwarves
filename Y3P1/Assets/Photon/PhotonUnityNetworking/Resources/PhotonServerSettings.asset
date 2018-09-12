@@ -39,4 +39,5 @@ MonoBehaviour:
   - SpawnDummy
   - SyncAliveDummy
   - HitRPC
+  - SetCanSpawnRPC
   DisableAutoOpenWizard: 1

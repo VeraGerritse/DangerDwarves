@@ -13,7 +13,7 @@ public class LookAtCamera : MonoBehaviour
         {
             if (!target)
             {
-                target = Player.localPlayerObject.GetComponent<Player>().playerCam.transform;
+                target = Player.localPlayerObject.GetComponent<Player>().playerCam.camLookAtPoint;
             }
 
             targetFixedPos = target.position;
