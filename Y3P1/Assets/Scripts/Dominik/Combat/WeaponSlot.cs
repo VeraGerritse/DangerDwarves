@@ -2,13 +2,16 @@
 using UnityEngine;
 using Y3P1;
 
-public class TestWeaponSlot : MonoBehaviourPunCallbacks
+public class WeaponSlot : MonoBehaviourPunCallbacks
 {
 
     public static Weapon currentWeapon;
     private WeaponPrefab currentWeaponPrefab;
 
-    public Weapon defaultWeapon;
+    [SerializeField] private Transform weaponSpawn;
+    [SerializeField] private Weapon defaultWeapon;
+
+    [SerializeField] private Weapon testWeaponSwitch;
 
     private void Awake()
     {
@@ -29,6 +32,11 @@ public class TestWeaponSlot : MonoBehaviourPunCallbacks
         {
             UseSecondary();
         }
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            SetWeapon(currentWeapon == defaultWeapon ? testWeaponSwitch : defaultWeapon);
+        }
     }
 
     public void SetWeapon(Weapon weapon)
@@ -44,8 +52,8 @@ public class TestWeaponSlot : MonoBehaviourPunCallbacks
         }
 
         currentWeapon = weapon;
-        currentWeaponPrefab = PhotonNetwork.Instantiate(currentWeapon.itemPrefab.name, Player.localPlayer.testWeaponSpawn.position, Player.localPlayer.testWeaponSpawn.rotation).GetComponent<WeaponPrefab>();
-        currentWeaponPrefab.transform.SetParent(Player.localPlayer.testWeaponSpawn);
+        currentWeaponPrefab = PhotonNetwork.Instantiate(currentWeapon.itemPrefab.name, weaponSpawn.position, weaponSpawn.rotation).GetComponent<WeaponPrefab>();
+        currentWeaponPrefab.transform.SetParent(weaponSpawn);
     }
 
     public void UsePrimary()
@@ -53,7 +61,6 @@ public class TestWeaponSlot : MonoBehaviourPunCallbacks
         if (currentWeapon)
         {
             currentWeaponPrefab.UsePrimary();
-            //photonView.RPC("UsePrimaryRPC", RpcTarget.All);
         }
     }
 
@@ -62,19 +69,6 @@ public class TestWeaponSlot : MonoBehaviourPunCallbacks
         if (currentWeapon)
         {
             currentWeaponPrefab.UseSecondary();
-            //photonView.RPC("UseSecondaryRPC", RpcTarget.All);
         }
     }
-
-    //[PunRPC]
-    //private void UsePrimaryRPC()
-    //{
-    //    currentWeaponPrefab.UsePrimary();
-    //}
-
-    //[PunRPC]
-    //private void UseSecondaryRPC()
-    //{
-    //    currentWeaponPrefab.UseSecondary();
-    //}
 }

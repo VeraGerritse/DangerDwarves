@@ -15,8 +15,7 @@ namespace Y3P1
         [HideInInspector] public Entity entity;
         [SerializeField] private GameObject playerUIPrefab;
         [SerializeField] private Vector3 playerUISpawnOffset = new Vector3(0, 3, 0.2f);
-        [HideInInspector] private TestWeaponSlot testWeaponSlot;
-        public Transform testWeaponSpawn;
+        [HideInInspector] private WeaponSlot weaponSlot;
 
         private void Awake()
         {
@@ -24,13 +23,13 @@ namespace Y3P1
             rb = GetComponentInChildren<Rigidbody>();
             playerCam = GetComponentInChildren<PlayerCamera>();
             entity = GetComponentInChildren<Entity>();
-            testWeaponSlot = GetComponentInChildren<TestWeaponSlot>();
+            weaponSlot = GetComponentInChildren<WeaponSlot>();
 
             if (!photonView.IsMine)
             {
                 playerCam.gameObject.SetActive(false);
                 playerController.enabled = false;
-                testWeaponSlot.enabled = false;
+                weaponSlot.enabled = false;
 
                 CreatePlayerUI();
 

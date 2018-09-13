@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 1045404800596999195}
   - component: {fileID: 7307933728411889357}
   m_Layer: 0
-  m_Name: TEST RANGED WEAPON PREFAB
+  m_Name: TEST RANGED WEAPON PREFAB 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,6 +209,6 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 30f14c7625c83a94a806cfdcceaca9ee, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 23e52e20d3857cf40ba7d7aa99fa8f85, type: 2}
+      objectReference: {fileID: 2100000, guid: 6ebe9c1b5a5fd524a9c717536ec60340, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30f14c7625c83a94a806cfdcceaca9ee, type: 3}

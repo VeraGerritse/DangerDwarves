@@ -17,7 +17,7 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
     private void FireProjectile(Vector3 position, Quaternion rotation)
     {
         Projectile newProjectile = ObjectPooler.instance.GrabFromPool("TestProjectile", position, rotation).GetComponent<Projectile>();
-        newProjectile.Fire((TestWeaponSlot.currentWeapon as Weapon_Ranged).force, TestWeaponSlot.currentWeapon.CalculateDamage());
+        newProjectile.Fire((WeaponSlot.currentWeapon as Weapon_Ranged).force, WeaponSlot.currentWeapon.CalculateDamage());
     }
 
     public void UseSecondary()

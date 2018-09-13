@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4917615539904484949}
   m_Layer: 9
-  m_Name: TestWeaponSpawn
+  m_Name: WeaponSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,7 +298,6 @@ MonoBehaviour:
   entity: {fileID: 0}
   playerUIPrefab: {fileID: 241, guid: 61a5a60cfa7db844ba3daff3ea02dedd, type: 3}
   playerUISpawnOffset: {x: 0, y: 3, z: 0.2}
-  testWeaponSpawn: {fileID: 4917615539904484949}
 --- !u!114 &7267311020839716367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,7 +364,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0af6d9bf22e10d4fa01c142298e7dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponSpawn: {fileID: 4917615539904484949}
   defaultWeapon: {fileID: 11400000, guid: 2ebfc55082bbcef429583ac38e403d53, type: 2}
+  testWeaponSwitch: {fileID: 11400000, guid: 788a17804d0fd9b4c8a66e71e8239d66, type: 2}
 --- !u!136 &8436074776764754610
 CapsuleCollider:
   m_ObjectHideFlags: 0
