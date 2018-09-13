@@ -1,12 +1,14 @@
 ﻿using Photon.Pun;
 using UnityEngine;
-using Y3P1;
 
 public class WeaponSlot : MonoBehaviourPunCallbacks
 {
 
     public static Weapon currentWeapon;
     private WeaponPrefab currentWeaponPrefab;
+
+    private float nextPrimaryTime;
+    private float nextSecondaryTime;
 
     [SerializeField] private Transform weaponSpawn;
     [SerializeField] private Weapon defaultWeapon;
@@ -23,14 +25,22 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            UsePrimary();
+            if (Time.time >= nextPrimaryTime)
+            {
+                nextPrimaryTime = Time.time + currentWeapon.primaryFireRate;
+                UsePrimary();
+            }
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            UseSecondary();
+            if (Time.time >= nextSecondaryTime)
+            {
+                nextSecondaryTime = Time.time + currentWeapon.secondaryFireRate;
+                UseSecondary();
+            }
         }
 
         if (Input.GetButtonDown("Jump"))
@@ -56,7 +66,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
         currentWeaponPrefab.transform.SetParent(weaponSpawn);
     }
 
-    public void UsePrimary()
+    private void UsePrimary()
     {
         if (currentWeapon)
         {
@@ -64,7 +74,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
         }
     }
 
-    public void UseSecondary()
+    private void UseSecondary()
     {
         if (currentWeapon)
         {

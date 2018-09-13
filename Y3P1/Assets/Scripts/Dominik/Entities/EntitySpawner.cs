@@ -12,6 +12,7 @@ public class EntitySpawner : MonoBehaviourPunCallbacks
 
     [Header("Spawn Settings")]
     [SerializeField] private bool spawnOnAwake;
+    [SerializeField] private bool spawnImmortal;
     [SerializeField] private float spawnRange;
     [SerializeField] private float spawnTriggerRange;
     [SerializeField] private float spawnAmount;
@@ -66,6 +67,7 @@ public class EntitySpawner : MonoBehaviourPunCallbacks
         for (int i = 0; i < spawnAmount; i++)
         {
             Entity newEntity = PhotonNetwork.InstantiateSceneObject(entityPrefab.name, GetRandomPos(), transform.rotation).GetComponentInChildren<Entity>();
+            newEntity.health.isImmortal = spawnImmortal;
             newEntity.OnDeath += () =>
             {
                 PhotonNetwork.Destroy(newEntity.transform.root.gameObject);

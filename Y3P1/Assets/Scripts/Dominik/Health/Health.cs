@@ -8,6 +8,7 @@ public class Health
 
     private Entity myEntity;
 
+    public bool isImmortal;
     [SerializeField] private int maxHealth = 100;
     private int currentHealth;
 
@@ -21,7 +22,7 @@ public class Health
 
     public void ModifyHealth(int amount)
     {
-        currentHealth += amount;
+        currentHealth += isImmortal ? 0 : amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnHealthModified(GetHealthPercentage(), amount);
 

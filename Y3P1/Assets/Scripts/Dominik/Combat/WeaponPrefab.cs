@@ -13,15 +13,26 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
         photonView.RPC("FireProjectile", RpcTarget.All, projectileSpawn.position, projectileSpawn.rotation);
     }
 
+    public void UseSecondary()
+    {
+        StartCoroutine(TestSecondaryBurstFire());
+    }
+
     [PunRPC]
     private void FireProjectile(Vector3 position, Quaternion rotation)
     {
-        Projectile newProjectile = ObjectPooler.instance.GrabFromPool("TestProjectile", position, rotation).GetComponent<Projectile>();
-        newProjectile.Fire((WeaponSlot.currentWeapon as Weapon_Ranged).force, WeaponSlot.currentWeapon.CalculateDamage());
+        Weapon_Ranged weapon = WeaponSlot.currentWeapon as Weapon_Ranged;
+
+        Projectile newProjectile = ObjectPooler.instance.GrabFromPool(weapon.projectilePoolName, position, rotation).GetComponent<Projectile>();
+        newProjectile.Fire(weapon.force, weapon.CalculateDamage());
     }
 
-    public void UseSecondary()
+    private IEnumerator TestSecondaryBurstFire()
     {
-
+        for (int i = 0; i < 3; i++)
+        {
+            photonView.RPC("FireProjectile", RpcTarget.All, projectileSpawn.position, projectileSpawn.rotation);
+            yield return new WaitForSeconds(0.025f);
+        }
     }
 }

@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 1045404800596999195}
   - component: {fileID: 7307933728411889357}
   m_Layer: 0
-  m_Name: TEST RANGED WEAPON PREFAB 2
+  m_Name: Developers Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

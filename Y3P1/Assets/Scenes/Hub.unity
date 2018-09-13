@@ -628,7 +628,8 @@ MonoBehaviour:
   entityPrefab: {fileID: 6357796064771890802, guid: d0330d00309a8c7408631cd6947cb30e,
     type: 3}
   spawnOnAwake: 0
-  spawnRange: 2
+  spawnImmortal: 0
+  spawnRange: 5
   spawnTriggerRange: 3
   spawnAmount: 3
 --- !u!114 &756207612423118069
@@ -700,6 +701,7 @@ MonoBehaviour:
   entityPrefab: {fileID: 6357796064771890802, guid: d0330d00309a8c7408631cd6947cb30e,
     type: 3}
   spawnOnAwake: 1
+  spawnImmortal: 1
   spawnRange: 0
   spawnTriggerRange: 0
   spawnAmount: 1
@@ -772,6 +774,7 @@ MonoBehaviour:
   entityPrefab: {fileID: 6357796064771890802, guid: d0330d00309a8c7408631cd6947cb30e,
     type: 3}
   spawnOnAwake: 1
+  spawnImmortal: 1
   spawnRange: 0
   spawnTriggerRange: 0
   spawnAmount: 1
@@ -844,6 +847,7 @@ MonoBehaviour:
   entityPrefab: {fileID: 6357796064771890802, guid: d0330d00309a8c7408631cd6947cb30e,
     type: 3}
   spawnOnAwake: 1
+  spawnImmortal: 1
   spawnRange: 0
   spawnTriggerRange: 0
   spawnAmount: 1
@@ -916,7 +920,8 @@ MonoBehaviour:
   entityPrefab: {fileID: 6357796064771890802, guid: d0330d00309a8c7408631cd6947cb30e,
     type: 3}
   spawnOnAwake: 0
-  spawnRange: 2
+  spawnImmortal: 0
+  spawnRange: 5
   spawnTriggerRange: 3
   spawnAmount: 3
 --- !u!114 &756207613333099175
@@ -988,6 +993,7 @@ MonoBehaviour:
   entityPrefab: {fileID: 6357796064771890802, guid: d0330d00309a8c7408631cd6947cb30e,
     type: 3}
   spawnOnAwake: 1
+  spawnImmortal: 1
   spawnRange: 0
   spawnTriggerRange: 0
   spawnAmount: 1

@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d3cbc120b909684585b8d4c14a7eb7b, type: 3}
-  m_Name: TEST RANGED WEAPON 2
+  m_Name: Developers Weapon
   m_EditorClassIdentifier: 
-  itemName: TEST RANGED WEAPON
-  itemRarity: 0
+  itemName: Developers Weapon
+  itemRarity: 3
   itemImage: {fileID: 0}
-  myStats: {fileID: 11400000, guid: 3939bc619c3529744b82c782f553e203, type: 2}
+  myStats: {fileID: 11400000, guid: c1581626d1a31d244b8fb0479eb6a88a, type: 2}
   itemPrefab: {fileID: 5980796425491674147, guid: 40b5304897eb56e47867454b119cdd43,
     type: 3}
-  baseDamage: 10
-  primaryFireRate: 1
-  secondaryFireRate: 5
+  baseDamage: 1000
+  primaryFireRate: 0.1
+  secondaryFireRate: 0.5
   projectilePoolName: TestProjectile
   force: 25

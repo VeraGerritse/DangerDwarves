@@ -19,7 +19,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 5980796425491674147, guid: 11c494545ececfd42a01d9632e35e826,
     type: 3}
   baseDamage: 10
-  primaryFireRate: 1
+  primaryFireRate: 0.5
   secondaryFireRate: 5
   projectilePoolName: TestProjectile
   force: 25

@@ -214,9 +214,41 @@ defense = armor</Text>
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
       </Entity>
+      <Entity type="Class">
+        <Name>WeaponSlot</Name>
+        <Access>Public</Access>
+        <Location left="1662" top="397" />
+        <Size width="208" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">Weapon currentWeapon</Member>
+        <Member type="Field">GameObject currentWeaponPrefab</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>currentWeapon is the weapons data
+currentWeaponPrefab is the weapon model in the world which handles the attacking</Text>
+        <Location left="1662" top="512" />
+        <Size width="208" height="101" />
+      </Entity>
+      <Entity type="Comment">
+        <Text>ScriptableObject
+</Text>
+        <Location left="1202" top="720" />
+        <Size width="104" height="50" />
+      </Entity>
+      <Entity type="Class">
+        <Name>InventorySlot</Name>
+        <Access>Public</Access>
+        <Location left="1371" top="397" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
     </Entities>
     <Relationships>
       <Relationship type="Association" first="3" second="5">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
@@ -227,30 +259,40 @@ defense = armor</Text>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="3" second="7">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="3" second="8">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="11" second="12">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="14" second="15">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="15" second="16">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
@@ -261,6 +303,8 @@ defense = armor</Text>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="15" second="17">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
@@ -271,6 +315,8 @@ defense = armor</Text>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="15" second="18">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -285,6 +331,8 @@ defense = armor</Text>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="20" second="24">
+        <Label>
+        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
@@ -295,8 +343,6 @@ defense = armor</Text>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="16" second="26">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
@@ -307,8 +353,6 @@ defense = armor</Text>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="16" second="27">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
