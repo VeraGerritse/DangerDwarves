@@ -40,4 +40,7 @@ MonoBehaviour:
   - SyncAliveDummy
   - HitRPC
   - SetCanSpawnRPC
+  - UsePrimaryRPC
+  - UseSecondaryRPC
+  - FireProjectile
   DisableAutoOpenWizard: 1

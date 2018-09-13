@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1459224466482639242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4917615539904484949}
+  m_Layer: 9
+  m_Name: TestWeaponSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4917615539904484949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459224466482639242}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0.3, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8464704439292004409}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3187568600250239623
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,36 +149,6 @@ MonoBehaviour:
   viewIdField: 998
   InstantiationId: 998
   isRuntimeInstantiated: 0
---- !u!1 &7821138168845195907
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6422078387798249425}
-  m_Layer: 9
-  m_Name: ProjectileSpawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6422078387798249425
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7821138168845195907}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.743}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8464704438555461497}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8464704438555461498
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,14 +174,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8464704438555461498}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.558, z: 0.425}
-  m_LocalScale: {x: 0.2, y: 0.16000001, z: 0.8}
-  m_Children:
-  - {fileID: 6422078387798249425}
+  m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.7071079}
+  m_LocalPosition: {x: 0, y: 0.558, z: 0.435}
+  m_LocalScale: {x: 0.2, y: 0.16000001, z: 0.64000005}
+  m_Children: []
   m_Father: {fileID: 8464704439292004409}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.00001, z: 0}
 --- !u!33 &8464704438555461494
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -206,7 +205,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 6ebe9c1b5a5fd524a9c717536ec60340, type: 2}
+  - {fileID: 2100000, guid: 23e52e20d3857cf40ba7d7aa99fa8f85, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -240,7 +239,8 @@ GameObject:
   - component: {fileID: 7267311020839716367}
   - component: {fileID: 5596208458096280941}
   - component: {fileID: 2140086444260932015}
-  - component: {fileID: 4249136433677245068}
+  - component: {fileID: 4680766272637851056}
+  - component: {fileID: 8436074776764754610}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -298,6 +298,7 @@ MonoBehaviour:
   entity: {fileID: 0}
   playerUIPrefab: {fileID: 241, guid: 61a5a60cfa7db844ba3daff3ea02dedd, type: 3}
   playerUISpawnOffset: {x: 0, y: 3, z: 0.2}
+  testWeaponSpawn: {fileID: 4917615539904484949}
 --- !u!114 &7267311020839716367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,7 +353,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 0
   m_SynchronizeScale: 0
---- !u!114 &4249136433677245068
+--- !u!114 &4680766272637851056
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -361,14 +362,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 8464704438644112518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b1b02061bf947947bd3c850efb93722, type: 3}
+  m_Script: {fileID: 11500000, guid: b0af6d9bf22e10d4fa01c142298e7dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 3716037247890611631, guid: 45866b9eb4ed4a54987f23d0fabfd56f,
-    type: 3}
-  projectileSpawn: {fileID: 6422078387798249425}
-  force: 15
-  damage: 10
+  defaultWeapon: {fileID: 11400000, guid: 2ebfc55082bbcef429583ac38e403d53, type: 2}
+--- !u!136 &8436074776764754610
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464704438644112518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &8464704439221946170
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +492,6 @@ GameObject:
   - component: {fileID: 8464704439292004407}
   - component: {fileID: 1793711570040929685}
   - component: {fileID: 5526468695512675341}
-  - component: {fileID: 4214976110491286408}
   m_Layer: 9
   m_Name: Capsule
   m_TagString: Untagged
@@ -501,6 +511,7 @@ Transform:
   m_LocalScale: {x: 0.7, y: 1, z: 0.7}
   m_Children:
   - {fileID: 8464704438555461497}
+  - {fileID: 4917615539904484949}
   m_Father: {fileID: 8464704438644112515}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -585,17 +596,3 @@ MonoBehaviour:
   m_SynchronizePosition: 0
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
---- !u!136 &4214976110491286408
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8464704439292004410}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.49999997
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}

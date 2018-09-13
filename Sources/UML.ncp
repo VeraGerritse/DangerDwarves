@@ -80,28 +80,28 @@
       <Entity type="Class">
         <Name>Health</Name>
         <Access>Public</Access>
-        <Location left="952" top="411" />
-        <Size width="162" height="216" />
+        <Location left="509" top="1078" />
+        <Size width="162" height="90" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
         <Name>HealthBar</Name>
         <Access>Public</Access>
-        <Location left="952" top="689" />
+        <Location left="510" top="1237" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Comment">
         <Text>Subscribes to a Health class to communicate health changes to a world space UI.</Text>
-        <Location left="952" top="830" />
+        <Location left="510" top="1378" />
         <Size width="162" height="75" />
       </Entity>
       <Entity type="Class">
         <Name>Inventory</Name>
         <Access>Public</Access>
-        <Location left="1373" top="411" />
+        <Location left="1171" top="397" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -109,7 +109,7 @@
       <Entity type="Class">
         <Name>Item</Name>
         <Access>Public</Access>
-        <Location left="1373" top="689" />
+        <Location left="1171" top="675" />
         <Size width="162" height="77" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -117,7 +117,7 @@
       <Entity type="Class">
         <Name>Weapon</Name>
         <Access>Public</Access>
-        <Location left="1204" top="830" />
+        <Location left="1002" top="816" />
         <Size width="162" height="77" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -125,7 +125,7 @@
       <Entity type="Class">
         <Name>Resource</Name>
         <Access>Public</Access>
-        <Location left="1375" top="830" />
+        <Location left="1173" top="816" />
         <Size width="162" height="77" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -133,7 +133,7 @@
       <Entity type="Class">
         <Name>Armor</Name>
         <Access>Public</Access>
-        <Location left="1543" top="830" />
+        <Location left="1341" top="816" />
         <Size width="162" height="77" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -149,7 +149,7 @@
       <Entity type="Class">
         <Name>Entity</Name>
         <Access>Public</Access>
-        <Location left="552" top="1088" />
+        <Location left="224" top="1005" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Property">public Stats stats { get; set; }</Member>
@@ -158,7 +158,7 @@
       <Entity type="Class">
         <Name>Stats</Name>
         <Access>Public</Access>
-        <Location left="224" top="1088" />
+        <Location left="762" top="1265" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">int agility</Member>
@@ -172,20 +172,20 @@
 strength = melee
 special = weapon seconday
 defense = armor</Text>
-        <Location left="224" top="987" />
+        <Location left="762" top="1164" />
         <Size width="183" height="84" />
       </Entity>
       <Entity type="Comment">
         <Text>[RequireComponent(typeof(Health)]
                            
                        ???</Text>
-        <Location left="552" top="1229" />
+        <Location left="224" top="1146" />
         <Size width="198" height="75" />
       </Entity>
       <Entity type="Class">
         <Name>Different_Types_of_Enemies</Name>
         <Access>Public</Access>
-        <Location left="552" top="1362" />
+        <Location left="224" top="1279" />
         <Size width="208" height="77" />
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
@@ -198,11 +198,25 @@ defense = armor</Text>
         <Collapsed>False</Collapsed>
         <Modifier>None</Modifier>
       </Entity>
+      <Entity type="Class">
+        <Name>Weapon_Ranged</Name>
+        <Access>Public</Access>
+        <Location left="907" top="953" />
+        <Size width="162" height="77" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Weapon_Melee</Name>
+        <Access>Public</Access>
+        <Location left="1088" top="953" />
+        <Size width="162" height="77" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
     </Entities>
     <Relationships>
       <Relationship type="Association" first="3" second="5">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
@@ -213,85 +227,97 @@ defense = armor</Text>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="3" second="7">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="3" second="8">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="11" second="12">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="14" second="15">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="15" second="16">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>1455</X>
-          <Y>790</Y>
+          <X>1253</X>
+          <Y>776</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="15" second="17">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>1455</X>
-          <Y>796</Y>
+          <X>1253</X>
+          <Y>782</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="15" second="18">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
-          <X>1455</X>
-          <Y>791</Y>
+          <X>1253</X>
+          <Y>777</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
-          <X>1627</X>
-          <Y>791</Y>
+          <X>1425</X>
+          <Y>777</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>
       </Relationship>
       <Relationship type="Association" first="20" second="24">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>310</X>
+          <Y>1224</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="16" second="26">
         <Label>
         </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>638</X>
-          <Y>1307</Y>
+          <X>994</X>
+          <Y>928</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="16" second="27">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1087</X>
+          <Y>918</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1170</X>
+          <Y>926</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Association</AssociationType>

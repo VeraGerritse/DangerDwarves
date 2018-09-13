@@ -1,5 +1,4 @@
 ﻿using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
 using Y3P1;
 
@@ -44,24 +43,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            print("LOADED HUB");
             PhotonNetwork.LoadLevel(1);
         }
     }
-
-    //public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
-    //{
-    //    if (PhotonNetwork.IsMasterClient)
-    //    {
-    //        //LoadHub();
-    //    }
-    //}
-
-    //public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
-    //{
-    //    if (PhotonNetwork.IsMasterClient)
-    //    {
-    //        //LoadHub();
-    //    }
-    //}
 }

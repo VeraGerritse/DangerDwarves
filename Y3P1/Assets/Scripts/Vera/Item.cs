@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 [CreateAssetMenu(menuName = "Custom Objects/Items")]
 public class Item : ScriptableObject
 {
@@ -9,4 +10,5 @@ public class Item : ScriptableObject
     [SerializeField] private ItemRarity itemRarity;
     [SerializeField] private Sprite itemImage;
     [SerializeField] private Stats myStats;
+    public GameObject itemPrefab;
 }
