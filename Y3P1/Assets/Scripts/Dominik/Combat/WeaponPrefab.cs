@@ -8,31 +8,57 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
 
     public Transform projectileSpawn;
 
-    public void UsePrimary()
+    private void Awake()
     {
-        photonView.RPC("FireProjectile", RpcTarget.All, projectileSpawn.position, projectileSpawn.rotation);
+        if (photonView.IsMine)
+        {
+            WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
+            WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
+            WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
+        }
     }
 
-    public void UseSecondary()
+    private void WeaponSlot_OnUsePrimary()
+    {
+        Weapon_Ranged weapon = WeaponSlot.currentWeapon as Weapon_Ranged;
+        photonView.RPC("FireProjectile", RpcTarget.All, projectileSpawn.position, projectileSpawn.rotation, weapon.projectilePoolName, weapon.force, weapon.CalculateDamage());
+    }
+
+    private void WeaponSlot_OnUseSecondary()
     {
         StartCoroutine(TestSecondaryBurstFire());
     }
 
-    [PunRPC]
-    private void FireProjectile(Vector3 position, Quaternion rotation)
+    private void WeaponSlot_OnEquipWeapon()
     {
-        Weapon_Ranged weapon = WeaponSlot.currentWeapon as Weapon_Ranged;
+        PhotonNetwork.Destroy(gameObject);
+    }
 
-        Projectile newProjectile = ObjectPooler.instance.GrabFromPool(weapon.projectilePoolName, position, rotation).GetComponent<Projectile>();
-        newProjectile.Fire(weapon.force, weapon.CalculateDamage());
+    [PunRPC]
+    private void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float force, int damage)
+    {
+        Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, rotation).GetComponent<Projectile>();
+        newProjectile.Fire(force, damage);
     }
 
     private IEnumerator TestSecondaryBurstFire()
     {
         for (int i = 0; i < 3; i++)
         {
-            photonView.RPC("FireProjectile", RpcTarget.All, projectileSpawn.position, projectileSpawn.rotation);
+            Weapon_Ranged weapon = WeaponSlot.currentWeapon as Weapon_Ranged;
+            photonView.RPC("FireProjectile", RpcTarget.All, projectileSpawn.position, projectileSpawn.rotation, weapon.projectilePoolName, weapon.force, weapon.CalculateDamage());
+
             yield return new WaitForSeconds(0.025f);
+        }
+    }
+
+    public override void OnDisable()
+    {
+        if (photonView.IsMine)
+        {
+            WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
+            WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
+            WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
         }
     }
 }

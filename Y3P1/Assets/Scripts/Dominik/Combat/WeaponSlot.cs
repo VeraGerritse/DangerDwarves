@@ -1,11 +1,15 @@
 ﻿using Photon.Pun;
 using UnityEngine;
+using System;
 
 public class WeaponSlot : MonoBehaviourPunCallbacks
 {
 
     public static Weapon currentWeapon;
-    private WeaponPrefab currentWeaponPrefab;
+
+    public static event Action OnUsePrimary = delegate { };
+    public static event Action OnUseSecondary = delegate { };
+    public static event Action OnEquipWeapon = delegate { };
 
     private float nextPrimaryTime;
     private float nextSecondaryTime;
@@ -19,7 +23,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
     {
         if (defaultWeapon)
         {
-            SetWeapon(defaultWeapon);
+            EquipWeapon(defaultWeapon);
         }
     }
 
@@ -30,7 +34,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
             if (Time.time >= nextPrimaryTime)
             {
                 nextPrimaryTime = Time.time + currentWeapon.primaryFireRate;
-                UsePrimary();
+                OnUsePrimary();
             }
         }
 
@@ -39,46 +43,27 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
             if (Time.time >= nextSecondaryTime)
             {
                 nextSecondaryTime = Time.time + currentWeapon.secondaryFireRate;
-                UseSecondary();
+                OnUseSecondary();
             }
         }
 
         if (Input.GetButtonDown("Jump"))
         {
-            SetWeapon(currentWeapon == defaultWeapon ? testWeaponSwitch : defaultWeapon);
+            EquipWeapon(currentWeapon == defaultWeapon ? testWeaponSwitch : defaultWeapon);
         }
     }
 
-    public void SetWeapon(Weapon weapon)
+    public void EquipWeapon(Weapon weapon)
     {
         if (!photonView.IsMine)
         {
             return;
         }
 
-        if (currentWeaponPrefab)
-        {
-            PhotonNetwork.Destroy(currentWeaponPrefab.gameObject);
-        }
+        OnEquipWeapon();
 
         currentWeapon = weapon;
-        currentWeaponPrefab = PhotonNetwork.Instantiate(currentWeapon.itemPrefab.name, weaponSpawn.position, weaponSpawn.rotation).GetComponent<WeaponPrefab>();
+        GameObject currentWeaponPrefab = PhotonNetwork.Instantiate(currentWeapon.itemPrefab.name, weaponSpawn.position, weaponSpawn.rotation);
         currentWeaponPrefab.transform.SetParent(weaponSpawn);
-    }
-
-    private void UsePrimary()
-    {
-        if (currentWeapon)
-        {
-            currentWeaponPrefab.UsePrimary();
-        }
-    }
-
-    private void UseSecondary()
-    {
-        if (currentWeapon)
-        {
-            currentWeaponPrefab.UseSecondary();
-        }
     }
 }

@@ -36,7 +36,10 @@ public class HealthBar : MonoBehaviour
     {
         // Check if health got decreased or added and play the according animation.
         // TODO: Add 'IncreaseHealth' animation, it just plays the decrease animation now.
-        anim.SetTrigger(foregroundHealthBar.fillAmount > percentage ? "DecreaseHealth" : "DecreaseHealth");
+        if (anim)
+        {
+            anim.SetTrigger(foregroundHealthBar.fillAmount > percentage ? "DecreaseHealth" : "DecreaseHealth");
+        }
 
         foregroundHealthBar.fillAmount = percentage;
         StartCoroutine(LerpBackgroundHealthBar(percentage));

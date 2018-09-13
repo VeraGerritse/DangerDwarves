@@ -15,7 +15,7 @@ namespace Y3P1
         [HideInInspector] public Entity entity;
         [SerializeField] private GameObject playerUIPrefab;
         [SerializeField] private Vector3 playerUISpawnOffset = new Vector3(0, 3, 0.2f);
-        [HideInInspector] private WeaponSlot weaponSlot;
+        private WeaponSlot weaponSlot;
 
         private void Awake()
         {
@@ -48,6 +48,15 @@ namespace Y3P1
             playerController.Initialise();
 
             DontDestroyOnLoad(gameObject);
+        }
+
+        private void Update()
+        {
+
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                entity.health.ModifyHealth(-10);
+            }
         }
 
         private void CreatePlayerUI()
