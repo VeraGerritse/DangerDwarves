@@ -29,6 +29,21 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        if (UIManager.hasOpenUI)
+        {
+            return;
+        }
+
+        HandleWeaponActions();
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            EquipWeapon(currentWeapon == defaultWeapon ? testWeaponSwitch : defaultWeapon);
+        }
+    }
+
+    private void HandleWeaponActions()
+    {
         if (Input.GetMouseButton(0))
         {
             if (Time.time >= nextPrimaryTime)
@@ -45,11 +60,6 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
                 nextSecondaryTime = Time.time + currentWeapon.secondaryFireRate;
                 OnUseSecondary();
             }
-        }
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            EquipWeapon(currentWeapon == defaultWeapon ? testWeaponSwitch : defaultWeapon);
         }
     }
 

@@ -41,7 +41,9 @@ public class PlayerController : MonoBehaviour
         Vector3 velocity = (horizontal + vertical).normalized * (Time.deltaTime * moveSpeed);
 
         // Use built in rigidbody function to move the player.
-        Player.localPlayer.rb.MovePosition(transform.position + velocity);
+        // NOTE: MovePosition causes jittery movement! Setting the velocity directly and having interpolate on the rigidbody on works better.
+        //Player.localPlayer.rb.MovePosition(transform.position + velocity);
+        Player.localPlayer.rb.velocity = velocity;
     }
 
     // Gets the position of a raycast firing from the camera in the direction of the mouse and onto an invisible plane and uses that position for the player to rotate towards.

@@ -23,15 +23,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        if (!Y3P1.Player.localPlayerObject && playerPrefab)
+        if (!Player.localPlayerObject && playerPrefab)
         {
-            PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 2, 0), Quaternion.identity);
+            PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0.1f, 0), Quaternion.identity);
         }
-    }
-
-    public override void OnLeftRoom()
-    {
-        SceneManager.instance.LoadScene(0, false);
     }
 
     public void LeaveRoom()
@@ -39,11 +34,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
     }
 
-    private void LoadHub()
+    public override void OnLeftRoom()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.LoadLevel(1);
-        }
+        SceneManager.instance.LoadScene(0, false);
     }
 }

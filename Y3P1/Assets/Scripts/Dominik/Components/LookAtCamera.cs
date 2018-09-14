@@ -9,11 +9,11 @@ public class LookAtCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (Player.localPlayerObject)
+        if (Player.localPlayer)
         {
             if (!target)
             {
-                target = Player.localPlayerObject.GetComponent<Player>().playerCam.camLookAtPoint;
+                target = Player.localPlayer.playerCam.camLookAtPoint;
             }
 
             targetFixedPos = target.position;
