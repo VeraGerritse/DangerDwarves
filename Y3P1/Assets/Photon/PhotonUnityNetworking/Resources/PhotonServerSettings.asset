@@ -43,4 +43,6 @@ MonoBehaviour:
   - UsePrimaryRPC
   - UseSecondaryRPC
   - FireProjectile
+  - SetCanSpawn
+  - SpawnEntities
   DisableAutoOpenWizard: 1

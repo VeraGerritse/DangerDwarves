@@ -72,7 +72,7 @@ namespace Y3P1
         {
             if (Input.GetKeyDown(KeyCode.T))
             {
-                entity.health.ModifyHealth(-10);
+                localPlayer.entity.Hit(-10);
             }
         }
     }

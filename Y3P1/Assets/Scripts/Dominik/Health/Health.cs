@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using Photon.Pun;
 
 [Serializable]
 public class Health

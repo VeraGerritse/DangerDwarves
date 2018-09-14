@@ -72,6 +72,15 @@ public class Launcher : MonoBehaviourPunCallbacks
         PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = 10 }, null);
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
+
     private void SetUpNameInputField()
     {
         string defaultName = "";

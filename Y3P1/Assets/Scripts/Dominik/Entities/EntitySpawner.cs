@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Photon.Pun;
 
-public class EntitySpawner : MonoBehaviourPunCallbacks
+public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
 {
 
     private bool canSpawn = true;
@@ -17,11 +17,15 @@ public class EntitySpawner : MonoBehaviourPunCallbacks
     [SerializeField] private float spawnTriggerRange;
     [SerializeField] private float spawnAmount;
 
-    private void Awake()
+    // Using start to give buffered rpc's a chance to get here before this gets executed.
+    private void Start()
     {
         if (spawnOnAwake)
         {
-            TriggerSpawn();
+            if (canSpawn)
+            {
+                TriggerSpawn();
+            }
         }
         else
         {
@@ -43,7 +47,7 @@ public class EntitySpawner : MonoBehaviourPunCallbacks
     {
         if (other.tag == "Player")
         {
-            if (canSpawn && PhotonNetwork.IsMasterClient)
+            if (canSpawn)
             {
                 TriggerSpawn();
             }
@@ -52,18 +56,24 @@ public class EntitySpawner : MonoBehaviourPunCallbacks
 
     private void TriggerSpawn()
     {
-        SpawnEntities();
-
         canSpawn = false;
         if (spawnTrigger)
         {
             spawnTrigger.enabled = false;
         }
-        photonView.RPC("SetCanSpawnRPC", RpcTarget.AllBuffered, false);
+
+        photonView.RPC("SpawnEntities", RpcTarget.All);
+        photonView.RPC("SetCanSpawn", RpcTarget.AllBuffered, false);
     }
 
+    [PunRPC]
     private void SpawnEntities()
     {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
         for (int i = 0; i < spawnAmount; i++)
         {
             Entity newEntity = PhotonNetwork.InstantiateSceneObject(entityPrefab.name, GetRandomPos(), transform.rotation).GetComponentInChildren<Entity>();
@@ -76,7 +86,7 @@ public class EntitySpawner : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    private void SetCanSpawnRPC(bool canSpawn)
+    private void SetCanSpawn(bool canSpawn)
     {
         this.canSpawn = canSpawn;
         if (spawnTrigger)
@@ -94,5 +104,17 @@ public class EntitySpawner : MonoBehaviourPunCallbacks
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, spawnTriggerRange);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(canSpawn);
+        }
+        else
+        {
+            canSpawn = (bool)stream.ReceiveNext();
+        }
     }
 }

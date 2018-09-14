@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPrefab: {fileID: 0}
   spawnOnAwake: 0
+  spawnImmortal: 0
   spawnRange: 5
   spawnTriggerRange: 0
   spawnAmount: 0
@@ -64,10 +65,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 3675555559173767202}
   viewIdField: 999
   InstantiationId: 999
   isRuntimeInstantiated: 0

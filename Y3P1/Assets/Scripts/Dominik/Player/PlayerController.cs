@@ -43,15 +43,12 @@ public class PlayerController : MonoBehaviour
         // Use built in rigidbody function to move the player.
         // NOTE: MovePosition causes jittery movement! Setting the velocity directly and having interpolate on the rigidbody on works better.
         //Player.localPlayer.rb.MovePosition(transform.position + velocity);
-        Player.localPlayer.rb.velocity = velocity;
+        Player.localPlayer.rb.velocity = velocity + (Vector3.down * 2);
     }
 
     // Gets the position of a raycast firing from the camera in the direction of the mouse and onto an invisible plane and uses that position for the player to rotate towards.
     private void HandleRotation()
     {
-        //Ray ray = Player.localPlayer.playerCam.cameraComponent.ScreenPointToRay(Input.mousePosition);
-        //Vector3 mouseInWorldPos = ray.GetPoint((transform.position - ray.origin).magnitude * 1.1f);
-
         RaycastHit hit;
         if (Physics.Raycast(Player.localPlayer.playerCam.cameraComponent.ScreenPointToRay(Input.mousePosition), out hit, 50, mouseHitPlaneLayermask))
         {
@@ -68,7 +65,7 @@ public class PlayerController : MonoBehaviour
         mouseHitPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
         mouseHitPlane.layer = 11;
         mouseHitPlane.transform.SetParent(Player.localPlayer.transform);
-        mouseHitPlane.transform.localPosition = Vector3.zero;
+        mouseHitPlane.transform.localPosition = new Vector3(0, 1, 0);
         mouseHitPlane.transform.localScale = new Vector3(100, 1, 100);
         mouseHitPlane.GetComponent<MeshRenderer>().enabled = false;
         mouseHitPlane.GetComponent<MeshCollider>().convex = true;

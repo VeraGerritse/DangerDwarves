@@ -57,7 +57,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4247674038721876242
 Rigidbody:
@@ -168,7 +168,7 @@ Transform:
   m_GameObject: {fileID: 8527049982576195183}
   m_LocalRotation: {x: 0.49999997, y: -0.50000006, z: 0.49999842, w: 0.50000167}
   m_LocalPosition: {x: 0, y: 0, z: -0.878}
-  m_LocalScale: {x: 0.3, y: 0.5, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.8, z: 0}
   m_Children: []
   m_Father: {fileID: 7106649673028893103}
   m_RootOrder: 0

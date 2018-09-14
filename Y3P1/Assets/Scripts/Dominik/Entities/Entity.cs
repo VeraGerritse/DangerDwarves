@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using Photon.Pun;
 using System;
 
-public class Entity : MonoBehaviourPunCallbacks 
+public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
 
     public Health health;
@@ -51,5 +51,17 @@ public class Entity : MonoBehaviourPunCallbacks
     public void Kill()
     {
         OnDeath();
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(health.isImmortal);
+        }
+        else
+        {
+            health.isImmortal = (bool)stream.ReceiveNext();
+        }
     }
 }

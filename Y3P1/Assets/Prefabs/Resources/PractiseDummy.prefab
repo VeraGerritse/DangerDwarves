@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health:
-    isImmortal: 1
+    isImmortal: 0
     maxHealth: 100
   stats: {fileID: 11400000, guid: d34f73d7b730cf34fb8e32a210db8b12, type: 2}
   OnHitEvent:
@@ -100,10 +100,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 3118344256970071842}
   viewIdField: 7
   InstantiationId: 7
   isRuntimeInstantiated: 0
