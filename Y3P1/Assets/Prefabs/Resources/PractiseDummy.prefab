@@ -673,7 +673,7 @@ PrefabInstance:
     - target: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.011
+      value: 2.15
       objectReference: {fileID: 0}
     - target: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
         type: 3}
@@ -719,6 +719,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HealthCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2203483087077638501, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.34999847
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae10adcbca2c84d469fdfd990e1d6eab, type: 3}

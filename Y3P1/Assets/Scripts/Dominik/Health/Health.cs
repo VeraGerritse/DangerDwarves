@@ -37,6 +37,11 @@ public class Health
         return (float)currentHealth / maxHealth;
     }
 
+    public string GetHealthString()
+    {
+        return currentHealth + "/" + maxHealth;
+    }
+
     public void ResetHealth()
     {
         currentHealth = maxHealth;

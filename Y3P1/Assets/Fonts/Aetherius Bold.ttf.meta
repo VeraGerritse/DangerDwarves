@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 76a93602d6f406f45b8ce4ba78ef5396
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Aetherius
+  fontNames:
+  - Aetherius
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4d20dbc4474639e418b37c8669545a40, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
