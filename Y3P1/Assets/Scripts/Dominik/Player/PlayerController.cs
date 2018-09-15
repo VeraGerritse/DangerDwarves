@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
 {
 
     private GameObject mouseHitPlane;
-    private Vector3 mouseInWorldPos;
+    public static Vector3 mouseInWorldPos;
 
     [SerializeField] private float moveSpeed;
     [SerializeField] Transform body;

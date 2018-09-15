@@ -19,7 +19,9 @@ MonoBehaviour:
   itemPrefab: {fileID: 5980796425491674147, guid: 40b5304897eb56e47867454b119cdd43,
     type: 3}
   baseDamage: 1000
-  primaryFireRate: 0.1
+  primaryFireRate: 0.2
   secondaryFireRate: 0.5
   projectilePoolName: TestProjectile
   force: 25
+  amountOfProjectiles: 20
+  coneOfFireInDegrees: 180

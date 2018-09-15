@@ -88,6 +88,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myPoolName: TestProjectile
+  isHoming: 0
+  rotateSpeed: 600
+  selfDestroyTime: 5
 --- !u!114 &2496514084590928765
 MonoBehaviour:
   m_ObjectHideFlags: 0

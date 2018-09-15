@@ -20,13 +20,14 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
 
     private void WeaponSlot_OnUsePrimary()
     {
+        // Asumes the equipped weapon is a ranged weapon.
         Weapon_Ranged weapon = WeaponSlot.currentWeapon as Weapon_Ranged;
-        photonView.RPC("FireProjectile", RpcTarget.All, projectileSpawn.position, projectileSpawn.rotation, weapon.projectilePoolName, weapon.force, weapon.CalculateDamage());
+        photonView.RPC("FireProjectile", RpcTarget.All, projectileSpawn.position, projectileSpawn.rotation, weapon.projectilePoolName, weapon.force, weapon.CalculateDamage(), weapon.amountOfProjectiles, weapon.coneOfFireInDegrees);
     }
 
     private void WeaponSlot_OnUseSecondary()
     {
-        StartCoroutine(TestSecondaryBurstFire());
+        //StartCoroutine(TestSecondaryBurstFire());
     }
 
     private void WeaponSlot_OnEquipWeapon()
@@ -35,10 +36,32 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    private void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float force, int damage)
+    private void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float force, int damage, int amountOfProjectiles, int coneOfFireInDegrees)
     {
-        Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, rotation).GetComponent<Projectile>();
-        newProjectile.Fire(force, damage);
+        if (coneOfFireInDegrees == 0 || amountOfProjectiles == 1)
+        {
+            for (int i = 0; i < amountOfProjectiles; i++)
+            {
+                Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, rotation).GetComponent<Projectile>();
+                newProjectile.Fire(force, damage);
+            }
+        }
+        else
+        {
+            float angleStep = coneOfFireInDegrees / amountOfProjectiles;
+            float startingAngle = coneOfFireInDegrees / 2 - angleStep / 2;
+
+            Vector3 rot = rotation.eulerAngles;
+            rot.y -= startingAngle;
+
+            for (int i = 0; i < amountOfProjectiles; i++)
+            {
+                Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, Quaternion.Euler(rot)).GetComponent<Projectile>();
+                newProjectile.Fire(force, damage);
+
+                rot.y += angleStep;
+            }
+        }
     }
 
     private IEnumerator TestSecondaryBurstFire()

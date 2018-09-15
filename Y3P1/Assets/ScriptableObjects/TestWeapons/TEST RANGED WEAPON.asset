@@ -23,3 +23,5 @@ MonoBehaviour:
   secondaryFireRate: 5
   projectilePoolName: TestProjectile
   force: 25
+  amountOfProjectiles: 3
+  coneOfFireInDegrees: 20
