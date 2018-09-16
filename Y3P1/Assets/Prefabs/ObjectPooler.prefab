@@ -59,3 +59,8 @@ MonoBehaviour:
       type: 3}
     poolSize: 100
     autoExpand: 1
+  - poolName: Arrow_Volley
+    poolPrefab: {fileID: 3716037247890611631, guid: 9a1b07b93aedc464398b51a99c29179d,
+      type: 3}
+    poolSize: 25
+    autoExpand: 1

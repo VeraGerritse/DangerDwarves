@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3716037247890611631}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: -2}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3541193125591702390}
   m_Father: {fileID: 0}
@@ -55,7 +55,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4247674038721876242
 Rigidbody:
@@ -87,6 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myPoolName: Arrow
   selfDestroyTime: 5
+  prefabToSpawnOnHit: 
   prefabToSpawnOnDeath: 
 --- !u!114 &9156334626702542129
 MonoBehaviour:
@@ -107,8 +108,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 1
-  InstantiationId: 1
+  viewIdField: 104
+  InstantiationId: 104
   isRuntimeInstantiated: 0
 --- !u!1 &8527049982576195183
 GameObject:
@@ -135,8 +136,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8527049982576195183}
   m_LocalRotation: {x: 0.49999997, y: -0.50000006, z: 0.49999842, w: 0.50000167}
-  m_LocalPosition: {x: 0, y: 0, z: -0.878}
-  m_LocalScale: {x: 0.3, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
+  m_LocalScale: {x: 0.04, y: 0.13, z: 0}
   m_Children: []
   m_Father: {fileID: 7106649673028893103}
   m_RootOrder: 0

@@ -6,11 +6,13 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody rb;
     private PhotonView photonView;
-    private int damage;
+    protected int damage;
     private float moveSpeed;
+    protected bool hitEntity;
 
     [SerializeField] private string myPoolName;
     [SerializeField] private float selfDestroyTime = 5f;
+    [SerializeField] private string prefabToSpawnOnHit;
     [SerializeField] private string prefabToSpawnOnDeath;
 
     private void Awake()
@@ -21,6 +23,7 @@ public class Projectile : MonoBehaviour
 
     public virtual void OnEnable()
     {
+        hitEntity = false;
         Invoke("ReturnToPool", selfDestroyTime);
     }
 
@@ -45,6 +48,12 @@ public class Projectile : MonoBehaviour
                 entity.Hit(-damage);
             }
 
+            if (!string.IsNullOrEmpty(prefabToSpawnOnHit))
+            {
+                ObjectPooler.instance.GrabFromPool(prefabToSpawnOnHit, transform.position, Quaternion.identity);
+            }
+
+            hitEntity = true;
             ReturnToPool();
         }
     }
