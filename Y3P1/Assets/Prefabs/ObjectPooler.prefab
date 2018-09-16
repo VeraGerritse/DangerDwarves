@@ -49,8 +49,13 @@ MonoBehaviour:
       type: 3}
     poolSize: 25
     autoExpand: 1
-  - poolName: TestProjectile
+  - poolName: Arrow
     poolPrefab: {fileID: 3716037247890611631, guid: 45866b9eb4ed4a54987f23d0fabfd56f,
+      type: 3}
+    poolSize: 100
+    autoExpand: 1
+  - poolName: Arrow_Homing
+    poolPrefab: {fileID: 3716037247890611631, guid: a257b6921b1103c49a8e506947bd386e,
       type: 3}
     poolSize: 100
     autoExpand: 1

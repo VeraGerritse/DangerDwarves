@@ -20,8 +20,12 @@ MonoBehaviour:
     type: 3}
   baseDamage: 10
   primaryFireRate: 0.5
+  secondaryProjectile: Arrow_Homing
   secondaryFireRate: 5
-  projectilePoolName: TestProjectile
+  secondaryForce: 20
+  secondaryAmountOfProjectiles: 5
+  secondaryConeOfFireInDegrees: 45
+  primaryProjectile: Arrow
   force: 25
   amountOfProjectiles: 3
   coneOfFireInDegrees: 20

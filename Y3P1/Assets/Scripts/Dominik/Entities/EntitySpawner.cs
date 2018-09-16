@@ -22,9 +22,12 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (spawnOnAwake)
         {
-            if (canSpawn)
+            if (PhotonNetwork.IsMasterClient)
             {
-                TriggerSpawn();
+                if (canSpawn)
+                {
+                    TriggerSpawn();
+                }
             }
         }
         else
@@ -81,10 +84,10 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
             newEntity.OnDeath += () =>
             {
                 PhotonNetwork.Destroy(newEntity.transform.root.gameObject);
-                EntityManager.instance.aliveTargets.Remove(newEntity);
+                //EntityManager.instance.aliveTargets.Remove(newEntity.transform.root.gameObject);
             };
 
-            EntityManager.instance.aliveTargets.Add(newEntity);
+            EntityManager.instance.AddToAliveTargets(newEntity);
         }
     }
 

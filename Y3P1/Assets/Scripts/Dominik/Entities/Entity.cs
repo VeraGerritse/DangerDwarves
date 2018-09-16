@@ -51,6 +51,11 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     public void Kill()
     {
         OnDeath();
+
+        if (EntityManager.instance.aliveTargets.Contains(this))
+        {
+            EntityManager.instance.aliveTargets.Remove(this);
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

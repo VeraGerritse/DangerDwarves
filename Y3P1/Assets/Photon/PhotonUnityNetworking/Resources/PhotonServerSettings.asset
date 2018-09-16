@@ -45,4 +45,5 @@ MonoBehaviour:
   - FireProjectile
   - SetCanSpawn
   - SpawnEntities
+  - SyncAliveTargets
   DisableAutoOpenWizard: 1

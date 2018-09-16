@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityManager : MonoBehaviour 
+public class EntityManager : MonoBehaviourPunCallbacks
 {
 
     public static EntityManager instance;
@@ -21,4 +21,22 @@ public class EntityManager : MonoBehaviour
         }
     }
 
+    public void AddToAliveTargets(Entity entity)
+    {
+        aliveTargets.Add(entity);
+        photonView.RPC("SyncAliveTargets", RpcTarget.AllBuffered, entity.gameObject.GetPhotonView().ViewID);
+    }
+
+    [PunRPC]
+    private void SyncAliveTargets(int photonViewID)
+    {
+        Entity target = PhotonView.Find(photonViewID).gameObject.GetComponent<Entity>();
+        if (target)
+        {
+            if (!aliveTargets.Contains(target))
+            {
+                aliveTargets.Add(target);
+            }
+        }
+    }
 }
