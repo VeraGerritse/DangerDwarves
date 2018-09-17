@@ -34,7 +34,10 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
             return;
         }
 
-        HandleWeaponActions();
+        if (currentWeapon)
+        {
+            HandleWeaponActions();
+        }
 
         if (Input.GetButtonDown("Jump"))
         {
