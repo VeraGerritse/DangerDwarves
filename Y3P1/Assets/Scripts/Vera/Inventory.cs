@@ -143,12 +143,21 @@ public class Inventory : MonoBehaviour {
         }
         if (allSlots[currentSlotIndex].slotType == InventorySlot.SlotType.weapon)
         {
+
+            if(allItems[currentSlotIndex] != null)
+            {
+                if (allItems[currentSlotIndex] is Weapon)
+                {
+                    return false;
+                }
+            }
+
             if(allItems[lastSlotIndex] is Weapon)
             {
                 return true;
             }
         }
-        else if(allSlots[currentSlotIndex].slotType == InventorySlot.SlotType.all)
+        else if(allSlots[currentSlotIndex].slotType == InventorySlot.SlotType.all && allSlots[lastSlotIndex].slotType != InventorySlot.SlotType.all)
         {
             return true;
         }
@@ -184,7 +193,7 @@ public class Inventory : MonoBehaviour {
     // for testing
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetButtonDown("Tab"))
         {
             if(GetComponentInParent<Canvas>().enabled == false)
             {
