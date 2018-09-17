@@ -183,7 +183,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.07008721, g: 0.5469656, b: 0.990566, a: 1}
+      maxColor: {r: 0.99215686, g: 0.1349787, b: 0.07058824, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4604,7 +4604,7 @@ GameObject:
   - component: {fileID: 8013572108609657672}
   - component: {fileID: 199756426985724656}
   m_Layer: 0
-  m_Name: EnergyExplosion
+  m_Name: TestExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5914,13 +5914,13 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0, g: 0.52406955, b: 1, a: 1}
+        key0: {r: 1, g: 0.00969137, b: 0, a: 1}
         key1: {r: 0.67058825, g: 0, b: 0.14546905, a: 0}
         key2: {r: 0, g: 0.77216226, b: 0.8509804, a: 0}
-        key3: {r: 0, g: 0.21406552, b: 0.9716981, a: 0}
+        key3: {r: 0.972549, g: 0.062117927, b: 0, a: 0}
         key4: {r: 0.12953897, g: 0.6698113, b: 0.44545752, a: 0}
         key5: {r: 0.78431374, g: 0, b: 0.16787885, a: 0}
-        key6: {r: 0, g: 0.32015663, b: 0.6627451, a: 0}
+        key6: {r: 0.6627451, g: 0.04929531, b: 0, a: 0}
         key7: {r: 0.0075649684, g: 0.17227963, b: 0.3207547, a: 0}
         ctime0: 2792
         ctime1: 4397
@@ -9257,8 +9257,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f33d36b386570479a8ff1890ce7568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myPoolName: AOEDamage
-  damageRange: 1.5
+  myPoolName: TestExplosion
+  damageRange: 2
 --- !u!199 &199756426985724656
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -9536,7 +9536,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -13957,7 +13957,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 0b1b6a2d22d96564f9037ae143ea84cf, type: 2}
+  - {fileID: 2100000, guid: 237580cb2adc5a34e8479dd0df1acf9b, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -15300,7 +15300,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 0.9622642, g: 0, b: 0, a: 1}
-        key1: {r: 0, g: 0.30887127, b: 1, a: 0}
+        key1: {r: 1, g: 0.103087686, b: 0, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}

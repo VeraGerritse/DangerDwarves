@@ -50,7 +50,13 @@ public class Projectile : MonoBehaviour
 
             if (!string.IsNullOrEmpty(prefabToSpawnOnHit))
             {
-                ObjectPooler.instance.GrabFromPool(prefabToSpawnOnHit, transform.position, Quaternion.identity);
+                GameObject newSpawn = ObjectPooler.instance.GrabFromPool(prefabToSpawnOnHit, transform.position, Quaternion.identity);
+
+                AOEDamage aoeComponent = newSpawn.GetComponent<AOEDamage>();
+                if (aoeComponent)
+                {
+                    aoeComponent.TriggerAOE(damage);
+                }
             }
 
             hitEntity = true;

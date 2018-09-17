@@ -64,3 +64,13 @@ MonoBehaviour:
       type: 3}
     poolSize: 25
     autoExpand: 1
+  - poolName: Test
+    poolPrefab: {fileID: 3716037247890611631, guid: cca9afcdb7c7a864dbcd936e2173f711,
+      type: 3}
+    poolSize: 25
+    autoExpand: 1
+  - poolName: TestExplosion
+    poolPrefab: {fileID: 1329845292236604, guid: 5305464d3f96c2a469f9d1c407c2fd9f,
+      type: 3}
+    poolSize: 25
+    autoExpand: 1
