@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46d81e534bf726e4298388054f6af631, type: 3}
   m_Name: REEEEE
   m_EditorClassIdentifier: 
+  itemName: 
+  itemRarity: 3
+  itemImage: {fileID: 0}
+  myStats: {fileID: 0}
