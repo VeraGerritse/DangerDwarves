@@ -18,9 +18,21 @@ public class PlayerStatusCanvas : MonoBehaviour
     {
         playerHealthBar = GetComponentInChildren<HealthBar>();
         playerHealthBar.Initialise(Player.localPlayer.entity);
-        weaponSecondaryTimer = string.IsNullOrEmpty(WeaponSlot.currentWeapon.secondaryProjectile) ? 0 : 1;
+        if (WeaponSlot.currentWeapon)
+        {
+            weaponSecondaryTimer = string.IsNullOrEmpty(WeaponSlot.currentWeapon.secondaryProjectile) ? 0 : 1;
+        }
 
+        WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
         WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
+    }
+
+    private void WeaponSlot_OnEquipWeapon()
+    {
+        if (WeaponSlot.currentWeapon)
+        {
+            weaponSecondaryTimer = string.IsNullOrEmpty(WeaponSlot.currentWeapon.secondaryProjectile) ? 0 : 1;
+        }
     }
 
     private void WeaponSlot_OnUseSecondary()

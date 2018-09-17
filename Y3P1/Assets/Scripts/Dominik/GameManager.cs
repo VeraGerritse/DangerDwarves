@@ -27,21 +27,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!Y3P1.Player.localPlayerObject && playerPrefab)
         {
             PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0.1f, 0), Quaternion.identity);
+            NotificationManager.instance.NewNotification(PhotonNetwork.NickName + " has entered the hub.");
         }
-    }
-
-    public override void OnConnected()
-    {
-        NotificationManager.instance.NewNotification(PhotonNetwork.NickName + " has entered the hub.");
-    }
-
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        NotificationManager.instance.NewNotification(PhotonNetwork.NickName + " has left the hub.");
     }
 
     public void LeaveRoom()
     {
+        NotificationManager.instance.NewNotification(PhotonNetwork.NickName + " has left the hub.");
         PhotonNetwork.LeaveRoom();
     }
 

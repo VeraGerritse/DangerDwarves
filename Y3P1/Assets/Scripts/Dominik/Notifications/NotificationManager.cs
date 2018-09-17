@@ -29,6 +29,7 @@ public class NotificationManager : MonoBehaviourPunCallbacks
     private void SendNotification(string text)
     {
         Notification newNotification = ObjectPooler.instance.GrabFromPool("Notification", notificationSpawn.position, Quaternion.identity).GetComponent<Notification>();
+        newNotification.transform.SetParent(notificationSpawn);
         newNotification.Initialise(text);
     }
 }

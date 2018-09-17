@@ -74,3 +74,8 @@ MonoBehaviour:
       type: 3}
     poolSize: 25
     autoExpand: 1
+  - poolName: Notification
+    poolPrefab: {fileID: 8793457367938011384, guid: 6e957eae26a16014eb5239ccf6a8b3b3,
+      type: 3}
+    poolSize: 10
+    autoExpand: 1
