@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c68a8063c2268b4c8a410897fc8b6f1, type: 3}
   m_Name: The Dev Stats
   m_EditorClassIdentifier: 
-  stamina: 1000
-  strength: 1000
-  agility: 1000
-  willpower: 1000
-  defense: 1000
+  stamina: 5
+  strength: 5
+  agility: 5
+  willpower: 5
+  defense: 5

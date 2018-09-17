@@ -76,7 +76,10 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
         OnEquipWeapon();
 
         currentWeapon = weapon;
-        GameObject currentWeaponPrefab = PhotonNetwork.Instantiate(currentWeapon.itemPrefab.name, weaponSpawn.position, weaponSpawn.rotation);
-        currentWeaponPrefab.transform.SetParent(weaponSpawn);
+        if (weapon)
+        {
+            GameObject currentWeaponPrefab = PhotonNetwork.Instantiate(currentWeapon.itemPrefab.name, weaponSpawn.position, weaponSpawn.rotation);
+            currentWeaponPrefab.transform.SetParent(weaponSpawn);
+        }
     }
 }

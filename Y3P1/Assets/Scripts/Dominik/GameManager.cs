@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using Y3P1;
 
@@ -23,10 +24,20 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        if (!Player.localPlayerObject && playerPrefab)
+        if (!Y3P1.Player.localPlayerObject && playerPrefab)
         {
             PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0.1f, 0), Quaternion.identity);
         }
+    }
+
+    public override void OnConnected()
+    {
+        NotificationManager.instance.NewNotification(PhotonNetwork.NickName + " has entered the hub.");
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        NotificationManager.instance.NewNotification(PhotonNetwork.NickName + " has left the hub.");
     }
 
     public void LeaveRoom()

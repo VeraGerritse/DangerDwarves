@@ -18,7 +18,7 @@ MonoBehaviour:
   myStats: {fileID: 11400000, guid: c1581626d1a31d244b8fb0479eb6a88a, type: 2}
   itemPrefab: {fileID: 5980796425491674147, guid: 40b5304897eb56e47867454b119cdd43,
     type: 3}
-  baseDamage: 1000
+  baseDamage: 10
   primaryFireRate: 0.2
   secondaryProjectile: Arrow_Volley
   secondaryFireRate: 1
