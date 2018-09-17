@@ -282,6 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3686566270483409924}
   - component: {fileID: 6737876660152226921}
+  - component: {fileID: 4179486866438581758}
   m_Layer: 5
   m_Name: Notification
   m_TagString: Untagged
@@ -321,7 +322,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac4b44ef4f3e99d42a0e2df849b94ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
-  fadeSpeed: 2
+  moveSpeed: 0.5
+  fadeSpeed: 0.5
   notificationBackground: {fileID: 6596246711555902778}
   notificationText: {fileID: 2924121754916458369}
+--- !u!95 &4179486866438581758
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8793457367938011384}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1f2420d905e91a44eb677d985a6fb9c5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
