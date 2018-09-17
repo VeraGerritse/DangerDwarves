@@ -296,6 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerUIPrefab: {fileID: 241, guid: 61a5a60cfa7db844ba3daff3ea02dedd, type: 3}
   playerUISpawnOffset: {x: 0, y: 3, z: 0.2}
+  weaponSlot: {fileID: 0}
   rb: {fileID: 0}
   playerCam: {fileID: 0}
   entity: {fileID: 0}
@@ -366,7 +367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponSpawn: {fileID: 4917615539904484949}
-  defaultWeapon: {fileID: 11400000, guid: 2ebfc55082bbcef429583ac38e403d53, type: 2}
+  defaultWeapon: {fileID: 0}
   testWeaponSwitch: {fileID: 11400000, guid: 788a17804d0fd9b4c8a66e71e8239d66, type: 2}
 --- !u!136 &8436074776764754610
 CapsuleCollider:

@@ -51,6 +51,11 @@ public class Inventory : MonoBehaviour {
  
     }
 
+    public void ExitInv()
+    {
+        GetComponentInParent<Canvas>().enabled = false;
+    }
+
     public void StopDragging()
     {
         print("test123");
