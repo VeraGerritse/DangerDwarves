@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: The Dev
   itemRarity: 3
-  itemImage: {fileID: 0}
+  itemImage: {fileID: 21300000, guid: dc191d2069ab52846aef9cda3951e5f9, type: 3}
   myStats: {fileID: 11400000, guid: c1581626d1a31d244b8fb0479eb6a88a, type: 2}
   itemPrefab: {fileID: 5980796425491674147, guid: 40b5304897eb56e47867454b119cdd43,
     type: 3}
