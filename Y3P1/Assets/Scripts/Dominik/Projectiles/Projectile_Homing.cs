@@ -16,7 +16,7 @@ public class Projectile_Homing : Projectile
         homingTarget = GetClosestTarget();
         if (homingTarget)
         {
-            ObjectPooler.instance.GrabFromPool("TargetMarkParticle", homingTarget.position, Quaternion.identity);
+            ObjectPooler.instance.GrabFromPool("TargetMarkParticle", homingTarget.position + Vector3.up * 1, Quaternion.identity);
         }
     }
 
@@ -26,7 +26,7 @@ public class Projectile_Homing : Projectile
 
         if (homingTarget)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(homingTarget.position - transform.position);
+            Quaternion targetRotation = Quaternion.LookRotation(homingTarget.position + Vector3.up * 1 - transform.position);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * currentRotateSpeed);
             if (currentRotateSpeed < rotateSpeed)
             {

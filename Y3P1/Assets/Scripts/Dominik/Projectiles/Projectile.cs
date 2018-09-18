@@ -65,7 +65,7 @@ public class Projectile : MonoBehaviour
             return;
         }
 
-        if (other.tag != "Player")
+        if (other.tag == "Environment")
         {
             ReturnToPool();
         }
