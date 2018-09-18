@@ -15,17 +15,6 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
     private float nextSecondaryTime;
 
     [SerializeField] private Transform weaponSpawn;
-    [SerializeField] private Weapon defaultWeapon;
-
-    [SerializeField] private Weapon testWeaponSwitch;
-
-    private void Awake()
-    {
-        if (defaultWeapon)
-        {
-            EquipWeapon(defaultWeapon);
-        }
-    }
 
     private void Update()
     {
@@ -37,11 +26,6 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
         if (currentWeapon)
         {
             HandleWeaponActions();
-        }
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            EquipWeapon(currentWeapon == defaultWeapon ? testWeaponSwitch : defaultWeapon);
         }
     }
 

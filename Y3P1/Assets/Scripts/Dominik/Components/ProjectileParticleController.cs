@@ -7,7 +7,7 @@ public class ProjectileParticleController : MonoBehaviour
 
     private void Awake()
     {
-        parent = GetComponentInParent<Projectile>().transform;
+        parent = transform.parent;
     }
 
     private void OnEnable()

@@ -61,6 +61,13 @@ public class Projectile : MonoBehaviour
 
             hitEntity = true;
             ReturnToPool();
+
+            return;
+        }
+
+        if (other.tag != "Player")
+        {
+            ReturnToPool();
         }
     }
 

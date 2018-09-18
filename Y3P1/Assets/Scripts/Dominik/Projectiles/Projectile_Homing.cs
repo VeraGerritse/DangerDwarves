@@ -14,6 +14,10 @@ public class Projectile_Homing : Projectile
 
         currentRotateSpeed = 0;
         homingTarget = GetClosestTarget();
+        if (homingTarget)
+        {
+            ObjectPooler.instance.GrabFromPool("TargetMarkParticle", homingTarget.position, Quaternion.identity);
+        }
     }
 
     public override void FixedUpdate()
