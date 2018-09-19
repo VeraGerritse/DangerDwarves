@@ -30,7 +30,8 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
                 weapon.force,
                 weapon.CalculatePrimaryDamage(),
                 weapon.amountOfProjectiles,
-                weapon.coneOfFireInDegrees);
+                weapon.coneOfFireInDegrees,
+                weapon.primaryProjectile == "Arrow_Homing" ? GetClosestTargetViewID() : 9999);
         }
         // Melee Attack.
         else
@@ -48,7 +49,8 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
             weapon.secondaryForce,
             weapon.CalculateSecondaryDamage(),
             weapon.secondaryAmountOfProjectiles,
-            weapon.secondaryConeOfFireInDegrees);
+            weapon.secondaryConeOfFireInDegrees,
+            weapon.secondaryProjectile == "Arrow_Homing" ? GetClosestTargetViewID() : 9999);
     }
 
     private void WeaponSlot_OnEquipWeapon()
@@ -57,7 +59,7 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    private void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float force, int damage, int amountOfProjectiles, int coneOfFireInDegrees)
+    private void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float force, int damage, int amountOfProjectiles, int coneOfFireInDegrees, int targetID = 9999)
     {
         // Firing in a straight line.
         if (coneOfFireInDegrees == 0)
@@ -65,7 +67,7 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
             for (int i = 0; i < amountOfProjectiles; i++)
             {
                 Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, rotation).GetComponent<Projectile>();
-                newProjectile.Fire(force, damage);
+                newProjectile.Fire(force, damage, targetID);
             }
         }
         // Evenly divide (multiple) projectiles with the cone of fire.
@@ -80,11 +82,30 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
             for (int i = 0; i < amountOfProjectiles; i++)
             {
                 Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, Quaternion.Euler(rot)).GetComponent<Projectile>();
-                newProjectile.Fire(force, damage);
+                newProjectile.Fire(force, damage, targetID);
 
                 rot.y += angleStep;
             }
         }
+    }
+
+    private int GetClosestTargetViewID()
+    {
+        Transform bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        for (int i = 0; i < EntityManager.instance.aliveTargets.Count; i++)
+        {
+            // TODO: Maybe move PlayerController.mouseInWorldPos to somewhere else. This feels spaghetti-ish.
+            Vector3 directionToTarget = EntityManager.instance.aliveTargets[i].transform.position - PlayerController.mouseInWorldPos;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = EntityManager.instance.aliveTargets[i].transform;
+            }
+        }
+
+        return bestTarget.GetComponent<PhotonView>().ViewID;
     }
 
     public override void OnDisable()

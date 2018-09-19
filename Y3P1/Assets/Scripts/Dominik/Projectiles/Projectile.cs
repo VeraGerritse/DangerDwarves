@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     protected int damage;
     private float moveSpeed;
     protected bool hitEntity;
+    protected Transform target;
 
     [SerializeField] private string myPoolName;
     [SerializeField] private float selfDestroyTime = 5f;
@@ -32,9 +33,10 @@ public class Projectile : MonoBehaviour
         rb.velocity = transform.forward * moveSpeed;
     }
 
-    public void Fire(float speed, int damage)
+    public void Fire(float speed, int damage, int targetID = 9999)
     {
         this.damage = damage;
+        target = targetID != 9999 ? PhotonNetwork.GetPhotonView((int)targetID).transform : null;
         moveSpeed = speed;
     }
 
