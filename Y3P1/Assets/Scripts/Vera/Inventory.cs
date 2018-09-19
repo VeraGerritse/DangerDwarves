@@ -370,21 +370,26 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
     }
 
+    public void AddItem(Item toAdd)
+    {
+        for (int i = 0; i < allItems.Count; i++)
+        {
+            if (allItems[i] == null && allSlots[i].CheckSlotType())
+            {
+                allItems[i] = toAdd;
+                allSlots[i].SetImage(allItems[i].itemImage);
+                allSlots[i].EnableImage();
+                break;
+            }
+        }
+    }
+
     IEnumerator AddStartingItems()
     {
         yield return new WaitForSeconds(0.2f);
         for (int o = 0; o < startingItems.Count; o++)
         {
-            for (int i = 0; i < allItems.Count; i++)
-            {
-                if (allItems[i] == null && allSlots[i].CheckSlotType())
-                {
-                    allItems[i] = startingItems[o];
-                    allSlots[i].SetImage(allItems[i].itemImage);
-                    allSlots[i].EnableImage();
-                    break;
-                }
-            }
+            AddItem(startingItems[o]);
         }
     }
     // for testing
