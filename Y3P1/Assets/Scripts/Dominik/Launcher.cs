@@ -13,6 +13,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     [SerializeField] private TMP_InputField nameInputField;
     [SerializeField] private GameObject playMenuPanel;
+    [SerializeField] private GameObject roomPanel;
     [SerializeField] private GameObject connectionProgress;
 
     private void Awake()
@@ -21,6 +22,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         SetUpNameInputField();
         playMenuPanel.SetActive(true);
+        roomPanel.SetActive(false);
         connectionProgress.SetActive(false);
     }
 
@@ -58,18 +60,13 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        playMenuPanel.SetActive(true);
+        roomPanel.SetActive(true);
         connectionProgress.SetActive(false);
     }
 
     public override void OnJoinedRoom()
     {
         PhotonNetwork.LoadLevel(1);
-    }
-
-    public override void OnJoinRandomFailed(short returnCode, string message)
-    {
-        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = 10 }, null);
     }
 
     public void QuitGame()
@@ -79,6 +76,51 @@ public class Launcher : MonoBehaviourPunCallbacks
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    public void PlayButton()
+    {
+        if (string.IsNullOrEmpty(nameInputField.text) || nameInputField.text.All(char.IsWhiteSpace))
+        {
+            return;
+        }
+
+        playMenuPanel.SetActive(false);
+        roomPanel.SetActive(true);
+    }
+
+    private void GetAvailableRooms()
+    {
+
+    }
+
+    public void JoinSpecificRoomButton(TextMeshProUGUI roomName)
+    {
+        SetUpPanelsWhenConnecting();
+        PhotonNetwork.JoinRoom(roomName.text);
+    }
+
+    public void QuickJoinButton()
+    {
+        SetUpPanelsWhenConnecting();
+        PhotonNetwork.JoinRandomRoom();
+    }
+
+    public override void OnJoinRandomFailed(short returnCode, string message)
+    {
+        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = 10 }, null);
+    }
+
+    public void CreateRoomButton(TMP_InputField roomName)
+    {
+        SetUpPanelsWhenConnecting();
+        PhotonNetwork.CreateRoom(!string.IsNullOrEmpty(roomName.text) ? roomName.text : null);
+    }
+
+    private void SetUpPanelsWhenConnecting()
+    {
+        roomPanel.SetActive(false);
+        connectionProgress.SetActive(true);
     }
 
     private void SetUpNameInputField()

@@ -49,4 +49,6 @@ MonoBehaviour:
   - SendNotification
   - DropItem
   - RI
+  - PickUpDestroy
+  - SpawnDroppedItemLabel
   DisableAutoOpenWizard: 1

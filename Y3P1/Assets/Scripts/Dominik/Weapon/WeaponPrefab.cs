@@ -124,10 +124,14 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
         interactCollider.SetActive(true);
         objectCollider.enabled = true;
         rb.isKinematic = false;
-        rb.AddForce(Vector3.up * Random.Range(3, 6), ForceMode.Impulse);
+        photonView.RPC("SpawnDroppedItemLabel", RpcTarget.AllBuffered, myItem.itemName, (int)myItem.itemRarity);
+    }
 
+    [PunRPC]
+    private void SpawnDroppedItemLabel(string itemName, int itemRarity)
+    {
         droppedItemLabel = ObjectPooler.instance.GrabFromPool("DroppedItemLabel", transform.position + Vector3.up * 0.5f, Quaternion.identity).GetComponent<DroppedItemLabel>();
-        droppedItemLabel.SetText(myItem.itemName, myItem.itemRarity);
+        droppedItemLabel.SetText(itemName, (Item.ItemRarity)itemRarity);
     }
 
     public void PickUp()
@@ -137,9 +141,18 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
         rb.isKinematic = true;
 
         Player.localPlayer.myInventory.AddItem(myItem);
+        photonView.RPC("PickUpDestroy", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void PickUpDestroy()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
 
         droppedItemLabel.anim.SetTrigger("Pickup");
-        PhotonNetwork.Destroy(gameObject);
     }
 
     public override void OnDisable()

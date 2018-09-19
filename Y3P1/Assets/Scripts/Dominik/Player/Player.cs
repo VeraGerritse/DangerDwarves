@@ -34,6 +34,7 @@ namespace Y3P1
                 playerCam.gameObject.SetActive(false);
                 playerController.enabled = false;
                 weaponSlot.enabled = false;
+                myInventory.gameObject.SetActive(false);
                 Destroy(rb);
 
                 foreach (Collider col in GetComponentsInChildren<Collider>())
