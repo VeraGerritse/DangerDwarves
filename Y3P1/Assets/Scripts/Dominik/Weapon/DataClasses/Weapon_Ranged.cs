@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+[System.Serializable]
 [CreateAssetMenu(menuName = "Custom Objects/Ranged Weapon")]
 public class Weapon_Ranged : Weapon
 {

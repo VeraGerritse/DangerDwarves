@@ -6,7 +6,7 @@ using Y3P1;
 
 public class InventorySlot : MonoBehaviour {
     [SerializeField] private Inventory inventory;
-    public enum SlotType {all,weapon,armor,nothing}
+    public enum SlotType {all,weapon,helmet,trinket,nothing}
     public SlotType slotType;
     [SerializeField] private Image myItem;
     
@@ -81,9 +81,20 @@ public class InventorySlot : MonoBehaviour {
     }
     public void OnMouseExit()
     {
+        inventory.SetCurrentSlot(null);
         if (!inventory.IsDragging())
         {
+
             inventory.SetLastSlot(this);
+        }
+    }
+
+    public void OnRightClick()
+    {
+        print("Trying to right click");
+        if(Input.GetButtonDown("Fire2"))
+        {
+            print("right clicked");
         }
     }
 }

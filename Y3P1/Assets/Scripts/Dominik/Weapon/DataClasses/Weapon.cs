@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+[System.Serializable]
 public abstract class Weapon : Item 
 {
 

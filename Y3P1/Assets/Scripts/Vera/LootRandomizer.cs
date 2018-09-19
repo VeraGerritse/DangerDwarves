@@ -35,7 +35,7 @@ public class LootRandomizer : MonoBehaviour {
     public Item DropLoot()
     {
         Item testItem = ScriptableObject.CreateInstance<Weapon_Ranged>();
-        testItem.StartUp(Database.hostInstance.GetArmorName(), Rarity(), Database.hostInstance.GetSpriteCrossbow());
+        testItem.StartUp(Database.hostInstance.GetHelmetName(), Rarity(), Database.hostInstance.GetSpriteCrossbow());
         test.Add(testItem);
         return testItem;
     }

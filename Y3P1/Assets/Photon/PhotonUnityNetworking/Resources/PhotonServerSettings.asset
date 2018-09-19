@@ -47,4 +47,5 @@ MonoBehaviour:
   - SpawnEntities
   - SyncAliveTargets
   - SendNotification
+  - DropItem
   DisableAutoOpenWizard: 1

@@ -5,11 +5,29 @@ using UnityEngine;
 public class Database : MonoBehaviour {
 
     public static Database hostInstance;
-    [SerializeField] private List<string> adjetives = new List<string>();
-    [SerializeField] private List<string> armorNouns = new List<string>();
-    [SerializeField] private List<string> weaponNouns = new List<string>();
+    [Header("Weapons")]
+    [Header("Crossbow")]
+    [SerializeField] private List<string> crossbowNames = new List<string>();
+    [SerializeField] private List<Sprite> crossbowSprite = new List<Sprite>();
+    [SerializeField] private List<GameObject> crossbowObject = new List<GameObject>();
+    [Header("Axe")]
+    [SerializeField] private List<string> axeNames = new List<string>();
+    [SerializeField] private List<Sprite> axeSprite = new List<Sprite>();
+    [SerializeField] private List<GameObject> axeObject = new List<GameObject>();
+    [Header("sword")]
+    [SerializeField] private List<string> swordNames = new List<string>();
+    [SerializeField] private List<Sprite> swordSprite = new List<Sprite>();
+    [SerializeField] private List<GameObject> swordObject = new List<GameObject>();
+    [Header("Helmet")]
+    [SerializeField] private List<string> HelmetNames = new List<string>();
+    [SerializeField] private List<Sprite> HelmetSprite = new List<Sprite>();
+    [SerializeField] private List<GameObject> HelmetObject = new List<GameObject>();
+    [Header("Trinket")]
+    [SerializeField] private List<string> trinketNames = new List<string>();
+    [SerializeField] private List<Sprite> trinketSprite = new List<Sprite>();
 
-    [SerializeField] private List<Sprite> crossbows = new List<Sprite>();
+
+
 
     public void Awake()
     {
@@ -19,14 +37,14 @@ public class Database : MonoBehaviour {
         }
     }
 
-    public string GetArmorName()
+    public string GetHelmetName()
     {
-        return armorNouns[Random.Range(0,armorNouns.Count)];
+        return HelmetNames[Random.Range(0, HelmetNames.Count)];
     }
 
     public Sprite GetSpriteCrossbow()
     {
-        return crossbows[Random.Range(0, crossbows.Count)];
+        return crossbowSprite[Random.Range(0, crossbowSprite.Count)];
     }
     public string GetWeaponName()
     {
