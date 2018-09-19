@@ -150,7 +150,6 @@ public class Inventory : MonoBehaviourPunCallbacks
         item.coneOfFireInDegrees = iSR.priDeg;
 
         newObj.GetComponent<WeaponPrefab>().myItem = item;
-        return item;
     }
 
     void SaveItem(Item toSave,string objName)
