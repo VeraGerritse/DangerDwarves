@@ -7,10 +7,13 @@ public class DroppedItemLabel : MonoBehaviour
     private Light light;
     private TextMeshProUGUI labelText;
 
+    [HideInInspector] public Animator anim;
+
     private void Awake()
     {
         light = GetComponentInChildren<Light>();
         labelText = GetComponentInChildren<TextMeshProUGUI>();
+        anim = GetComponent<Animator>();
     }
 
     public void SetText(string text, Item.ItemRarity rarity)
@@ -40,5 +43,10 @@ public class DroppedItemLabel : MonoBehaviour
         }
 
         labelText.text = text;
+    }
+
+    public void ReturnToPool()
+    {
+        ObjectPooler.instance.AddToPool("DroppedItemLabel", gameObject);
     }
 }

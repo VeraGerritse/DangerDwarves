@@ -6,7 +6,7 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
 {
 
     private Rigidbody rb;
-    private GameObject droppedItemLabel;
+    private DroppedItemLabel droppedItemLabel;
 
     public Transform projectileSpawn;
     public Item myItem;
@@ -123,10 +123,8 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
         rb.isKinematic = false;
         rb.AddForce(Vector3.up * Random.Range(3, 6), ForceMode.Impulse);
 
-        DroppedItemLabel newLabel = ObjectPooler.instance.GrabFromPool("DroppedItemLabel", transform.position + Vector3.up * 0.5f, Quaternion.identity).GetComponent<DroppedItemLabel>();
-        newLabel.SetText(myItem.itemName, myItem.itemRarity);
-
-        droppedItemLabel = newLabel.gameObject;
+        droppedItemLabel = ObjectPooler.instance.GrabFromPool("DroppedItemLabel", transform.position + Vector3.up * 0.5f, Quaternion.identity).GetComponent<DroppedItemLabel>();
+        droppedItemLabel.SetText(myItem.itemName, myItem.itemRarity);
     }
 
     public void PickUp()
@@ -137,7 +135,7 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
 
         Player.localPlayer.myInventory.AddItem(myItem);
 
-        ObjectPooler.instance.AddToPool("DroppedItemLabel", droppedItemLabel);
+        droppedItemLabel.anim.SetTrigger("Pickup");
         PhotonNetwork.Destroy(gameObject);
     }
 
