@@ -18,6 +18,7 @@ namespace Y3P1
         [HideInInspector] public Rigidbody rb;
         [HideInInspector] public PlayerCamera playerCam;
         [HideInInspector] public Entity entity;
+        [HideInInspector] public Inventory myInventory;
         #endregion
 
         private void Awake()
@@ -60,6 +61,7 @@ namespace Y3P1
             playerCam = GetComponentInChildren<PlayerCamera>();
             entity = GetComponentInChildren<Entity>();
             weaponSlot = GetComponentInChildren<WeaponSlot>();
+            myInventory = GetComponentInChildren<Inventory>();
         }
 
         private void CreatePlayerUI()

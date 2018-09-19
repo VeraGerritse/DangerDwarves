@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using UnityEngine;
+using Y3P1;
 
 public class WeaponPrefab : MonoBehaviourPunCallbacks
 {
@@ -133,6 +134,9 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
         interactCollider.SetActive(false);
         objectCollider.enabled = false;
         rb.isKinematic = true;
+
+        Player.localPlayer.myInventory.AddItem(myItem);
+
         ObjectPooler.instance.AddToPool("DroppedItemLabel", droppedItemLabel);
         PhotonNetwork.Destroy(gameObject);
     }
