@@ -79,7 +79,6 @@ GameObject:
   - component: {fileID: 2521241491152465929}
   - component: {fileID: 1045404800596999195}
   - component: {fileID: 7307933728411889357}
-  - component: {fileID: 6433933011858791402}
   - component: {fileID: 3055342366560050278}
   - component: {fileID: 2518066205330279099}
   - component: {fileID: 7455363917724103159}
@@ -119,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawn: {fileID: 5808629879463845336}
+  myItem: {fileID: 0}
 --- !u!114 &1045404800596999195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,19 +156,6 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
---- !u!114 &6433933011858791402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5980796425491674147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1672ef41600431847a9a1abfc1b98a2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myItem: {fileID: 0}
 --- !u!54 &3055342366560050278
 Rigidbody:
   m_ObjectHideFlags: 0

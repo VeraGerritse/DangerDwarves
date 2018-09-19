@@ -8,6 +8,7 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
     private Collider objectCollider;
     private Rigidbody rb;
     public Transform projectileSpawn;
+    public Item myItem;
 
     private void Awake()
     {

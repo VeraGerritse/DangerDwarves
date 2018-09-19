@@ -48,4 +48,5 @@ MonoBehaviour:
   - SyncAliveTargets
   - SendNotification
   - DropItem
+  - RI
   DisableAutoOpenWizard: 1
