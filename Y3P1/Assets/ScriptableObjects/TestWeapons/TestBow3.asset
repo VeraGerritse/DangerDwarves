@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d3cbc120b909684585b8d4c14a7eb7b, type: 3}
-  m_Name: The Dev
+  m_Name: TestBow3
   m_EditorClassIdentifier: 
-  itemName: The Dev
-  itemRarity: 3
-  itemImage: {fileID: 21300000, guid: dc191d2069ab52846aef9cda3951e5f9, type: 3}
-  myStats: {fileID: 11400000, guid: c1581626d1a31d244b8fb0479eb6a88a, type: 2}
-  itemPrefab: {fileID: 5980796425491674147, guid: 40b5304897eb56e47867454b119cdd43,
+  itemName: TEST RANGED WEAPON
+  itemRarity: 0
+  itemImage: {fileID: 21300000, guid: 83cc72fd9307d904fac3b34ba6812253, type: 3}
+  myStats: {fileID: 11400000, guid: 3939bc619c3529744b82c782f553e203, type: 2}
+  itemPrefab: {fileID: 5980796425491674147, guid: c16b8c83dc7936549ad7cde1c2b620fb,
     type: 3}
-  baseDamage: 10
-  primaryFireRate: 0.2
-  secondaryProjectile: Arrow_Volley
-  secondaryFireRate: 1
+  baseDamage: 5
+  primaryFireRate: 0.3
+  secondaryProjectile: Arrow_Explosive
+  secondaryFireRate: 3
   secondaryForce: 20
   secondaryAmountOfProjectiles: 1
   secondaryConeOfFireInDegrees: 0
   primaryProjectile: Arrow
   force: 25
-  amountOfProjectiles: 20
-  coneOfFireInDegrees: 180
+  amountOfProjectiles: 1
+  coneOfFireInDegrees: 0

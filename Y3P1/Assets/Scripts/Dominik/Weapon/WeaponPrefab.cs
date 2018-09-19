@@ -1,15 +1,20 @@
 ﻿using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponPrefab : MonoBehaviourPunCallbacks
 {
 
+    private Collider interactCollider;
+    private Collider objectCollider;
+    private Rigidbody rb;
     public Transform projectileSpawn;
 
     private void Awake()
     {
+        interactCollider = GetComponent<Collider>();
+        objectCollider = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
+
         if (photonView.IsMine)
         {
             WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
@@ -106,6 +111,24 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
         }
 
         return bestTarget.GetComponent<PhotonView>().ViewID;
+    }
+
+    public void Drop()
+    {
+        interactCollider.enabled = true;
+        objectCollider.enabled = true;
+        rb.isKinematic = false;
+        rb.AddForce(Vector3.up * Random.Range(1, 3), ForceMode.Impulse);
+
+        DroppedItemLabel newLabel = ObjectPooler.instance.GrabFromPool("DroppedItemLabel", transform.position, Quaternion.identity).GetComponent<DroppedItemLabel>();
+        newLabel.SetText(WeaponSlot.currentWeapon.itemName, WeaponSlot.currentWeapon.itemRarity);
+    }
+
+    public void PickUp()
+    {
+        interactCollider.enabled = false;
+        objectCollider.enabled = false;
+        rb.isKinematic = true;
     }
 
     public override void OnDisable()

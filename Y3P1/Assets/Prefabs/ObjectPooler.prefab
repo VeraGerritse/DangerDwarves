@@ -89,3 +89,8 @@ MonoBehaviour:
       type: 3}
     poolSize: 50
     autoExpand: 1
+  - poolName: DroppedItemLabel
+    poolPrefab: {fileID: 7972216441462917839, guid: dcd097e4e1daa6d469a7af60cd0ea196,
+      type: 3}
+    poolSize: 50
+    autoExpand: 1
