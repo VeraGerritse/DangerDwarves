@@ -6,9 +6,9 @@ public class Weapon_Ranged : Weapon
 {
 
     [Header("Primary Attack")]
-    public string primaryProjectile;
+    public string primaryProjectile = "Arrow";
     [Space(10)]
-    public float force;
+    public float force = 1;
     public int amountOfProjectiles = 1;
     public int coneOfFireInDegrees = 0;
 
@@ -16,4 +16,5 @@ public class Weapon_Ranged : Weapon
     {
         return baseDamage + myStats.agility;
     }
+
 }

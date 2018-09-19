@@ -77,7 +77,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     {
             GameObject itemIG = PhotonNetwork.GetPhotonView(id).gameObject;
             itemIG.GetComponent<WeaponPrefab>().myItem = (Item)ByteArrayToObject(item);
-            //itemIG.GetComponent<WeaponPrefab>().Drop();
+            itemIG.GetComponent<WeaponPrefab>().Drop();
     }
 
     //private byte[] ConvertItemForSave(Item toSave)

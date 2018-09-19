@@ -24,6 +24,9 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
             WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
             WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
         }
+        projectileSpawn = transform.GetChild(0).transform;
+        objectCollider = GetComponent<BoxCollider>();
+        interactCollider = transform.GetChild(1).gameObject;
     }
 
     private void WeaponSlot_OnUsePrimary()

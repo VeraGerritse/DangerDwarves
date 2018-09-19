@@ -13,7 +13,7 @@ public class Item
     public int prefabIndex;
 
 
-    public void StartUp(string name, int rarity,int Mysprite,Stats myStat,int myObj)
+    public virtual void StartUp(string name, int rarity,int Mysprite,Stats myStat,int myObj)
     {
         itemName = name;
         itemRarity = (ItemRarity)rarity;
