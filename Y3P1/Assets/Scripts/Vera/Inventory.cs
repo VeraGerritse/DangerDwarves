@@ -76,20 +76,20 @@ public class Inventory : MonoBehaviourPunCallbacks
     private void RI(byte[] item, int id)
     {
             GameObject itemIG = PhotonNetwork.GetPhotonView(id).gameObject;
-            RevertItem(item, itemIG);
-            itemIG.GetComponent<WeaponPrefab>().Drop();
+            itemIG.GetComponent<WeaponPrefab>().myItem = (Item)ByteArrayToObject(item);
+            //itemIG.GetComponent<WeaponPrefab>().Drop();
     }
 
-    private byte[] ConvertItemForSave(Item toSave)
-    {
-        byte[] saved = null;
-        if(toSave.GetType() == typeof(Weapon_Ranged))
-        {
-            ItemSaveRanged savedItem = new ItemSaveRanged((Weapon_Ranged)toSave);
-            saved = ObjectToByteArray(savedItem);
-        }
-        return saved;
-    }
+    //private byte[] ConvertItemForSave(Item toSave)
+    //{
+    //    byte[] saved = null;
+    //    if(toSave.GetType() == typeof(Weapon_Ranged))
+    //    {
+    //        ItemSaveRanged savedItem = new ItemSaveRanged((Weapon_Ranged)toSave);
+    //        saved = ObjectToByteArray(savedItem);
+    //    }
+    //    return saved;
+    //}
 
     private byte[] ObjectToByteArray(object obj)
     {
@@ -117,43 +117,43 @@ public class Inventory : MonoBehaviourPunCallbacks
         return obj;
     }
 
-    void RevertItem(byte[] toRevert,GameObject newObj)
+    //void RevertItem(byte[] toRevert,GameObject newObj)
+    //{
+    //    Weapon_Ranged item = new Weapon_Ranged();
+    //    ItemSaveRanged iSR = (ItemSaveRanged)ByteArrayToObject(toRevert);
+
+    //    item.itemName = iSR.name ;
+    //    item.itemRarity = (Item.ItemRarity)iSR.rarity;
+    //    //item.itemImage = iSR.image;
+
+    //    item.myStats = ScriptableObject.CreateInstance<Stats>();
+    //    item.myStats.stamina = iSR.stamina;
+    //    item.myStats.strength = iSR.strenght;
+    //    item.myStats.agility = iSR.agility;
+    //    item.myStats.willpower = iSR.willpower;
+    //    item.myStats.defense = iSR.defense;
+    //    //item.itemPrefab = iSR.prefab;
+        
+    //    item.baseDamage = iSR.baseDamage;
+    //    item.primaryFireRate = iSR.fireRate;
+        
+    //    item.secondaryProjectile = iSR.nameSec;
+    //    item.secondaryFireRate = iSR.secFireRate;
+    //    item.secondaryForce = iSR.secForce;
+    //    item.secondaryAmountOfProjectiles = iSR.amountProj;
+    //    item.secondaryConeOfFireInDegrees = iSR.coneDegrees;
+        
+    //    item.primaryProjectile = iSR.primaryName;
+    //    item.force = iSR.priForce;
+    //    item.amountOfProjectiles = iSR.priPro;
+    //    item.coneOfFireInDegrees = iSR.priDeg;
+
+    //    newObj.GetComponent<WeaponPrefab>().myItem = item;
+    //}
+
+    void SaveItem(Item toSave, string objName)
     {
-        Weapon_Ranged item = ScriptableObject.CreateInstance<Weapon_Ranged>();
-        ItemSaveRanged iSR = (ItemSaveRanged)ByteArrayToObject(toRevert);
-
-        item.itemName = iSR.name ;
-        item.itemRarity = (Item.ItemRarity)iSR.rarity;
-        //item.itemImage = iSR.image;
-
-        item.myStats = ScriptableObject.CreateInstance<Stats>();
-        item.myStats.stamina = iSR.stamina;
-        item.myStats.strength = iSR.strenght;
-        item.myStats.agility = iSR.agility;
-        item.myStats.willpower = iSR.willpower;
-        item.myStats.defense = iSR.defense;
-        //item.itemPrefab = iSR.prefab;
-        
-        item.baseDamage = iSR.baseDamage;
-        item.primaryFireRate = iSR.fireRate;
-        
-        item.secondaryProjectile = iSR.nameSec;
-        item.secondaryFireRate = iSR.secFireRate;
-        item.secondaryForce = iSR.secForce;
-        item.secondaryAmountOfProjectiles = iSR.amountProj;
-        item.secondaryConeOfFireInDegrees = iSR.coneDegrees;
-        
-        item.primaryProjectile = iSR.primaryName;
-        item.force = iSR.priForce;
-        item.amountOfProjectiles = iSR.priPro;
-        item.coneOfFireInDegrees = iSR.priDeg;
-
-        newObj.GetComponent<WeaponPrefab>().myItem = item;
-    }
-
-    void SaveItem(Item toSave,string objName)
-    {
-        byte[] saved = ConvertItemForSave(toSave);
+        byte[] saved = ObjectToByteArray(toSave);
         photonView.RPC("DropItem", RpcTarget.AllBuffered, objName, saved);
     }
 
@@ -179,8 +179,8 @@ public class Inventory : MonoBehaviourPunCallbacks
             {
                 UnequipWeapon(lastSlotIndex);
             }
-            GameObject newObj = allItems[lastSlotIndex].itemPrefab;
-
+            GameObject newObj = Database.hostInstance.allGameobjects[allItems[lastSlotIndex].prefabIndex];
+            print(newObj);
             SaveItem(allItems[lastSlotIndex], newObj.name);
 
             RemoveItem(lastSlotIndex);
@@ -202,8 +202,8 @@ public class Inventory : MonoBehaviourPunCallbacks
             allItems[currentSlotIndex] = allItems[lastSlotIndex];
             allItems[lastSlotIndex] = temp;
             allSlots[currentSlotIndex].EnableImage();
-            allSlots[lastSlotIndex].SetImage(allItems[lastSlotIndex].itemImage);
-            allSlots[currentSlotIndex].SetImage(allItems[currentSlotIndex].itemImage);
+            allSlots[lastSlotIndex].SetImage(Database.hostInstance.allSprites[allItems[lastSlotIndex].spriteIndex]);
+            allSlots[currentSlotIndex].SetImage(Database.hostInstance.allSprites[allItems[currentSlotIndex].spriteIndex]);
         }
         else
         {
@@ -213,7 +213,7 @@ public class Inventory : MonoBehaviourPunCallbacks
             }
             allItems[currentSlotIndex] = allItems[lastSlotIndex];
             allSlots[currentSlotIndex].EnableImage();
-            allSlots[currentSlotIndex].SetImage(allItems[currentSlotIndex].itemImage);
+            allSlots[currentSlotIndex].SetImage(Database.hostInstance.allSprites[allItems[currentSlotIndex].spriteIndex]);
             RemoveItem(lastSlotIndex);
         }
 
@@ -355,7 +355,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     private void Awake()
     {
         OpenCloseInv();
-        StartCoroutine(AddStartingItems());
+        drag = null;
     }
 
     public void OpenCloseInv()
@@ -377,21 +377,13 @@ public class Inventory : MonoBehaviourPunCallbacks
             if (allItems[i] == null && allSlots[i].CheckSlotType())
             {
                 allItems[i] = toAdd;
-                allSlots[i].SetImage(allItems[i].itemImage);
+                allSlots[i].SetImage(Database.hostInstance.allSprites[allItems[i].spriteIndex]);
                 allSlots[i].EnableImage();
                 break;
             }
         }
     }
 
-    IEnumerator AddStartingItems()
-    {
-        yield return new WaitForSeconds(0.2f);
-        for (int o = 0; o < startingItems.Count; o++)
-        {
-            AddItem(startingItems[o]);
-        }
-    }
     // for testing
     private void Update()
     {
@@ -399,20 +391,14 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             OpenCloseInv();
         }
-        if (Input.GetKeyDown(KeyCode.C) && LootRandomizer.instance != null)
+        if (Input.GetKeyDown(KeyCode.N))
         {
-            for (int i = 0; i < allItems.Count; i++)
-            {
-                if (allItems[i] == null && allSlots[i].CheckSlotType())
-                {
-                    allItems[i] = LootRandomizer.instance.DropLoot();
-                    allSlots[i].SetImage(allItems[i].itemImage);
-                    allSlots[i].EnableImage();
-                    break;
-                }
-            }
+            Item test = LootRandomizer.instance.DropLoot();
+            print(test.itemName);
+            AddItem(LootRandomizer.instance.DropLoot());
         }
 
+        print(drag);
         if (drag == null)
         {
             onMouse.enabled = false;
@@ -420,7 +406,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         else
         {
             onMouse.enabled = true;
-            onMouse.sprite = drag.itemImage;
+            onMouse.sprite = Database.hostInstance.allSprites[drag.spriteIndex];
             onMouse.transform.position = Input.mousePosition;
         }
     }

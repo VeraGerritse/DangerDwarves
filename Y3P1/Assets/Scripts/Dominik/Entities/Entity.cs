@@ -18,9 +18,9 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     {
         health.Initialise(this);
 
-        if (!stats)
+        if (stats == null)
         {
-            stats = ScriptableObject.CreateInstance<Stats>();
+            stats = new Stats();
             Debug.LogWarning("Created a new Stats scriptable object for " + transform.root.name + " because one was not assigned.");
         }
     }

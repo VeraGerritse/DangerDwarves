@@ -5,26 +5,33 @@ using UnityEngine;
 public class Database : MonoBehaviour {
 
     public static Database hostInstance;
+    public List<Sprite> allSprites = new List<Sprite>();
+    public List<GameObject> allGameobjects = new List<GameObject>();
+
     [Header("Weapons")]
     [Header("Crossbow")]
     [SerializeField] private List<string> crossbowNames = new List<string>();
-    [SerializeField] private List<Sprite> crossbowSprite = new List<Sprite>();
-    [SerializeField] private List<GameObject> crossbowObject = new List<GameObject>();
+    public List<Sprite> crossbowSprite = new List<Sprite>();
+    public List<GameObject> crossbowObject = new List<GameObject>();
+
     [Header("Axe")]
     [SerializeField] private List<string> axeNames = new List<string>();
-    [SerializeField] private List<Sprite> axeSprite = new List<Sprite>();
-    [SerializeField] private List<GameObject> axeObject = new List<GameObject>();
+    public List<Sprite> axeSprite = new List<Sprite>();
+    public List<GameObject> axeObject = new List<GameObject>();
+
     [Header("sword")]
     [SerializeField] private List<string> swordNames = new List<string>();
-    [SerializeField] private List<Sprite> swordSprite = new List<Sprite>();
-    [SerializeField] private List<GameObject> swordObject = new List<GameObject>();
+    public List<Sprite> swordSprite = new List<Sprite>();
+    public List<GameObject> swordObject = new List<GameObject>();
+
     [Header("Helmet")]
     [SerializeField] private List<string> HelmetNames = new List<string>();
-    [SerializeField] private List<Sprite> HelmetSprite = new List<Sprite>();
-    [SerializeField] private List<GameObject> HelmetObject = new List<GameObject>();
+    public List<Sprite> HelmetSprite = new List<Sprite>();
+    public List<GameObject> HelmetObject = new List<GameObject>();
+
     [Header("Trinket")]
     [SerializeField] private List<string> trinketNames = new List<string>();
-    [SerializeField] private List<Sprite> trinketSprite = new List<Sprite>();
+    public List<Sprite> trinketSprite = new List<Sprite>();
 
 
 
@@ -35,19 +42,57 @@ public class Database : MonoBehaviour {
         {
             hostInstance = this;
         }
+        allSprites.Add(null);
+        allGameobjects.Add(null);
+        allSprites.AddRange(crossbowSprite);
+        allGameobjects.AddRange(crossbowObject);
     }
 
-    public string GetHelmetName()
+    public string GetCrossbowName()
     {
-        return HelmetNames[Random.Range(0, HelmetNames.Count)];
+        return crossbowNames[Random.Range(0, crossbowNames.Count)];
     }
 
-    public Sprite GetSpriteCrossbow()
+    public int GetCrossbowSprite()
     {
-        return crossbowSprite[Random.Range(0, crossbowSprite.Count)];
+        Sprite mySpri = crossbowSprite[Random.Range(0, crossbowSprite.Count)] ;
+        int index = 0;
+        for (int i = 0; i < allSprites.Count; i++)
+        {
+            if(mySpri = allSprites[i])
+            {
+                index = i;
+            }
+        }
+        return index;
     }
-    public string GetWeaponName()
+
+    public int GetCrossbowObject()
     {
-        return "weapon";
+        GameObject myObj = crossbowObject[Random.Range(0, crossbowObject.Count)];
+        int index = 0;
+        for (int i = 0; i < allGameobjects.Count; i++)
+        {
+            if(myObj == allGameobjects[i])
+            {
+                index = i;
+            }
+        }
+        return index;
     }
+
+
+    //public string GetHelmetName()
+    //{
+    //    return HelmetNames[Random.Range(0, HelmetNames.Count)];
+    //}
+
+    //public Sprite GetSpriteCrossbow()
+    //{
+    //    return crossbowSprite[Random.Range(0, crossbowSprite.Count)];
+    //}
+    //public string GetWeaponName()
+    //{
+    //    return "weapon";
+    //}
 }

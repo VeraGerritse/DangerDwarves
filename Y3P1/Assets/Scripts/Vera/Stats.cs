@@ -1,10 +1,6 @@
-﻿using UnityEngine;
-
-[System.Serializable]
-[CreateAssetMenu(menuName = "Data/Stats")]
-public class Stats : ScriptableObject
+﻿[System.Serializable]
+public class Stats
 {
-
     public int stamina;
     public int strength;
     public int agility;

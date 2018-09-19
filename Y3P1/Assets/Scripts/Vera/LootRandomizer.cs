@@ -24,18 +24,15 @@ public class LootRandomizer : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            for (int i = 0; i < 1000; i++)
-            {
-                DropLoot();
-            }
+            DropLoot();
         }
     }
 
 
     public Item DropLoot()
     {
-        Item testItem = ScriptableObject.CreateInstance<Weapon_Ranged>();
-        testItem.StartUp(Database.hostInstance.GetHelmetName(), Rarity(), Database.hostInstance.GetSpriteCrossbow());
+        Item testItem = new Weapon_Ranged();
+        testItem.StartUp(Database.hostInstance.GetCrossbowName(), Rarity(), Database.hostInstance.GetCrossbowSprite(),new Stats(),Database.hostInstance.GetCrossbowObject());
         test.Add(testItem);
         return testItem;
     }

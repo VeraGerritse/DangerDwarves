@@ -122,7 +122,12 @@ MonoBehaviour:
   health:
     isImmortal: 0
     maxHealth: 100
-  stats: {fileID: 11400000, guid: 399aec1b1e9daa749a826b2784f125b5, type: 2}
+  stats:
+    stamina: 0
+    strength: 0
+    agility: 0
+    willpower: 0
+    defense: 0
   OnHitEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -307,6 +312,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   playerCam: {fileID: 0}
   entity: {fileID: 0}
+  myInventory: {fileID: 0}
 --- !u!114 &7267311020839716367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -610,6 +616,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8464704438644112515}
     m_Modifications:
+    - target: {fileID: 8397405760007504293, guid: d9a22b72ec8f7f247bee4d1243af548b,
+        type: 3}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6778395462888122598, guid: d9a22b72ec8f7f247bee4d1243af548b,
         type: 3}
       propertyPath: m_LocalPosition.x

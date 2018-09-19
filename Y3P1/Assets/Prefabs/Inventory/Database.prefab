@@ -43,15 +43,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe5e2ea325888534db28e37c13f34548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjetives: []
-  armorNouns:
-  - sword
-  - axe
-  - dagger
-  - staff
-  - crossbow
-  weaponNouns: []
-  crossbows:
-  - {fileID: 21300000, guid: dc191d2069ab52846aef9cda3951e5f9, type: 3}
-  - {fileID: 21300000, guid: a3b945a0dc66ede44aa50c9d6795893d, type: 3}
-  - {fileID: 21300000, guid: 99a2878271dd9c74cbe5a576ce01c633, type: 3}
+  allSprites: []
+  allGameobjects: []
+  crossbowNames:
+  - Bow
+  - Crossbow
+  - LongBow
+  crossbowSprite:
+  - {fileID: 21300000, guid: 09373a73ee29b0e47b2538b286123831, type: 3}
+  - {fileID: 21300000, guid: 378230571bbf3c4499cb85633d3afffd, type: 3}
+  - {fileID: 21300000, guid: 095761f3f2286554399236b20edd3262, type: 3}
+  crossbowObject:
+  - {fileID: 5980796425491674147, guid: 11c494545ececfd42a01d9632e35e826, type: 3}
+  - {fileID: 5980796425491674147, guid: 40b5304897eb56e47867454b119cdd43, type: 3}
+  - {fileID: 5980796425491674147, guid: c16b8c83dc7936549ad7cde1c2b620fb, type: 3}
+  axeNames: []
+  axeSprite: []
+  axeObject: []
+  swordNames: []
+  swordSprite: []
+  swordObject: []
+  HelmetNames: []
+  HelmetSprite: []
+  HelmetObject: []
+  trinketNames: []
+  trinketSprite: []

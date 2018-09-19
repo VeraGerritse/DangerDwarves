@@ -23,7 +23,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
             return;
         }
 
-        if (currentWeapon)
+        if (currentWeapon != null)
         {
             HandleWeaponActions();
         }
@@ -63,9 +63,9 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
         OnEquipWeapon();
 
         currentWeapon = weapon;
-        if (weapon)
+        if (weapon != null)
         {
-            GameObject currentWeaponPrefab = PhotonNetwork.Instantiate(currentWeapon.itemPrefab.name, weaponSpawn.position, weaponSpawn.rotation);
+            GameObject currentWeaponPrefab = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[currentWeapon.prefabIndex].name, weaponSpawn.position, weaponSpawn.rotation);
             currentWeaponPrefab.transform.SetParent(weaponSpawn);
         }
     }

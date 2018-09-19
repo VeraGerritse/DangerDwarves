@@ -1,26 +1,25 @@
-﻿using UnityEngine;
-
+﻿
 [System.Serializable]
-[CreateAssetMenu(menuName = "Custom Objects/Items")]
-public class Item : ScriptableObject
+public class Item
 {
 
     public string itemName;
     public enum ItemRarity { common = 0, rare = 1, epic = 2, legendary = 3 }
     public ItemRarity itemRarity;
-    public Sprite itemImage;
+    //public Sprite itemImage;
+    public int spriteIndex;
     public Stats myStats;
-    public GameObject itemPrefab;
+    // public GameObject itemPrefab;
+    public int prefabIndex;
 
 
-    public void StartUp(string name, int rarity, Sprite myItemIma)
+    public void StartUp(string name, int rarity,int Mysprite,Stats myStat,int myObj)
     {
         itemName = name;
-        this.name = name;
-        itemImage = myItemIma;
         itemRarity = (ItemRarity)rarity;
-
-        Debug.Log(itemRarity);
+        spriteIndex = Mysprite;
+        myStats = myStat;
+        prefabIndex = myObj;
     }
 
 }
