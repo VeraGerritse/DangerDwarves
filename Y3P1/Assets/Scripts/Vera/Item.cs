@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
 [System.Serializable]
 [CreateAssetMenu(menuName = "Custom Objects/Items")]
 public class Item : ScriptableObject
@@ -20,7 +19,7 @@ public class Item : ScriptableObject
         this.name = name;
         itemImage = myItemIma;
         itemRarity = (ItemRarity)rarity;
-        
+
         Debug.Log(itemRarity);
     }
 

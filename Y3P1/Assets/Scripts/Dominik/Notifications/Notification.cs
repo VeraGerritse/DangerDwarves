@@ -7,6 +7,11 @@ public class Notification : MonoBehaviour
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private TextMeshProUGUI notificationText;
 
+    private void OnEnable()
+    {
+        notificationText.color = new Color(notificationText.color.r, notificationText.color.g, notificationText.color.b, 1);
+    }
+
     public void Initialise(string text)
     {
         notificationText.text = text;

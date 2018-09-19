@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3407991192477474751}
   - component: {fileID: 3675555559173767202}
   - component: {fileID: 756207612530026873}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: EntitySpawner
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}

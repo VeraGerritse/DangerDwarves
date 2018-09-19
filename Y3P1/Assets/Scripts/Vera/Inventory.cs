@@ -76,9 +76,8 @@ public class Inventory : MonoBehaviourPunCallbacks
     private void RI(byte[] item, int id)
     {
             GameObject itemIG = PhotonNetwork.GetPhotonView(id).gameObject;
-            //itemIG.GetComponent<WeaponPrefab>().Drop();
-            NotificationManager.instance.NewNotification("testtesttesttesttesttesttesttesttesttesttest");
             RevertItem(item, itemIG);
+            itemIG.GetComponent<WeaponPrefab>().Drop();
     }
 
     private byte[] ConvertItemForSave(Item toSave)

@@ -36,7 +36,7 @@ public class Projectile : MonoBehaviour
     public void Fire(float speed, int damage, int targetID = 9999)
     {
         this.damage = damage;
-        target = targetID != 9999 ? PhotonNetwork.GetPhotonView((int)targetID).transform : null;
+        target = targetID != 9999 ? PhotonNetwork.GetPhotonView(targetID).transform : null;
         moveSpeed = speed;
     }
 

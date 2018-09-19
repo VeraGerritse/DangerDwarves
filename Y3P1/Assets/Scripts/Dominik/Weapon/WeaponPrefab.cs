@@ -4,16 +4,17 @@ using UnityEngine;
 public class WeaponPrefab : MonoBehaviourPunCallbacks
 {
 
-    private Collider interactCollider;
-    private Collider objectCollider;
     private Rigidbody rb;
+    private GameObject droppedItemLabel;
+
     public Transform projectileSpawn;
     public Item myItem;
 
+    [SerializeField] private GameObject interactCollider;
+    [SerializeField] private Collider objectCollider;
+
     private void Awake()
     {
-        interactCollider = GetComponent<Collider>();
-        objectCollider = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
 
         if (photonView.IsMine)
@@ -116,20 +117,24 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
 
     public void Drop()
     {
-        interactCollider.enabled = true;
+        interactCollider.SetActive(true);
         objectCollider.enabled = true;
         rb.isKinematic = false;
-        rb.AddForce(Vector3.up * Random.Range(1, 3), ForceMode.Impulse);
+        rb.AddForce(Vector3.up * Random.Range(3, 6), ForceMode.Impulse);
 
-        DroppedItemLabel newLabel = ObjectPooler.instance.GrabFromPool("DroppedItemLabel", transform.position, Quaternion.identity).GetComponent<DroppedItemLabel>();
-        newLabel.SetText(WeaponSlot.currentWeapon.itemName, WeaponSlot.currentWeapon.itemRarity);
+        DroppedItemLabel newLabel = ObjectPooler.instance.GrabFromPool("DroppedItemLabel", transform.position + Vector3.up * 0.5f, Quaternion.identity).GetComponent<DroppedItemLabel>();
+        newLabel.SetText(myItem.itemName, myItem.itemRarity);
+
+        droppedItemLabel = newLabel.gameObject;
     }
 
     public void PickUp()
     {
-        interactCollider.enabled = false;
+        interactCollider.SetActive(false);
         objectCollider.enabled = false;
         rb.isKinematic = true;
+        ObjectPooler.instance.AddToPool("DroppedItemLabel", droppedItemLabel);
+        PhotonNetwork.Destroy(gameObject);
     }
 
     public override void OnDisable()
