@@ -6,6 +6,7 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
 {
 
     private Rigidbody rb;
+    private bool isDropped;
     private DroppedItemLabel droppedItemLabel;
 
     public Transform projectileSpawn;
@@ -31,6 +32,11 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
 
     private void WeaponSlot_OnUsePrimary()
     {
+        if (isDropped)
+        {
+            return;
+        }
+
         // Ranged Attack.
         if (WeaponSlot.currentWeapon is Weapon_Ranged)
         {
@@ -53,6 +59,11 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
 
     private void WeaponSlot_OnUseSecondary()
     {
+        if (isDropped)
+        {
+            return;
+        }
+
         Weapon weapon = WeaponSlot.currentWeapon;
         photonView.RPC("FireProjectile", RpcTarget.All, projectileSpawn.position,
             projectileSpawn.rotation,
@@ -66,6 +77,11 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
 
     private void WeaponSlot_OnEquipWeapon()
     {
+        if (isDropped)
+        {
+            return;
+        }
+
         PhotonNetwork.Destroy(gameObject);
     }
 
@@ -121,9 +137,11 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
 
     public void Drop()
     {
+        isDropped = true;
+
         interactCollider.SetActive(true);
         objectCollider.enabled = true;
-        rb.isKinematic = false;
+        //rb.isKinematic = false;
         photonView.RPC("SpawnDroppedItemLabel", RpcTarget.AllBuffered, myItem.itemName, (int)myItem.itemRarity);
     }
 
@@ -136,9 +154,11 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
 
     public void PickUp()
     {
+        isDropped = false;
+
         interactCollider.SetActive(false);
         objectCollider.enabled = false;
-        rb.isKinematic = true;
+        //rb.isKinematic = true;
 
         Player.localPlayer.myInventory.AddItem(myItem);
         photonView.RPC("PickUpDestroy", RpcTarget.All);

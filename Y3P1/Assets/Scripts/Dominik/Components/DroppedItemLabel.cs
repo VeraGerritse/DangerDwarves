@@ -1,12 +1,14 @@
-﻿using UnityEngine;
-using TMPro;
+﻿using TMPro;
+using UnityEngine;
 
 public class DroppedItemLabel : MonoBehaviour
 {
 
     private Light light;
     private TextMeshProUGUI labelText;
+    private Vector3 legendaryMarkDefaultPos;
 
+    [SerializeField] private GameObject legendaryMark;
     [HideInInspector] public Animator anim;
 
     private void Awake()
@@ -14,6 +16,18 @@ public class DroppedItemLabel : MonoBehaviour
         light = GetComponentInChildren<Light>();
         labelText = GetComponentInChildren<TextMeshProUGUI>();
         anim = GetComponent<Animator>();
+
+        legendaryMarkDefaultPos = legendaryMark.transform.position;
+        legendaryMark.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (legendaryMark.activeInHierarchy)
+        {
+            legendaryMark.transform.localPosition = Vector3.zero;
+            legendaryMark.transform.eulerAngles = Vector3.zero;
+        }
     }
 
     public void SetText(string text, Item.ItemRarity rarity)
@@ -39,6 +53,8 @@ public class DroppedItemLabel : MonoBehaviour
 
                 light.color = Color.yellow;
                 labelText.color = Color.yellow;
+
+                legendaryMark.SetActive(true);
                 break;
         }
 
@@ -47,6 +63,7 @@ public class DroppedItemLabel : MonoBehaviour
 
     public void ReturnToPool()
     {
+        legendaryMark.SetActive(false);
         ObjectPooler.instance.AddToPool("DroppedItemLabel", gameObject);
     }
 }
