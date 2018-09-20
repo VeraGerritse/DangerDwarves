@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &376244304596322903 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 30f14c7625c83a94a806cfdcceaca9ee,
+    type: 3}
+  m_PrefabInstance: {fileID: 376244304596455639}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &365438877656968415
 GameObject:
   m_ObjectHideFlags: 0
@@ -17,7 +23,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &196243180979610262
 Transform:
   m_ObjectHideFlags: 0
@@ -57,12 +63,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d23886e5114a5994a836452dd3b16d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &376244304596322903 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 30f14c7625c83a94a806cfdcceaca9ee,
-    type: 3}
-  m_PrefabInstance: {fileID: 376244304596455639}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &688917379826458348
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +175,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawn: {fileID: 5808629879463845336}
-  myItem: {fileID: 0}
+  myItem:
+    itemName: 
+    itemRarity: 0
+    spriteIndex: 0
+    myStats:
+      stamina: 0
+      strength: 0
+      agility: 0
+      willpower: 0
+      defense: 0
+    prefabIndex: 0
   interactCollider: {fileID: 365438877656968415}
   objectCollider: {fileID: 2062470117242574286}
 --- !u!114 &1045404800596999195

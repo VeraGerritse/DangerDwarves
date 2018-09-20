@@ -118,7 +118,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpawn: {fileID: 5808629879463845336}
-  myItem: {fileID: 0}
+  myItem:
+    itemName: 
+    itemRarity: 0
+    spriteIndex: 0
+    myStats:
+      stamina: 0
+      strength: 0
+      agility: 0
+      willpower: 0
+      defense: 0
+    prefabIndex: 0
   interactCollider: {fileID: 6314911660295376359}
   objectCollider: {fileID: 2317435446234717558}
 --- !u!114 &1045404800596999195
@@ -204,7 +214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4258611673375679595
 Transform:
   m_ObjectHideFlags: 0

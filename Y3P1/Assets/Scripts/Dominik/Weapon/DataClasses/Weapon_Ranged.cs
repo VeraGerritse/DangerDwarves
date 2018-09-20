@@ -8,7 +8,7 @@ public class Weapon_Ranged : Weapon
     [Header("Primary Attack")]
     public string primaryProjectile = "Arrow";
     [Space(10)]
-    public float force = 1;
+    public float force = 20;
     public int amountOfProjectiles = 1;
     public int coneOfFireInDegrees = 0;
 
