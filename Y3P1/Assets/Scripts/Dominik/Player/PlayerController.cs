@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         mouseHitPlane = GameObject.CreatePrimitive(PrimitiveType.Plane);
         mouseHitPlane.layer = 11;
         mouseHitPlane.transform.SetParent(Player.localPlayer.transform);
-        mouseHitPlane.transform.localPosition = new Vector3(0, 1, 0);
+        mouseHitPlane.transform.localPosition = new Vector3(0, 0.75f, 0);
         mouseHitPlane.transform.localScale = new Vector3(100, 1, 100);
         mouseHitPlane.GetComponent<MeshRenderer>().enabled = false;
         mouseHitPlane.GetComponent<MeshCollider>().convex = true;

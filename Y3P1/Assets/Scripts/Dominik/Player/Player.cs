@@ -14,7 +14,7 @@ namespace Y3P1
 
         #region Components
         private PlayerController playerController;
-        public WeaponSlot weaponSlot;
+        [HideInInspector] public WeaponSlot weaponSlot;
         [HideInInspector] public Rigidbody rb;
         [HideInInspector] public PlayerCamera playerCam;
         [HideInInspector] public Entity entity;
