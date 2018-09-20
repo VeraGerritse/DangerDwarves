@@ -2,7 +2,7 @@
 using UnityEngine;
 using Y3P1;
 
-public class WeaponPrefab : MonoBehaviourPunCallbacks
+public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
 {
 
     private Rigidbody rb;
@@ -182,6 +182,22 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks
             WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
             WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
             WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(isDropped);
+            stream.SendNext(interactCollider.activeInHierarchy);
+            stream.SendNext(objectCollider.enabled);
+        }
+        else
+        {
+            isDropped = (bool)stream.ReceiveNext();
+            interactCollider.SetActive((bool)stream.ReceiveNext());
+            objectCollider.enabled = (bool)stream.ReceiveNext();
         }
     }
 }
