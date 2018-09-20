@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerUIPrefab: {fileID: 241, guid: 61a5a60cfa7db844ba3daff3ea02dedd, type: 3}
-  playerUISpawnOffset: {x: 0, y: 3, z: 0.2}
+  playerUISpawnOffset: {x: 0, y: 2, z: 0.2}
   weaponSlot: {fileID: 0}
   rb: {fileID: 0}
   playerCam: {fileID: 0}
