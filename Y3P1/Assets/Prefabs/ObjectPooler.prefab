@@ -94,3 +94,8 @@ MonoBehaviour:
       type: 3}
     poolSize: 50
     autoExpand: 1
+  - poolName: Arrow_Animated
+    poolPrefab: {fileID: 3716037247890611631, guid: 5442f6ec6f7c3064d9f9b27f24b48e3d,
+      type: 3}
+    poolSize: 25
+    autoExpand: 1

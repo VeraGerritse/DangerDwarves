@@ -9,12 +9,12 @@ public abstract class Weapon : Item
     public float primaryFireRate = 0.3f;
 
     [Header("Secondary Attack")]
-    public string secondaryProjectile = "Arrow_Homing";
+    public string secondaryProjectile = "Arrow_Animated";
     [Space(10)]
-    public float secondaryFireRate = 5;
+    public float secondaryFireRate = 3;
     public float secondaryForce = 15;
-    public int secondaryAmountOfProjectiles = 5;
-    public int secondaryConeOfFireInDegrees = 45;
+    public int secondaryAmountOfProjectiles = 1;
+    public int secondaryConeOfFireInDegrees = 0;
 
     public abstract int CalculatePrimaryDamage();
 
