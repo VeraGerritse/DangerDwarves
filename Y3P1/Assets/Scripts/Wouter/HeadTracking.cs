@@ -23,6 +23,12 @@ public class HeadTracking : MonoBehaviour {
             Quaternion rotation = Quaternion.LookRotation(relativePos);
             headbone.transform.rotation = rotation;
         }
+        else
+        {
+            //Vector3 relativePos = target.position - transform.position;
+            //Quaternion rotation = Quaternion.LookRotation(relativePos);
+            //headbone.transform.rotation = rotation;
+        }
 
     }
 }
