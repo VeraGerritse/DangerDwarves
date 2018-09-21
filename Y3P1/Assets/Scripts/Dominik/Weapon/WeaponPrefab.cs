@@ -155,12 +155,14 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
     public void PickUp()
     {
         isDropped = false;
-
+        print("test2");
         interactCollider.SetActive(false);
+        print("test3");
         objectCollider.enabled = false;
         //rb.isKinematic = true;
-
+        print("test4");
         Player.localPlayer.myInventory.AddItem(myItem);
+        print("test5");
         photonView.RPC("PickUpDestroy", RpcTarget.All);
     }
 

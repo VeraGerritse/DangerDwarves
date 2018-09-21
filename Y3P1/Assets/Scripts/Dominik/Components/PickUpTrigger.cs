@@ -19,6 +19,7 @@ public class PickUpTrigger : MonoBehaviour
             {
                 if (!Player.localPlayer.myInventory.CheckFull())
                 {
+                    print("test");
                     myWeaponPrefab.PickUp();
                 }
             }
