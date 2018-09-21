@@ -33,6 +33,19 @@ public class LootRandomizer : MonoBehaviour {
     {
         Item testItem = new Weapon_Ranged();
         testItem.StartUp(Database.hostInstance.GetCrossbowName(), Rarity(), Database.hostInstance.GetCrossbowSprite(),new Stats(),Database.hostInstance.GetCrossbowObject());
+
+        // TEST SPECIAL RANDOMIZER.
+        // Wilde ff andere specials testen.
+        string[] secondaries = new string[]
+            {
+                "Arrow_Homing",
+                "Arrow_Volley",
+                "Arrow_Explosive",
+                "Arrow_Animated"
+            };
+        (testItem as Weapon).secondaryProjectile = secondaries[Random.Range(0, secondaries.Length)];
+        //////////////////////////////////////
+
         test.Add(testItem);
         return testItem;
     }

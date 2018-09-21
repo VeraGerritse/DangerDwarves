@@ -12,6 +12,7 @@ public abstract class Weapon : Item
     public string secondaryProjectile = "Arrow_Animated";
     [Space(10)]
     public float secondaryFireRate = 3;
+    public float secondaryChargeupTime = 0f;
     public float secondaryForce = 15;
     public int secondaryAmountOfProjectiles = 1;
     public int secondaryConeOfFireInDegrees = 0;

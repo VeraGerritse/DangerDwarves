@@ -1,7 +1,6 @@
 ﻿using Photon.Pun;
-using UnityEngine;
 using System;
-using Y3P1;
+using UnityEngine;
 
 public class WeaponSlot : MonoBehaviourPunCallbacks
 {
@@ -15,6 +14,9 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
     private float nextPrimaryTime;
     private float nextSecondaryTime;
 
+    private bool isChargingSecondary;
+    private float secondaryChargeCounter;
+
     [SerializeField] private Transform weaponSpawn;
 
     private void Update()
@@ -27,6 +29,11 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
         if (currentWeapon != null)
         {
             HandleWeaponActions();
+
+            if (isChargingSecondary)
+            {
+                secondaryChargeCounter += Time.deltaTime;
+            }
         }
     }
 
@@ -41,14 +48,42 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
             }
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (!string.IsNullOrEmpty(currentWeapon.secondaryProjectile))
         {
-            if (!string.IsNullOrEmpty(currentWeapon.secondaryProjectile))
+            if (Input.GetMouseButtonDown(1))
             {
                 if (Time.time >= nextSecondaryTime)
                 {
-                    nextSecondaryTime = Time.time + currentWeapon.secondaryFireRate;
-                    OnUseSecondary();
+                    if (currentWeapon.secondaryChargeupTime == 0)
+                    {
+                        nextSecondaryTime = Time.time + currentWeapon.secondaryFireRate;
+                        OnUseSecondary();
+                    }
+                    else
+                    {
+                        if (!isChargingSecondary)
+                        {
+                            isChargingSecondary = true;
+                            secondaryChargeCounter = 0;
+                        }
+                    }
+                }
+            }
+
+            if (Input.GetMouseButtonUp(1))
+            {
+                if (currentWeapon.secondaryChargeupTime > 0)
+                {
+                    if (isChargingSecondary)
+                    {
+                        isChargingSecondary = false;
+
+                        if (secondaryChargeCounter >= currentWeapon.secondaryChargeupTime)
+                        {
+                            nextSecondaryTime = Time.time + currentWeapon.secondaryFireRate;
+                            OnUseSecondary();
+                        }
+                    }
                 }
             }
         }
