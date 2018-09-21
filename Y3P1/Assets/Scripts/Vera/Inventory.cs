@@ -80,17 +80,6 @@ public class Inventory : MonoBehaviourPunCallbacks
             itemIG.GetComponent<WeaponPrefab>().Drop();
     }
 
-    //private byte[] ConvertItemForSave(Item toSave)
-    //{
-    //    byte[] saved = null;
-    //    if(toSave.GetType() == typeof(Weapon_Ranged))
-    //    {
-    //        ItemSaveRanged savedItem = new ItemSaveRanged((Weapon_Ranged)toSave);
-    //        saved = ObjectToByteArray(savedItem);
-    //    }
-    //    return saved;
-    //}
-
     private byte[] ObjectToByteArray(object obj)
     {
         if (obj == null)
@@ -116,40 +105,6 @@ public class Inventory : MonoBehaviourPunCallbacks
 
         return obj;
     }
-
-    //void RevertItem(byte[] toRevert,GameObject newObj)
-    //{
-    //    Weapon_Ranged item = new Weapon_Ranged();
-    //    ItemSaveRanged iSR = (ItemSaveRanged)ByteArrayToObject(toRevert);
-
-    //    item.itemName = iSR.name ;
-    //    item.itemRarity = (Item.ItemRarity)iSR.rarity;
-    //    //item.itemImage = iSR.image;
-
-    //    item.myStats = ScriptableObject.CreateInstance<Stats>();
-    //    item.myStats.stamina = iSR.stamina;
-    //    item.myStats.strength = iSR.strenght;
-    //    item.myStats.agility = iSR.agility;
-    //    item.myStats.willpower = iSR.willpower;
-    //    item.myStats.defense = iSR.defense;
-    //    //item.itemPrefab = iSR.prefab;
-        
-    //    item.baseDamage = iSR.baseDamage;
-    //    item.primaryFireRate = iSR.fireRate;
-        
-    //    item.secondaryProjectile = iSR.nameSec;
-    //    item.secondaryFireRate = iSR.secFireRate;
-    //    item.secondaryForce = iSR.secForce;
-    //    item.secondaryAmountOfProjectiles = iSR.amountProj;
-    //    item.secondaryConeOfFireInDegrees = iSR.coneDegrees;
-        
-    //    item.primaryProjectile = iSR.primaryName;
-    //    item.force = iSR.priForce;
-    //    item.amountOfProjectiles = iSR.priPro;
-    //    item.coneOfFireInDegrees = iSR.priDeg;
-
-    //    newObj.GetComponent<WeaponPrefab>().myItem = item;
-    //}
 
     void SaveItem(Item toSave, string objName)
     {
@@ -340,10 +295,6 @@ public class Inventory : MonoBehaviourPunCallbacks
             }
             return false;
         }
-        //else if(allSlots[currentSlotIndex].slotType == InventorySlot.SlotType.armor && allItems[lastSlotIndex].GetType() == typeof(armor))
-        //{
-        //return true;
-        //}
         return false;
     }
 
@@ -411,65 +362,19 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
     }
 
-}
-[System.Serializable]
-public class ItemSaveRanged
-{
-    //item
-    public string name;
-    public int rarity;
-    //public Sprite image;
-    public int stamina;
-    public int strenght;
-    public int agility;
-    public int willpower;
-    public int defense;
-   // public GameObject prefab;
-
-    //weapon
-    //primary attack
-    public int baseDamage;
-    public float fireRate;
-
-    //secundary attack
-    public string nameSec;
-    public float secFireRate;
-    public float secForce;
-    public int amountProj;
-    public int coneDegrees;
-
-    //weapon_Ranged
-    public string primaryName;
-    public float priForce;
-    public int priPro;
-    public int priDeg;
-
-    public ItemSaveRanged(Weapon_Ranged item)
+    public bool CheckFull()
     {
-        name = item.itemName;
-        rarity = (int)item.itemRarity;
-       // image = item.itemImage;
-        stamina = item.myStats.stamina;
-        strenght = item.myStats.strength;
-        agility = item.myStats.agility;
-        willpower = item.myStats.willpower;
-        defense = item.myStats.defense;
-       // prefab = item.itemPrefab;
-
-        baseDamage = item.baseDamage;
-        fireRate = item.primaryFireRate;
-
-        nameSec = item.secondaryProjectile;
-        secFireRate = item.secondaryFireRate;
-        secForce = item.secondaryForce;
-        amountProj = item.secondaryAmountOfProjectiles;
-        coneDegrees = item.secondaryConeOfFireInDegrees;
-
-        primaryName = item.primaryProjectile;
-        priForce = item.force;
-        priPro = item.amountOfProjectiles;
-        priDeg = item.coneOfFireInDegrees;
+        bool check = true;
+        for (int i = 0; i < allSlots.Count; i++)
+        {
+            if(allSlots[i].slotType == InventorySlot.SlotType.all)
+            {
+                if(allItems[i] == null)
+                {
+                    check = false;
+                }
+            }
+        }
+        return check;
     }
 }
-
-
