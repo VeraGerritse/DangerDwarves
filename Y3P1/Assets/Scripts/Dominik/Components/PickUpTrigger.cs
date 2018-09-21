@@ -1,7 +1,15 @@
 ﻿using UnityEngine;
+using Y3P1;
 
 public class PickUpTrigger : MonoBehaviour
 {
+
+    private WeaponPrefab myWeaponPrefab;
+
+    private void Awake()
+    {
+        myWeaponPrefab = GetComponentInParent<WeaponPrefab>();
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -9,8 +17,10 @@ public class PickUpTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                // Check if inventory has space.
-                GetComponentInParent<WeaponPrefab>().PickUp();
+                if (!Player.localPlayer.myInventory.CheckFull())
+                {
+                    myWeaponPrefab.PickUp();
+                }
             }
         }
     }
