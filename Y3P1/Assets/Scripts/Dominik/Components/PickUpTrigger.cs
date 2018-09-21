@@ -9,6 +9,7 @@ public class PickUpTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                // Check if inventory has space.
                 GetComponentInParent<WeaponPrefab>().PickUp();
             }
         }

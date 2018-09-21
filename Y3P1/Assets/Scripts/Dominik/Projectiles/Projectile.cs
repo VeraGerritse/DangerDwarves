@@ -89,7 +89,6 @@ public class Projectile : MonoBehaviour
         ReturnToPool();
     }
 
-    // Seperate void so that i can Invoke it. Unity Invoke() doesnt support lambdas.
     protected void ReturnToPool()
     {
         if (!string.IsNullOrEmpty(myPoolName))

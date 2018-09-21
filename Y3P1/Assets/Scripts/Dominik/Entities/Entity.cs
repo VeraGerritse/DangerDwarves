@@ -17,12 +17,6 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     private void Awake()
     {
         health.Initialise(this);
-
-        if (stats == null)
-        {
-            stats = new Stats();
-            Debug.LogWarning("Created a new Stats scriptable object for " + transform.root.name + " because one was not assigned.");
-        }
     }
 
     public void Hit(int amount)
