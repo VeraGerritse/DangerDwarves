@@ -63,10 +63,12 @@ public class Inventory : MonoBehaviourPunCallbacks
     [PunRPC]
     private void DropItem(string toDrop,byte[] item)
     {
+        NotificationManager.instance.NewNotification("test1");
         if (PhotonNetwork.IsMasterClient)
         {
+            NotificationManager.instance.NewNotification("test2");
             GameObject insItem = PhotonNetwork.InstantiateSceneObject(toDrop, Player.localPlayer.transform.position, Quaternion.identity);
-
+            NotificationManager.instance.NewNotification("test3");
             int id = insItem.GetComponent<PhotonView>().ViewID;
             photonView.RPC("RI", RpcTarget.AllBuffered, item, id);
         }
@@ -108,8 +110,9 @@ public class Inventory : MonoBehaviourPunCallbacks
 
     void SaveItem(Item toSave, string objName)
     {
+        print("test222222222222222222222222222222222222222222222222");
         byte[] saved = ObjectToByteArray(toSave);
-        photonView.RPC("DropItem", RpcTarget.All, objName, saved);
+        photonView.RPC("DropItem", RpcTarget.AllBuffered, objName, saved);
     }
 
     public void StopDragging()
@@ -130,6 +133,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
         if (currentSlot == null)
         {
+            print("test111111111111111111111111111111111111111111111111111");
             if (allSlots[lastSlotIndex].slotType == InventorySlot.SlotType.weapon)
             {
                 UnequipWeapon(lastSlotIndex);
@@ -311,13 +315,16 @@ public class Inventory : MonoBehaviourPunCallbacks
 
     public void OpenCloseInv()
     {
-        if (GetComponentInParent<Canvas>().enabled == false)
+        if (photonView.IsMine)
         {
-            GetComponentInParent<Canvas>().enabled = true;
-        }
-        else
-        {
-            GetComponentInParent<Canvas>().enabled = false;
+            if (GetComponentInParent<Canvas>().enabled == false)
+            {
+                GetComponentInParent<Canvas>().enabled = true;
+            }
+            else
+            {
+                GetComponentInParent<Canvas>().enabled = false;
+            }
         }
     }
 
