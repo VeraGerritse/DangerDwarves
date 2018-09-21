@@ -141,28 +141,24 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
 
         interactCollider.SetActive(true);
         objectCollider.enabled = true;
-        //rb.isKinematic = false;
-        photonView.RPC("SpawnDroppedItemLabel", RpcTarget.AllBuffered, myItem.itemName, (int)myItem.itemRarity);
+
+        SpawnDroppedItemLabel();
     }
 
-    [PunRPC]
-    private void SpawnDroppedItemLabel(string itemName, int itemRarity)
+    private void SpawnDroppedItemLabel()
     {
         droppedItemLabel = ObjectPooler.instance.GrabFromPool("DroppedItemLabel", transform.position + Vector3.up * 0.5f, Quaternion.identity).GetComponent<DroppedItemLabel>();
-        droppedItemLabel.SetText(itemName, (Item.ItemRarity)itemRarity);
+        droppedItemLabel.SetText(myItem.itemName, myItem.itemRarity);
     }
 
     public void PickUp()
     {
         isDropped = false;
-        print("test2");
+
         interactCollider.SetActive(false);
-        print("test3");
         objectCollider.enabled = false;
-        //rb.isKinematic = true;
-        print("test4");
+
         Player.localPlayer.myInventory.AddItem(myItem);
-        print("test5");
         photonView.RPC("PickUpDestroy", RpcTarget.All);
     }
 

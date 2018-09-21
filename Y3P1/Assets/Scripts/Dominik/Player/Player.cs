@@ -51,6 +51,7 @@ namespace Y3P1
 
             playerCam.Initialize();
             playerController.Initialise();
+            myInventory.Initialise();
 
             DontDestroyOnLoad(gameObject);
         }

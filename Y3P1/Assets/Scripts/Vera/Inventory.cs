@@ -17,6 +17,8 @@ public class Inventory : MonoBehaviourPunCallbacks
     private bool dragging;
     [SerializeField] private Image onMouse;
     [SerializeField] private List<Item> startingItems = new List<Item>();
+    private bool isInitialised;
+
     public void AddSlots()
     {
         allItems.Clear();
@@ -74,9 +76,9 @@ public class Inventory : MonoBehaviourPunCallbacks
     [PunRPC]
     private void RI(byte[] item, int id)
     {
-            GameObject itemIG = PhotonNetwork.GetPhotonView(id).gameObject;
-            itemIG.GetComponent<WeaponPrefab>().myItem = (Item)ByteArrayToObject(item);
-            itemIG.GetComponent<WeaponPrefab>().Drop();
+        GameObject itemIG = PhotonNetwork.GetPhotonView(id).gameObject;
+        itemIG.GetComponent<WeaponPrefab>().myItem = (Item)ByteArrayToObject(item);
+        itemIG.GetComponent<WeaponPrefab>().Drop();
     }
 
     private byte[] ObjectToByteArray(object obj)
@@ -337,6 +339,11 @@ public class Inventory : MonoBehaviourPunCallbacks
     // for testing
     private void Update()
     {
+        if (!isInitialised)
+        {
+            return;
+        }
+
         if (Input.GetButtonDown("Tab"))
         {
             OpenCloseInv();
@@ -374,5 +381,10 @@ public class Inventory : MonoBehaviourPunCallbacks
             }
         }
         return check;
+    }
+
+    public void Initialise()
+    {
+        isInitialised = true;
     }
 }
