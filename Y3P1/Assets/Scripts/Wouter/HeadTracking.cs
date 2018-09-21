@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class HeadTracking : MonoBehaviour {
+public class HeadTracking : MonoBehaviour
+{
 
     public GameObject headbone;
     public Transform target;
@@ -11,43 +10,43 @@ public class HeadTracking : MonoBehaviour {
 
     public bool gettarget;
 
-
-
     private void Start()
     {
         //target = PlayerController.mouseInWorldPos;
-
     }
 
-
-
-    // Update is called once per frame
-    void LateUpdate () {
-
+    private void LateUpdate()
+    {
         if (gettarget)
         {
             targetCords = PlayerController.mouseInWorldPos;
         }
 
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        //Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 toOther = targetCords - transform.position;
 
-        
-        if (Vector3.Dot(forward, toOther) > 0)
-        {
-            Vector3 relativePos = targetCords - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(relativePos);
-            headbone.transform.rotation = rotation;
-        }
-        else
-        {
-            /*
-            Vector3 relativePos = target.position - transform.position;
-            Quaternion rotation = Quaternion.LookRotation(relativePos);
-            headbone.transform.rotation = rotation;
-            */
-        }
-        
+        Vector3 targetFixed = targetCords;
+        targetFixed.y = headbone.transform.position.y;
 
+        float dSqrToTarget = toOther.sqrMagnitude;
+        if (dSqrToTarget > 1.5f)
+        {
+            headbone.transform.LookAt(targetFixed);
+
+            //if (Vector3.Dot(forward, toOther) > 0)
+            //{
+            //    Vector3 relativePos = targetCords - transform.position;
+            //    Quaternion rotation = Quaternion.LookRotation(relativePos);
+            //    headbone.transform.rotation = rotation;
+            //}
+            //else
+            //{
+            //    /*
+            //    Vector3 relativePos = target.position - transform.position;
+            //    Quaternion rotation = Quaternion.LookRotation(relativePos);
+            //    headbone.transform.rotation = rotation;
+            //    */
+            //}
+        }
     }
 }

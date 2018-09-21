@@ -19,6 +19,7 @@ namespace Y3P1
         [HideInInspector] public PlayerCamera playerCam;
         [HideInInspector] public Entity entity;
         [HideInInspector] public Inventory myInventory;
+        [HideInInspector] public DwarfAnimationsScript dwarfAnimController;
         #endregion
 
         private void Awake()
@@ -63,6 +64,7 @@ namespace Y3P1
             entity = GetComponentInChildren<Entity>();
             weaponSlot = GetComponentInChildren<WeaponSlot>();
             myInventory = GetComponentInChildren<Inventory>();
+            dwarfAnimController = GetComponentInChildren<DwarfAnimationsScript>();
         }
 
         private void CreatePlayerUI()

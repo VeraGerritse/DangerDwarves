@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 using System;
+using Y3P1;
 
 public class WeaponSlot : MonoBehaviourPunCallbacks
 {
@@ -68,5 +69,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
             GameObject currentWeaponPrefab = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[currentWeapon.prefabIndex].name, weaponSpawn.position, weaponSpawn.rotation);
             currentWeaponPrefab.transform.SetParent(weaponSpawn);
         }
+
+        Player.localPlayer.dwarfAnimController.myanim.SetBool("AimRanged", weapon != null ? true : false);
     }
 }
