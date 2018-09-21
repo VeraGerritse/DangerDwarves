@@ -30,15 +30,15 @@ public class PlayerController : MonoBehaviour
     private void HandleMovement()
     {
         // Get inputs.
-        float x = Input.GetAxis("Horizontal");
-        float y = Input.GetAxis("Vertical");
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
 
         // Multiply inputs by their corresponding axis.
         Vector3 horizontal = Vector3.right * x;
         Vector3 vertical = Vector3.forward * y;
 
         // Calculate normalized velocity and multiply it by the deltatime and movement speed.
-        Vector3 velocity = (horizontal + vertical).normalized * (Time.deltaTime * moveSpeed);
+        Vector3 velocity = (horizontal + vertical) * (Time.deltaTime * moveSpeed);
 
         // Use built in rigidbody function to move the player.
         // NOTE: MovePosition causes jittery movement! Setting the velocity directly and having interpolate on the rigidbody on works better.
