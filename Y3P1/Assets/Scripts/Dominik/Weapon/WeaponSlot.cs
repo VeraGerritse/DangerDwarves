@@ -10,7 +10,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
 
     public static event Action OnUsePrimary = delegate { };
     public static event Action OnUseSecondary = delegate { };
-    public static event Action OnEquipWeapon = delegate { };
+    public static event Action<Weapon> OnEquipWeapon = delegate { };
 
     private float nextPrimaryTime;
     private float nextSecondaryTime;
@@ -61,7 +61,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
             return;
         }
 
-        OnEquipWeapon();
+        OnEquipWeapon(weapon);
 
         currentWeapon = weapon;
         if (weapon != null)
@@ -69,7 +69,5 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
             GameObject currentWeaponPrefab = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[currentWeapon.prefabIndex].name, weaponSpawn.position, weaponSpawn.rotation);
             currentWeaponPrefab.transform.SetParent(weaponSpawn);
         }
-
-        Player.localPlayer.dwarfAnimController.myanim.SetBool("AimRanged", weapon != null ? true : false);
     }
 }

@@ -75,7 +75,7 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
             weapon.secondaryProjectile == "Arrow_Homing" ? GetClosestTargetViewID() : 9999);
     }
 
-    private void WeaponSlot_OnEquipWeapon()
+    private void WeaponSlot_OnEquipWeapon(Weapon weapon)
     {
         if (isDropped)
         {

@@ -8,7 +8,13 @@ public class DwarfAnimationsScript : MonoBehaviour
     private void Awake()
     {
         WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
-        WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary; 
+        WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
+        WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
+    }
+
+    private void WeaponSlot_OnUsePrimary()
+    {
+        myanim.SetTrigger("FireRanged");
     }
 
     private void WeaponSlot_OnUseSecondary()
@@ -16,14 +22,16 @@ public class DwarfAnimationsScript : MonoBehaviour
         myanim.SetTrigger("FireRanged");
     }
 
-    private void WeaponSlot_OnUsePrimary()
+    private void WeaponSlot_OnEquipWeapon(Weapon weapon)
     {
-        myanim.SetTrigger("FireRanged");
+        myanim.SetBool("AimRanged", weapon != null ? true : false);
     }
+
     private void OnDisable()
     {
         WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
-        WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary; ;
+        WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
+        WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
     }
 
     private void Update()

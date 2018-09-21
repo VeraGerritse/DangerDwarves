@@ -27,11 +27,11 @@ public class PlayerStatusCanvas : MonoBehaviour
         WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
     }
 
-    private void WeaponSlot_OnEquipWeapon()
+    private void WeaponSlot_OnEquipWeapon(Weapon weapon)
     {
-        if (WeaponSlot.currentWeapon != null)
+        if (weapon != null)
         {
-            weaponSecondaryTimer = string.IsNullOrEmpty(WeaponSlot.currentWeapon.secondaryProjectile) ? 0 : 1;
+            weaponSecondaryTimer = string.IsNullOrEmpty(weapon.secondaryProjectile) ? 0 : 1;
         }
     }
 
