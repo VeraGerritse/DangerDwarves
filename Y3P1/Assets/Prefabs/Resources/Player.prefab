@@ -356,7 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74b0bf1f91924a4a97edfe15fcbe141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 300
+  moveSpeed: 200
   body: {fileID: 8623143040424949917}
   mouseHitPlaneLayermask:
     serializedVersion: 2
@@ -1031,5 +1031,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dwarf
       objectReference: {fileID: 0}
+    - target: {fileID: 6058828903743963423, guid: 70b24a5409f08e241989d69f806375df,
+        type: 3}
+      propertyPath: testRB
+      value: 
+      objectReference: {fileID: 1885594642791090232}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70b24a5409f08e241989d69f806375df, type: 3}

@@ -1,19 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class DwarfAnimationsScript : MonoBehaviour {
+public class DwarfAnimationsScript : MonoBehaviour
+{
 
     public Animator myanim;
 
     private void Update()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
 
-        myanim.SetFloat("HorizontalAxis", Input.GetAxis("Horizontal"));
-        myanim.SetFloat("VerticalAxis", Input.GetAxis("Vertical"));
+        Vector3 horizontal = transform.parent.right * x;
+        Vector3 vertical = transform.parent.forward * y;
+
+        Vector3 combinedAxis = horizontal + vertical;
+
+        //horizontal = transform.parent.InverseTransformDirection(horizontal);
+        //vertical = transform.parent.InverseTransformDirection(vertical);
+
+        //NotificationManager.instance.NewNotification(horizontal.ToString() + "   " + vertical.ToString());
+
+        myanim.SetFloat("HorizontalAxis", horizontal.x);
+        myanim.SetFloat("VerticalAxis", vertical.z);
     }
-
-
 }
