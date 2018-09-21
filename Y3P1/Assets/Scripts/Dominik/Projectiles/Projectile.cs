@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private string prefabToSpawnOnDeath;
 
     public event Action<Projectile> OnEntityHit = delegate { };
+    public event Action<Projectile> OnEnvironmentHit = delegate { };
 
     public virtual void Awake()
     {
@@ -48,17 +49,18 @@ public class Projectile : MonoBehaviour
         Entity entity = other.GetComponent<Entity>();
         if (entity)
         {
-            HandleHit(entity);
+            HandleHitEntity(entity);
             return;
         }
 
         if (other.tag == "Environment")
         {
-            ReturnToPool();
+            HandleHitEnvironment();
+            return;
         }
     }
 
-    public virtual void HandleHit(Entity entity)
+    public virtual void HandleHitEntity(Entity entity)
     {
         if (photonView.IsMine)
         {
@@ -81,8 +83,14 @@ public class Projectile : MonoBehaviour
         ReturnToPool();
     }
 
+    public virtual void HandleHitEnvironment()
+    {
+        OnEnvironmentHit(this);
+        ReturnToPool();
+    }
+
     // Seperate void so that i can Invoke it. Unity Invoke() doesnt support lambdas.
-    private void ReturnToPool()
+    protected void ReturnToPool()
     {
         if (!string.IsNullOrEmpty(myPoolName))
         {

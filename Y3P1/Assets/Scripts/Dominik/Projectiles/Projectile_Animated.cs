@@ -4,6 +4,8 @@ using UnityEngine;
 public class Projectile_Animated : Projectile
 {
 
+    private int hitProjectiles;
+
     [SerializeField] private List<Projectile> animatedProjectiles = new List<Projectile>();
 
     public override void Awake()
@@ -13,6 +15,7 @@ public class Projectile_Animated : Projectile
         for (int i = 0; i < animatedProjectiles.Count; i++)
         {
             animatedProjectiles[i].OnEntityHit += Projectile_Animated_OnEntityHit;
+            animatedProjectiles[i].OnEnvironmentHit += Projectile_Animated_OnEnvironmentHit;
         }
     }
 
@@ -29,6 +32,27 @@ public class Projectile_Animated : Projectile
 
     private void Projectile_Animated_OnEntityHit(Projectile projectile)
     {
-        projectile.gameObject.SetActive(false);
+        RegisterHit();
+    }
+
+    private void Projectile_Animated_OnEnvironmentHit(Projectile projectile)
+    {
+        RegisterHit();
+    }
+
+    private void RegisterHit()
+    {
+        hitProjectiles++;
+        if (hitProjectiles == animatedProjectiles.Count)
+        {
+            ReturnToPool();
+        }
+    }
+
+    public override void OnDisable()
+    {
+        base.OnDisable();
+
+        hitProjectiles = 0;
     }
 }
