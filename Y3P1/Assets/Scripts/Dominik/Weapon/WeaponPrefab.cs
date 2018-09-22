@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.Collections.Generic;
 using UnityEngine;
 using Y3P1;
 
@@ -14,6 +15,7 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField] private GameObject interactCollider;
     [SerializeField] private Collider objectCollider;
+    [SerializeField] private List<ParticleSystem> weaponRarityParticles = new List<ParticleSystem>();
 
     private void Awake()
     {
@@ -25,9 +27,12 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
             WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
             WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
         }
+
         projectileSpawn = transform.GetChild(0).transform;
         objectCollider = GetComponent<BoxCollider>();
         interactCollider = transform.GetChild(1).gameObject;
+
+        SetRarityParticleColors();
     }
 
     private void WeaponSlot_OnUsePrimary()
@@ -171,6 +176,36 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         droppedItemLabel.anim.SetTrigger("Pickup");
+    }
+
+    private void SetRarityParticleColors()
+    {
+        Color rarityColor = new Color();
+        switch (myItem.itemRarity)
+        {
+            case Item.ItemRarity.common:
+
+                rarityColor = Color.white;
+                break;
+            case Item.ItemRarity.rare:
+
+                rarityColor = Color.blue;
+                break;
+            case Item.ItemRarity.epic:
+
+                rarityColor = Color.magenta;
+                break;
+            case Item.ItemRarity.legendary:
+
+                rarityColor = Color.yellow;
+                break;
+        }
+
+        for (int i = 0; i < weaponRarityParticles.Count; i++)
+        {
+            ParticleSystem.MainModule psMainModule = weaponRarityParticles[i].main;
+            psMainModule.startColor = rarityColor;
+        }
     }
 
     public override void OnDisable()

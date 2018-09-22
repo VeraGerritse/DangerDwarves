@@ -389,6 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 200
+  recoilImpactForce: 5
   body: {fileID: 8623143040424949917}
   mouseHitPlaneLayermask:
     serializedVersion: 2

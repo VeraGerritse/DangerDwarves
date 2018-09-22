@@ -8,12 +8,16 @@ public class PlayerController : MonoBehaviour
     public static Vector3 mouseInWorldPos;
 
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float recoilImpactForce = 5f;
     [SerializeField] Transform body;
     [SerializeField] LayerMask mouseHitPlaneLayermask;
 
     public void Initialise()
     {
         CreateMouseHitPlane();
+
+        WeaponSlot.OnUsePrimary += WeaponSlot_RecoilImpactForce;
+        WeaponSlot.OnUseSecondary += WeaponSlot_RecoilImpactForce;
     }
 
     private void Update()
@@ -69,5 +73,16 @@ public class PlayerController : MonoBehaviour
         mouseHitPlane.transform.localScale = new Vector3(100, 1, 100);
         mouseHitPlane.GetComponent<MeshRenderer>().enabled = false;
         mouseHitPlane.GetComponent<MeshCollider>().convex = true;
+    }
+
+    private void WeaponSlot_RecoilImpactForce()
+    {
+        Player.localPlayer.rb.AddForce(-body.forward * recoilImpactForce, ForceMode.Impulse);
+    }
+
+    private void OnDisable()
+    {
+        WeaponSlot.OnUsePrimary -= WeaponSlot_RecoilImpactForce;
+        WeaponSlot.OnUseSecondary -= WeaponSlot_RecoilImpactForce;
     }
 }
