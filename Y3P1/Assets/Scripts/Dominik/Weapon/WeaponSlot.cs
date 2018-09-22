@@ -11,6 +11,9 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
     public static event Action OnUseSecondary = delegate { };
     public static event Action<Weapon> OnEquipWeapon = delegate { };
 
+    public static event Action<float> OnStartChargeSecondary = delegate { };
+    public static event Action OnStopChargeSecondary = delegate { };
+
     private float nextPrimaryTime;
     private float nextSecondaryTime;
 
@@ -63,6 +66,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
                     {
                         if (!isChargingSecondary)
                         {
+                            OnStartChargeSecondary(currentWeapon.secondaryChargeupTime);
                             isChargingSecondary = true;
                             secondaryChargeCounter = 0;
                         }
@@ -76,6 +80,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
                 {
                     if (isChargingSecondary)
                     {
+                        OnStopChargeSecondary();
                         isChargingSecondary = false;
 
                         if (secondaryChargeCounter >= currentWeapon.secondaryChargeupTime)

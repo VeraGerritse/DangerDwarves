@@ -14,6 +14,7 @@ namespace Y3P1
 
         #region Components
         private PlayerController playerController;
+        private WeaponChargeCanvas weaponChargeCanvas;
         [HideInInspector] public WeaponSlot weaponSlot;
         [HideInInspector] public Rigidbody rb;
         [HideInInspector] public PlayerCamera playerCam;
@@ -34,6 +35,7 @@ namespace Y3P1
             {
                 playerCam.gameObject.SetActive(false);
                 playerController.enabled = false;
+                weaponChargeCanvas.gameObject.SetActive(false);
                 weaponSlot.enabled = false;
                 Destroy(rb);
 
@@ -52,6 +54,7 @@ namespace Y3P1
             playerCam.Initialize();
             playerController.Initialise();
             myInventory.Initialise();
+            weaponChargeCanvas.Initialise();
 
             DontDestroyOnLoad(gameObject);
         }
@@ -59,6 +62,7 @@ namespace Y3P1
         private void GatherPlayerComponents()
         {
             playerController = GetComponentInChildren<PlayerController>();
+            weaponChargeCanvas = GetComponentInChildren<WeaponChargeCanvas>();
             rb = GetComponentInChildren<Rigidbody>();
             playerCam = GetComponentInChildren<PlayerCamera>();
             entity = GetComponentInChildren<Entity>();
