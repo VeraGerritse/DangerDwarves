@@ -180,8 +180,13 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
 
     private void SetRarityParticleColors()
     {
+        if (WeaponSlot.currentWeapon == null)
+        {
+            return;
+        }
+
         Color rarityColor = new Color();
-        switch (myItem.itemRarity)
+        switch (WeaponSlot.currentWeapon.itemRarity)
         {
             case Item.ItemRarity.common:
 
@@ -189,7 +194,7 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
                 break;
             case Item.ItemRarity.rare:
 
-                rarityColor = Color.blue;
+                rarityColor = new Color(0, 0.835f, 1, 1);
                 break;
             case Item.ItemRarity.epic:
 

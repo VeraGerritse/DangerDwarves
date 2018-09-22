@@ -9,6 +9,7 @@ public class WeaponChargeCanvas : MonoBehaviour
     private float chargeTime;
 
     [SerializeField] private Image progressImage;
+    [SerializeField] private Animator progressImageAnim;
 
     public void Initialise()
     {
@@ -24,6 +25,11 @@ public class WeaponChargeCanvas : MonoBehaviour
         {
             currentChargeTime += Time.deltaTime;
             progressImage.fillAmount = currentChargeTime / chargeTime;
+
+            if (progressImage.fillAmount > 0.99f)
+            {
+                progressImageAnim.SetTrigger("FullCharge");
+            }
         }
     }
 
