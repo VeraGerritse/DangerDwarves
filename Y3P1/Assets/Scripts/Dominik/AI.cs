@@ -10,6 +10,8 @@ public class AI : MonoBehaviourPunCallbacks
     private NavMeshAgent agent;
     private Entity entity;
 
+    private bool isInAttackAnim;
+
     public enum BehaviourState { Idle, Chase, Attack };
     public BehaviourState behaviourState;
 
@@ -73,7 +75,10 @@ public class AI : MonoBehaviourPunCallbacks
 
         if (GetDistanceToTarget() > attackDistance)
         {
-            SetState(BehaviourState.Chase);
+            if (!isInAttackAnim)
+            {
+                SetState(BehaviourState.Chase);
+            }
         }
     }
 
