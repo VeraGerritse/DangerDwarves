@@ -107,7 +107,12 @@ public class LootRandomizer : MonoBehaviour {
 
     private float ChargeTime()
     {
-        return Random.Range(0f, 2.0f);
+        int rand = Random.Range(0, 3);
+        if(rand == 0)
+        {
+            return 0;
+        }
+        return Random.Range(0.5f, 1.5f);
     }
 
     private float SecundaryFR()
