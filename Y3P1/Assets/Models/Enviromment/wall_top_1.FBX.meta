@@ -6,21 +6,26 @@ ModelImporter:
     100000: corner
     100002: point
     100004: wall-top
-    100006: //RootNode
+    100006: wall-top001
+    100008: //RootNode
     400000: corner
     400002: point
     400004: wall-top
-    400006: //RootNode
+    400006: wall-top001
+    400008: //RootNode
     2100000: 01 - Default
     2300000: corner
     2300002: point
     2300004: wall-top
+    2300006: wall-top001
     3300000: corner
     3300002: point
     3300004: wall-top
+    3300006: wall-top001
     4300000: corner
     4300002: point
     4300004: wall-top
+    4300006: wall-top001
     7400000: Take 001
     9500000: //RootNode
   externalObjects: {}
