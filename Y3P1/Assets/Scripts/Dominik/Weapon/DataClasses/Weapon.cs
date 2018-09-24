@@ -23,4 +23,16 @@ public abstract class Weapon : Item
     {
         return baseDamage + myStats.willpower;
     }
+
+    public override void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS)
+    {
+        baseDamage = baseDamage_;
+        primaryFireRate = fireRate;
+        secondaryProjectile = sS;
+        secondaryFireRate = sFR;
+        secondaryChargeupTime = charge;
+        secondaryForce = fS;
+        secondaryAmountOfProjectiles = aS;
+        secondaryConeOfFireInDegrees = dS;
+    }
 }

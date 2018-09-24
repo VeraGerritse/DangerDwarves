@@ -45,6 +45,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSprites: []
   allGameobjects: []
+  secundaryAttacks:
+  - 
+  - Arrow_Homing
+  - Arrow_Volley
+  - Arrow_Explosive
+  - Arrow_Animated
+  primaryAttacks: []
   crossbowNames:
   - Bow
   - Crossbow

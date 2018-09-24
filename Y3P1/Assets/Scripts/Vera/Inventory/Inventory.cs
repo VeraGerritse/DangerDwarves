@@ -344,15 +344,107 @@ public class Inventory : MonoBehaviourPunCallbacks
             return;
         }
 
+        if(currentSlot != null)
+        {
+            if (Input.GetButtonDown("Fire2"))
+            {
+                int index = 0;
+                for (int i = 0; i < allSlots.Count; i++)
+                {
+                    if(currentSlot == allSlots[i])
+                    {
+                        index = i;
+                    }
+                }
+                if(allItems[index] != null)
+                {
+                    int newSlot = 0;
+                    int type = 0;
+                    if (allItems[index] is Weapon)
+                    {
+                        for (int i = 0; i < allSlots.Count; i++)
+                        {
+                            if (allSlots[i].slotType == InventorySlot.SlotType.weapon)
+                            {
+                                newSlot = i;
+                                type = 1;
+                            }
+                        }
+                    }
+                    else if (allItems[index] is Helmet)
+                    {
+                        for (int i = 0; i < allSlots.Count; i++)
+                        {
+                            if (allSlots[i].slotType == InventorySlot.SlotType.helmet)
+                            {
+                                newSlot = i;
+                                type = 2;
+                            }
+                        }
+                    }
+                    else if (allItems[index] is Trinket)
+                    {
+                        for (int i = 0; i < allSlots.Count; i++)
+                        {
+                            if (allSlots[i].slotType == InventorySlot.SlotType.trinket)
+                            {
+                                newSlot = i;
+                                type = 3;
+                            }
+                        }
+                    }
+                    if(type != 0)
+                    {
+                        if(allItems[newSlot] == null)
+                        {
+
+                        }
+                        Item temp = allItems[index];
+                        allItems[index] = allItems[newSlot];
+                        allItems[newSlot] = temp;
+                        if (type == 1)
+                        {
+                            allSlots[newSlot].EquipWeapon((Weapon)allItems[newSlot]);
+                        }
+                        if (type == 2)
+                        {
+                            //allSlots[newSlot].EquipHelmet((Helmet)allItems[newSlot]);
+                        }
+                        if (type == 3)
+                        {
+                            //allSlots[newSlot].EquipTrinket((Trinket)allItems[newSlot]);
+                        }
+                        if (allItems[newSlot] != null)
+                        {
+                            allSlots[newSlot].EnableImage();
+                            allSlots[newSlot].SetImage(Database.hostInstance.allSprites[allItems[newSlot].spriteIndex]);
+                        }
+                        else
+                        {
+                            allSlots[newSlot].DisableImage();
+                        }
+                        if (allItems[index] != null)
+                        {
+                            allSlots[index].EnableImage();
+                            allSlots[index].SetImage(Database.hostInstance.allSprites[allItems[index].spriteIndex]);
+                        }
+                        else
+                        {
+                            allSlots[index].DisableImage();
+                        }
+                        drag = null;
+                    }            
+                }
+            }
+        }
+
         if (Input.GetButtonDown("Tab"))
         {
             OpenCloseInv();
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            Item test = LootRandomizer.instance.DropLoot();
-            print(test.itemName);
-            AddItem(LootRandomizer.instance.DropLoot());
+            AddItem(LootRandomizer.instance.DropLoot(1));
         }
         if (drag == null)
         {

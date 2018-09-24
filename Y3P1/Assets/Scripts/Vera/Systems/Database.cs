@@ -9,6 +9,11 @@ public class Database : MonoBehaviour {
     public List<GameObject> allGameobjects = new List<GameObject>();
 
     [Header("Weapons")]
+
+    [Header("Attacks")]
+    [SerializeField] private List<string> secundaryAttacks = new List<string>();
+    [SerializeField] private List<string> primaryAttacks = new List<string>();
+
     [Header("Crossbow")]
     [SerializeField] private List<string> crossbowNames = new List<string>();
     public List<Sprite> crossbowSprite = new List<Sprite>();
@@ -48,6 +53,16 @@ public class Database : MonoBehaviour {
         allGameobjects.AddRange(crossbowObject);
     }
 
+    public string GetSecundary(bool legen)
+    {
+        int rand = Random.Range(0, secundaryAttacks.Count);
+        if(legen && rand == 0)
+        {
+            rand = Random.Range(1, secundaryAttacks.Count);
+        }
+        return secundaryAttacks[rand];
+    }
+
     public string GetCrossbowName()
     {
         return crossbowNames[Random.Range(0, crossbowNames.Count)];
@@ -55,11 +70,14 @@ public class Database : MonoBehaviour {
 
     public int GetCrossbowSprite()
     {
-        Sprite mySpri = crossbowSprite[Random.Range(0, crossbowSprite.Count)] ;
+        int randomSpri = Random.Range(0, crossbowSprite.Count);
+        print(randomSpri);
+        Sprite mySpri = crossbowSprite[randomSpri] ;
+        print(mySpri);
         int index = 0;
         for (int i = 0; i < allSprites.Count; i++)
         {
-            if(mySpri = allSprites[i])
+            if(mySpri == allSprites[i])
             {
                 index = i;
             }
