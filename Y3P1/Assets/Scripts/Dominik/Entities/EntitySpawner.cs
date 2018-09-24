@@ -103,13 +103,27 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
 
     private Vector3 GetRandomPos()
     {
-        return new Vector3(transform.position.x + Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + Random.Range(-spawnRange, spawnRange));
+        Vector3 randomPos = new Vector3(transform.position.x + Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + Random.Range(-spawnRange, spawnRange));
+
+        Vector3[] raycastPositions = new Vector3[]
+        {
+            randomPos + Vector3.up * 1,
+            randomPos + Vector3.up * 1 + Vector3.right * 0.3f,
+            randomPos + Vector3.up * 1 + -Vector3.right * 0.3f,
+            randomPos + Vector3.up * 1 + Vector3.forward * 0.3f,
+            randomPos + Vector3.up * 1 + -Vector3.forward * 0.3f
+        };
+
+        return Vector3.zero;
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, spawnTriggerRange);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, spawnRange);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
