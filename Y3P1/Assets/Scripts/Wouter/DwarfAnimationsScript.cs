@@ -5,6 +5,7 @@ public class DwarfAnimationsScript : MonoBehaviour
 
     public Animator myanim;
 
+
     private void Awake()
     {
         WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
@@ -24,7 +25,17 @@ public class DwarfAnimationsScript : MonoBehaviour
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
     {
-        myanim.SetBool("AimRanged", weapon != null ? true : false);
+        if(weapon is Weapon_Ranged)
+        {
+            
+            myanim.SetBool("AimRanged", weapon != null ? true : false);
+        }
+        else if(weapon is Weapon_Melee)
+        {
+            
+            myanim.SetBool("AimRanged", false);
+        }
+        
     }
 
     private void OnDisable()
@@ -36,6 +47,10 @@ public class DwarfAnimationsScript : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetButtonDown("Fire1"))
+        {
+            //myanim.SetTrigger("Melee");
+        }
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
