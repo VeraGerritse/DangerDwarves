@@ -7,6 +7,7 @@ public class HeadTracking : MonoBehaviour
     public Transform target;
     public Vector3 targetCords;
     public Quaternion mystuff;
+    
 
     public bool gettarget;
 

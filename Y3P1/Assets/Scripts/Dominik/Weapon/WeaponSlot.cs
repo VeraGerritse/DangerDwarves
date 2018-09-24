@@ -7,6 +7,8 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
 
     public static Weapon currentWeapon;
 
+    public static bool canAttack;
+
     public static event Action OnUsePrimary = delegate { };
     public static event Action OnUseSecondary = delegate { };
     public static event Action<Weapon> OnEquipWeapon = delegate { };
@@ -31,7 +33,10 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
 
         if (currentWeapon != null)
         {
-            HandleWeaponActions();
+            if (canAttack)
+            {
+                HandleWeaponActions();
+            }
 
             if (isChargingSecondary)
             {

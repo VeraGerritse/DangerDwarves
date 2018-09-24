@@ -22,6 +22,17 @@ public class Item
         prefabIndex = myObj;
         itemLevel = iLevel;
     }
+    
+
+    //public string Information()
+    //{
+    //    string allInfo = itemName + "\n" 
+    //}
+
+    //public string rarityText()
+    //{
+
+    //}
 
     public virtual void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS)
     {

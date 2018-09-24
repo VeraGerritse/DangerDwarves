@@ -63,7 +63,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    private void DropItem(string toDrop,byte[] item,Vector3 pos)
+    private void DropItem(string toDrop, byte[] item, Vector3 pos)
     {
         if (PhotonNetwork.IsMasterClient)
         {
@@ -315,10 +315,12 @@ public class Inventory : MonoBehaviourPunCallbacks
         if (GetComponentInParent<Canvas>().enabled == false)
         {
             GetComponentInParent<Canvas>().enabled = true;
+            WeaponSlot.canAttack = false;
         }
         else
         {
             GetComponentInParent<Canvas>().enabled = false;
+            WeaponSlot.canAttack = true;
         }
     }
 
@@ -344,19 +346,19 @@ public class Inventory : MonoBehaviourPunCallbacks
             return;
         }
 
-        if(currentSlot != null)
+        if (currentSlot != null)
         {
             if (Input.GetButtonDown("Fire2"))
             {
                 int index = 0;
                 for (int i = 0; i < allSlots.Count; i++)
                 {
-                    if(currentSlot == allSlots[i])
+                    if (currentSlot == allSlots[i])
                     {
                         index = i;
                     }
                 }
-                if(allItems[index] != null)
+                if (allItems[index] != null)
                 {
                     int newSlot = 0;
                     int type = 0;
@@ -393,9 +395,9 @@ public class Inventory : MonoBehaviourPunCallbacks
                             }
                         }
                     }
-                    if(type != 0)
+                    if (type != 0)
                     {
-                        if(allItems[newSlot] == null)
+                        if (allItems[newSlot] == null)
                         {
 
                         }
@@ -433,7 +435,7 @@ public class Inventory : MonoBehaviourPunCallbacks
                             allSlots[index].DisableImage();
                         }
                         drag = null;
-                    }            
+                    }
                 }
             }
         }
@@ -463,10 +465,10 @@ public class Inventory : MonoBehaviourPunCallbacks
         bool check = true;
         for (int i = 0; i < allSlots.Count; i++)
         {
-            if(allSlots[i].slotType == InventorySlot.SlotType.all)
+            if (allSlots[i].slotType == InventorySlot.SlotType.all)
             {
                 print(allItems[i]);
-                if(allItems[i] == null)
+                if (allItems[i] == null)
                 {
                     check = false;
                 }
