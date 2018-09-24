@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using Photon.Pun;
+﻿using Photon.Pun;
+using UnityEngine;
 
 public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -103,18 +103,53 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
 
     private Vector3 GetRandomPos()
     {
-        Vector3 randomPos = new Vector3(transform.position.x + Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + Random.Range(-spawnRange, spawnRange));
+        Vector3 validPos = Vector3.zero;
+        bool foundValidPos = false;
+        int tries = 0;
 
-        Vector3[] raycastPositions = new Vector3[]
+        while (!foundValidPos)
         {
-            randomPos + Vector3.up * 1,
-            randomPos + Vector3.up * 1 + Vector3.right * 0.3f,
-            randomPos + Vector3.up * 1 + -Vector3.right * 0.3f,
-            randomPos + Vector3.up * 1 + Vector3.forward * 0.3f,
-            randomPos + Vector3.up * 1 + -Vector3.forward * 0.3f
-        };
+            tries++;
+            if (tries >= 10)
+            {
+                Debug.LogWarning("EntitySpawner couldn't find a valid spawn position in " + tries + " tries so it returned Vector.zero");
+                return validPos;
+            }
 
-        return Vector3.zero;
+            Vector3 randomPos = new Vector3(transform.position.x + Random.Range(-spawnRange, spawnRange), transform.position.y, transform.position.z + Random.Range(-spawnRange, spawnRange));
+
+            Vector3[] raycastPositions = new Vector3[]
+            {
+                randomPos + Vector3.up * 0.2f,
+                randomPos + Vector3.up * 0.2f + Vector3.right * 0.5f,
+                randomPos + Vector3.up * 0.2f + -Vector3.right * 0.5f,
+                randomPos + Vector3.up * 0.2f + Vector3.forward * 0.5f,
+                randomPos + Vector3.up * 0.2f + -Vector3.forward * 0.5f
+            };
+
+            for (int i = 0; i < raycastPositions.Length; i++)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(raycastPositions[i], Vector3.down, out hit))
+                {
+                    if (hit.transform.tag != "Environment")
+                    {
+                        break;
+                    }
+                    else if (hit.transform.tag == "Environment" && i == raycastPositions.Length - 1)
+                    {
+                        foundValidPos = true;
+                        validPos = randomPos;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        return validPos;
     }
 
     private void OnDrawGizmosSelected()
