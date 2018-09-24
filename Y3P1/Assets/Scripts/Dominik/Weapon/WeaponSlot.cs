@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using System;
 using UnityEngine;
+using Y3P1;
 
 public class WeaponSlot : MonoBehaviourPunCallbacks
 {
@@ -49,10 +50,28 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
     {
         if (Input.GetMouseButton(0))
         {
-            if (Time.time >= nextPrimaryTime)
+            if (!isChargingSecondary)
             {
-                nextPrimaryTime = Time.time + currentWeapon.primaryFireRate;
-                OnUsePrimary();
+                if (currentWeapon is Weapon_Ranged)
+                {
+                    if (Time.time >= nextPrimaryTime)
+                    {
+                        nextPrimaryTime = Time.time + currentWeapon.primaryFireRate;
+                        OnUsePrimary();
+                    }
+                }
+                else
+                {
+                    Player.localPlayer.dwarfAnimController.myanim.SetBool("bMelee", true);
+                }
+            }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (currentWeapon is Weapon_Melee)
+            {
+                Player.localPlayer.dwarfAnimController.myanim.SetBool("bMelee", false);
             }
         }
 

@@ -11,6 +11,7 @@ namespace Y3P1
 
         [SerializeField] private GameObject playerUIPrefab;
         [SerializeField] private Vector3 playerUISpawnOffset = new Vector3(0, 3, 0.2f);
+        [SerializeField] private GameObject playerUICam;
 
         #region Components
         private PlayerController playerController;
@@ -34,6 +35,7 @@ namespace Y3P1
             if (!photonView.IsMine)
             {
                 playerCam.gameObject.SetActive(false);
+                playerUICam.SetActive(false);
                 playerController.enabled = false;
                 weaponChargeCanvas.gameObject.SetActive(false);
                 weaponSlot.enabled = false;

@@ -97,6 +97,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5427887951742156569}
+  - component: {fileID: 5356503051685152773}
   m_Layer: 0
   m_Name: Halfwall_1
   m_TagString: Environment
@@ -127,6 +128,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5356503051685152773
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427887951741788985}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0606904, y: 3.6669712, z: 1}
+  m_Center: {x: 0, y: 1.799294, z: 0}
 --- !u!1 &6008221496860078393
 GameObject:
   m_ObjectHideFlags: 0

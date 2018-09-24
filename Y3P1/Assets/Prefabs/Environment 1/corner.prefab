@@ -1,10 +1,28 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &3010529819797161954 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: df98edd93ef70d242bcf4be95ef6c0d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 3010529819797298530}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1132866926982657305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: df98edd93ef70d242bcf4be95ef6c0d8,
     type: 3}
   m_PrefabInstance: {fileID: 1132866926982262681}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8317470731987870873 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: df98edd93ef70d242bcf4be95ef6c0d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 8317470731988270617}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1830712167982731847 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: df98edd93ef70d242bcf4be95ef6c0d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 1830712167983122631}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1169175052414979500
 GameObject:
@@ -19,7 +37,7 @@ GameObject:
   - component: {fileID: 5012752874951702913}
   m_Layer: 0
   m_Name: point (5)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +113,7 @@ GameObject:
   - component: {fileID: 8226073022874505773}
   m_Layer: 0
   m_Name: wall-top001 (2)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,12 +176,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!4 &1830712167982731847 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: df98edd93ef70d242bcf4be95ef6c0d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 1830712167983122631}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2239876335743496051
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +189,7 @@ GameObject:
   - component: {fileID: 2689609325227594536}
   m_Layer: 0
   m_Name: corner (1)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -253,7 +265,7 @@ GameObject:
   - component: {fileID: 6309868837774908738}
   m_Layer: 0
   m_Name: point (10)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -329,7 +341,7 @@ GameObject:
   - component: {fileID: 6051636804042218551}
   m_Layer: 0
   m_Name: point (3)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -392,12 +404,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!4 &3010529819797161954 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: df98edd93ef70d242bcf4be95ef6c0d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 3010529819797298530}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3542293450779832314
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,7 +417,7 @@ GameObject:
   - component: {fileID: 8906846422190767189}
   m_Layer: 0
   m_Name: point (8)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -487,7 +493,7 @@ GameObject:
   - component: {fileID: 6655737784764165098}
   m_Layer: 0
   m_Name: point (1)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -563,7 +569,7 @@ GameObject:
   - component: {fileID: 7425834705227380593}
   m_Layer: 0
   m_Name: wall-top001 (1)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -639,7 +645,7 @@ GameObject:
   - component: {fileID: 2565050582576752688}
   m_Layer: 0
   m_Name: point (2)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -715,7 +721,7 @@ GameObject:
   - component: {fileID: 7437105857084325058}
   m_Layer: 0
   m_Name: point (7)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -787,9 +793,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3393967691582416260}
+  - component: {fileID: 9149810694671361072}
+  - component: {fileID: 3155188535461496055}
   m_Layer: 0
   m_Name: corner
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -825,12 +833,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &8317470731987870873 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: df98edd93ef70d242bcf4be95ef6c0d8,
-    type: 3}
-  m_PrefabInstance: {fileID: 8317470731988270617}
+--- !u!65 &9149810694671361072
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7696252401425962771}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0490236, y: 3.684596, z: 1.0428815}
+  m_Center: {x: 2.1488042, y: 1.8498888, z: -1.4562142}
+--- !u!65 &3155188535461496055
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7696252401425962771}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0320079, y: 3.684596, z: 2.0510795}
+  m_Center: {x: 2.657312, y: 1.8498888, z: -0.9521152}
 --- !u!1 &8524361791443130135
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,7 +872,7 @@ GameObject:
   - component: {fileID: 2093007687700117476}
   m_Layer: 0
   m_Name: point (6)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -920,7 +948,7 @@ GameObject:
   - component: {fileID: 9002796861656690326}
   m_Layer: 0
   m_Name: point (4)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -996,7 +1024,7 @@ GameObject:
   - component: {fileID: 4919215389470270419}
   m_Layer: 0
   m_Name: point (9)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1117,6 +1145,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bd660e67d42e632488bebf29c11f43b9, type: 2}
+    - target: {fileID: 100000, guid: df98edd93ef70d242bcf4be95ef6c0d8, type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df98edd93ef70d242bcf4be95ef6c0d8, type: 3}
 --- !u!1001 &1830712167983122631
@@ -1177,6 +1209,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bd660e67d42e632488bebf29c11f43b9, type: 2}
+    - target: {fileID: 100000, guid: df98edd93ef70d242bcf4be95ef6c0d8, type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df98edd93ef70d242bcf4be95ef6c0d8, type: 3}
 --- !u!1001 &3010529819797298530
@@ -1237,6 +1273,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bd660e67d42e632488bebf29c11f43b9, type: 2}
+    - target: {fileID: 100000, guid: df98edd93ef70d242bcf4be95ef6c0d8, type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df98edd93ef70d242bcf4be95ef6c0d8, type: 3}
 --- !u!1001 &8317470731988270617
@@ -1297,5 +1337,9 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bd660e67d42e632488bebf29c11f43b9, type: 2}
+    - target: {fileID: 100000, guid: df98edd93ef70d242bcf4be95ef6c0d8, type: 3}
+      propertyPath: m_TagString
+      value: Environment
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df98edd93ef70d242bcf4be95ef6c0d8, type: 3}

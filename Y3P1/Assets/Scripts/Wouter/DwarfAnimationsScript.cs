@@ -25,11 +25,8 @@ public class DwarfAnimationsScript : MonoBehaviour
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
     {
-        if (weapon == null)
-        {
-            myanim.SetBool("AimRanged", false);
-            return;
-        }
+        myanim.SetBool("AimRanged", false);
+        myanim.SetBool("bMeleeStance", false);
 
         if (weapon is Weapon_Ranged)
         {
@@ -37,7 +34,7 @@ public class DwarfAnimationsScript : MonoBehaviour
         }
         else if(weapon is Weapon_Melee)
         {
-            myanim.SetBool("AimRanged", false);
+            myanim.SetBool("bMeleeStance", true);
         }
     }
 
