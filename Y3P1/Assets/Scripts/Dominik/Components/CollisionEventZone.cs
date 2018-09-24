@@ -16,6 +16,7 @@ public class CollisionEventZone : MonoBehaviour
     private string lookForTag;
 
     public UnityEvent collisionEvent;
+    [HideInInspector] public Transform eventCaller;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,6 +27,7 @@ public class CollisionEventZone : MonoBehaviour
 
         if (other.tag == lookForTag)
         {
+            eventCaller = other.transform;
             collisionEvent.Invoke();
         }
     }
@@ -39,6 +41,7 @@ public class CollisionEventZone : MonoBehaviour
 
         if (collision.transform.tag == lookForTag)
         {
+            eventCaller = collision.transform;
             collisionEvent.Invoke();
         }
     }

@@ -84,7 +84,6 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
             newEntity.OnDeath += () =>
             {
                 PhotonNetwork.Destroy(newEntity.transform.root.gameObject);
-                //EntityManager.instance.aliveTargets.Remove(newEntity.transform.root.gameObject);
             };
 
             EntityManager.instance.AddToAliveTargets(newEntity);

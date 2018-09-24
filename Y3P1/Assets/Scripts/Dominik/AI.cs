@@ -13,11 +13,23 @@ public class AI : MonoBehaviourPunCallbacks
     public enum BehaviourState { Idle, Chase, Attack };
     public BehaviourState behaviourState;
 
+    [SerializeField] private float attackDistance;
+
+    [Space(10)]
+
+    [SerializeField] private CollisionEventZone initialChaseTrigger;
+
     private void Awake()
     {
         //anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         entity = GetComponent<Entity>();
+
+        initialChaseTrigger.collisionEvent.AddListener(() =>
+        {
+            SetTarget(initialChaseTrigger.eventCaller);
+            initialChaseTrigger.gameObject.SetActive(false);
+        });
     }
 
     private void Update()
@@ -48,14 +60,24 @@ public class AI : MonoBehaviourPunCallbacks
     {
         // Set animator state to walk.
         agent.SetDestination(target.position);
+
+        if (GetDistanceToTarget() < attackDistance)
+        {
+            SetState(BehaviourState.Attack);
+        }
     }
 
     private void HandleAttacking()
     {
         // Set animator state to attack.
+
+        if (GetDistanceToTarget() > attackDistance)
+        {
+            SetState(BehaviourState.Chase);
+        }
     }
 
-    private void SetTarget(Transform target)
+    public void SetTarget(Transform target)
     {
         this.target = target;
         SetState(target ? BehaviourState.Chase : BehaviourState.Idle);
@@ -64,5 +86,11 @@ public class AI : MonoBehaviourPunCallbacks
     private void SetState(BehaviourState state)
     {
         behaviourState = state;
+    }
+
+    private float GetDistanceToTarget()
+    {
+        Vector3 directionToTarget = target.position - transform.position;
+        return directionToTarget.sqrMagnitude;
     }
 }
