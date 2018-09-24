@@ -59,5 +59,8 @@ public class DwarfAnimationsScript : MonoBehaviour
 
         myanim.SetFloat("HorizontalAxis", combinedAxis.x);
         myanim.SetFloat("VerticalAxis", combinedAxis.z);
+
+      
     }
+
 }
