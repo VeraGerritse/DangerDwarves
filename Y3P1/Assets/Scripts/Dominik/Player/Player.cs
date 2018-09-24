@@ -81,7 +81,10 @@ namespace Y3P1
         {
             if (Input.GetKeyDown(KeyCode.T))
             {
-                localPlayer.entity.Hit(-10);
+                if (photonView.IsMine)
+                {
+                    Player.localPlayer.entity.Hit(-10);
+                }
             }
         }
     }
