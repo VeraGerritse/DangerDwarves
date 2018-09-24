@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health:
     isImmortal: 0
-    maxHealth: 100
+    maxHealth: 1500
   stats:
     stamina: 0
     strength: 0
