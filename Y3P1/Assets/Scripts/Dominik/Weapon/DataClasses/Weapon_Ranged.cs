@@ -17,4 +17,10 @@ public class Weapon_Ranged : Weapon
         return baseDamage + myStats.agility;
     }
 
+    public override void StartRanged(float fP, int aP, int dP)
+    {
+        force = fP;
+        amountOfProjectiles = aP;
+        coneOfFireInDegrees = dP;
+    }
 }

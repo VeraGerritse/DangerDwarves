@@ -350,9 +350,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            Item test = LootRandomizer.instance.DropLoot();
-            print(test.itemName);
-            AddItem(LootRandomizer.instance.DropLoot());
+            AddItem(LootRandomizer.instance.DropLoot(1));
         }
         if (drag == null)
         {

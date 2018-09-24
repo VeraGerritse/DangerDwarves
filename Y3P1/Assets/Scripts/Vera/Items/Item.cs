@@ -11,15 +11,26 @@ public class Item
     public Stats myStats;
     // public GameObject itemPrefab;
     public int prefabIndex;
+    public int itemLevel = 1;
 
-
-    public virtual void StartUp(string name, int rarity,int Mysprite,Stats myStat,int myObj)
+    public virtual void StartUp(string name, int rarity,int Mysprite,Stats myStat,int myObj,int iLevel)
     {
         itemName = name;
         itemRarity = (ItemRarity)rarity;
         spriteIndex = Mysprite;
         myStats = myStat;
         prefabIndex = myObj;
+        itemLevel = iLevel;
+    }
+
+    public virtual void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS)
+    {
+
+    }
+
+    public virtual void StartRanged(float fP, int aP, int dP)
+    {
+
     }
 
 }
