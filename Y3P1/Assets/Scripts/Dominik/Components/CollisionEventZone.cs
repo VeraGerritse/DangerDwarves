@@ -15,8 +15,12 @@ public class CollisionEventZone : MonoBehaviour
     [SerializeField]
     private string lookForTag;
 
-    public UnityEvent collisionEvent;
+    public UnityEvent OnCollisionEvent;
     [HideInInspector] public Transform eventCaller;
+
+    [Space(10)]
+    [SerializeField] private KeyCode key;
+    public UnityEvent OnKeyDownEvent;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,7 +32,24 @@ public class CollisionEventZone : MonoBehaviour
         if (other.tag == lookForTag)
         {
             eventCaller = other.transform;
-            collisionEvent.Invoke();
+            OnCollisionEvent.Invoke();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (collisionType != CollisionType.Trigger)
+        {
+            return;
+        }
+
+        if (other.tag == lookForTag)
+        {
+            if (Input.GetKeyDown(key))
+            {
+                eventCaller = other.transform;
+                OnKeyDownEvent.Invoke();
+            }
         }
     }
 
@@ -42,7 +63,7 @@ public class CollisionEventZone : MonoBehaviour
         if (collision.transform.tag == lookForTag)
         {
             eventCaller = collision.transform;
-            collisionEvent.Invoke();
+            OnCollisionEvent.Invoke();
         }
     }
 }

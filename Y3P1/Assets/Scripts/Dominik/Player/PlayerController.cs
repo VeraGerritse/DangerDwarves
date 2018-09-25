@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float recoilImpactForce = 5f;
     [SerializeField] private LayerMask mouseHitPlaneLayermask;
+    [SerializeField] private LayerMask heightCheckLayermask;
 
     public void Initialise()
     {
@@ -45,6 +46,18 @@ public class PlayerController : MonoBehaviour
         // NOTE: MovePosition causes jittery movement! Setting the velocity directly and having interpolate on the rigidbody on works better.
         //Player.localPlayer.rb.MovePosition(transform.position + velocity);
         Player.localPlayer.rb.velocity = velocity + (Vector3.down * 2);
+
+        //RaycastHit hit;
+        //if (Physics.Raycast(transform.position, -transform.up, out hit, 5, heightCheckLayermask))
+        //{
+        //    if (hit.transform.tag == "Environment")
+        //    {
+        //        Player.localPlayer.transform.position = new Vector3(Player.localPlayer.transform.position.x, hit.point.y, Player.localPlayer.transform.position.z);
+        //        //Player.localPlayer.transform.position = Vector3.Lerp(Player.localPlayer.transform.position, 
+        //        //    new Vector3(Player.localPlayer.transform.position.x, hit.point.y, Player.localPlayer.transform.position.z),
+        //        //    Time.deltaTime * moveSpeed);
+        //    }
+        //}
     }
 
     // Gets the position of a raycast firing from the camera in the direction of the mouse and onto an invisible plane and uses that position for the player to rotate towards.

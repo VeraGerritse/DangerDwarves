@@ -57,6 +57,11 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    public void TriggerSpawnManual()
+    {
+        TriggerSpawn();
+    }
+
     private void TriggerSpawn()
     {
         canSpawn = false;

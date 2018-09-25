@@ -27,7 +27,7 @@ public class AI : MonoBehaviourPunCallbacks
         agent = GetComponent<NavMeshAgent>();
         entity = GetComponent<Entity>();
 
-        initialChaseTrigger.collisionEvent.AddListener(() =>
+        initialChaseTrigger.OnCollisionEvent.AddListener(() =>
         {
             SetTarget(initialChaseTrigger.eventCaller);
             initialChaseTrigger.gameObject.SetActive(false);

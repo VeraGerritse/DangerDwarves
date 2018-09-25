@@ -696,8 +696,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 5
-  InstantiationId: 5
+  viewIdField: 9
+  InstantiationId: 9
   isRuntimeInstantiated: 0
 --- !u!1 &8464704438644112518
 GameObject:
@@ -797,6 +797,9 @@ MonoBehaviour:
   mouseHitPlaneLayermask:
     serializedVersion: 2
     m_Bits: 2048
+  heightCheckLayermask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &5596208458096280941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -816,8 +819,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 2140086444260932015}
-  viewIdField: 6
-  InstantiationId: 6
+  viewIdField: 14
+  InstantiationId: 14
   isRuntimeInstantiated: 0
 --- !u!114 &2140086444260932015
 MonoBehaviour:
@@ -1046,8 +1049,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 3668461740091435899}
-  viewIdField: 1
-  InstantiationId: 1
+  viewIdField: 10
+  InstantiationId: 10
   isRuntimeInstantiated: 0
 --- !u!114 &3668461740091435899
 MonoBehaviour:
@@ -1135,8 +1138,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 7015515767854335457}
-  viewIdField: 3
-  InstantiationId: 3
+  viewIdField: 11
+  InstantiationId: 11
   isRuntimeInstantiated: 0
 --- !u!114 &7015515767854335457
 MonoBehaviour:
