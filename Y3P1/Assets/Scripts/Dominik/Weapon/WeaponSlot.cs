@@ -54,7 +54,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
                 itemRarity = Item.ItemRarity.legendary,
                 myStats = new Stats(),
                 spriteIndex = 0,
-                prefabIndex = 2,
+                prefabIndex = UnityEngine.Random.Range(2, 4),
                 secondaryProjectile = "Buff_Thorns",
                 secondaryType = Weapon.SecondaryType.Buff,
                 secondaryForce = 0,

@@ -54,6 +54,7 @@ public class Database : MonoBehaviour {
 
         // Heb ff een axe hieraan toegevoegd om melee weapons te testen.
         allGameobjects.AddRange(axeObject);
+        allGameobjects.AddRange(swordObject);
     }
 
     public string GetSecundary(bool legen)

@@ -74,9 +74,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2c396ab04836bc445b9cae6ad436b9d7, type: 3}
   axeObject:
   - {fileID: 5980796425491674147, guid: edce065c4f7d2e64db6390cafb86c7ed, type: 3}
-  swordNames: []
-  swordSprite: []
-  swordObject: []
+  swordNames:
+  - Sword
+  - Greatsword
+  - Great great holy amazing blade
+  swordSprite:
+  - {fileID: 21300000, guid: 1d2acff5fd149f140ad3afc8f644bd11, type: 3}
+  - {fileID: 21300000, guid: 83cc72fd9307d904fac3b34ba6812253, type: 3}
+  - {fileID: 21300000, guid: f3933bdac83aff74f8e3f0a63b15e6a1, type: 3}
+  swordObject:
+  - {fileID: 5980796425491674147, guid: 9dfb24b8158f3504f83310b91b58ed3e, type: 3}
   HelmetNames: []
   HelmetSprite: []
   HelmetObject: []
