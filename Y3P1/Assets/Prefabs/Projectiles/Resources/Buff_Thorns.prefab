@@ -76,7 +76,7 @@ MonoBehaviour:
   selfDestroyTime: 10
   prefabToSpawnOnHit: 
   prefabToSpawnOnDeath: 
-  stayOnPlayer: 1
+  stayOnTarget: 1
 --- !u!114 &9156334626702542129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +170,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Buff_ThornsParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1524229930069568983, guid: 9015ca026e5b1f84b80348bd71164c17,
+        type: 3}
+      propertyPath: viewIdField
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9015ca026e5b1f84b80348bd71164c17, type: 3}

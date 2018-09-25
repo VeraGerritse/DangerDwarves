@@ -4555,6 +4555,7 @@ GameObject:
   - component: {fileID: 6016542620983206156}
   - component: {fileID: 6177380851339161817}
   - component: {fileID: 3693932671327322725}
+  - component: {fileID: 1524229930069568983}
   m_Layer: 10
   m_Name: Buff_ThornsParticle
   m_TagString: Untagged
@@ -9124,7 +9125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myPoolName: 
-  damageRange: 2
+  damageRange: 1.85
   continuousDamage: 1
   damageInterval: 1
   initialiseInParent: 1
@@ -9186,3 +9187,25 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &1524229930069568983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8586123337403472862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 0
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  viewIdField: 1
+  InstantiationId: 1
+  isRuntimeInstantiated: 0

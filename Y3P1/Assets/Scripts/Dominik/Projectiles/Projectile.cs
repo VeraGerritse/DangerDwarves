@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float selfDestroyTime = 5f;
     [SerializeField] private string prefabToSpawnOnHit;
     [SerializeField] private string prefabToSpawnOnDeath;
-    [SerializeField] private bool stayOnPlayer;
+    [SerializeField] private bool stayOnTarget;
 
     public event Action<Projectile> OnFire = delegate { };
     public event Action<Projectile> OnEntityHit = delegate { };
@@ -37,9 +37,9 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        if (stayOnPlayer)
+        if (stayOnTarget)
         {
-            transform.position = Player.localPlayer.transform.position;
+            transform.position = target.position;
         }
     }
 

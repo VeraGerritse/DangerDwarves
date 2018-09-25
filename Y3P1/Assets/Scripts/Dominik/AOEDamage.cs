@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 
-public class AOEDamage : MonoBehaviour 
+public class AOEDamage : MonoBehaviourPunCallbacks
 {
 
     private Collider[] entitiesInRange = new Collider[20];
@@ -53,6 +54,11 @@ public class AOEDamage : MonoBehaviour
 
     private void TriggerAOE(int damage)
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
         int collidersFound = Physics.OverlapSphereNonAlloc(transform.position, damageRange, entitiesInRange);
 
         for (int i = 0; i < collidersFound; i++)

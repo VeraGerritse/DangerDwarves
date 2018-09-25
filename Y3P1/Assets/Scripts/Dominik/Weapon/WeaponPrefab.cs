@@ -100,6 +100,20 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         Weapon weapon = WeaponSlot.currentWeapon;
+
+        int targetID = 9999;
+        switch (weapon.secondaryProjectile)
+        {
+            case "Arrow_Homing":
+
+                targetID = GetClosestTargetViewID();
+                break;
+            case "Buff_Thorns":
+
+                targetID = Player.localPlayer.photonView.ViewID;
+                break;
+        }
+
         photonView.RPC("FireProjectile", RpcTarget.All,
             secondaryType == Weapon.SecondaryType.Attack ? projectileSpawn.position : Player.localPlayer.transform.position,
             secondaryType == Weapon.SecondaryType.Attack ? projectileSpawn.rotation : Player.localPlayer.transform.rotation,
@@ -108,7 +122,7 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
             weapon.CalculateSecondaryDamage(),
             weapon.secondaryAmountOfProjectiles,
             weapon.secondaryConeOfFireInDegrees,
-            weapon.secondaryProjectile == "Arrow_Homing" ? GetClosestTargetViewID() : 9999);
+            targetID);
     }
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
