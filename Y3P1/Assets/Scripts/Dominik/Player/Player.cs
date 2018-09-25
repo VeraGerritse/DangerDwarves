@@ -15,6 +15,7 @@ namespace Y3P1
 
         #region Components
         private WeaponChargeCanvas weaponChargeCanvas;
+        private AnimationEventPrimaryAttack meleeAnimEvent;
         [HideInInspector] public PlayerController playerController;
         [HideInInspector] public WeaponSlot weaponSlot;
         [HideInInspector] public Rigidbody rb;
@@ -28,6 +29,19 @@ namespace Y3P1
         {
             GatherPlayerComponents();
             Initialise();
+        }
+
+        private void GatherPlayerComponents()
+        {
+            playerController = GetComponentInChildren<PlayerController>();
+            weaponChargeCanvas = GetComponentInChildren<WeaponChargeCanvas>();
+            rb = GetComponentInChildren<Rigidbody>();
+            playerCam = GetComponentInChildren<PlayerCamera>();
+            entity = GetComponentInChildren<Entity>();
+            weaponSlot = GetComponentInChildren<WeaponSlot>();
+            myInventory = GetComponentInChildren<Inventory>();
+            dwarfAnimController = GetComponentInChildren<DwarfAnimationsScript>();
+            meleeAnimEvent = GetComponentInChildren<AnimationEventPrimaryAttack>();
         }
 
         private void Initialise()
@@ -57,20 +71,9 @@ namespace Y3P1
             playerController.Initialise();
             myInventory.Initialise();
             weaponChargeCanvas.Initialise();
+            meleeAnimEvent.Initialise();
 
             DontDestroyOnLoad(gameObject);
-        }
-
-        private void GatherPlayerComponents()
-        {
-            playerController = GetComponentInChildren<PlayerController>();
-            weaponChargeCanvas = GetComponentInChildren<WeaponChargeCanvas>();
-            rb = GetComponentInChildren<Rigidbody>();
-            playerCam = GetComponentInChildren<PlayerCamera>();
-            entity = GetComponentInChildren<Entity>();
-            weaponSlot = GetComponentInChildren<WeaponSlot>();
-            myInventory = GetComponentInChildren<Inventory>();
-            dwarfAnimController = GetComponentInChildren<DwarfAnimationsScript>();
         }
 
         private void CreatePlayerUI()
