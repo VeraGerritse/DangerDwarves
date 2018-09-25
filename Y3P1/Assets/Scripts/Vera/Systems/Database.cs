@@ -51,6 +51,9 @@ public class Database : MonoBehaviour {
         allGameobjects.Add(null);
         allSprites.AddRange(crossbowSprite);
         allGameobjects.AddRange(crossbowObject);
+
+        // Heb ff een axe hieraan toegevoegd om melee weapons te testen.
+        allGameobjects.AddRange(axeObject);
     }
 
     public string GetSecundary(bool legen)

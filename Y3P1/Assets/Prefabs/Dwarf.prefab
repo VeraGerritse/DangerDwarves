@@ -1859,6 +1859,7 @@ GameObject:
   - component: {fileID: 6058828902912914228}
   - component: {fileID: 6058828903743963423}
   - component: {fileID: 6058828903743963422}
+  - component: {fileID: 7637474549767302808}
   m_Layer: 0
   m_Name: DwarfRigged
   m_TagString: Untagged
@@ -1915,7 +1916,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headbone: {fileID: 5437344277768844471}
   target: {fileID: 0}
+  targetCords: {x: 0, y: 0, z: 0}
   mystuff: {x: 0, y: 0, z: 0, w: 0}
+  gettarget: 0
 --- !u!114 &6058828903743963423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1945,3 +1948,15 @@ MonoBehaviour:
   ikActive: 1
   rightHandObj: {fileID: 0}
   lookTarget: {fileID: 0}
+--- !u!114 &7637474549767302808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6058828903743963420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea41879eceeded4fa319ce0bb91489c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

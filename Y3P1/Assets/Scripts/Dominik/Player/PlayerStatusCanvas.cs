@@ -35,7 +35,7 @@ public class PlayerStatusCanvas : MonoBehaviour
         }
     }
 
-    private void WeaponSlot_OnUseSecondary()
+    private void WeaponSlot_OnUseSecondary(Weapon.SecondaryType secondaryType)
     {
         weaponSecondaryTimer = 0;
     }

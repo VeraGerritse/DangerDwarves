@@ -99,3 +99,8 @@ MonoBehaviour:
       type: 3}
     poolSize: 25
     autoExpand: 1
+  - poolName: Buff_Thorns
+    poolPrefab: {fileID: 3716037247890611631, guid: 222fa82acb3a40843b8fc460f5e6dfb7,
+      type: 3}
+    poolSize: 10
+    autoExpand: 1

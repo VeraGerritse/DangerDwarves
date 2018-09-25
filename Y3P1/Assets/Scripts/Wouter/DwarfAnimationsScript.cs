@@ -18,7 +18,7 @@ public class DwarfAnimationsScript : MonoBehaviour
         myanim.SetTrigger("FireRanged");
     }
 
-    private void WeaponSlot_OnUseSecondary()
+    private void WeaponSlot_OnUseSecondary(Weapon.SecondaryType secondaryType)
     {
         myanim.SetTrigger("FireRanged");
     }

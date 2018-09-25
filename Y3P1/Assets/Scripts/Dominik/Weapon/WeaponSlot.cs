@@ -11,7 +11,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
     public static bool canAttack;
 
     public static event Action OnUsePrimary = delegate { };
-    public static event Action OnUseSecondary = delegate { };
+    public static event Action<Weapon.SecondaryType> OnUseSecondary = delegate { };
     public static event Action<Weapon> OnEquipWeapon = delegate { };
 
     public static event Action<float> OnStartChargeSecondary = delegate { };
@@ -23,7 +23,8 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
     private bool isChargingSecondary;
     private float secondaryChargeCounter;
 
-    [SerializeField] private Transform weaponSpawn;
+    [SerializeField] private Transform rangedWeaponSpawn;
+    [SerializeField] private Transform meleeWeaponSpawn;
 
     private void Update()
     {
@@ -43,6 +44,25 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
             {
                 secondaryChargeCounter += Time.deltaTime;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            Weapon_Melee newWeapon = new Weapon_Melee()
+            {
+                itemName = "Test",
+                itemRarity = Item.ItemRarity.legendary,
+                myStats = new Stats(),
+                spriteIndex = 0,
+                prefabIndex = 2,
+                secondaryProjectile = "Buff_Thorns",
+                secondaryType = Weapon.SecondaryType.Buff,
+                secondaryForce = 0,
+                secondaryFireRate = 10,
+                attackRange = 1.25f
+            };
+
+            EquipWeapon(newWeapon);
         }
     }
 
@@ -84,7 +104,7 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
                     if (currentWeapon.secondaryChargeupTime == 0)
                     {
                         nextSecondaryTime = Time.time + currentWeapon.secondaryFireRate;
-                        OnUseSecondary();
+                        OnUseSecondary(currentWeapon.secondaryType);
                     }
                     else
                     {
@@ -110,12 +130,17 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
                         if (secondaryChargeCounter >= currentWeapon.secondaryChargeupTime)
                         {
                             nextSecondaryTime = Time.time + currentWeapon.secondaryFireRate;
-                            OnUseSecondary();
+                            OnUseSecondary(currentWeapon.secondaryType);
                         }
                     }
                 }
             }
         }
+    }
+
+    public void AnimationEventOnUsePrimaryCall()
+    {
+        OnUsePrimary();
     }
 
     public void EquipWeapon(Weapon weapon)
@@ -130,6 +155,8 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
         currentWeapon = weapon;
         if (weapon != null)
         {
+            Transform weaponSpawn = weapon is Weapon_Ranged ? rangedWeaponSpawn : meleeWeaponSpawn;
+
             GameObject currentWeaponPrefab = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[currentWeapon.prefabIndex].name, weaponSpawn.position, weaponSpawn.rotation);
             currentWeaponPrefab.transform.SetParent(weaponSpawn);
         }

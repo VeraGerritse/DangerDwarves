@@ -10,6 +10,8 @@ public abstract class Weapon : Item
 
     [Header("Secondary Attack")]
     public string secondaryProjectile = "Arrow_Animated";
+    public enum SecondaryType { Attack, Buff };
+    public SecondaryType secondaryType;
     [Space(10)]
     public float secondaryFireRate = 3;
     public float secondaryChargeupTime = 1f;

@@ -119,11 +119,11 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
 
             Vector3[] raycastPositions = new Vector3[]
             {
-                randomPos + Vector3.up * 0.2f,
-                randomPos + Vector3.up * 0.2f + Vector3.right * 0.5f,
-                randomPos + Vector3.up * 0.2f + -Vector3.right * 0.5f,
-                randomPos + Vector3.up * 0.2f + Vector3.forward * 0.5f,
-                randomPos + Vector3.up * 0.2f + -Vector3.forward * 0.5f
+                randomPos + Vector3.up * 0.1f,
+                randomPos + Vector3.up * 0.1f + Vector3.right * 0.5f,
+                randomPos + Vector3.up * 0.1f + -Vector3.right * 0.5f,
+                randomPos + Vector3.up * 0.1f + Vector3.forward * 0.5f,
+                randomPos + Vector3.up * 0.1f + -Vector3.forward * 0.5f
             };
 
             for (int i = 0; i < raycastPositions.Length; i++)
@@ -135,7 +135,7 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
                     {
                         break;
                     }
-                    else if (hit.transform.tag == "Environment" && i == raycastPositions.Length - 1)
+                    else if (hit.transform.tag == "Environment" && i == raycastPositions.Length - 1 && Mathf.Abs(transform.position.y - hit.point.y) < 0.1f)
                     {
                         foundValidPos = true;
                         validPos = randomPos;

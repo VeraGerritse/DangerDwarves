@@ -1,22 +1,25 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 using System;
+using Y3P1;
 
 public class Projectile : MonoBehaviour
 {
 
     private Rigidbody rb;
     private PhotonView photonView;
-    protected int damage;
     protected float moveSpeed;
     protected bool hitEntity;
     protected Transform target;
+    [HideInInspector] public int damage;
 
     [SerializeField] private string myPoolName;
     [SerializeField] private float selfDestroyTime = 5f;
     [SerializeField] private string prefabToSpawnOnHit;
     [SerializeField] private string prefabToSpawnOnDeath;
+    [SerializeField] private bool stayOnPlayer;
 
+    public event Action<Projectile> OnFire = delegate { };
     public event Action<Projectile> OnEntityHit = delegate { };
     public event Action<Projectile> OnEnvironmentHit = delegate { };
 
@@ -32,6 +35,14 @@ public class Projectile : MonoBehaviour
         Invoke("ReturnToPool", selfDestroyTime);
     }
 
+    private void Update()
+    {
+        if (stayOnPlayer)
+        {
+            transform.position = Player.localPlayer.transform.position;
+        }
+    }
+
     public virtual void FixedUpdate()
     {
         rb.velocity = transform.forward * moveSpeed;
@@ -42,6 +53,8 @@ public class Projectile : MonoBehaviour
         this.damage = damage;
         target = targetID != 9999 ? PhotonNetwork.GetPhotonView(targetID).transform : null;
         moveSpeed = speed;
+
+        OnFire(this);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -75,7 +88,7 @@ public class Projectile : MonoBehaviour
             AOEDamage aoeComponent = newSpawn.GetComponent<AOEDamage>();
             if (aoeComponent)
             {
-                aoeComponent.TriggerAOE(damage);
+                aoeComponent.Initialise(damage);
             }
         }
 

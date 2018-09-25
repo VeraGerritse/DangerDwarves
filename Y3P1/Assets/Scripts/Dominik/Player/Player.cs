@@ -14,8 +14,8 @@ namespace Y3P1
         [SerializeField] private GameObject playerUICam;
 
         #region Components
-        private PlayerController playerController;
         private WeaponChargeCanvas weaponChargeCanvas;
+        [HideInInspector] public PlayerController playerController;
         [HideInInspector] public WeaponSlot weaponSlot;
         [HideInInspector] public Rigidbody rb;
         [HideInInspector] public PlayerCamera playerCam;

@@ -9,6 +9,7 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
     private Rigidbody rb;
     private bool isDropped;
     private DroppedItemLabel droppedItemLabel;
+    private Collider[] meleeHits = new Collider[15];
 
     public Transform projectileSpawn;
     public Item myItem;
@@ -46,7 +47,8 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
         if (WeaponSlot.currentWeapon is Weapon_Ranged)
         {
             Weapon_Ranged weapon = WeaponSlot.currentWeapon as Weapon_Ranged;
-            photonView.RPC("FireProjectile", RpcTarget.All, projectileSpawn.position,
+            photonView.RPC("FireProjectile", RpcTarget.All,
+                projectileSpawn.position,
                 projectileSpawn.rotation,
                 weapon.primaryProjectile,
                 weapon.force,
@@ -59,10 +61,38 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             Weapon_Melee weapon = WeaponSlot.currentWeapon as Weapon_Melee;
+
+            int collidersFound = Physics.OverlapSphereNonAlloc(transform.position, weapon.attackRange, meleeHits);
+
+            for (int i = 0; i < collidersFound; i++)
+            {
+                Entity entity = meleeHits[i].GetComponent<Entity>();
+                if (entity)
+                {
+                    if (meleeHits[i].transform.parent.tag != "Player")
+                    {
+                        Vector3 toHit = meleeHits[i].transform.position - Player.localPlayer.playerController.body.position;
+                        if (Vector3.Dot(Player.localPlayer.playerController.body.forward, toHit) > 0)
+                        {
+                            entity.Hit(-weapon.CalculatePrimaryDamage());
+                        }
+                    }
+                }
+            }
+
+            //RaycastHit hit;
+            //if (Physics.Raycast(transform.position, Player.localPlayer.playerController.gameObject.transform.forward, out hit, weapon.attackRange))
+            //{
+            //    Entity entity = hit.transform.GetComponent<Entity>();
+            //    if (entity)
+            //    {
+            //        entity.Hit(-weapon.CalculatePrimaryDamage());
+            //    }
+            //}
         }
     }
 
-    private void WeaponSlot_OnUseSecondary()
+    private void WeaponSlot_OnUseSecondary(Weapon.SecondaryType secondaryType)
     {
         if (isDropped)
         {
@@ -70,8 +100,9 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         Weapon weapon = WeaponSlot.currentWeapon;
-        photonView.RPC("FireProjectile", RpcTarget.All, projectileSpawn.position,
-            projectileSpawn.rotation,
+        photonView.RPC("FireProjectile", RpcTarget.All,
+            secondaryType == Weapon.SecondaryType.Attack ? projectileSpawn.position : Player.localPlayer.transform.position,
+            secondaryType == Weapon.SecondaryType.Attack ? projectileSpawn.rotation : Player.localPlayer.transform.rotation,
             weapon.secondaryProjectile,
             weapon.secondaryForce,
             weapon.CalculateSecondaryDamage(),
