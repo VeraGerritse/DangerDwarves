@@ -11,6 +11,7 @@ public class AOEDamage : MonoBehaviourPunCallbacks
 
     [SerializeField] private string myPoolName;
     [SerializeField] private float damageRange = 2;
+    [SerializeField] private float damageMultiplier = 1;
     [SerializeField] private bool continuousDamage;
     [SerializeField] private float damageInterval;
     [SerializeField] private bool initialiseInParent;
@@ -31,9 +32,9 @@ public class AOEDamage : MonoBehaviourPunCallbacks
 
     public void Initialise(int damage)
     {
-        this.damage = damage;
+        this.damage = Mathf.RoundToInt(damage * damageMultiplier);
 
-        TriggerAOE(damage);
+        TriggerAOE(this.damage);
         if (continuousDamage)
         {
             nextDamageTick = Time.time + damageInterval;

@@ -133,6 +133,11 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         PhotonNetwork.Destroy(gameObject);
+
+        if (weapon != null)
+        {
+            myItem = WeaponSlot.currentWeapon;
+        }
     }
 
     [PunRPC]

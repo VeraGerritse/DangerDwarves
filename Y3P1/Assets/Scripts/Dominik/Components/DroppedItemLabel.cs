@@ -36,23 +36,25 @@ public class DroppedItemLabel : MonoBehaviour
         {
             case Item.ItemRarity.common:
 
-                light.color = Color.white;
-                labelText.color = Color.white;
+                light.enabled = false;
                 break;
             case Item.ItemRarity.rare:
 
                 light.color = Color.blue;
                 labelText.color = Color.blue;
+                light.enabled = false;
                 break;
             case Item.ItemRarity.epic:
 
                 light.color = Color.magenta;
                 labelText.color = Color.magenta;
+                light.enabled = false;
                 break;
             case Item.ItemRarity.legendary:
 
                 light.color = Color.yellow;
                 labelText.color = Color.yellow;
+                light.enabled = false;
 
                 legendaryMark.SetActive(true);
                 break;
