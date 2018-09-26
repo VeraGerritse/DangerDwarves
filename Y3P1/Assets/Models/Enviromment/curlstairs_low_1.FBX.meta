@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: aaa19bcfea5431d4aae1bee6c57310f2
+guid: b54eb5c9f303ac44185f2da4cc663ea8
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,7 +8,7 @@ ModelImporter:
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: wallpiller
+    4300000: low
   externalObjects: {}
   materials:
     importMaterials: 1
