@@ -45,25 +45,6 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
                 secondaryChargeCounter += Time.deltaTime;
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Weapon_Melee newWeapon = new Weapon_Melee()
-            {
-                itemName = "Test",
-                itemRarity = Item.ItemRarity.legendary,
-                myStats = new Stats(),
-                spriteIndex = 0,
-                prefabIndex = UnityEngine.Random.Range(2, 4),
-                secondaryProjectile = "Buff_Thorns",
-                secondaryType = Weapon.SecondaryType.Buff,
-                secondaryForce = 0,
-                secondaryFireRate = 10,
-                attackRange = 1.25f
-            };
-
-            EquipWeapon(newWeapon);
-        }
     }
 
     private void HandleWeaponActions()

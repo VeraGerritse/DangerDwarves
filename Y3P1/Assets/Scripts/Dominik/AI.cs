@@ -2,31 +2,37 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AI : MonoBehaviourPunCallbacks
+public class AI : MonoBehaviourPunCallbacks, IPunObservable
 {
 
-    private Animator anim;
     private Transform target;
     private NavMeshAgent agent;
     private Entity entity;
 
+    private bool canAttack = true;
+    private bool canLookAtTarget = true;
     private bool isInAttackAnim;
 
     public enum BehaviourState { Idle, Chase, Attack };
     public BehaviourState behaviourState;
 
     [SerializeField] private float attackDistance;
+    [SerializeField] private float attackRangeLookAtSpeed;
 
     [Space(10)]
 
+    [SerializeField] private Animator anim;
     [SerializeField] private CollisionEventZone initialChaseTrigger;
 
     private void Awake()
     {
-        //anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        entity = GetComponent<Entity>();
-        //entity.OnHitEvent.AddListener(() => { AggroClosestPlayerOnHit(); });
+        entity = GetComponentInChildren<Entity>();
+        entity.OnHitEvent.AddListener(() =>
+        {
+            AggroClosestPlayerOnHit();
+            anim.SetTrigger("Hit");
+        });
 
         initialChaseTrigger.OnCollisionEvent.AddListener(() =>
         {
@@ -56,12 +62,12 @@ public class AI : MonoBehaviourPunCallbacks
 
     private void HandleIdling()
     {
-        // Set animator state to idle.
+        anim.SetBool("Is Walking", false);
     }
 
     private void HandleChasing()
     {
-        // Set animator state to walk.
+        anim.SetBool("Is Walking", true);
         agent.SetDestination(target.position);
 
         if (GetDistanceToTarget() < attackDistance)
@@ -72,15 +78,40 @@ public class AI : MonoBehaviourPunCallbacks
 
     private void HandleAttacking()
     {
-        // Set animator state to attack.
+        anim.SetBool("Is Walking", false);
+
+        if (canLookAtTarget)
+        {
+            Vector3 toTarget = target.position - transform.position;
+            Quaternion newRotation = Quaternion.LookRotation(toTarget);
+            transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * attackRangeLookAtSpeed);
+        }
+
+        if (canAttack)
+        {
+            Attack();
+        }
 
         if (GetDistanceToTarget() > attackDistance)
         {
-            if (!isInAttackAnim)
-            {
+            //if (canAttack)
+            //{
                 SetState(BehaviourState.Chase);
-            }
+            //}
         }
+    }
+
+    private void Attack()
+    {
+        canAttack = false;
+        //canLookAtTarget = false;
+        anim.SetTrigger("Attacck");
+    }
+
+    public void EndAttack()
+    {
+        canAttack = true;
+        canLookAtTarget = true;
     }
 
     private void AggroClosestPlayerOnHit()
@@ -113,5 +144,19 @@ public class AI : MonoBehaviourPunCallbacks
         target = null;
         initialChaseTrigger.gameObject.SetActive(true);
         behaviourState = BehaviourState.Idle;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(canAttack);
+            stream.SendNext(canLookAtTarget);
+        }
+        else
+        {
+            canAttack = (bool)stream.ReceiveNext();
+            canLookAtTarget = (bool)stream.ReceiveNext();
+        }
     }
 }
