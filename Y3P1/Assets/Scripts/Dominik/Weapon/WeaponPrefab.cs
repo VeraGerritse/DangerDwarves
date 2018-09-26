@@ -75,6 +75,11 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
                         if (Vector3.Dot(Player.localPlayer.playerController.body.forward, toHit) > 0)
                         {
                             entity.Hit(-weapon.CalculatePrimaryDamage());
+
+                            if (weapon.knockBack > 0)
+                            {
+                                entity.transform.parent.GetComponent<Rigidbody>().AddForce(toHit * weapon.knockBack, ForceMode.Impulse);
+                            }
                         }
                     }
                 }
