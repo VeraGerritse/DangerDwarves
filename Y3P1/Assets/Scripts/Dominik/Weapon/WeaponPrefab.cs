@@ -1,26 +1,17 @@
 ﻿using Photon.Pun;
-using System.Collections.Generic;
 using UnityEngine;
 using Y3P1;
 
-public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
+public class WeaponPrefab : ItemPrefab
 {
 
-    private Rigidbody rb;
-    private bool isDropped;
-    private DroppedItemLabel droppedItemLabel;
     private Collider[] meleeHits = new Collider[15];
 
     public Transform projectileSpawn;
-    public Item myItem;
 
-    [SerializeField] private GameObject interactCollider;
-    [SerializeField] private Collider objectCollider;
-    [SerializeField] private List<ParticleSystem> weaponRarityParticles = new List<ParticleSystem>();
-
-    private void Awake()
+    protected override void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        base.Awake();
 
         if (photonView.IsMine)
         {
@@ -30,10 +21,6 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         projectileSpawn = transform.GetChild(0).transform;
-        objectCollider = GetComponent<BoxCollider>();
-        interactCollider = transform.GetChild(1).gameObject;
-
-        SetRarityParticleColors();
     }
 
     private void WeaponSlot_OnUsePrimary()
@@ -197,33 +184,6 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
         return bestTarget.GetComponent<PhotonView>().ViewID;
     }
 
-    public void Drop()
-    {
-        isDropped = true;
-
-        interactCollider.SetActive(true);
-        objectCollider.enabled = true;
-
-        SpawnDroppedItemLabel();
-    }
-
-    private void SpawnDroppedItemLabel()
-    {
-        droppedItemLabel = ObjectPooler.instance.GrabFromPool("DroppedItemLabel", transform.position + Vector3.up * 0.5f, Quaternion.identity).GetComponent<DroppedItemLabel>();
-        droppedItemLabel.SetText(myItem.itemName, myItem.itemRarity);
-    }
-
-    public void PickUp()
-    {
-        isDropped = false;
-
-        interactCollider.SetActive(false);
-        objectCollider.enabled = false;
-
-        Player.localPlayer.myInventory.AddItem(myItem);
-        photonView.RPC("PickUpDestroy", RpcTarget.All);
-    }
-
     [PunRPC]
     private void PickUpDestroy()
     {
@@ -235,41 +195,6 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
         droppedItemLabel.anim.SetTrigger("Pickup");
     }
 
-    private void SetRarityParticleColors()
-    {
-        if (WeaponSlot.currentWeapon == null)
-        {
-            return;
-        }
-
-        Color rarityColor = new Color();
-        switch (WeaponSlot.currentWeapon.itemRarity)
-        {
-            case Item.ItemRarity.common:
-
-                rarityColor = Color.white;
-                break;
-            case Item.ItemRarity.rare:
-
-                rarityColor = new Color(0, 0.835f, 1, 1);
-                break;
-            case Item.ItemRarity.epic:
-
-                rarityColor = Color.magenta;
-                break;
-            case Item.ItemRarity.legendary:
-
-                rarityColor = Color.yellow;
-                break;
-        }
-
-        for (int i = 0; i < weaponRarityParticles.Count; i++)
-        {
-            ParticleSystem.MainModule psMainModule = weaponRarityParticles[i].main;
-            psMainModule.startColor = rarityColor;
-        }
-    }
-
     public override void OnDisable()
     {
         if (photonView.IsMine)
@@ -277,22 +202,6 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
             WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
             WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
             WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
-        }
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(isDropped);
-            stream.SendNext(interactCollider.activeInHierarchy);
-            stream.SendNext(objectCollider.enabled);
-        }
-        else
-        {
-            isDropped = (bool)stream.ReceiveNext();
-            interactCollider.SetActive((bool)stream.ReceiveNext());
-            objectCollider.enabled = (bool)stream.ReceiveNext();
         }
     }
 }

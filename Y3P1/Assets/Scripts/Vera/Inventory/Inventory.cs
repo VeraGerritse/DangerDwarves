@@ -80,8 +80,8 @@ public class Inventory : MonoBehaviourPunCallbacks
     private void RI(byte[] item, int id)
     {
         GameObject itemIG = PhotonNetwork.GetPhotonView(id).gameObject;
-        itemIG.GetComponent<WeaponPrefab>().myItem = (Item)ByteArrayToObject(item);
-        itemIG.GetComponent<WeaponPrefab>().Drop();
+        itemIG.GetComponent<ItemPrefab>().myItem = (Item)ByteArrayToObject(item);
+        itemIG.GetComponent<ItemPrefab>().Drop();
     }
 
     private byte[] ObjectToByteArray(object obj)

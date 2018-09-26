@@ -4,11 +4,11 @@ using Y3P1;
 public class PickUpTrigger : MonoBehaviour
 {
 
-    private WeaponPrefab myWeaponPrefab;
+    private ItemPrefab myItemPrefab;
 
     private void Awake()
     {
-        myWeaponPrefab = GetComponentInParent<WeaponPrefab>();
+        myItemPrefab = GetComponentInParent<ItemPrefab>();
     }
 
     private void OnTriggerStay(Collider other)
@@ -20,7 +20,7 @@ public class PickUpTrigger : MonoBehaviour
                 if (!Player.localPlayer.myInventory.CheckFull())
                 {
                     print("test");
-                    myWeaponPrefab.PickUp();
+                    myItemPrefab.PickUp();
                 }
             }
         }

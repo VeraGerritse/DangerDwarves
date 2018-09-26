@@ -173,7 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae917dbffd789743b73c1e7520bf70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpawn: {fileID: 5808629879463845336}
   myItem:
     itemName: 
     itemRarity: 0
@@ -189,6 +188,7 @@ MonoBehaviour:
   interactCollider: {fileID: 365438877656968415}
   objectCollider: {fileID: 2062470117242574286}
   weaponRarityParticles: []
+  projectileSpawn: {fileID: 5808629879463845336}
 --- !u!114 &1045404800596999195
 MonoBehaviour:
   m_ObjectHideFlags: 0
