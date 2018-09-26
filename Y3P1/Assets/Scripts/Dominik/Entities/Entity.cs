@@ -12,7 +12,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     [Space(10)]
 
-    [SerializeField] private UnityEvent OnHitEvent;
+    public UnityEvent OnHitEvent;
 
     private void Awake()
     {

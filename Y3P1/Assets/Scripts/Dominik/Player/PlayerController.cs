@@ -48,13 +48,13 @@ public class PlayerController : MonoBehaviour
         Player.localPlayer.rb.velocity = velocity;
 
         // Check height below player and lerp to that height.
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, -transform.up, out hit, 5, heightCheckLayermask))
-        {
-            Player.localPlayer.transform.position = Vector3.Lerp(Player.localPlayer.transform.position,
-                new Vector3(Player.localPlayer.transform.position.x, hit.point.y + 0.05f, Player.localPlayer.transform.position.z),
-                Time.deltaTime * 8);
-        }
+        //RaycastHit hit;
+        //if (Physics.Raycast(transform.position, -transform.up, out hit, 5, heightCheckLayermask))
+        //{
+        //    Player.localPlayer.transform.position = Vector3.Lerp(Player.localPlayer.transform.position,
+        //        new Vector3(Player.localPlayer.transform.position.x, hit.point.y + 0.05f, Player.localPlayer.transform.position.z),
+        //        Time.deltaTime * 8);
+        //}
     }
 
     // Gets the position of a raycast firing from the camera in the direction of the mouse and onto an invisible plane and uses that position for the player to rotate towards.

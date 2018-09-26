@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
+using Y3P1;
 
 public class EntityManager : MonoBehaviourPunCallbacks
 {
@@ -38,5 +39,27 @@ public class EntityManager : MonoBehaviourPunCallbacks
                 aliveTargets.Add(target);
             }
         }
+    }
+
+    public Transform GetClosestPlayer(Transform origin)
+    {
+        Player[] players = FindObjectsOfType<Player>();
+
+        Transform closestPlayer = null;
+        float closestDistanceSqr = Mathf.Infinity;
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            Vector3 toPlayer = players[i].transform.position - origin.position;
+            float dSqrToTarget = toPlayer.sqrMagnitude;
+
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                closestPlayer = players[i].transform;
+            }
+        }
+
+        return closestPlayer;
     }
 }

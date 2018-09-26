@@ -6468,6 +6468,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: curlstairs_1
       objectReference: {fileID: 0}
+    - target: {fileID: 7374707076012696774, guid: a945feb0320096943b0f1533238e84f9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a945feb0320096943b0f1533238e84f9, type: 3}
 --- !u!1001 &381348369
@@ -15358,6 +15363,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: curlstairs_1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7374707076012696774, guid: a945feb0320096943b0f1533238e84f9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a945feb0320096943b0f1533238e84f9, type: 3}

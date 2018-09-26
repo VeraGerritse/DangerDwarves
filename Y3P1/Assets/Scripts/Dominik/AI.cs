@@ -26,6 +26,7 @@ public class AI : MonoBehaviourPunCallbacks
         //anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         entity = GetComponent<Entity>();
+        entity.OnHitEvent.AddListener(() => AggroClosestPlayerOnHit());
 
         initialChaseTrigger.OnCollisionEvent.AddListener(() =>
         {
@@ -82,6 +83,14 @@ public class AI : MonoBehaviourPunCallbacks
         }
     }
 
+    private void AggroClosestPlayerOnHit()
+    {
+        if (!target)
+        {
+            SetTarget(EntityManager.instance.GetClosestPlayer(transform));
+        }
+    }
+
     public void SetTarget(Transform target)
     {
         this.target = target;
@@ -97,5 +106,12 @@ public class AI : MonoBehaviourPunCallbacks
     {
         Vector3 directionToTarget = target.position - transform.position;
         return directionToTarget.sqrMagnitude;
+    }
+
+    public override void OnDisable()
+    {
+        target = null;
+        initialChaseTrigger.gameObject.SetActive(true);
+        behaviourState = BehaviourState.Idle;
     }
 }
