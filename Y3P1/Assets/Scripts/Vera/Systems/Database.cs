@@ -35,6 +35,7 @@ public class Database : MonoBehaviour {
     public List<Sprite> hammerSprite = new List<Sprite>();
     public List<GameObject> hammerObject = new List<GameObject>();
 
+    [Header("Armor")]
     [Header("Helmet")]
     [SerializeField] private List<string> helmetNames = new List<string>();
     public List<Sprite> helmetSprite = new List<Sprite>();

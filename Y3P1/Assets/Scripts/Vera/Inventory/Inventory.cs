@@ -19,6 +19,9 @@ public class Inventory : MonoBehaviourPunCallbacks
     [SerializeField] private List<Item> startingItems = new List<Item>();
     private bool isInitialised;
 
+    private Stats currentStats;
+    private int averageILevel;
+
     public void AddSlots()
     {
         allItems.Clear();
@@ -331,19 +334,42 @@ public class Inventory : MonoBehaviourPunCallbacks
             if (allItems[i] == null && allSlots[i].CheckSlotType())
             {
                 allItems[i] = toAdd;
-                allSlots[i].SetImage(Database.hostInstance.allSprites[allItems[i].spriteIndex]);
-                allSlots[i].EnableImage();
+                print(Database.hostInstance);
+                print(Database.hostInstance.allSprites.Count);
+                print(allItems[i].spriteIndex);
+                if(Database.hostInstance.allSprites[allItems[i].spriteIndex] != null)
+                {
+                    allSlots[i].SetImage(Database.hostInstance.allSprites[allItems[i].spriteIndex]);
+                    allSlots[i].EnableImage();
+                }
                 break;
             }
         }
     }
 
     // for testing
+    void RemoveAllItems()
+    {
+        for (int i = 0; i < allItems.Count; i++)
+        {
+            if(allSlots[i].slotType == InventorySlot.SlotType.all)
+            {
+                allItems[i] = null;
+                allSlots[i].DisableImage();
+            }
+
+        }
+    }
+
     private void Update()
     {
         if (!isInitialised)
         {
             return;
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            RemoveAllItems();
         }
 
         if(currentSlot != null)
@@ -504,5 +530,55 @@ public class Inventory : MonoBehaviourPunCallbacks
     public void Initialise()
     {
         isInitialised = true;
+    }
+
+    public void CalculateArmor()
+    {
+        Stats together = new Stats();
+        Stats helmet = null;
+        Stats trinket = null;
+        Stats weapon = null;
+
+        int iLevel = 0;
+
+        int helmetSlot = -1;
+        int trinketSlot = -1;
+        int weaponSlot = -1;
+
+        for (int i = 0; i < allSlots.Count; i++)
+        {
+            if (allSlots[i].slotType == InventorySlot.SlotType.helmet)
+            {
+                helmetSlot = i;
+            }
+            if (allSlots[i].slotType == InventorySlot.SlotType.trinket)
+            {
+                trinketSlot = i;
+            }
+            if (allSlots[i].slotType == InventorySlot.SlotType.weapon)
+            {
+                weaponSlot = i;
+            }
+        }
+        if(allItems[helmetSlot] != null)
+        {
+            helmet = allItems[helmetSlot].myStats;
+            iLevel += allItems[helmetSlot].itemLevel;
+        }
+        if (allItems[trinketSlot] != null)
+        {
+            trinket = allItems[trinketSlot].myStats;
+            iLevel += allItems[trinketSlot].itemLevel;
+        }
+        if (allItems[weaponSlot] != null)
+        {
+            weapon = allItems[weaponSlot].myStats;
+            iLevel += allItems[weaponSlot].itemLevel;
+        }
+        if(helmet!= null)
+        {
+            together.agility += helmet.agility;
+        }
+
     }
 }

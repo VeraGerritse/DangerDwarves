@@ -28,6 +28,10 @@ public abstract class Weapon : Item
 
     public override string[] WeaponInfo()
     {
+        if(secondaryProjectile == "")
+        {
+            return null;
+        }
         string[] wI = new string[] { "Secundary: " + secondaryProjectile, "Projectiles in secundary: " + secondaryAmountOfProjectiles.ToString(), "Casting time: " + secondaryChargeupTime.ToString() };
         return wI;
     }

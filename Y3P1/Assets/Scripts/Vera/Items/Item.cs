@@ -32,11 +32,11 @@ public class Item
         string[] newInfo;
         if (myStats != null)
         {
-            newInfo = new string[] { itemName, itemRarity.ToString(), "Itemlevel: " + itemLevel.ToString(), "Stamina: " + myStats.stamina.ToString(), "Strength:" + myStats.strength.ToString(), "Agility: " + myStats.agility.ToString(), "WillPower: " + myStats.willpower.ToString(), "Defence: " + myStats.defense.ToString() };
+            newInfo = new string[] { itemName, RarityInfo(), "Itemlevel: " + itemLevel.ToString(), "Stamina: " + myStats.stamina.ToString(), "Strength:" + myStats.strength.ToString(), "Agility: " + myStats.agility.ToString(), "WillPower: " + myStats.willpower.ToString(), "Defence: " + myStats.defense.ToString() };
         }
         else
         {
-            newInfo = new string[] { itemName, itemRarity.ToString(), "Itemlevel: " + itemLevel.ToString()};
+            newInfo = new string[] { itemName, itemRarity.ToString(), "Item level: " + itemLevel.ToString()};
         }
         return newInfo;
     }
@@ -64,6 +64,23 @@ public class Item
     public virtual string[] MeleeInfo()
     {
         return null;
+    }
+
+    private string RarityInfo()
+    {
+        if(itemRarity == ItemRarity.common)
+        {
+            return "Common";
+        }
+        if(itemRarity == ItemRarity.epic)
+        {
+            return "<color=purple>Epic";
+        }
+        if(itemRarity == ItemRarity.rare)
+        {
+            return "<color=blue>Rare";
+        }
+        return "<color=yellow>Legendary";
     }
 
     public virtual void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS)
