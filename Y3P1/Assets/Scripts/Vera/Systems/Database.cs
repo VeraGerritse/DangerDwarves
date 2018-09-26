@@ -11,7 +11,8 @@ public class Database : MonoBehaviour {
     [Header("Weapons")]
 
     [Header("Attacks")]
-    [SerializeField] private List<string> secundaryAttacks = new List<string>();
+    [SerializeField] private List<string> secundaryRangedAttacks = new List<string>();
+    [SerializeField] private List<string> secundaryMeleeAttacks = new List<string>();
     [SerializeField] private List<string> primaryAttacks = new List<string>();
 
     [Header("Crossbow")]
@@ -29,14 +30,20 @@ public class Database : MonoBehaviour {
     public List<Sprite> swordSprite = new List<Sprite>();
     public List<GameObject> swordObject = new List<GameObject>();
 
+    [Header("Hammer")]
+    [SerializeField] private List<string> hammerNames = new List<string>();
+    public List<Sprite> hammerSprite = new List<Sprite>();
+    public List<GameObject> hammerObject = new List<GameObject>();
+
     [Header("Helmet")]
-    [SerializeField] private List<string> HelmetNames = new List<string>();
-    public List<Sprite> HelmetSprite = new List<Sprite>();
-    public List<GameObject> HelmetObject = new List<GameObject>();
+    [SerializeField] private List<string> helmetNames = new List<string>();
+    public List<Sprite> helmetSprite = new List<Sprite>();
+    public List<GameObject> helmetObject = new List<GameObject>();
 
     [Header("Trinket")]
     [SerializeField] private List<string> trinketNames = new List<string>();
     public List<Sprite> trinketSprite = new List<Sprite>();
+    public List<GameObject> trinketObject = new List<GameObject>();
 
 
 
@@ -49,39 +56,86 @@ public class Database : MonoBehaviour {
         }
         allSprites.Add(null);
         allGameobjects.Add(null);
-        allSprites.AddRange(crossbowSprite);
-        allGameobjects.AddRange(crossbowObject);
 
-        // Heb ff een axe hieraan toegevoegd om melee weapons te testen.
+        allGameobjects.AddRange(crossbowObject);
         allGameobjects.AddRange(axeObject);
         allGameobjects.AddRange(swordObject);
+        allGameobjects.AddRange(hammerObject);
+        allGameobjects.AddRange(helmetObject);
+        allGameobjects.AddRange(trinketObject);
+
+        allSprites.AddRange(crossbowSprite);
+        allSprites.AddRange(axeSprite);
+        allSprites.AddRange(swordSprite);
+        allSprites.AddRange(hammerSprite);
+        allSprites.AddRange(helmetSprite);
+        allSprites.AddRange(trinketSprite);
     }
 
-    public string GetSecundary(bool legen)
+    // secundary's
+
+    public string GetRangedSecundary(bool legen)
     {
-        int rand = Random.Range(0, secundaryAttacks.Count);
+        int rand = Random.Range(0, secundaryRangedAttacks.Count);
         if(legen && rand == 0)
         {
-            rand = Random.Range(1, secundaryAttacks.Count);
+            rand = Random.Range(1, secundaryRangedAttacks.Count);
         }
-        return secundaryAttacks[rand];
+        return secundaryRangedAttacks[rand];
     }
+
+    public string GetMeleeSecundary(bool legen)
+    {
+        int rand = Random.Range(0, secundaryMeleeAttacks.Count);
+        if (legen && rand == 0)
+        {
+            rand = Random.Range(1, secundaryMeleeAttacks.Count);
+        }
+        return secundaryMeleeAttacks[rand];
+    }
+
+    //names
 
     public string GetCrossbowName()
     {
         return crossbowNames[Random.Range(0, crossbowNames.Count)];
     }
 
+    public string GetAxeName()
+    {
+        return axeNames[Random.Range(0, axeNames.Count)];
+    }
+
+    public string GetHammerName()
+    {
+        return hammerNames[Random.Range(0, hammerNames.Count)];
+    }
+
+    public string GetSwordName()
+    {
+        return swordNames[Random.Range(0, swordNames.Count)];
+    }
+
+    public string GetHelmetName()
+    {
+        return helmetNames[Random.Range(0, helmetNames.Count)];
+    }
+
+    public string GetTrinketName()
+    {
+        return trinketNames[Random.Range(0, trinketNames.Count)];
+    }
+
+    //sprites
+
     public int GetCrossbowSprite()
     {
         int randomSpri = Random.Range(0, crossbowSprite.Count);
-        print(randomSpri);
-        Sprite mySpri = crossbowSprite[randomSpri] ;
-        print(mySpri);
+        Sprite mySpri = crossbowSprite[randomSpri];
         int index = 0;
         for (int i = 0; i < allSprites.Count; i++)
         {
-            if(mySpri == allSprites[i])
+            if (mySpri == allSprites[i])
             {
                 index = i;
             }
@@ -89,13 +143,86 @@ public class Database : MonoBehaviour {
         return index;
     }
 
+    public int GetAxeSprite()
+    {
+        Sprite mySpri = axeSprite[Random.Range(0, axeSprite.Count)];
+        int index = 0;
+        for (int i = 0; i < allSprites.Count; i++)
+        {
+            if (mySpri == allSprites[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public int GetSwordSprite()
+    {
+        Sprite mySpri = swordSprite[Random.Range(0, swordSprite.Count)];
+        int index = 0;
+        for (int i = 0; i < allSprites.Count; i++)
+        {
+            if (mySpri == allSprites[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public int GetHammerSprite()
+    {
+        Sprite mySpri = hammerSprite[Random.Range(0, hammerSprite.Count)];
+        int index = 0;
+        for (int i = 0; i < allSprites.Count; i++)
+        {
+            if (mySpri == allSprites[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public int GetHelmetSprite()
+    {
+        Sprite mySpri =  helmetSprite[Random.Range(0, helmetSprite.Count)];
+        int index = 0;
+        for (int i = 0; i < allSprites.Count; i++)
+        {
+            if (mySpri == allSprites[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public int GetTrinketSprite()
+    {
+        Sprite mySpri = swordSprite[Random.Range(0, trinketSprite.Count)];
+        int index = 0;
+        for (int i = 0; i < allSprites.Count; i++)
+        {
+            if (mySpri == allSprites[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    //objects
+
     public int GetCrossbowObject()
     {
+        NotificationManager.instance.NewNotification("aaaaaaaaaaaaaah");
         GameObject myObj = crossbowObject[Random.Range(0, crossbowObject.Count)];
         int index = 0;
         for (int i = 0; i < allGameobjects.Count; i++)
         {
-            if(myObj == allGameobjects[i])
+            if (myObj == allGameobjects[i])
             {
                 index = i;
             }
@@ -103,18 +230,73 @@ public class Database : MonoBehaviour {
         return index;
     }
 
+    public int GetAxeObject()
+    {
+        GameObject myObj = axeObject[Random.Range(0, axeObject.Count)];
+        int index = 0;
+        for (int i = 0; i < allGameobjects.Count; i++)
+        {
+            if (myObj == allGameobjects[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
 
-    //public string GetHelmetName()
-    //{
-    //    return HelmetNames[Random.Range(0, HelmetNames.Count)];
-    //}
+    public int GetSwordObject()
+    {
+        GameObject myObj = swordObject[Random.Range(0, swordObject.Count)];
+        int index = 0;
+        for (int i = 0; i < allGameobjects.Count; i++)
+        {
+            if (myObj == allGameobjects[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
 
-    //public Sprite GetSpriteCrossbow()
-    //{
-    //    return crossbowSprite[Random.Range(0, crossbowSprite.Count)];
-    //}
-    //public string GetWeaponName()
-    //{
-    //    return "weapon";
-    //}
+    public int GetHammerObject()
+    {
+        GameObject myObj = hammerObject[Random.Range(0, hammerObject.Count)];
+        int index = 0;
+        for (int i = 0; i < allGameobjects.Count; i++)
+        {
+            if (myObj == allGameobjects[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public int GetTrinketObject()
+    {
+        GameObject myObj = trinketObject[Random.Range(0, trinketObject.Count)];
+        int index = 0;
+        for (int i = 0; i < allGameobjects.Count; i++)
+        {
+            if (myObj == allGameobjects[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public int GetHelmetObject()
+    {
+        GameObject myObj = helmetObject[Random.Range(0, helmetObject.Count)];
+        int index = 0;
+        for (int i = 0; i < allGameobjects.Count; i++)
+        {
+            if (myObj == allGameobjects[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
 }

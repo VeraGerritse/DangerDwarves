@@ -35,18 +35,124 @@ public class LootRandomizer : MonoBehaviour {
     public Item DropLoot(int currentItemLevel)
     {
         int randomType = Random.Range(0, amountTypes);
+        NotificationManager.instance.NewNotification(randomType.ToString());
         Item newItem = null;
         switch (randomType)
         {
             case 0:
-                newItem = RangedWeapon(currentItemLevel);
+                newItem = LootCrossbow(currentItemLevel);
+                break;
+            case 1:
+                newItem = LootAxe(currentItemLevel);
+                break;
+            case 2:
+                //newItem = LootHammer(currentItemLevel);
+                break;
+            case 3:
+                newItem = LootSword(currentItemLevel);
                 break;
         }     
 
         return newItem;
     }
 
-    private Item RangedWeapon(int currentItemLevel)
+    private Item LootAxe(int currentItemLevel)
+    {
+        Item testItem = new Weapon_Melee();
+        int rarity = Rarity();
+        int nIL = NewItemLevel(rarity, currentItemLevel);
+        int degreesSecun = Degrees();
+        int degreesPri = Degrees();
+        int amountSecun = 1;
+        int amountPrim = 1;
+        if (degreesSecun != 0)
+        {
+            amountSecun = AmountSecun();
+        }
+        if (degreesPri != 0)
+        {
+            amountPrim = AmountPrimary();
+        }
+
+        bool rOL = false;
+        if (rarity >= 2)
+        {
+            rOL = true;
+        }
+
+        //Item Creation XD
+        testItem.StartUp(Database.hostInstance.GetAxeName(), rarity, Database.hostInstance.GetAxeSprite(), new Stats(), Database.hostInstance.GetAxeObject(), nIL);
+        testItem.StartWeapon(BaseDamage(nIL), FireRate(), Database.hostInstance.GetMeleeSecundary(rOL), SecundaryFR(), ChargeTime(), Force(), 1, 0);
+        testItem.StartMelee(Range(), Knockback());
+        //end item creation
+        return testItem;
+    }
+
+    private Item LootSword(int currentItemLevel)
+    {
+        Item testItem = new Weapon_Melee();
+        int rarity = Rarity();
+        int nIL = NewItemLevel(rarity, currentItemLevel);
+        int degreesSecun = Degrees();
+        int degreesPri = Degrees();
+        int amountSecun = 1;
+        int amountPrim = 1;
+        if (degreesSecun != 0)
+        {
+            amountSecun = AmountSecun();
+        }
+        if (degreesPri != 0)
+        {
+            amountPrim = AmountPrimary();
+        }
+
+        bool rOL = false;
+        if (rarity >= 2)
+        {
+            rOL = true;
+        }
+
+        //Item Creation XD
+        testItem.StartUp(Database.hostInstance.GetSwordName(), rarity, Database.hostInstance.GetSwordSprite(), new Stats(), Database.hostInstance.GetSwordObject(), nIL);
+        testItem.StartWeapon(BaseDamage(nIL), FireRate(), Database.hostInstance.GetMeleeSecundary(rOL), SecundaryFR(), ChargeTime(), Force(), 1, 0);
+        testItem.StartMelee(Range(), Knockback());
+        //end item creation
+        return testItem;
+    }
+
+    private Item LootHammer(int currentItemLevel)
+    {
+        Item testItem = new Weapon_Melee();
+        int rarity = Rarity();
+        int nIL = NewItemLevel(rarity, currentItemLevel);
+        int degreesSecun = Degrees();
+        int degreesPri = Degrees();
+        int amountSecun = 1;
+        int amountPrim = 1;
+        if (degreesSecun != 0)
+        {
+            amountSecun = AmountSecun();
+        }
+        if (degreesPri != 0)
+        {
+            amountPrim = AmountPrimary();
+        }
+
+        bool rOL = false;
+        if (rarity >= 2)
+        {
+            rOL = true;
+        }
+
+        //Item Creation XD
+        testItem.StartUp(Database.hostInstance.GetHammerName(), rarity, Database.hostInstance.GetHammerSprite(), new Stats(), Database.hostInstance.GetHammerObject(), nIL);
+        testItem.StartWeapon(BaseDamage(nIL), FireRate(), Database.hostInstance.GetMeleeSecundary(rOL), SecundaryFR(), ChargeTime(), Force(), 1, 0);
+        testItem.StartMelee(Range(), Knockback());
+        //end item creation
+        return testItem;
+    }
+
+    private Item LootCrossbow(int currentItemLevel)
     {
         Item testItem = new Weapon_Ranged();
         int rarity = Rarity();
@@ -72,12 +178,22 @@ public class LootRandomizer : MonoBehaviour {
 
         //Item Creation XD
         testItem.StartUp(Database.hostInstance.GetCrossbowName(), rarity, Database.hostInstance.GetCrossbowSprite(), new Stats(), Database.hostInstance.GetCrossbowObject(),nIL);
-        testItem.StartWeapon(BaseDamage(nIL),FireRate(), Database.hostInstance.GetSecundary(rOL), SecundaryFR(), ChargeTime(), Force(), amountSecun, degreesSecun);
+        testItem.StartWeapon(BaseDamage(nIL),FireRate(), Database.hostInstance.GetRangedSecundary(rOL), SecundaryFR(), ChargeTime(), Force(), amountSecun, degreesSecun);
         testItem.StartRanged(Force(), amountPrim, degreesPri);
         //end item creation
 
         test.Add((Weapon_Ranged)testItem);
         return testItem;
+    }
+
+    private float Range()
+    {
+        return Random.Range(1.7f, 2.5f);
+    }
+
+    private float Knockback()
+    {
+        return Random.Range(10f, 20f);
     }
 
     private int AmountPrimary()

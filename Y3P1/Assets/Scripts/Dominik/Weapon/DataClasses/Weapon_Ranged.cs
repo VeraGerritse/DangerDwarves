@@ -17,6 +17,12 @@ public class Weapon_Ranged : Weapon
         return baseDamage + myStats.agility;
     }
 
+    public override string[] RangedInfo()
+    {
+        string[] rI = new string[] { "Projectiles in primary: " + amountOfProjectiles.ToString() };
+        return rI;
+    }
+
     public override void StartRanged(float fP, int aP, int dP)
     {
         force = fP;
