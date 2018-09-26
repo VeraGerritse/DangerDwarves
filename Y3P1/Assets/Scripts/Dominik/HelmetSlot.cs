@@ -1,43 +1,34 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 
-public class HelmetSlot : MonoBehaviourPunCallbacks
+public class HelmetSlot : EquipmentSlot
 {
 
-    private GameObject equipedHelmet;
     public static Helmet currentHelmet;
 
     [SerializeField] private Transform helmetSpawn;
 
     public void EquipHelmet(Helmet helmet)
     {
-        if (!photonView.IsMine)
+        int[] ids = Equip(helmet, helmetSpawn);
+        currentHelmet = currentEquipment as Helmet;
+        if (currentHelmet != null)
         {
-            return;
-        }
-
-        if (equipedHelmet)
-        {
-            PhotonNetwork.Destroy(equipedHelmet);
-        }
-
-        if (helmet != null)
-        {
-            equipedHelmet = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[helmet.prefabIndex].name, helmetSpawn.position, helmetSpawn.rotation);
-
-            int currentWeaponPrefabID = equipedHelmet.GetComponent<PhotonView>().ViewID;
-            int weaponSpawnID = helmetSpawn.GetComponent<PhotonView>().ViewID;
-
-            photonView.RPC("ParentHelmet", RpcTarget.AllBuffered, currentWeaponPrefabID, weaponSpawnID);
+            ParentEquipment(ids[0], ids[1]);
         }
     }
 
-    [PunRPC]
-    private void ParentHelmet(int helmetID, int parentID)
+    protected override void ParentEquipment(int equipmentID, int parentID)
     {
-        GameObject helmet = PhotonNetwork.GetPhotonView(helmetID).gameObject;
-        helmet.transform.SetParent(PhotonNetwork.GetPhotonView(parentID).transform);
-        helmet.transform.localPosition = Vector3.zero;
-        helmet.transform.localRotation = Quaternion.identity;
+        photonView.RPC("ParentHelmet", RpcTarget.AllBuffered, equipmentID, parentID);
+    }
+
+    [PunRPC]
+    private void ParentHelmet(int equipmentID, int parentID)
+    {
+        GameObject equipment = PhotonNetwork.GetPhotonView(equipmentID).gameObject;
+        equipment.transform.SetParent(PhotonNetwork.GetPhotonView(parentID).transform);
+        equipment.transform.localPosition = Vector3.zero;
+        equipment.transform.localRotation = Quaternion.identity;
     }
 }

@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using Y3P1;
 
-public class WeaponSlot : MonoBehaviourPunCallbacks
+public class WeaponSlot : EquipmentSlot
 {
 
     public static Weapon currentWeapon;
@@ -126,33 +126,27 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
 
     public void EquipWeapon(Weapon weapon)
     {
-        if (!photonView.IsMine)
+        int[] ids = Equip(weapon, weapon is Weapon_Ranged ? rangedWeaponSpawn : meleeWeaponSpawn);
+        currentWeapon = currentEquipment as Weapon;
+        if (currentWeapon != null)
         {
-            return;
+            ParentEquipment(ids[0], ids[1]);
         }
 
         OnEquipWeapon(weapon);
+    }
 
-        currentWeapon = weapon;
-        if (weapon != null)
-        {
-            Transform weaponSpawn = weapon is Weapon_Ranged ? rangedWeaponSpawn : meleeWeaponSpawn;
-
-            GameObject currentWeaponPrefab = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[currentWeapon.prefabIndex].name, weaponSpawn.position, weaponSpawn.rotation);
-
-            int currentWeaponPrefabID = currentWeaponPrefab.GetComponent<PhotonView>().ViewID;
-            int weaponSpawnID = weaponSpawn.GetComponent<PhotonView>().ViewID;
-
-            photonView.RPC("ParentWeapon", RpcTarget.AllBuffered, currentWeaponPrefabID, weaponSpawnID);
-        }
+    protected override void ParentEquipment(int equipmentID, int parentID)
+    {
+        photonView.RPC("ParentWeapon", RpcTarget.AllBuffered, equipmentID, parentID);
     }
 
     [PunRPC]
-    public void ParentWeapon(int weaponID, int parentID)
+    private void ParentWeapon(int equipmentID, int parentID)
     {
-        GameObject weapon = PhotonNetwork.GetPhotonView(weaponID).gameObject;
-        weapon.transform.SetParent(PhotonNetwork.GetPhotonView(parentID).transform);
-        weapon.transform.localPosition = Vector3.zero;
-        weapon.transform.localRotation = Quaternion.identity;
+        GameObject equipment = PhotonNetwork.GetPhotonView(equipmentID).gameObject;
+        equipment.transform.SetParent(PhotonNetwork.GetPhotonView(parentID).transform);
+        equipment.transform.localPosition = Vector3.zero;
+        equipment.transform.localRotation = Quaternion.identity;
     }
 }

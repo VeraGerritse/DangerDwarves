@@ -78,7 +78,11 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
 
                             if (weapon.knockBack > 0)
                             {
-                                entity.transform.parent.GetComponent<Rigidbody>().AddForce(toHit * weapon.knockBack, ForceMode.Impulse);
+                                Rigidbody rb = entity.transform.parent.GetComponent<Rigidbody>();
+                                if (rb)
+                                {
+                                    rb.AddForce(toHit * weapon.knockBack, ForceMode.Impulse);
+                                }
                             }
                         }
                     }
@@ -136,8 +140,6 @@ public class WeaponPrefab : MonoBehaviourPunCallbacks, IPunObservable
         {
             return;
         }
-
-        PhotonNetwork.Destroy(gameObject);
 
         if (weapon != null)
         {
