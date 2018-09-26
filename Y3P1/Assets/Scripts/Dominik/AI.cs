@@ -26,7 +26,7 @@ public class AI : MonoBehaviourPunCallbacks
         //anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         entity = GetComponent<Entity>();
-        entity.OnHitEvent.AddListener(() => AggroClosestPlayerOnHit());
+        //entity.OnHitEvent.AddListener(() => { AggroClosestPlayerOnHit(); });
 
         initialChaseTrigger.OnCollisionEvent.AddListener(() =>
         {
