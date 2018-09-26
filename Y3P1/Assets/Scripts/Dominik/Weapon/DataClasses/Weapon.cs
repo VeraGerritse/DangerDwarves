@@ -26,6 +26,11 @@ public abstract class Weapon : Item
         return baseDamage + myStats.willpower;
     }
 
+    public override string[] WeaponInfo()
+    {
+        string[] wI = new string[] { "Secundary: " + secondaryProjectile, "Projectiles in secundary: " + secondaryAmountOfProjectiles.ToString(), "Casting time: " + secondaryChargeupTime.ToString() };
+        return wI;
+    }
     public override void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS)
     {
         baseDamage = baseDamage_;

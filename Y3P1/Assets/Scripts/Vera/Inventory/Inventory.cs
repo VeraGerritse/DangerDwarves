@@ -346,6 +346,30 @@ public class Inventory : MonoBehaviourPunCallbacks
             return;
         }
 
+        if(currentSlot != null)
+        {
+            int index = -1;
+            for (int i = 0; i < allSlots.Count; i++)
+            {
+                if (currentSlot == allSlots[i])
+                {
+                    index = i;
+                }
+            }
+            if(allItems[index] != null)
+            {
+                allItems[index].SendInfo();
+            }
+            else
+            {
+                StatsInfo.instance.DisablePanel();
+            }
+        }
+        else
+        {
+            StatsInfo.instance.DisablePanel();
+        }
+
         if (currentSlot != null)
         {
             if (Input.GetButtonDown("Fire2"))
