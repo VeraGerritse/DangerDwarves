@@ -158,7 +158,20 @@ public class WeaponSlot : MonoBehaviourPunCallbacks
             Transform weaponSpawn = weapon is Weapon_Ranged ? rangedWeaponSpawn : meleeWeaponSpawn;
 
             GameObject currentWeaponPrefab = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[currentWeapon.prefabIndex].name, weaponSpawn.position, weaponSpawn.rotation);
-            currentWeaponPrefab.transform.SetParent(weaponSpawn);
+
+            int currentWeaponPrefabID = currentWeaponPrefab.GetComponent<PhotonView>().ViewID;
+            int weaponSpawnID = weaponSpawn.GetComponent<PhotonView>().ViewID;
+
+            photonView.RPC("ParentWeapon", RpcTarget.AllBuffered, currentWeaponPrefabID, weaponSpawnID);
         }
+    }
+
+    [PunRPC]
+    public void ParentWeapon(int weaponID, int parentID)
+    {
+        GameObject weapon = PhotonNetwork.GetPhotonView(weaponID).gameObject;
+        weapon.transform.SetParent(PhotonNetwork.GetPhotonView(parentID).transform);
+        weapon.transform.localPosition = Vector3.zero;
+        weapon.transform.localRotation = Quaternion.identity;
     }
 }

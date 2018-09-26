@@ -51,4 +51,5 @@ MonoBehaviour:
   - RI
   - PickUpDestroy
   - SpawnDroppedItemLabel
+  - ParentWeapon
   DisableAutoOpenWizard: 1
