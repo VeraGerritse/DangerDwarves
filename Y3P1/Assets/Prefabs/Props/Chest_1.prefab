@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &7435950947491387115 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 7209a5b57b2b49c4eab7832713a13c84,
+    type: 3}
+  m_PrefabInstance: {fileID: 7435950947491253355}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5893681991196208549
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,7 +21,7 @@ GameObject:
   m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6293882982070942006
 Transform:
@@ -45,12 +51,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.76249164, y: 0.7426362, z: 0.598512}
   m_Center: {x: 0, y: 0.46325445, z: 0}
---- !u!4 &7435950947491387115 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 7209a5b57b2b49c4eab7832713a13c84,
-    type: 3}
-  m_PrefabInstance: {fileID: 7435950947491253355}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7435950947491253355
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -69,5 +69,17 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ee42b479bb93c234f86242780db66179, type: 2}
+    - target: {fileID: 100004, guid: 7209a5b57b2b49c4eab7832713a13c84, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 7209a5b57b2b49c4eab7832713a13c84, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 7209a5b57b2b49c4eab7832713a13c84, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7209a5b57b2b49c4eab7832713a13c84, type: 3}

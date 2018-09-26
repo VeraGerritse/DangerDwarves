@@ -11,6 +11,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private bool canAttack = true;
     private bool canLookAtTarget = true;
+    private bool canMove = true;
     private bool isInAttackAnim;
 
     public enum BehaviourState { Idle, Chase, Attack };
@@ -31,6 +32,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         entity.OnHitEvent.AddListener(() =>
         {
             AggroClosestPlayerOnHit();
+            canMove = false;
             anim.SetTrigger("Hit");
         });
 
@@ -67,8 +69,17 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void HandleChasing()
     {
-        anim.SetBool("Is Walking", true);
-        agent.SetDestination(target.position);
+        if (canMove)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(target.position);
+            anim.SetBool("Is Walking", true);
+        }
+        else
+        {
+            agent.isStopped = true;
+            anim.SetBool("Is Walking", false);
+        }
 
         if (GetDistanceToTarget() < attackDistance)
         {
@@ -96,7 +107,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         {
             //if (canAttack)
             //{
-                SetState(BehaviourState.Chase);
+            SetState(BehaviourState.Chase);
             //}
         }
     }
@@ -112,6 +123,11 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         canAttack = true;
         canLookAtTarget = true;
+    }
+
+    public void ResetCanMove()
+    {
+        canMove = true;
     }
 
     private void AggroClosestPlayerOnHit()
@@ -141,6 +157,10 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnDisable()
     {
+        canAttack = true;
+        canLookAtTarget = true;
+        canMove = true;
+
         target = null;
         initialChaseTrigger.gameObject.SetActive(true);
         behaviourState = BehaviourState.Idle;
@@ -152,11 +172,13 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         {
             stream.SendNext(canAttack);
             stream.SendNext(canLookAtTarget);
+            stream.SendNext(canMove);
         }
         else
         {
             canAttack = (bool)stream.ReceiveNext();
             canLookAtTarget = (bool)stream.ReceiveNext();
+            canMove = (bool)stream.ReceiveNext();
         }
     }
 }
