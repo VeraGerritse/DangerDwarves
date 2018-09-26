@@ -45,19 +45,16 @@ public class PlayerController : MonoBehaviour
         // Use built in rigidbody function to move the player.
         // NOTE: MovePosition causes jittery movement! Setting the velocity directly and having interpolate on the rigidbody on works better.
         //Player.localPlayer.rb.MovePosition(transform.position + velocity);
-        Player.localPlayer.rb.velocity = velocity + (Vector3.down * 2);
+        Player.localPlayer.rb.velocity = velocity;
 
-        //RaycastHit hit;
-        //if (Physics.Raycast(transform.position, -transform.up, out hit, 5, heightCheckLayermask))
-        //{
-        //    if (hit.transform.tag == "Environment")
-        //    {
-        //        Player.localPlayer.transform.position = new Vector3(Player.localPlayer.transform.position.x, hit.point.y, Player.localPlayer.transform.position.z);
-        //        //Player.localPlayer.transform.position = Vector3.Lerp(Player.localPlayer.transform.position, 
-        //        //    new Vector3(Player.localPlayer.transform.position.x, hit.point.y, Player.localPlayer.transform.position.z),
-        //        //    Time.deltaTime * moveSpeed);
-        //    }
-        //}
+        // Check height below player and lerp to that height.
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, -transform.up, out hit, 5, heightCheckLayermask))
+        {
+            Player.localPlayer.transform.position = Vector3.Lerp(Player.localPlayer.transform.position,
+                new Vector3(Player.localPlayer.transform.position.x, hit.point.y + 0.05f, Player.localPlayer.transform.position.z),
+                Time.deltaTime * 8);
+        }
     }
 
     // Gets the position of a raycast firing from the camera in the direction of the mouse and onto an invisible plane and uses that position for the player to rotate towards.

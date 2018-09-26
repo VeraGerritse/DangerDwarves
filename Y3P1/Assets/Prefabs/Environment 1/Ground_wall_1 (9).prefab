@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8661661467338798089}
   - component: {fileID: 8661661467339896521}
   - component: {fileID: 6529917353706583545}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Ground_wall_1 (9)
   m_TagString: Environment
   m_Icon: {fileID: 0}
