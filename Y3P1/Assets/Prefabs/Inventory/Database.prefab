@@ -55,6 +55,8 @@ MonoBehaviour:
   - 
   - Buff_Thorns
   primaryAttacks: []
+  secundaryBuffs:
+  - Buff_Thorns
   crossbowNames:
   - Bow
   - Crossbow

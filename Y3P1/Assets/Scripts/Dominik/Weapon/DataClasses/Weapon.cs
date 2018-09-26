@@ -30,12 +30,12 @@ public abstract class Weapon : Item
     {
         if(secondaryProjectile == "")
         {
-            return null;
+            return new string[] {"damage: <color=red>" + CalculatePrimaryDamage().ToString() };
         }
-        string[] wI = new string[] { "Secundary: " + secondaryProjectile, "Projectiles in secundary: " + secondaryAmountOfProjectiles.ToString(), "Casting time: " + secondaryChargeupTime.ToString() };
+        string[] wI = new string[] { "damage: <color=red>" + CalculatePrimaryDamage().ToString(), "Secondary: " + secondaryProjectile, "Projectiles in secondary: " + secondaryAmountOfProjectiles.ToString(), "Casting time: " + secondaryChargeupTime.ToString() };
         return wI;
     }
-    public override void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS)
+    public override void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS,bool buff)
     {
         baseDamage = baseDamage_;
         primaryFireRate = fireRate;
@@ -45,5 +45,9 @@ public abstract class Weapon : Item
         secondaryForce = fS;
         secondaryAmountOfProjectiles = aS;
         secondaryConeOfFireInDegrees = dS;
+        if (buff)
+        {
+            secondaryType = SecondaryType.Buff;
+        }
     }
 }

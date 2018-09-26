@@ -32,7 +32,7 @@ public class Item
         string[] newInfo;
         if (myStats != null)
         {
-            newInfo = new string[] { itemName, RarityInfo(), "Itemlevel: " + itemLevel.ToString(), "Stamina: " + myStats.stamina.ToString(), "Strength:" + myStats.strength.ToString(), "Agility: " + myStats.agility.ToString(), "WillPower: " + myStats.willpower.ToString(), "Defence: " + myStats.defense.ToString() };
+            newInfo = new string[] { itemName, RarityInfo(), "Item level: " + itemLevel.ToString(), "Stamina: " + myStats.stamina.ToString(), "Strength:" + myStats.strength.ToString(), "Agility: " + myStats.agility.ToString(), "WillPower: " + myStats.willpower.ToString(), "Defence: " + myStats.defense.ToString() };
         }
         else
         {
@@ -83,7 +83,7 @@ public class Item
         return "<color=yellow>Legendary";
     }
 
-    public virtual void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS)
+    public virtual void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS,bool buff)
     {
 
     }

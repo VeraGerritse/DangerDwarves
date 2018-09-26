@@ -20,7 +20,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     private bool isInitialised;
 
     private Stats currentStats;
-    private int averageILevel;
+    private int averageILevel = 1;
 
     public void AddSlots()
     {
@@ -179,10 +179,12 @@ public class Inventory : MonoBehaviourPunCallbacks
         if (allSlots[currentSlotIndex].slotType == InventorySlot.SlotType.weapon)
         {
             allSlots[currentSlotIndex].EquipWeapon(allItems[currentSlotIndex] as Weapon);
+            CalculateArmor();
         }
         else if (allSlots[lastSlotIndex].slotType == InventorySlot.SlotType.weapon)
         {
             allSlots[lastSlotIndex].EquipWeapon(allItems[lastSlotIndex] as Weapon);
+            CalculateArmor();
         }
         drag = null;
         dragging = false;
@@ -457,14 +459,17 @@ public class Inventory : MonoBehaviourPunCallbacks
                         if (type == 1)
                         {
                             allSlots[newSlot].EquipWeapon((Weapon)allItems[newSlot]);
+                            CalculateArmor();
                         }
                         if (type == 2)
                         {
                             //allSlots[newSlot].EquipHelmet((Helmet)allItems[newSlot]);
+                            CalculateArmor();
                         }
                         if (type == 3)
                         {
                             //allSlots[newSlot].EquipTrinket((Trinket)allItems[newSlot]);
+                            CalculateArmor();
                         }
                         if (allItems[newSlot] != null)
                         {
@@ -496,7 +501,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            AddItem(LootRandomizer.instance.DropLoot(1));
+            AddItem(LootRandomizer.instance.DropLoot(averageILevel));
         }
         if (drag == null)
         {
@@ -540,6 +545,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         Stats weapon = null;
 
         int iLevel = 0;
+        
 
         int helmetSlot = -1;
         int trinketSlot = -1;
@@ -565,20 +571,57 @@ public class Inventory : MonoBehaviourPunCallbacks
             helmet = allItems[helmetSlot].myStats;
             iLevel += allItems[helmetSlot].itemLevel;
         }
+        //else
+        //{
+        //    iLevel += 1;
+        //}
         if (allItems[trinketSlot] != null)
         {
             trinket = allItems[trinketSlot].myStats;
             iLevel += allItems[trinketSlot].itemLevel;
         }
+        //else
+        //{
+        //    iLevel += 1;
+        //}
         if (allItems[weaponSlot] != null)
         {
             weapon = allItems[weaponSlot].myStats;
             iLevel += allItems[weaponSlot].itemLevel;
         }
-        if(helmet!= null)
+        else
         {
-            together.agility += helmet.agility;
+            iLevel += 1;
         }
 
+
+        if (helmet!= null)
+        {
+            together.agility    += helmet.agility;
+            together.defense    += helmet.defense;
+            together.stamina    += helmet.stamina;
+            together.strength   += helmet.strength;
+            together.willpower  += helmet.willpower;
+        }
+        if (trinket != null)
+        {
+            together.agility   += trinket.agility;
+            together.defense   += trinket.defense;
+            together.stamina   += trinket.stamina;
+            together.strength  += trinket.strength;
+            together.willpower += trinket.willpower;
+        }
+        if (weapon != null)
+        {
+            together.agility    += weapon.agility;
+            together.defense    += weapon.defense;
+            together.stamina    += weapon.stamina;
+            together.strength   += weapon.strength;
+            together.willpower  += weapon.willpower;
+        }
+
+        currentStats = together;
+        averageILevel = iLevel;
+        NotificationManager.instance.NewNotification(averageILevel.ToString());
     }
 }
