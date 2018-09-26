@@ -52,4 +52,5 @@ MonoBehaviour:
   - PickUpDestroy
   - SpawnDroppedItemLabel
   - ParentWeapon
+  - ParentHelmet
   DisableAutoOpenWizard: 1

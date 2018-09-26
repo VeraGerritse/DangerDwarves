@@ -13,6 +13,8 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     private bool canLookAtTarget = true;
     private bool canMove = true;
     private bool isInAttackAnim;
+    private float moveSpeed;
+    private float slowedSpeed;
 
     public enum BehaviourState { Idle, Chase, Attack };
     public BehaviourState behaviourState;
@@ -29,18 +31,16 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         agent = GetComponent<NavMeshAgent>();
         entity = GetComponentInChildren<Entity>();
-        entity.OnHitEvent.AddListener(() =>
-        {
-            AggroClosestPlayerOnHit();
-            canMove = false;
-            anim.SetTrigger("Hit");
-        });
+        entity.OnHitEvent.AddListener(() => Hit());
 
         initialChaseTrigger.OnCollisionEvent.AddListener(() =>
         {
             SetTarget(initialChaseTrigger.eventCaller);
             initialChaseTrigger.gameObject.SetActive(false);
         });
+
+        moveSpeed = agent.speed;
+        slowedSpeed = 0.2f * moveSpeed;
     }
 
     private void Update()
@@ -125,9 +125,24 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         canLookAtTarget = true;
     }
 
-    public void ResetCanMove()
+    private void Hit()
+    {
+        AggroClosestPlayerOnHit();
+
+        if (behaviourState == BehaviourState.Attack)
+        {
+            canMove = false;
+            //agent.isStopped = false;
+            anim.SetTrigger("Hit");
+            //agent.speed = slowedSpeed;
+        }
+    }
+
+    public void HitEnd()
     {
         canMove = true;
+        //agent.isStopped = true;
+        //agent.speed = moveSpeed;
     }
 
     private void AggroClosestPlayerOnHit()

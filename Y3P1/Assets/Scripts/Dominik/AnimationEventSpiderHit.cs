@@ -12,6 +12,6 @@ public class AnimationEventSpiderHit : MonoBehaviour
 
     public void HitEnd()
     {
-        ai.ResetCanMove();
+        ai.HitEnd();
     }
 }
