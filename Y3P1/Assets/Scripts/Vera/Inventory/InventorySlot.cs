@@ -27,6 +27,22 @@ public class InventorySlot : MonoBehaviour {
         }
     }
 
+    public void EquipTrinket(Trinket toEquip)
+    {
+        if (Player.localPlayer != null)
+        {
+            //Player.localPlayer.trinketSlot.EquipTrinket(toEquip);
+        }
+    }
+
+    public void EquipHelmet(Helmet toEquip)
+    {
+        if (Player.localPlayer != null)
+        {
+            Player.localPlayer.helmetSlot.EquipHelmet(toEquip);
+        }
+    }
+
     public void SetImage(Sprite mySprite)
     {
         print(mySprite);
@@ -76,10 +92,6 @@ public class InventorySlot : MonoBehaviour {
         myItem.color = new Color(255, 255, 255, 1);
     }
 
-    public void Dragging()
-    {
-
-    }
     public void OnMouseExit()
     {
         inventory.SetCurrentSlot(null);
@@ -87,15 +99,6 @@ public class InventorySlot : MonoBehaviour {
         {
 
             inventory.SetLastSlot(this);
-        }
-    }
-
-    public void OnRightClick()
-    {
-        print("Trying to right click");
-        if(Input.GetButtonDown("Fire2"))
-        {
-            print("right clicked");
         }
     }
 }

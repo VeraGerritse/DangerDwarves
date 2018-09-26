@@ -53,6 +53,12 @@ public class LootRandomizer : MonoBehaviour {
             case 3:
                 newItem = LootSword(currentItemLevel);
                 break;
+            case 4:
+                newItem = LootHelmet(currentItemLevel);
+                break;
+            case 5:
+                newItem = LootTrinket(currentItemLevel);
+                break;
         }     
 
         return newItem;
@@ -85,7 +91,7 @@ public class LootRandomizer : MonoBehaviour {
         string secun = Database.hostInstance.GetMeleeSecundary(rOL);
         //Item Creation XD
         testItem.StartUp(Database.hostInstance.GetAxeName(), rarity, Database.hostInstance.GetAxeSprite(), NewStats(nIL), Database.hostInstance.GetAxeObject(), nIL);
-        testItem.StartWeapon(BaseDamage(nIL), FireRate(), secun , SecundaryFR(), ChargeTime(), Force(), 1, 0, Buff(secun));
+        testItem.StartWeapon(BaseDamage(nIL), FireRate(), secun , SecundaryFR(), ChargeTime(), Force(), 1, 0, Buff(secun),Single(secun));
         testItem.StartMelee(Range(), Knockback());
         //end item creation
         return testItem;
@@ -117,7 +123,7 @@ public class LootRandomizer : MonoBehaviour {
         string secun = Database.hostInstance.GetMeleeSecundary(rOL);
         //Item Creation XD
         testItem.StartUp(Database.hostInstance.GetSwordName(), rarity, Database.hostInstance.GetSwordSprite(), NewStats(nIL), Database.hostInstance.GetSwordObject(), nIL);
-        testItem.StartWeapon(BaseDamage(nIL), FireRate(), secun, SecundaryFR(), ChargeTime(), Force(), 1, 0, Buff(secun));
+        testItem.StartWeapon(BaseDamage(nIL), FireRate(), secun, SecundaryFR(), ChargeTime(), Force(), 1, 0, Buff(secun), Single(secun));
         testItem.StartMelee(Range(), Knockback());
         //end item creation
         return testItem;
@@ -149,7 +155,7 @@ public class LootRandomizer : MonoBehaviour {
         string secun = Database.hostInstance.GetMeleeSecundary(rOL);
         //Item Creation XD
         testItem.StartUp(Database.hostInstance.GetHammerName(), rarity, Database.hostInstance.GetHammerSprite(), NewStats(nIL), Database.hostInstance.GetHammerObject(), nIL);
-        testItem.StartWeapon(BaseDamage(nIL), FireRate(), secun, SecundaryFR(), ChargeTime(), Force(), 1, 0, Buff(secun));
+        testItem.StartWeapon(BaseDamage(nIL), FireRate(), secun, SecundaryFR(), ChargeTime(), Force(), 1, 0, Buff(secun), Single(secun));
         testItem.StartMelee(Range(), Knockback());
         //end item creation
         return testItem;
@@ -182,7 +188,7 @@ public class LootRandomizer : MonoBehaviour {
         
         //Item Creation XD
         testItem.StartUp(Database.hostInstance.GetCrossbowName(), rarity, Database.hostInstance.GetCrossbowSprite(), NewStats(nIL), Database.hostInstance.GetCrossbowObject(),nIL);
-        testItem.StartWeapon(BaseDamage(nIL),FireRate(), secun, SecundaryFR(), ChargeTime(), Force(), amountSecun, degreesSecun,Buff(secun));
+        testItem.StartWeapon(BaseDamage(nIL),FireRate(), secun, SecundaryFR(), ChargeTime(), Force(), amountSecun, degreesSecun,Buff(secun), Single(secun));
         testItem.StartRanged(Force(), amountPrim, degreesPri);
         //end item creation
 
@@ -190,11 +196,35 @@ public class LootRandomizer : MonoBehaviour {
         return testItem;
     }
 
+    private Item LootHelmet(int currentItemLevel)
+    {
+        Item testItem = new Helmet();
+        int rarity = Rarity();
+        int nIL = NewItemLevel(rarity, currentItemLevel);
+
+        //Item Creation XD
+        testItem.StartUp(Database.hostInstance.GetHelmetName(), rarity, Database.hostInstance.GetHelmetSprite(), NewStats(nIL), Database.hostInstance.GetHelmetObject(), nIL);
+        //end item creation
+        return testItem;
+    }
+
+    private Item LootTrinket(int currentItemLevel)
+    {
+        Item testItem = new Trinket();
+        int rarity = Rarity();
+        int nIL = NewItemLevel(rarity, currentItemLevel);
+
+        //Item Creation XD
+        testItem.StartUp(Database.hostInstance.GetTrinketName(), rarity, Database.hostInstance.GetTrinketSprite(), NewStats(nIL), Database.hostInstance.GetTrinketObject(), nIL);
+        //end item creation
+        return testItem;
+    }
+
     private bool Buff(string secunName)
     {
         for (int i = 0; i < Database.hostInstance.secundaryBuffs.Count; i++)
         {
-            if(Database.hostInstance.secundaryBuffs[i] == secunName)
+            if (Database.hostInstance.secundaryBuffs[i] == secunName)
             {
                 return true;
             }
@@ -217,6 +247,18 @@ public class LootRandomizer : MonoBehaviour {
         return nS;
     }
 
+    private bool Single(string secunName)
+    {
+        for (int i = 0; i < Database.hostInstance.singleSecondary.Count; i++)
+        {
+            if (Database.hostInstance.singleSecondary[i] == secunName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private float Range()
     {
         return Random.Range(1.7f, 2.5f);
@@ -224,7 +266,7 @@ public class LootRandomizer : MonoBehaviour {
 
     private float Knockback()
     {
-        return Random.Range(10f, 20f);
+        return Random.Range(0.5f, 2.5f);
     }
 
     private int AmountPrimary()

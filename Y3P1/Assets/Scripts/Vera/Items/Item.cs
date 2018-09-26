@@ -83,7 +83,7 @@ public class Item
         return "<color=yellow>Legendary";
     }
 
-    public virtual void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS,bool buff)
+    public virtual void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS,bool buff,bool single)
     {
 
     }

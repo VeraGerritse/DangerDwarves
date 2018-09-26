@@ -23,9 +23,9 @@ public class HelmetSlot : MonoBehaviourPunCallbacks
 
         if (helmet != null)
         {
-            GameObject currentHelmetPrefab = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[currentHelmet.prefabIndex].name, helmetSpawn.position, helmetSpawn.rotation);
+            equipedHelmet = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[helmet.prefabIndex].name, helmetSpawn.position, helmetSpawn.rotation);
 
-            int currentWeaponPrefabID = currentHelmetPrefab.GetComponent<PhotonView>().ViewID;
+            int currentWeaponPrefabID = equipedHelmet.GetComponent<PhotonView>().ViewID;
             int weaponSpawnID = helmetSpawn.GetComponent<PhotonView>().ViewID;
 
             photonView.RPC("ParentHelmet", RpcTarget.AllBuffered, currentWeaponPrefabID, weaponSpawnID);

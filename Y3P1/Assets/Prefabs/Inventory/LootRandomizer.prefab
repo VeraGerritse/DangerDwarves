@@ -49,4 +49,4 @@ MonoBehaviour:
   rarePercent: 80
   epicPercent: 95
   minDamage: 5
-  amountTypes: 4
+  amountTypes: 5

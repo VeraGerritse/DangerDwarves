@@ -15,6 +15,7 @@ public class Database : MonoBehaviour {
     [SerializeField] private List<string> secundaryMeleeAttacks = new List<string>();
     [SerializeField] private List<string> primaryAttacks = new List<string>();
     public List<string> secundaryBuffs = new List<string>();
+    public List<string> singleSecondary = new List<string>();
 
     [Header("Crossbow")]
     [SerializeField] private List<string> crossbowNames = new List<string>();

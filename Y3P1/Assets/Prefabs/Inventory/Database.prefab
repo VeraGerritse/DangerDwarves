@@ -57,6 +57,8 @@ MonoBehaviour:
   primaryAttacks: []
   secundaryBuffs:
   - Buff_Thorns
+  singleSecondary:
+  - Arrow_Animated
   crossbowNames:
   - Bow
   - Crossbow
@@ -99,9 +101,16 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7f4d7586b71bc87449ea18483b51c4b1, type: 3}
   hammerObject:
   - {fileID: 5980796425491674147, guid: af6855acc7d5fc143aae18749f17179c, type: 3}
-  helmetNames: []
-  helmetSprite: []
-  helmetObject: []
+  helmetNames:
+  - helmet
+  - Warrior Helmet
+  - Commander Helmet
+  helmetSprite:
+  - {fileID: 21300000, guid: 90b457ad05104f14397228dfc0b450b2, type: 3}
+  - {fileID: 21300000, guid: 0bde3acf8ffc14e4aadc79409de51403, type: 3}
+  helmetObject:
+  - {fileID: 727557903423277189, guid: a1efd5470e995374694b1980c3adccff, type: 3}
+  - {fileID: 3406883770648804476, guid: dc1d13192ebeafe4db451921434928f0, type: 3}
   trinketNames: []
   trinketSprite: []
   trinketObject: []
