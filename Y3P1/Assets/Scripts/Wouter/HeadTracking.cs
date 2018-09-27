@@ -23,7 +23,7 @@ public class HeadTracking : MonoBehaviour
             targetCords = PlayerController.mouseInWorldPos;
         }
 
-        //Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 toOther = targetCords - transform.position;
 
         Vector3 targetFixed = targetCords;
@@ -34,20 +34,20 @@ public class HeadTracking : MonoBehaviour
         {
             headbone.transform.LookAt(targetFixed);
 
-            //if (Vector3.Dot(forward, toOther) > 0)
-            //{
-            //    Vector3 relativePos = targetCords - transform.position;
-            //    Quaternion rotation = Quaternion.LookRotation(relativePos);
-            //    headbone.transform.rotation = rotation;
-            //}
-            //else
-            //{
-            //    /*
-            //    Vector3 relativePos = target.position - transform.position;
-            //    Quaternion rotation = Quaternion.LookRotation(relativePos);
-            //    headbone.transform.rotation = rotation;
-            //    */
-            //}
+            if (Vector3.Dot(forward, toOther) > 0)
+            {
+                Vector3 relativePos = targetCords - transform.position;
+                Quaternion rotation = Quaternion.LookRotation(relativePos);
+                headbone.transform.rotation = rotation;
+            }
+            else
+            {
+                
+                Vector3 relativePos = target.position - transform.position;
+                Quaternion rotation = Quaternion.LookRotation(relativePos);
+                headbone.transform.rotation = rotation;
+                
+            }
         }
     }
 }
