@@ -538,7 +538,8 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 0
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   viewIdField: 5
   InstantiationId: 5
   isRuntimeInstantiated: 0
@@ -697,7 +698,8 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 0
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   viewIdField: 8
   InstantiationId: 8
   isRuntimeInstantiated: 0
@@ -870,6 +872,7 @@ MonoBehaviour:
   playerUIPrefab: {fileID: 241, guid: 61a5a60cfa7db844ba3daff3ea02dedd, type: 3}
   playerUISpawnOffset: {x: 0, y: 2, z: 0.2}
   playerUICam: {fileID: 2224781018497381817}
+  rangedWeaponLookAt: {fileID: 1512173445}
   playerController: {fileID: 0}
   weaponSlot: {fileID: 0}
   helmetSlot: {fileID: 0}

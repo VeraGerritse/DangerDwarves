@@ -16,9 +16,11 @@ namespace Y3P1
         #region Components
         private WeaponChargeCanvas weaponChargeCanvas;
         private AnimationEventPrimaryAttack meleeAnimEvent;
+        public HeadTracking rangedWeaponLookAt;
         [HideInInspector] public PlayerController playerController;
         [HideInInspector] public WeaponSlot weaponSlot;
         [HideInInspector] public HelmetSlot helmetSlot;
+        [HideInInspector] public TrinketSlot trinketSlot;
         [HideInInspector] public Rigidbody rb;
         [HideInInspector] public PlayerCamera playerCam;
         [HideInInspector] public Entity entity;
@@ -41,6 +43,7 @@ namespace Y3P1
             entity = GetComponentInChildren<Entity>();
             weaponSlot = GetComponentInChildren<WeaponSlot>();
             helmetSlot = GetComponentInChildren<HelmetSlot>();
+            trinketSlot = GetComponentInChildren<TrinketSlot>();
             myInventory = GetComponentInChildren<Inventory>();
             dwarfAnimController = GetComponentInChildren<DwarfAnimationsScript>();
             meleeAnimEvent = GetComponentInChildren<AnimationEventPrimaryAttack>();
@@ -56,6 +59,8 @@ namespace Y3P1
                 weaponChargeCanvas.gameObject.SetActive(false);
                 weaponSlot.enabled = false;
                 helmetSlot.enabled = false;
+                trinketSlot.enabled = false;
+                rangedWeaponLookAt.enabled = false;
                 Destroy(rb);
 
                 foreach (Collider col in GetComponentsInChildren<Collider>())

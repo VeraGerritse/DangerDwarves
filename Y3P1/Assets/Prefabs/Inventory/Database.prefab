@@ -111,6 +111,13 @@ MonoBehaviour:
   helmetObject:
   - {fileID: 727557903423277189, guid: a1efd5470e995374694b1980c3adccff, type: 3}
   - {fileID: 3406883770648804476, guid: dc1d13192ebeafe4db451921434928f0, type: 3}
-  trinketNames: []
-  trinketSprite: []
-  trinketObject: []
+  trinketNames:
+  - Arcane Orb
+  - Transcendence
+  - Herlors Gift
+  trinketSprite:
+  - {fileID: 21300000, guid: eee8dd7977d9a2d42aa636731903a3f9, type: 3}
+  - {fileID: 21300000, guid: 24075bd85c99b0c45893e5525ed25a8e, type: 3}
+  - {fileID: 21300000, guid: d3162a8d52ab8af46b603a57c5482f51, type: 3}
+  trinketObject:
+  - {fileID: 727557903423277189, guid: 7ce03740aba13e24eb0fcaca8ec042b1, type: 3}

@@ -38,6 +38,7 @@ public class LootRandomizer : MonoBehaviour {
     {
 
         int randomType = Random.Range(0, amountTypes);
+        print(randomType);
         Item newItem = null;
         switch (randomType)
         {

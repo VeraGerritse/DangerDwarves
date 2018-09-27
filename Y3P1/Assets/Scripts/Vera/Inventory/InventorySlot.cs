@@ -31,7 +31,7 @@ public class InventorySlot : MonoBehaviour {
     {
         if (Player.localPlayer != null)
         {
-            //Player.localPlayer.trinketSlot.EquipTrinket(toEquip);
+            Player.localPlayer.trinketSlot.EquipTrinket(toEquip);
         }
     }
 

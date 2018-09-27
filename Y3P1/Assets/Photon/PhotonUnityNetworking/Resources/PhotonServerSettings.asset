@@ -54,4 +54,5 @@ MonoBehaviour:
   - ParentWeapon
   - ParentHelmet
   - ParentEquipment
+  - ParentTrinket
   DisableAutoOpenWizard: 1
