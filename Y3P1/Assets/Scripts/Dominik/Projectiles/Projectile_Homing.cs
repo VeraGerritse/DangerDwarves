@@ -3,16 +3,21 @@
 public class Projectile_Homing : Projectile
 {
 
-    private float currentRotateSpeed;
+    private Transform target;
     private bool hasMarkedTarget;
+    private float currentRotateSpeed;
 
+    // Max rotate speed.
     [SerializeField] private float rotateSpeed = 600;
+    // This value determines how fast the rotate speed increases to its maximum.
+    [SerializeField] private float rotateIncreaseSpeed = 800;
 
     public override void OnEnable()
     {
         base.OnEnable();
 
         currentRotateSpeed = 0;
+        target = GetClosestTarget(fireData.mousePos);
     }
 
     public override void FixedUpdate()
@@ -31,9 +36,27 @@ public class Projectile_Homing : Projectile
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * currentRotateSpeed);
             if (currentRotateSpeed < rotateSpeed)
             {
-                currentRotateSpeed += (Time.deltaTime * 800);
+                currentRotateSpeed += (Time.deltaTime * rotateIncreaseSpeed);
             }
         }
+    }
+
+    private Transform GetClosestTarget(Vector3 origin)
+    {
+        Transform bestTarget = null;
+        float closestDistanceSqr = Mathf.Infinity;
+        for (int i = 0; i < EntityManager.instance.aliveTargets.Count; i++)
+        {
+            Vector3 directionToTarget = EntityManager.instance.aliveTargets[i].transform.position - origin;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = EntityManager.instance.aliveTargets[i].transform;
+            }
+        }
+
+        return bestTarget;
     }
 
     public override void OnDisable()

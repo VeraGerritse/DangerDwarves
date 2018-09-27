@@ -27,7 +27,7 @@ public class AOEDamage : MonoBehaviourPunCallbacks
 
     private void ParentProjectile_OnFire(Projectile obj)
     {
-        Initialise(parentProjectile.damage);
+        Initialise(parentProjectile.fireData.damage);
     }
 
     public void Initialise(int damage)

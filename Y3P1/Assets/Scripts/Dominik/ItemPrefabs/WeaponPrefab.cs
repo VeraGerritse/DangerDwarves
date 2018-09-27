@@ -42,7 +42,8 @@ public class WeaponPrefab : ItemPrefab
                 weapon.CalculatePrimaryDamage(),
                 weapon.amountOfProjectiles,
                 weapon.coneOfFireInDegrees,
-                weapon.primaryProjectile == "Arrow_Homing" ? GetClosestTargetViewID() : 9999);
+                PlayerController.mouseInWorldPos,
+                Player.localPlayer.photonView.ViewID);
         }
         // Melee Attack.
         else
@@ -75,16 +76,6 @@ public class WeaponPrefab : ItemPrefab
                     }
                 }
             }
-
-            //RaycastHit hit;
-            //if (Physics.Raycast(transform.position, Player.localPlayer.playerController.gameObject.transform.forward, out hit, weapon.attackRange))
-            //{
-            //    Entity entity = hit.transform.GetComponent<Entity>();
-            //    if (entity)
-            //    {
-            //        entity.Hit(-weapon.CalculatePrimaryDamage());
-            //    }
-            //}
         }
     }
 
@@ -96,20 +87,6 @@ public class WeaponPrefab : ItemPrefab
         }
 
         Weapon weapon = WeaponSlot.currentWeapon;
-
-        int targetID = 9999;
-        switch (weapon.secondaryProjectile)
-        {
-            case "Arrow_Homing":
-
-                targetID = GetClosestTargetViewID();
-                break;
-            case "Buff_Thorns":
-
-                targetID = Player.localPlayer.photonView.ViewID;
-                break;
-        }
-
         photonView.RPC("FireProjectile", RpcTarget.All,
             secondaryType == Weapon.SecondaryType.Attack ? projectileSpawn.position : Player.localPlayer.transform.position,
             secondaryType == Weapon.SecondaryType.Attack ? projectileSpawn.rotation : Player.localPlayer.transform.rotation,
@@ -118,7 +95,8 @@ public class WeaponPrefab : ItemPrefab
             weapon.CalculateSecondaryDamage(),
             weapon.secondaryAmountOfProjectiles,
             weapon.secondaryConeOfFireInDegrees,
-            targetID);
+            PlayerController.mouseInWorldPos,
+            Player.localPlayer.photonView.ViewID);
     }
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
@@ -135,7 +113,7 @@ public class WeaponPrefab : ItemPrefab
     }
 
     [PunRPC]
-    private void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float force, int damage, int amountOfProjectiles, int coneOfFireInDegrees, int targetID = 9999)
+    private void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float force, int damage, int amountOfProjectiles, int coneOfFireInDegrees, Vector3 mousePos, int ownerID)
     {
         // Firing in a straight line.
         if (coneOfFireInDegrees == 0)
@@ -143,10 +121,16 @@ public class WeaponPrefab : ItemPrefab
             for (int i = 0; i < amountOfProjectiles; i++)
             {
                 Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, rotation).GetComponent<Projectile>();
-                newProjectile.Fire(force, damage, targetID);
+                newProjectile.Fire(new Projectile.FireData
+                {
+                    speed = force,
+                    damage = damage,
+                    mousePos = mousePos,
+                    ownerID = ownerID
+                });
             }
         }
-        // Evenly divide (multiple) projectiles with the cone of fire.
+        // Evenly divide (multiple) projectiles within the cone of fire.
         else
         {
             float angleStep = coneOfFireInDegrees / amountOfProjectiles;
@@ -158,30 +142,17 @@ public class WeaponPrefab : ItemPrefab
             for (int i = 0; i < amountOfProjectiles; i++)
             {
                 Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, Quaternion.Euler(rot)).GetComponent<Projectile>();
-                newProjectile.Fire(force, damage, targetID);
+                newProjectile.Fire(new Projectile.FireData
+                {
+                    speed = force,
+                    damage = damage,
+                    mousePos = mousePos,
+                    ownerID = ownerID
+                });
 
                 rot.y += angleStep;
             }
         }
-    }
-
-    private int GetClosestTargetViewID()
-    {
-        Transform bestTarget = null;
-        float closestDistanceSqr = Mathf.Infinity;
-        for (int i = 0; i < EntityManager.instance.aliveTargets.Count; i++)
-        {
-            // TODO: Maybe move PlayerController.mouseInWorldPos to somewhere else. This feels spaghetti-ish.
-            Vector3 directionToTarget = EntityManager.instance.aliveTargets[i].transform.position - PlayerController.mouseInWorldPos;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
-            {
-                closestDistanceSqr = dSqrToTarget;
-                bestTarget = EntityManager.instance.aliveTargets[i].transform;
-            }
-        }
-
-        return bestTarget.GetComponent<PhotonView>().ViewID;
     }
 
     [PunRPC]

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
-public class Projectile_Volley : Projectile 
+public class Projectile_Volley : Projectile
 {
 
     private Vector3 volleyArrowSpawnRotation = new Vector3(90, 0, 0);
 
+    [Header("Volley Settings")]
     [SerializeField] private string volleyArrowPrefab;
     [SerializeField] private float volleyRange;
     [SerializeField] private int volleyAmount;
@@ -19,7 +20,11 @@ public class Projectile_Volley : Projectile
             print(randomPos);
 
             Projectile projectile = ObjectPooler.instance.GrabFromPool(volleyArrowPrefab, randomPos, Quaternion.Euler(volleyArrowSpawnRotation)).GetComponent<Projectile>();
-            projectile.Fire(Random.Range(0.8f * volleyArrowSpeed, 1.2f * volleyArrowSpeed), damage);
+            projectile.Fire(new FireData
+            {
+                speed = Random.Range(0.8f * volleyArrowSpeed, 1.2f * volleyArrowSpeed),
+                damage = fireData.damage
+            });
         }
     }
 

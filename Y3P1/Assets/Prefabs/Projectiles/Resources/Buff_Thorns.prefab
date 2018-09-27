@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &7644387257700386708 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
+    type: 3}
+  m_PrefabInstance: {fileID: 2172496958752364974}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3716037247890611631
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,12 +77,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747753adf2cbc954a91ce764b48cf948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
   myPoolName: Buff_Thorns
   selfDestroyTime: 10
   prefabToSpawnOnHit: 
   prefabToSpawnOnDeath: 
-  stayOnTarget: 1
+  stayOnOwner: 1
 --- !u!114 &9156334626702542129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,12 +104,6 @@ MonoBehaviour:
   viewIdField: 104
   InstantiationId: 104
   isRuntimeInstantiated: 0
---- !u!4 &7644387257700386708 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
-    type: 3}
-  m_PrefabInstance: {fileID: 2172496958752364974}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2172496958752364974
 PrefabInstance:
   m_ObjectHideFlags: 0

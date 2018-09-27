@@ -63,7 +63,7 @@ public class WeaponSlot : EquipmentSlot
                 }
                 else
                 {
-                    Player.localPlayer.dwarfAnimController.myanim.SetBool("bMelee", true);
+                    Player.localPlayer.dwarfAnimController.SetMeleeStance(canAttack ? true : false);
                 }
             }
         }
@@ -72,7 +72,7 @@ public class WeaponSlot : EquipmentSlot
         {
             if (currentWeapon is Weapon_Melee)
             {
-                Player.localPlayer.dwarfAnimController.myanim.SetBool("bMelee", false);
+                Player.localPlayer.dwarfAnimController.SetMeleeStance(false);
             }
         }
 

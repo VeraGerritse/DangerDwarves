@@ -14,28 +14,23 @@ public class Projectile_Animated : Projectile
 
         for (int i = 0; i < animatedProjectiles.Count; i++)
         {
-            animatedProjectiles[i].OnEntityHit += Projectile_Animated_OnEntityHit;
-            animatedProjectiles[i].OnEnvironmentHit += Projectile_Animated_OnEnvironmentHit;
+            animatedProjectiles[i].OnEntityHit += OnHitAnything;
+            animatedProjectiles[i].OnEnvironmentHit += OnHitAnything;
         }
     }
 
-    public override void Fire(float speed, int damage, int targetID = 9999)
+    public override void Fire(FireData fireData)
     {
-        base.Fire(speed, damage);
+        base.Fire(fireData);
 
         for (int i = 0; i < animatedProjectiles.Count; i++)
         {
             animatedProjectiles[i].gameObject.SetActive(true);
-            animatedProjectiles[i].Fire(moveSpeed, damage);
+            animatedProjectiles[i].Fire(fireData);
         }
     }
 
-    private void Projectile_Animated_OnEntityHit(Projectile projectile)
-    {
-        RegisterHit();
-    }
-
-    private void Projectile_Animated_OnEnvironmentHit(Projectile projectile)
+    private void OnHitAnything(Projectile projectile)
     {
         RegisterHit();
     }

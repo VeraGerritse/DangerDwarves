@@ -3,11 +3,14 @@
 public class DwarfAnimationsScript : MonoBehaviour
 {
 
-    public Animator myanim;
-
+    private Animator myAnim;
+    private IKControl myIKControl;
 
     private void Awake()
     {
+        myAnim = GetComponent<Animator>();
+        myIKControl = GetComponent<IKControl>();
+
         WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
         WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
         WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
@@ -15,27 +18,34 @@ public class DwarfAnimationsScript : MonoBehaviour
 
     private void WeaponSlot_OnUsePrimary()
     {
-        myanim.SetTrigger("FireRanged");
+        myAnim.SetTrigger("FireRanged");
     }
 
     private void WeaponSlot_OnUseSecondary(Weapon.SecondaryType secondaryType)
     {
-        myanim.SetTrigger("FireRanged");
+        myAnim.SetTrigger("FireRanged");
     }
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
     {
-        myanim.SetBool("AimRanged", false);
-        myanim.SetBool("bMeleeStance", false);
+        myAnim.SetBool("AimRanged", false);
+        myAnim.SetBool("bMeleeStance", false);
+        myIKControl.enabled = false;
 
         if (weapon is Weapon_Ranged)
         {
-            myanim.SetBool("AimRanged", true);
+            myAnim.SetBool("AimRanged", true);
+            myIKControl.enabled = true;
         }
         else if(weapon is Weapon_Melee)
         {
-            myanim.SetBool("bMeleeStance", true);
+            myAnim.SetBool("bMeleeStance", true);
         }
+    }
+
+    public void SetMeleeStance(bool b)
+    {
+        myAnim.SetBool("bMelee", b);
     }
 
     private void OnDisable()
@@ -57,8 +67,8 @@ public class DwarfAnimationsScript : MonoBehaviour
         Vector3 combinedAxis = new Vector3(x, 0, y);
         combinedAxis = transform.parent.InverseTransformDirection(combinedAxis);
 
-        myanim.SetFloat("HorizontalAxis", combinedAxis.x);
-        myanim.SetFloat("VerticalAxis", combinedAxis.z);
+        myAnim.SetFloat("HorizontalAxis", combinedAxis.x);
+        myAnim.SetFloat("VerticalAxis", combinedAxis.z);
 
       
     }

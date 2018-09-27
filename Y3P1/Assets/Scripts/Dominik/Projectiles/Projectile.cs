@@ -1,27 +1,33 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 using System;
-using Y3P1;
 
 public class Projectile : MonoBehaviour
 {
 
     private Rigidbody rb;
     private PhotonView photonView;
-    protected float moveSpeed;
     protected bool hitEntity;
-    protected Transform target;
-    [HideInInspector] public int damage;
+    private Transform owner;
 
     [SerializeField] private string myPoolName;
     [SerializeField] private float selfDestroyTime = 5f;
     [SerializeField] private string prefabToSpawnOnHit;
     [SerializeField] private string prefabToSpawnOnDeath;
-    [SerializeField] private bool stayOnTarget;
+    [SerializeField] private bool stayOnOwner;
 
     public event Action<Projectile> OnFire = delegate { };
     public event Action<Projectile> OnEntityHit = delegate { };
     public event Action<Projectile> OnEnvironmentHit = delegate { };
+
+    public struct FireData
+    {
+        public float speed;
+        public int damage;
+        public Vector3 mousePos;
+        public int ownerID;
+    }
+    public FireData fireData;
 
     public virtual void Awake()
     {
@@ -37,22 +43,24 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        if (stayOnTarget)
+        if (stayOnOwner)
         {
-            transform.position = target.position;
+            transform.position = owner.position;
         }
     }
 
     public virtual void FixedUpdate()
     {
-        rb.velocity = transform.forward * moveSpeed;
+        if (!stayOnOwner)
+        {
+            rb.velocity = transform.forward * fireData.speed;
+        }
     }
 
-    public virtual void Fire(float speed, int damage, int targetID = 9999)
+    public virtual void Fire(FireData fireData)
     {
-        this.damage = damage;
-        target = targetID != 9999 ? PhotonNetwork.GetPhotonView(targetID).transform : null;
-        moveSpeed = speed;
+        this.fireData = fireData;
+        owner = stayOnOwner ? PhotonNetwork.GetPhotonView(fireData.ownerID).transform : null;
 
         OnFire(this);
     }
@@ -77,7 +85,7 @@ public class Projectile : MonoBehaviour
     {
         if (photonView.IsMine)
         {
-            entity.Hit(-damage);
+            entity.Hit(-fireData.damage);
             OnEntityHit(this);
         }
 
@@ -88,7 +96,7 @@ public class Projectile : MonoBehaviour
             AOEDamage aoeComponent = newSpawn.GetComponent<AOEDamage>();
             if (aoeComponent)
             {
-                aoeComponent.Initialise(damage);
+                aoeComponent.Initialise(fireData.damage);
             }
         }
 
