@@ -2,4 +2,5 @@
 public class Trinket : Item
 {
 
+    public string color;
 }

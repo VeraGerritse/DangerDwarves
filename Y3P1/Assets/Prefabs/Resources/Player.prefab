@@ -514,13 +514,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249583851288972843}
-  m_LocalRotation: {x: -0.3813855, y: -0.59543747, z: 0.59543544, w: 0.38138685}
-  m_LocalPosition: {x: -0.17000008, y: 0.029999897, z: 0.000000009313226}
+  m_LocalRotation: {x: -0.49999985, y: -0.49999982, z: -0.50000066, w: 0.49999976}
+  m_LocalPosition: {x: 0.3, y: 0, z: 0}
   m_LocalScale: {x: 1.0000004, y: 1.0000005, z: 1.0000006}
   m_Children: []
   m_Father: {fileID: 8623143039569273679}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: -204.72, y: 89.99999, z: -90}
+  m_LocalEulerAnglesHint: {x: -89.99999, y: -180, z: 89.99999}
 --- !u!114 &5262355503969674118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1006,6 +1006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0af6d9bf22e10d4fa01c142298e7dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableRendererOnEquip: 0
   rangedWeaponSpawn: {fileID: 5254420406553083790}
   meleeWeaponSpawn: {fileID: 8193620855687773058}
 --- !u!114 &8772981974835406868
@@ -1020,6 +1021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73eefa2b37647214081188c74aa2ae81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableRendererOnEquip: 0
   helmetSpawn: {fileID: 4499238119893936765}
 --- !u!114 &6201938878790210861
 MonoBehaviour:
@@ -1033,7 +1035,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce4c914fa0b92774ba7b0b7e2768f941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trinketSpawn: {fileID: 0}
+  disableRendererOnEquip: 1
+  trinketSpawn: {fileID: 5274453004842302274}
 --- !u!136 &8436074776764754610
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class TrinketSlot : EquipmentSlot
 
     public void EquipTrinket(Trinket trinket)
     {
-        int[] ids = Equip(trinket);
+        int[] ids = Equip(trinket, trinketSpawn);
         currentTrinket = currentEquipment as Trinket;
         if (currentTrinket != null)
         {
@@ -20,10 +20,7 @@ public class TrinketSlot : EquipmentSlot
 
     protected override void ParentEquipment(int equipmentID, int parentID)
     {
-        if (trinketSpawn)
-        {
-            photonView.RPC("ParentTrinket", RpcTarget.AllBuffered, equipmentID, parentID);
-        }
+        photonView.RPC("ParentTrinket", RpcTarget.AllBuffered, equipmentID, parentID);
     }
 
     [PunRPC]

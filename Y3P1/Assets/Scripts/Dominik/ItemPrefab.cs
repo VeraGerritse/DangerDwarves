@@ -23,7 +23,7 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
         SetRarityParticleColors();
     }
 
-    public void Drop()
+    public virtual void Drop()
     {
         isDropped = true;
 

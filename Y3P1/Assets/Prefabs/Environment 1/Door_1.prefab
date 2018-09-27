@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 9020393229053386433}
   - component: {fileID: 9020393229054680801}
   - component: {fileID: 9020393229055810593}
+  - component: {fileID: 4978397625563958589}
   m_Layer: 0
   m_Name: door 1
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9020393229053805281}
   m_LocalRotation: {x: -0.388785, y: -0.5906321, z: 0.59063214, w: 0.38878492}
-  m_LocalPosition: {x: 1.0227534, y: -1.510284, z: -0.25083637}
+  m_LocalPosition: {x: 1.0227534, y: -1.510284, z: -0.481}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9020393229053386437}
@@ -78,6 +79,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &4978397625563958589
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9020393229053805281}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300004, guid: 52a0df781f8c9664e8b25589e322b541, type: 3}
 --- !u!1 &9020393229053805283
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,9 +105,10 @@ GameObject:
   - component: {fileID: 9020393229053386435}
   - component: {fileID: 9020393229054680803}
   - component: {fileID: 9020393229055810595}
+  - component: {fileID: 4253739546815089391}
   m_Layer: 0
   m_Name: door
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,6 +171,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &4253739546815089391
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9020393229053805283}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 52a0df781f8c9664e8b25589e322b541, type: 3}
 --- !u!1 &9020393229053805285
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +199,7 @@ GameObject:
   - component: {fileID: 9020393229055810599}
   m_Layer: 0
   m_Name: doornop
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -241,7 +273,7 @@ GameObject:
   - component: {fileID: 9020393229053386439}
   m_Layer: 0
   m_Name: Door_1
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,7 +311,7 @@ GameObject:
   - component: {fileID: 9020393229055810597}
   m_Layer: 0
   m_Name: spikes
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -353,9 +385,10 @@ GameObject:
   - component: {fileID: 9020393229149409557}
   - component: {fileID: 9020393229149409555}
   - component: {fileID: 9020393229149409554}
+  - component: {fileID: 8843874000658403220}
   m_Layer: 0
   m_Name: door 1 (1)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -368,7 +401,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9020393229149409556}
   m_LocalRotation: {x: 0.59063214, y: 0.38878492, z: 0.388785, w: 0.5906321}
-  m_LocalPosition: {x: -0.97691, y: -1.510284, z: -0.24864}
+  m_LocalPosition: {x: -0.97691, y: -1.510284, z: -0.479}
   m_LocalScale: {x: 0.99999994, y: 1, z: 0.9999999}
   m_Children:
   - {fileID: 9020393229257945067}
@@ -420,6 +453,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &8843874000658403220
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9020393229149409556}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300004, guid: 52a0df781f8c9664e8b25589e322b541, type: 3}
 --- !u!1 &9020393229257945066
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,7 +481,7 @@ GameObject:
   - component: {fileID: 9020393229257945064}
   m_Layer: 0
   m_Name: doornop (1)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -509,7 +557,7 @@ GameObject:
   - component: {fileID: 9020393229829561178}
   m_Layer: 0
   m_Name: wall-top001 (1)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -585,7 +633,7 @@ GameObject:
   - component: {fileID: 9020393230246269542}
   m_Layer: 0
   m_Name: wall-top (1)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -661,7 +709,7 @@ GameObject:
   - component: {fileID: 9020393230644776059}
   m_Layer: 0
   m_Name: doornop (2)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -737,7 +785,7 @@ GameObject:
   - component: {fileID: 9020393230671190840}
   m_Layer: 0
   m_Name: doornop (1)
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

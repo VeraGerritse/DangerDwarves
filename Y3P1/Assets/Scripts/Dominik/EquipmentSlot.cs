@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using UnityEngine;
+using System;
 
 public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
 {
@@ -7,8 +8,10 @@ public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
     protected Item currentEquipment;
     protected GameObject equipedItem;
 
+    public event Action OnEquip = delegate { };
+
     // Equips the item 'toEquip' at 'spawnpoint' and returns two PhotonView ID's to use for parenting the item via an RPC.
-    protected int[] Equip(Item toEquip, Transform spawnpoint = null)
+    protected int[] Equip(Item toEquip, Transform spawnpoint)
     {
         if (!photonView.IsMine)
         {
@@ -24,16 +27,11 @@ public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
 
         if (toEquip != null)
         {
-            int equipmentID = 0;
-            int spawnpointID = 0;
+            equipedItem = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[toEquip.prefabIndex].name, spawnpoint.position, spawnpoint.rotation);
+            OnEquip();
 
-            if (spawnpoint != null)
-            {
-                equipedItem = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[toEquip.prefabIndex].name, spawnpoint.position, spawnpoint.rotation);
-                equipmentID = equipedItem.GetComponent<PhotonView>().ViewID;
-                spawnpointID = spawnpoint.GetComponent<PhotonView>().ViewID;
-            }
-
+            int equipmentID = equipedItem.GetComponent<PhotonView>().ViewID;
+            int spawnpointID = spawnpoint.GetComponent<PhotonView>().ViewID;
 
             return new int[] { equipmentID, spawnpointID };
         }
