@@ -24,10 +24,13 @@ public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
 
         if (toEquip != null)
         {
-            equipedItem = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[toEquip.prefabIndex].name, spawnpoint.position, spawnpoint.rotation);
+            if (spawnpoint)
+            {
+                equipedItem = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[toEquip.prefabIndex].name, spawnpoint.position, spawnpoint.rotation);
+            }
 
             int equipmentID = equipedItem.GetComponent<PhotonView>().ViewID;
-            int spawnpointID = spawnpoint.GetComponent<PhotonView>().ViewID;
+            int spawnpointID = spawnpoint ? spawnpoint.GetComponent<PhotonView>().ViewID : 0;
 
             return new int[] { equipmentID, spawnpointID };
         }
