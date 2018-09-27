@@ -4,12 +4,12 @@ public class DwarfAnimationsScript : MonoBehaviour
 {
 
     private Animator myAnim;
-    private IKControl myIKControl;
+    public IKControl myIKControl;
 
     private void Awake()
     {
         myAnim = GetComponent<Animator>();
-        myIKControl = GetComponent<IKControl>();
+        //myIKControl = GetComponent<IKControl>();
 
         WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
         WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
@@ -30,12 +30,18 @@ public class DwarfAnimationsScript : MonoBehaviour
     {
         myAnim.SetBool("AimRanged", false);
         myAnim.SetBool("bMeleeStance", false);
-        myIKControl.enabled = false;
+        if (myIKControl)
+        {
+            myIKControl.enabled = false;
+        }
 
         if (weapon is Weapon_Ranged)
         {
             myAnim.SetBool("AimRanged", true);
-            myIKControl.enabled = true;
+            if (myIKControl)
+            {
+                myIKControl.enabled = true;
+            }
         }
         else if(weapon is Weapon_Melee)
         {

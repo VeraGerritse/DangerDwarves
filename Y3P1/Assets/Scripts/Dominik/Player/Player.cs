@@ -16,6 +16,7 @@ namespace Y3P1
         #region Components
         private WeaponChargeCanvas weaponChargeCanvas;
         private AnimationEventPrimaryAttack meleeAnimEvent;
+        //private IKControl armIK;
         public HeadTracking rangedWeaponLookAt;
         [HideInInspector] public PlayerController playerController;
         [HideInInspector] public WeaponSlot weaponSlot;
@@ -47,6 +48,7 @@ namespace Y3P1
             myInventory = GetComponentInChildren<Inventory>();
             dwarfAnimController = GetComponentInChildren<DwarfAnimationsScript>();
             meleeAnimEvent = GetComponentInChildren<AnimationEventPrimaryAttack>();
+            //armIK = GetComponentInChildren<IKControl>();
         }
 
         private void Initialise()
@@ -61,6 +63,9 @@ namespace Y3P1
                 helmetSlot.enabled = false;
                 trinketSlot.enabled = false;
                 rangedWeaponLookAt.enabled = false;
+                //Destroy(armIK);
+                Destroy(dwarfAnimController.myIKControl);
+                Destroy(dwarfAnimController);
                 Destroy(rb);
 
                 foreach (Collider col in GetComponentsInChildren<Collider>())
