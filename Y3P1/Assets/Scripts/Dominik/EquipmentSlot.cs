@@ -8,7 +8,7 @@ public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
     protected GameObject equipedItem;
 
     // Equips the item 'toEquip' at 'spawnpoint' and returns two PhotonView ID's to use for parenting the item via an RPC.
-    protected int[] Equip(Item toEquip, Transform spawnpoint)
+    protected int[] Equip(Item toEquip, Transform spawnpoint = null)
     {
         if (!photonView.IsMine)
         {
@@ -24,13 +24,16 @@ public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
 
         if (toEquip != null)
         {
-            if (spawnpoint)
+            int equipmentID = 0;
+            int spawnpointID = 0;
+
+            if (spawnpoint != null)
             {
                 equipedItem = PhotonNetwork.Instantiate(Database.hostInstance.allGameobjects[toEquip.prefabIndex].name, spawnpoint.position, spawnpoint.rotation);
+                equipmentID = equipedItem.GetComponent<PhotonView>().ViewID;
+                spawnpointID = spawnpoint.GetComponent<PhotonView>().ViewID;
             }
 
-            int equipmentID = equipedItem.GetComponent<PhotonView>().ViewID;
-            int spawnpointID = spawnpoint ? spawnpoint.GetComponent<PhotonView>().ViewID : 0;
 
             return new int[] { equipmentID, spawnpointID };
         }

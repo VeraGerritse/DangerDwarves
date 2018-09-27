@@ -374,9 +374,6 @@ public class Inventory : MonoBehaviourPunCallbacks
             if (allItems[i] == null && allSlots[i].CheckSlotType())
             {
                 allItems[i] = toAdd;
-                print(Database.hostInstance);
-                print(Database.hostInstance.allSprites.Count);
-                print(allItems[i].spriteIndex);
                 if(Database.hostInstance.allSprites[allItems[i].spriteIndex] != null)
                 {
                     allSlots[i].SetImage(Database.hostInstance.allSprites[allItems[i].spriteIndex]);
@@ -609,19 +606,19 @@ public class Inventory : MonoBehaviourPunCallbacks
             helmet = allItems[helmetSlot].myStats;
             iLevel += allItems[helmetSlot].itemLevel;
         }
-        //else
-        //{
-        //    iLevel += 1;
-        //}
+        else
+        {
+            iLevel += 1;
+        }
         if (allItems[trinketSlot] != null)
         {
             trinket = allItems[trinketSlot].myStats;
             iLevel += allItems[trinketSlot].itemLevel;
         }
-        //else
-        //{
-        //    iLevel += 1;
-        //}
+        else
+        {
+            iLevel += 1;
+        }
         if (allItems[weaponSlot] != null)
         {
             weapon = allItems[weaponSlot].myStats;
@@ -659,7 +656,6 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
 
         currentStats = together;
-        averageILevel = iLevel;
-        NotificationManager.instance.NewNotification(averageILevel.ToString());
+        averageILevel = iLevel / 3;
     }
 }

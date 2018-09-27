@@ -10,7 +10,7 @@ public class TrinketSlot : EquipmentSlot
 
     public void EquipTrinket(Trinket trinket)
     {
-        int[] ids = Equip(trinket, trinketSpawn);
+        int[] ids = Equip(trinket);
         currentTrinket = currentEquipment as Trinket;
         if (currentTrinket != null)
         {

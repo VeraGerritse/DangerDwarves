@@ -204,7 +204,7 @@ public class Database : MonoBehaviour {
 
     public int GetTrinketSprite()
     {
-        Sprite mySpri = swordSprite[Random.Range(0, trinketSprite.Count)];
+        Sprite mySpri = trinketSprite[Random.Range(0, trinketSprite.Count)];
         int index = 0;
         for (int i = 0; i < allSprites.Count; i++)
         {
@@ -220,7 +220,6 @@ public class Database : MonoBehaviour {
 
     public int GetCrossbowObject()
     {
-        NotificationManager.instance.NewNotification("aaaaaaaaaaaaaah");
         GameObject myObj = crossbowObject[Random.Range(0, crossbowObject.Count)];
         int index = 0;
         for (int i = 0; i < allGameobjects.Count; i++)

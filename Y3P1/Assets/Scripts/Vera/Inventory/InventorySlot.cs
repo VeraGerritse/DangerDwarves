@@ -45,7 +45,6 @@ public class InventorySlot : MonoBehaviour {
 
     public void SetImage(Sprite mySprite)
     {
-        print(mySprite);
         myItem.sprite = mySprite;
     }
     

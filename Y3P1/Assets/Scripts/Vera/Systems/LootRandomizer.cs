@@ -38,7 +38,6 @@ public class LootRandomizer : MonoBehaviour {
     {
 
         int randomType = Random.Range(0, amountTypes);
-        print(randomType);
         Item newItem = null;
         switch (randomType)
         {
@@ -238,7 +237,6 @@ public class LootRandomizer : MonoBehaviour {
         Stats nS = new Stats();
         float ilvl = itemLvl;
         float times = (ilvl / 10 + 1) - 0.1f;
-        NotificationManager.instance.NewNotification(times.ToString() + " :multiplier");
         nS.strength = Mathf.RoundToInt(Random.Range(1, 5) *times) ;
         nS.stamina = Mathf.RoundToInt(Random.Range(1, 5) * times);
         nS.agility = Mathf.RoundToInt(Random.Range(1, 5) * times);

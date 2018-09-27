@@ -1,4 +1,5 @@
-﻿public class Trinket : Item
+﻿[System.Serializable]
+public class Trinket : Item
 {
 
 }
