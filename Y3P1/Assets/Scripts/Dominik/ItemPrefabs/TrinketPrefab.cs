@@ -37,6 +37,8 @@ public class TrinketPrefab : ItemPrefab
         SetColors();
         renderer.enabled = true;
         particle.gameObject.SetActive(false);
+
+        Player.localPlayer.trinketSlot.OnEquip -= TrinketSlot_OnEquip;
     }
 
 
