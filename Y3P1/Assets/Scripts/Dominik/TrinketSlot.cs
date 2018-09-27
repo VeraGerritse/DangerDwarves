@@ -20,7 +20,10 @@ public class TrinketSlot : EquipmentSlot
 
     protected override void ParentEquipment(int equipmentID, int parentID)
     {
-        photonView.RPC("ParentTrinket", RpcTarget.AllBuffered, equipmentID, parentID);
+        if (trinketSpawn)
+        {
+            photonView.RPC("ParentTrinket", RpcTarget.AllBuffered, equipmentID, parentID);
+        }
     }
 
     [PunRPC]

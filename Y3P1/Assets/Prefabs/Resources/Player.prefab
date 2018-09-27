@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &8623143039569273601 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6058828903743544512, guid: 70b24a5409f08e241989d69f806375df,
+    type: 3}
+  m_PrefabInstance: {fileID: 2575713883187085249}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8623143039569273613 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6058828903743544524, guid: 70b24a5409f08e241989d69f806375df,
+    type: 3}
+  m_PrefabInstance: {fileID: 2575713883187085249}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8623143039569273679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6058828903743544462, guid: 70b24a5409f08e241989d69f806375df,
@@ -17,18 +29,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1199784768427011928, guid: 5ebe2dcd5048e28419d46d25f117a43b,
     type: 3}
   m_PrefabInstance: {fileID: 3531597395229899357}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8623143039569273601 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6058828903743544512, guid: 70b24a5409f08e241989d69f806375df,
-    type: 3}
-  m_PrefabInstance: {fileID: 2575713883187085249}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8623143039569273613 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6058828903743544524, guid: 70b24a5409f08e241989d69f806375df,
-    type: 3}
-  m_PrefabInstance: {fileID: 2575713883187085249}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &889315926
 GameObject:
@@ -814,6 +814,7 @@ GameObject:
   - component: {fileID: 2140086444260932015}
   - component: {fileID: 4680766272637851056}
   - component: {fileID: 8772981974835406868}
+  - component: {fileID: 6201938878790210861}
   - component: {fileID: 8436074776764754610}
   m_Layer: 9
   m_Name: Player
@@ -876,6 +877,7 @@ MonoBehaviour:
   playerController: {fileID: 0}
   weaponSlot: {fileID: 0}
   helmetSlot: {fileID: 0}
+  trinketSlot: {fileID: 0}
   rb: {fileID: 0}
   playerCam: {fileID: 0}
   entity: {fileID: 0}
@@ -966,6 +968,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   helmetSpawn: {fileID: 4499238119893936765}
+--- !u!114 &6201938878790210861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464704438644112518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce4c914fa0b92774ba7b0b7e2768f941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trinketSpawn: {fileID: 0}
 --- !u!136 &8436074776764754610
 CapsuleCollider:
   m_ObjectHideFlags: 0
