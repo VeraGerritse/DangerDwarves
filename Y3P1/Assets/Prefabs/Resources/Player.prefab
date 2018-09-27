@@ -1581,6 +1581,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6058828903743963422, guid: 70b24a5409f08e241989d69f806375df,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6058828903743963422, guid: 70b24a5409f08e241989d69f806375df,
+        type: 3}
       propertyPath: rightHandObj
       value: 
       objectReference: {fileID: 5841258196111209783}
@@ -1919,7 +1924,8 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 0.7371133
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6058828902912914228, guid: 70b24a5409f08e241989d69f806375df, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 70b24a5409f08e241989d69f806375df, type: 3}
 --- !u!1001 &3531597395229899357
 PrefabInstance:
