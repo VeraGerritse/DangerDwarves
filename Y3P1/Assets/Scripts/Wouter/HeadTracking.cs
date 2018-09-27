@@ -7,7 +7,7 @@ public class HeadTracking : MonoBehaviour
     public Transform target;
     public Vector3 targetCords;
     public Quaternion mystuff;
-    
+
 
     public bool gettarget;
 
@@ -32,7 +32,7 @@ public class HeadTracking : MonoBehaviour
         float dSqrToTarget = toOther.sqrMagnitude;
         if (dSqrToTarget > 1.5f)
         {
-            headbone.transform.LookAt(targetFixed);
+            //headbone.transform.LookAt(targetFixed);
 
             if (Vector3.Dot(forward, toOther) > 0)
             {
@@ -42,11 +42,12 @@ public class HeadTracking : MonoBehaviour
             }
             else
             {
-                
-                Vector3 relativePos = target.position - transform.position;
-                Quaternion rotation = Quaternion.LookRotation(relativePos);
-                headbone.transform.rotation = rotation;
-                
+                if (target)
+                {
+                    Vector3 relativePos = target.position - transform.position;
+                    Quaternion rotation = Quaternion.LookRotation(relativePos);
+                    headbone.transform.rotation = rotation;
+                }
             }
         }
     }
