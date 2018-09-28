@@ -16,10 +16,10 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        Player.OnLocalPlayerInitialise += Initialise;
+        //Player.OnLocalPlayerInitialise += Initialise;
     }
 
-    private void Initialise()
+    public void Initialise()
     {
         CreateMouseHitPlane();
     }

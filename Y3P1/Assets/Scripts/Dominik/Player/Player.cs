@@ -10,14 +10,11 @@ namespace Y3P1
         public static GameObject localPlayerObject;
         public static Player localPlayer;
 
-        public static event Action OnLocalPlayerInitialise = delegate { };
-
         [SerializeField] private GameObject playerUIPrefab;
         [SerializeField] private Vector3 playerUISpawnOffset = new Vector3(0, 3, 0.2f);
         [SerializeField] private GameObject playerUICam;
 
         #region Components
-        public IKControl armIK;
         [HideInInspector] public WeaponChargeCanvas weaponChargeCanvas;
         [HideInInspector] public AnimationEventPrimaryAttack meleeAnimEvent;
         [HideInInspector] public HeadTracking rangedWeaponLookAt;
@@ -34,17 +31,13 @@ namespace Y3P1
 
         private void Awake()
         {
-            GatherPlayerComponents();
-
             if (photonView.IsMine || !PhotonNetwork.IsConnected)
             {
                 localPlayerObject = gameObject;
                 localPlayer = this;
             }
-        }
 
-        private void Start()
-        {
+            GatherPlayerComponents();
             Initialise();
         }
 
@@ -61,7 +54,6 @@ namespace Y3P1
             myInventory = GetComponentInChildren<Inventory>();
             dwarfAnimController = GetComponentInChildren<DwarfAnimationsScript>();
             meleeAnimEvent = GetComponentInChildren<AnimationEventPrimaryAttack>();
-            armIK = GetComponentInChildren<IKControl>();
         }
 
         private void Initialise()
@@ -77,9 +69,6 @@ namespace Y3P1
                     weaponSlot.enabled = false;
                     helmetSlot.enabled = false;
                     trinketSlot.enabled = false;
-                    rangedWeaponLookAt.enabled = false;
-                    //armIK.ikActive = false;
-                    //Destroy(armIK);
                     Destroy(rb);
 
                     foreach (Collider col in GetComponentsInChildren<Collider>())
@@ -90,11 +79,20 @@ namespace Y3P1
                     CreatePlayerUI();
                     return;
                 }
-            }
 
-            OnLocalPlayerInitialise();
-            myInventory.Initialise();
-            DontDestroyOnLoad(gameObject);
+                localPlayerObject = gameObject;
+                localPlayer = this;
+
+                playerCam.Initialise();
+                playerController.Initialise();
+                myInventory.Initialise();
+                weaponChargeCanvas.Initialise();
+                meleeAnimEvent.Initialise();
+                dwarfAnimController.Initialise();
+                rangedWeaponLookAt.Initialise();
+
+                DontDestroyOnLoad(gameObject);
+            }
         }
 
         private void CreatePlayerUI()

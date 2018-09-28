@@ -1,12 +1,10 @@
 ﻿using Photon.Pun;
 using UnityEngine;
-using Y3P1;
 
 [RequireComponent(typeof(Animator))]
-public class IKControl : MonoBehaviourPunCallbacks, IPunObservable
+public class IKControl : MonoBehaviour, IPunObservable
 {
 
-    private bool initialised;
     protected Animator animator;
 
     public bool ikActive = false;
@@ -15,29 +13,12 @@ public class IKControl : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
-        Player.OnLocalPlayerInitialise += Initialise;
-
         animator = GetComponent<Animator>();
-    }
-
-    private void Initialise()
-    {
-        initialised = true;
     }
 
     //a callback for calculating IK
     void OnAnimatorIK()
     {
-        if (!initialised)
-        {
-            return;
-        }
-
-        if (!photonView.IsMine)
-        {
-            return;
-        }
-
         if (animator)
         {
             //if the IK is active, set the position and rotation directly to the goal. 
@@ -57,10 +38,8 @@ public class IKControl : MonoBehaviourPunCallbacks, IPunObservable
                     //animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
                     //animator.SetIKPosition(AvatarIKGoal.RightHand, PlayerController.mouseInWorldPos);
                     animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandObj.position);
-
                 }
             }
-
             //if the IK is not active, set the position and rotation of the hand and head back to the original position
             else
             {
@@ -71,20 +50,17 @@ public class IKControl : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    private void OnDisable()
-    {
-        Player.OnLocalPlayerInitialise -= Initialise;
-    }
-
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
         {
             stream.SendNext(ikActive);
+            stream.SendNext(enabled);
         }
         else
         {
             ikActive = (bool)stream.ReceiveNext();
+            enabled = (bool)stream.ReceiveNext();
         }
     }
 }

@@ -15,13 +15,13 @@ public class PlayerCamera : MonoBehaviour
 
     private void Awake()
     {
-        Player.OnLocalPlayerInitialise += Initialise;
+        //Player.OnLocalPlayerInitialise += Initialise;
 
         cameraComponent = GetComponent<Camera>();
         camLookAtPoint = transform.GetChild(0);
     }
 
-    private void Initialise()
+    public void Initialise()
     {
         target = Player.localPlayerObject.transform;
         offset = target.position - transform.position;
@@ -39,6 +39,6 @@ public class PlayerCamera : MonoBehaviour
 
     private void OnDisable()
     {
-        Player.OnLocalPlayerInitialise -= Initialise;
+        //Player.OnLocalPlayerInitialise -= Initialise;
     }
 }

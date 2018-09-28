@@ -9,11 +9,11 @@ public class AnimationEventPrimaryAttack : MonoBehaviour
 
     private void Awake()
     {
-        Player.OnLocalPlayerInitialise += Initialise;
+        //Player.OnLocalPlayerInitialise += Initialise;
         weaponSlot = GetComponentInParent<WeaponSlot>();
     }
 
-    private void Initialise()
+    public void Initialise()
     {
         initialised = true;
     }
@@ -28,6 +28,6 @@ public class AnimationEventPrimaryAttack : MonoBehaviour
 
     private void OnDisable()
     {
-        Player.OnLocalPlayerInitialise -= Initialise;
+        //Player.OnLocalPlayerInitialise -= Initialise;
     }
 }
