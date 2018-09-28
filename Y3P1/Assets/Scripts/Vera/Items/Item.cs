@@ -24,7 +24,7 @@ public class Item
 
     public void SendInfo()
     {
-        StatsInfo.instance.SetText(ItemInfo(), WeaponInfo(), RangedInfo(), MeleeInfo(), HelmetInfo(), TrinketInfo());
+        StatsInfo.instance.SetText(ItemInfo(),DamageInfo() ,WeaponInfo(), RangedInfo(), MeleeInfo(), HelmetInfo(), TrinketInfo());
     }
     
     public string[] ItemInfo()
@@ -32,15 +32,19 @@ public class Item
         string[] newInfo;
         if (myStats != null)
         {
-            newInfo = new string[] { itemName, RarityInfo(), "Item level: " + itemLevel.ToString(), "Stamina: " + myStats.stamina.ToString(), "Strength:" + myStats.strength.ToString(), "Agility: " + myStats.agility.ToString(), "WillPower: " + myStats.willpower.ToString(), "Defence: " + myStats.defense.ToString() };
+            newInfo = new string[] { RarityInfo(), "Item level: <color=#00A8FF>" + itemLevel.ToString(), "Stamina: <color=#00A8FF>" + myStats.stamina.ToString(), "Strength: <color=#00A8FF>" + myStats.strength.ToString(), "Agility: <color=#00A8FF>" + myStats.agility.ToString(), "WillPower: <color=#00A8FF>" + myStats.willpower.ToString(), "Defence: <color=#00A8FF>" + myStats.defense.ToString() };
         }
         else
         {
-            newInfo = new string[] { itemName, itemRarity.ToString(), "Item level: " + itemLevel.ToString()};
+            newInfo = new string[] { itemRarity.ToString(), "Item level: <color=#00A8FF>" + itemLevel.ToString()};
         }
         return newInfo;
     }
 
+    public virtual string[] DamageInfo()
+    {
+        return null;
+    }
     public virtual string[] WeaponInfo()
     {
         return null;
@@ -70,17 +74,17 @@ public class Item
     {
         if(itemRarity == ItemRarity.common)
         {
-            return "Common";
+            return "<color=white>" + itemName;
         }
         if(itemRarity == ItemRarity.epic)
         {
-            return "<color=purple>Epic";
+            return "<color=purple>" + itemName;
         }
         if(itemRarity == ItemRarity.rare)
         {
-            return "<color=blue>Rare";
+            return "<color=#00A8FF>" + itemName;
         }
-        return "<color=yellow>Legendary";
+        return "<color=#FFA500>" + itemName;
     }
 
     public virtual void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS,bool buff,bool single)
