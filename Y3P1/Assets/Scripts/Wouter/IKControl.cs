@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
-using System;
-using System.Collections;
 
 [RequireComponent(typeof(Animator))]
 
 public class IKControl : MonoBehaviour
 {
 
+    private bool initialised;
     protected Animator animator;
 
     public bool ikActive = false;
     public Transform rightHandObj = null;
     public Transform lookObj = null;
 
-    void Start()
+    public void Initialise()
+    {
+        initialised = true;
+    }
+
+    private void Awake()
     {
         animator = GetComponent<Animator>();
     }
@@ -21,13 +25,16 @@ public class IKControl : MonoBehaviour
     //a callback for calculating IK
     void OnAnimatorIK()
     {
+        if (!initialised)
+        {
+            return;
+        }
+
         if (animator)
         {
-
             //if the IK is active, set the position and rotation directly to the goal. 
             if (ikActive)
             {
-
                 // Set the look target position, if one has been assigned
                 if (lookObj != null)
                 {
@@ -42,9 +49,8 @@ public class IKControl : MonoBehaviour
                     //animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
                     //animator.SetIKPosition(AvatarIKGoal.RightHand, PlayerController.mouseInWorldPos);
                     animator.SetIKPosition(AvatarIKGoal.RightHand, rightHandObj.position);
-                    
-                }
 
+                }
             }
 
             //if the IK is not active, set the position and rotation of the hand and head back to the original position

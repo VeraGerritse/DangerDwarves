@@ -3,17 +3,24 @@
 public class DwarfAnimationsScript : MonoBehaviour
 {
 
-    private Animator myAnim;
-    public IKControl myIKControl;
+    private bool initialised;
 
-    private void Awake()
+    private Animator myAnim;
+    private IKControl myIKControl;
+
+    public void Initialise()
     {
-        myAnim = GetComponent<Animator>();
-        //myIKControl = GetComponent<IKControl>();
+        initialised = true;
 
         WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
         WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
         WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
+    }
+
+    private void Awake()
+    {
+        myAnim = GetComponent<Animator>();
+        myIKControl = GetComponent<IKControl>();
     }
 
     private void WeaponSlot_OnUsePrimary()
@@ -56,17 +63,21 @@ public class DwarfAnimationsScript : MonoBehaviour
 
     private void OnDisable()
     {
-        WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
-        WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
-        WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
+        if (initialised)
+        {
+            WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
+            WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
+            WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
+        }
     }
 
     private void Update()
     {
-        if(Input.GetButtonDown("Fire1"))
+        if (!initialised)
         {
-            //myanim.SetTrigger("Melee");
+            return;
         }
+
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
@@ -75,8 +86,5 @@ public class DwarfAnimationsScript : MonoBehaviour
 
         myAnim.SetFloat("HorizontalAxis", combinedAxis.x);
         myAnim.SetFloat("VerticalAxis", combinedAxis.z);
-
-      
     }
-
 }

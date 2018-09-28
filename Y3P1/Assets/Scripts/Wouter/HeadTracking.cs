@@ -3,21 +3,27 @@
 public class HeadTracking : MonoBehaviour
 {
 
+    private bool initialised;
+
     public GameObject headbone;
     public Transform target;
     public Vector3 targetCords;
     public Quaternion mystuff;
 
-
     public bool gettarget;
 
-    private void Start()
+    public void Initialise()
     {
-        //target = PlayerController.mouseInWorldPos;
+        initialised = true;
     }
 
     private void LateUpdate()
     {
+        if (!initialised)
+        {
+            return;
+        }
+
         if (gettarget)
         {
             targetCords = PlayerController.mouseInWorldPos;

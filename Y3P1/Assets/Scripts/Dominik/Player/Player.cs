@@ -14,10 +14,10 @@ namespace Y3P1
         [SerializeField] private GameObject playerUICam;
 
         #region Components
-        private WeaponChargeCanvas weaponChargeCanvas;
-        private AnimationEventPrimaryAttack meleeAnimEvent;
-        //private IKControl armIK;
-        public HeadTracking rangedWeaponLookAt;
+        [HideInInspector] public WeaponChargeCanvas weaponChargeCanvas;
+        [HideInInspector] public AnimationEventPrimaryAttack meleeAnimEvent;
+        [HideInInspector] public IKControl armIK;
+        [HideInInspector] public HeadTracking rangedWeaponLookAt;
         [HideInInspector] public PlayerController playerController;
         [HideInInspector] public WeaponSlot weaponSlot;
         [HideInInspector] public HelmetSlot helmetSlot;
@@ -48,7 +48,7 @@ namespace Y3P1
             myInventory = GetComponentInChildren<Inventory>();
             dwarfAnimController = GetComponentInChildren<DwarfAnimationsScript>();
             meleeAnimEvent = GetComponentInChildren<AnimationEventPrimaryAttack>();
-            //armIK = GetComponentInChildren<IKControl>();
+            armIK = GetComponentInChildren<IKControl>();
         }
 
         private void Initialise()
@@ -62,10 +62,6 @@ namespace Y3P1
                 weaponSlot.enabled = false;
                 helmetSlot.enabled = false;
                 trinketSlot.enabled = false;
-                rangedWeaponLookAt.enabled = false;
-                //Destroy(armIK);
-                Destroy(dwarfAnimController.myIKControl);
-                Destroy(dwarfAnimController);
                 Destroy(rb);
 
                 foreach (Collider col in GetComponentsInChildren<Collider>())
@@ -85,6 +81,9 @@ namespace Y3P1
             myInventory.Initialise();
             weaponChargeCanvas.Initialise();
             meleeAnimEvent.Initialise();
+            dwarfAnimController.Initialise();
+            armIK.Initialise();
+            rangedWeaponLookAt.Initialise();
 
             DontDestroyOnLoad(gameObject);
         }
