@@ -52,16 +52,36 @@ public class PlayerController : MonoBehaviour
         // Use built in rigidbody function to move the player.
         // NOTE: MovePosition causes jittery movement! Setting the velocity directly and having interpolate on the rigidbody on works better.
         //Player.localPlayer.rb.MovePosition(transform.position + velocity);
-        Player.localPlayer.rb.velocity = velocity;
+        if (velocity != Vector3.zero)
+        {
+            // If the player is moving against a slope, help him a little bit by applying upwards velocity.
+            RaycastHit hit;
+            if (Physics.Raycast(transform.localPosition, velocity, out hit, 0.15f, heightCheckLayermask))
+            {
+                Player.localPlayer.rb.velocity = velocity + Vector3.up * 0.5f;
+            }
+            // If the player is moving on a flat surface, multiply velocity with a certain amount of downforce.
+            else
+            {
+                Player.localPlayer.rb.velocity = velocity + Vector3.down * 2;
+            }
+        }
+        else
+        {
+            // If the player is not moving and standing on a surface, zero his velocity so he doesnt slip.
+            RaycastHit hit;
+            if (Physics.Raycast(transform.localPosition, -transform.up, out hit, 0.05f, heightCheckLayermask))
+            {
+                Player.localPlayer.rb.velocity = Vector3.zero;
+            }
+            // If the player is not moving and not standing on a surface, apply a downwards velocity to get him back on the ground.
+            else
+            {
+                Player.localPlayer.rb.velocity = Vector3.zero + Vector3.down * 5;
+            }
+        }
 
-        // Check height below player and lerp to that height.
-        //RaycastHit hit;
-        //if (Physics.Raycast(transform.position, -transform.up, out hit, 5, heightCheckLayermask))
-        //{
-        //    Player.localPlayer.transform.position = Vector3.Lerp(Player.localPlayer.transform.position,
-        //        new Vector3(Player.localPlayer.transform.position.x, hit.point.y + 0.05f, Player.localPlayer.transform.position.z),
-        //        Time.deltaTime * 8);
-        //}
+        Debug.DrawRay(transform.localPosition, velocity * 0.15f, Color.red);
     }
 
     // Gets the position of a raycast firing from the camera in the direction of the mouse and onto an invisible plane and uses that position for the player to rotate towards.

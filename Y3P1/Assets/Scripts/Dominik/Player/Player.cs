@@ -84,8 +84,9 @@ namespace Y3P1
                     CreatePlayerUI();
                 }
 
-                DontDestroyOnLoad(gameObject);
             }
+
+            DontDestroyOnLoad(gameObject);
         }
 
         private void CreatePlayerUI()
