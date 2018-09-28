@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Y3P1;
 
 [RequireComponent(typeof(Animator))]
 
@@ -12,14 +13,16 @@ public class IKControl : MonoBehaviour
     public Transform rightHandObj = null;
     public Transform lookObj = null;
 
-    public void Initialise()
-    {
-        initialised = true;
-    }
-
     private void Awake()
     {
+        Player.OnLocalPlayerInitialise += Initialise;
+
         animator = GetComponent<Animator>();
+    }
+
+    private void Initialise()
+    {
+        initialised = true;
     }
 
     //a callback for calculating IK
@@ -61,5 +64,10 @@ public class IKControl : MonoBehaviour
                 animator.SetLookAtWeight(0);
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        Player.OnLocalPlayerInitialise -= Initialise;
     }
 }

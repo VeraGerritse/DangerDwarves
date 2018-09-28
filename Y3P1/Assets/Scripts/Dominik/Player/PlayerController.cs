@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Y3P1;
 
 public class PlayerController : MonoBehaviour
@@ -13,7 +14,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask mouseHitPlaneLayermask;
     [SerializeField] private LayerMask heightCheckLayermask;
 
-    public void Initialise()
+    private void Awake()
+    {
+        Player.OnLocalPlayerInitialise += Initialise;
+    }
+
+    private void Initialise()
     {
         CreateMouseHitPlane();
     }

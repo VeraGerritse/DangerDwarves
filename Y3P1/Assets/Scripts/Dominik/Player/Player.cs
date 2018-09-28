@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System;
 using UnityEngine;
 
 namespace Y3P1
@@ -8,6 +9,8 @@ namespace Y3P1
 
         public static GameObject localPlayerObject;
         public static Player localPlayer;
+
+        public static event Action OnLocalPlayerInitialise = delegate { };
 
         [SerializeField] private GameObject playerUIPrefab;
         [SerializeField] private Vector3 playerUISpawnOffset = new Vector3(0, 3, 0.2f);
@@ -32,6 +35,16 @@ namespace Y3P1
         private void Awake()
         {
             GatherPlayerComponents();
+
+            if (photonView.IsMine || !PhotonNetwork.IsConnected)
+            {
+                localPlayerObject = gameObject;
+                localPlayer = this;
+            }
+        }
+
+        private void Start()
+        {
             Initialise();
         }
 
@@ -53,38 +66,32 @@ namespace Y3P1
 
         private void Initialise()
         {
-            if (!photonView.IsMine)
+            if (PhotonNetwork.IsConnected)
             {
-                playerCam.gameObject.SetActive(false);
-                playerUICam.SetActive(false);
-                playerController.enabled = false;
-                weaponChargeCanvas.gameObject.SetActive(false);
-                weaponSlot.enabled = false;
-                helmetSlot.enabled = false;
-                trinketSlot.enabled = false;
-                Destroy(rb);
-
-                foreach (Collider col in GetComponentsInChildren<Collider>())
+                if (!photonView.IsMine)
                 {
-                    col.enabled = false;
-                }
+                    playerCam.gameObject.SetActive(false);
+                    playerUICam.SetActive(false);
+                    playerController.enabled = false;
+                    weaponChargeCanvas.gameObject.SetActive(false);
+                    weaponSlot.enabled = false;
+                    helmetSlot.enabled = false;
+                    trinketSlot.enabled = false;
+                    rangedWeaponLookAt.enabled = false;
+                    Destroy(rb);
 
-                CreatePlayerUI();
-                return;
+                    foreach (Collider col in GetComponentsInChildren<Collider>())
+                    {
+                        col.enabled = false;
+                    }
+
+                    CreatePlayerUI();
+                    return;
+                }
             }
 
-            localPlayerObject = gameObject;
-            localPlayer = this;
-
-            playerCam.Initialize();
-            playerController.Initialise();
+            OnLocalPlayerInitialise();
             myInventory.Initialise();
-            weaponChargeCanvas.Initialise();
-            meleeAnimEvent.Initialise();
-            dwarfAnimController.Initialise();
-            armIK.Initialise();
-            rangedWeaponLookAt.Initialise();
-
             DontDestroyOnLoad(gameObject);
         }
 

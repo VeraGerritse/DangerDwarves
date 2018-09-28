@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Y3P1;
 
 public class DwarfAnimationsScript : MonoBehaviour
 {
@@ -8,19 +9,21 @@ public class DwarfAnimationsScript : MonoBehaviour
     private Animator myAnim;
     private IKControl myIKControl;
 
-    public void Initialise()
+    private void Awake()
+    {
+        Player.OnLocalPlayerInitialise += Initialise;
+
+        myAnim = GetComponent<Animator>();
+        myIKControl = GetComponent<IKControl>();
+    }
+
+    private void Initialise()
     {
         initialised = true;
 
         WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
         WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
         WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
-    }
-
-    private void Awake()
-    {
-        myAnim = GetComponent<Animator>();
-        myIKControl = GetComponent<IKControl>();
     }
 
     private void WeaponSlot_OnUsePrimary()
@@ -63,6 +66,8 @@ public class DwarfAnimationsScript : MonoBehaviour
 
     private void OnDisable()
     {
+        Player.OnLocalPlayerInitialise -= Initialise;
+
         if (initialised)
         {
             WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;

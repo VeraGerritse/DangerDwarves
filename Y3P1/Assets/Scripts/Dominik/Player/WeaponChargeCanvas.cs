@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Y3P1;
 
 public class WeaponChargeCanvas : MonoBehaviour
 {
@@ -11,7 +12,12 @@ public class WeaponChargeCanvas : MonoBehaviour
     [SerializeField] private Image progressImage;
     [SerializeField] private Animator progressImageAnim;
 
-    public void Initialise()
+    private void Awake()
+    {
+        Player.OnLocalPlayerInitialise += Initialise;
+    }
+
+    private void Initialise()
     {
         chargePanel = transform.GetChild(0).gameObject;
 
@@ -47,6 +53,8 @@ public class WeaponChargeCanvas : MonoBehaviour
 
     private void OnDisable()
     {
+        Player.OnLocalPlayerInitialise -= Initialise;
+
         WeaponSlot.OnStartChargeSecondary -= WeaponSlot_OnStartChargeSecondary;
         WeaponSlot.OnStopChargeSecondary -= WeaponSlot_OnStopChargeSecondary;
     }
