@@ -10,6 +10,14 @@ public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
 
     public event Action OnEquip = delegate { };
 
+    public void Initialise(bool local)
+    {
+        if (!local)
+        {
+            enabled = false;
+        }
+    }
+
     // Equips the item 'toEquip' at 'spawnpoint' and returns two PhotonView ID's to use for parenting the item via an RPC.
     protected int[] Equip(Item toEquip, Transform spawnpoint)
     {

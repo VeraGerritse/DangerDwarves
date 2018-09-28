@@ -12,9 +12,12 @@ public class HeadTracking : MonoBehaviour
 
     public bool gettarget;
 
-    public void Initialise()
+    public void Initialise(bool local)
     {
-        initialised = true;
+        if (local)
+        {
+            initialised = true;
+        }
     }
 
     private void LateUpdate()

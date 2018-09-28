@@ -641,9 +641,12 @@ public class Inventory : MonoBehaviourPunCallbacks
         return check;
     }
 
-    public void Initialise()
+    public void Initialise(bool local)
     {
-        isInitialised = true;
+        if (local)
+        {
+            isInitialised = true;
+        }
     }
 
     public void CalculateArmor()

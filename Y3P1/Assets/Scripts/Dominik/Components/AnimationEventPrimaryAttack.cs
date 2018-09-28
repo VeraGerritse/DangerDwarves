@@ -7,15 +7,13 @@ public class AnimationEventPrimaryAttack : MonoBehaviour
     private bool initialised;
     private WeaponSlot weaponSlot;
 
-    private void Awake()
+    public void Initialise(bool local)
     {
-        //Player.OnLocalPlayerInitialise += Initialise;
-        weaponSlot = GetComponentInParent<WeaponSlot>();
-    }
-
-    public void Initialise()
-    {
-        initialised = true;
+        if (local)
+        {
+            weaponSlot = GetComponentInParent<WeaponSlot>();
+            initialised = true;
+        }
     }
 
     public void UsePrimary()
@@ -24,10 +22,5 @@ public class AnimationEventPrimaryAttack : MonoBehaviour
         {
             weaponSlot.AnimationEventOnUsePrimaryCall();
         }
-    }
-
-    private void OnDisable()
-    {
-        //Player.OnLocalPlayerInitialise -= Initialise;
     }
 }

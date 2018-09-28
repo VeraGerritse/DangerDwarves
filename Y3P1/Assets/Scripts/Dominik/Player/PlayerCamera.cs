@@ -15,14 +15,18 @@ public class PlayerCamera : MonoBehaviour
 
     private void Awake()
     {
-        //Player.OnLocalPlayerInitialise += Initialise;
-
         cameraComponent = GetComponent<Camera>();
         camLookAtPoint = transform.GetChild(0);
     }
 
-    public void Initialise()
+    public void Initialise(bool local)
     {
+        if (!local)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
         target = Player.localPlayerObject.transform;
         offset = target.position - transform.position;
 
@@ -35,10 +39,5 @@ public class PlayerCamera : MonoBehaviour
         {
             transform.position = lerp ? Vector3.Lerp(transform.position, target.position - offset, Time.deltaTime * moveSpeed) : target.position - offset;
         }
-    }
-
-    private void OnDisable()
-    {
-        //Player.OnLocalPlayerInitialise -= Initialise;
     }
 }

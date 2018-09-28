@@ -14,13 +14,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask mouseHitPlaneLayermask;
     [SerializeField] private LayerMask heightCheckLayermask;
 
-    private void Awake()
+    public void Initialise(bool local)
     {
-        //Player.OnLocalPlayerInitialise += Initialise;
-    }
+        if (!local)
+        {
+            enabled = false;
+            return;
+        }
 
-    public void Initialise()
-    {
         CreateMouseHitPlane();
     }
 

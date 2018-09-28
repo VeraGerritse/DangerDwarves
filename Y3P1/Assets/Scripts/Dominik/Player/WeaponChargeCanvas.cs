@@ -12,13 +12,14 @@ public class WeaponChargeCanvas : MonoBehaviour
     [SerializeField] private Image progressImage;
     [SerializeField] private Animator progressImageAnim;
 
-    private void Awake()
+    public void Initialise(bool local)
     {
-        //Player.OnLocalPlayerInitialise += Initialise;
-    }
+        if (!local)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
 
-    public void Initialise()
-    {
         chargePanel = transform.GetChild(0).gameObject;
 
         WeaponSlot.OnStartChargeSecondary += WeaponSlot_OnStartChargeSecondary;
@@ -53,8 +54,6 @@ public class WeaponChargeCanvas : MonoBehaviour
 
     private void OnDisable()
     {
-        //Player.OnLocalPlayerInitialise -= Initialise;
-
         WeaponSlot.OnStartChargeSecondary -= WeaponSlot_OnStartChargeSecondary;
         WeaponSlot.OnStopChargeSecondary -= WeaponSlot_OnStopChargeSecondary;
     }

@@ -1,5 +1,4 @@
 ﻿using Photon.Pun;
-using System;
 using UnityEngine;
 
 namespace Y3P1
@@ -58,39 +57,29 @@ namespace Y3P1
 
         private void Initialise()
         {
-            if (PhotonNetwork.IsConnected)
+            playerCam.Initialise(IsConnectedAndMine());
+            playerController.Initialise(IsConnectedAndMine());
+            weaponChargeCanvas.Initialise(IsConnectedAndMine());
+            meleeAnimEvent.Initialise(IsConnectedAndMine());
+            dwarfAnimController.Initialise(IsConnectedAndMine());
+            rangedWeaponLookAt.Initialise(IsConnectedAndMine());
+            myInventory.Initialise(IsConnectedAndMine());
+
+            weaponSlot.Initialise(IsConnectedAndMine());
+            helmetSlot.Initialise(IsConnectedAndMine());
+            trinketSlot.Initialise(IsConnectedAndMine());
+
+            playerUICam.SetActive(IsConnectedAndMine() ? true : false);
+            Destroy(IsConnectedAndMine() ? null : rb);
+
+            if (!IsConnectedAndMine())
             {
-                if (!photonView.IsMine)
+                foreach (Collider col in GetComponentsInChildren<Collider>())
                 {
-                    playerCam.gameObject.SetActive(false);
-                    playerUICam.SetActive(false);
-                    playerController.enabled = false;
-                    weaponChargeCanvas.gameObject.SetActive(false);
-                    weaponSlot.enabled = false;
-                    helmetSlot.enabled = false;
-                    trinketSlot.enabled = false;
-                    Destroy(rb);
-
-                    foreach (Collider col in GetComponentsInChildren<Collider>())
-                    {
-                        col.enabled = false;
-                    }
-
-                    CreatePlayerUI();
-                    return;
+                    col.enabled = false;
                 }
 
-                localPlayerObject = gameObject;
-                localPlayer = this;
-
-                playerCam.Initialise();
-                playerController.Initialise();
-                myInventory.Initialise();
-                weaponChargeCanvas.Initialise();
-                meleeAnimEvent.Initialise();
-                dwarfAnimController.Initialise();
-                rangedWeaponLookAt.Initialise();
-
+                CreatePlayerUI();
                 DontDestroyOnLoad(gameObject);
             }
         }
@@ -99,6 +88,11 @@ namespace Y3P1
         {
             PlayerUI playerUI = Instantiate(playerUIPrefab, transform.position + playerUISpawnOffset, Quaternion.identity, transform).GetComponent<PlayerUI>();
             playerUI.Initialise(this);
+        }
+
+        public bool IsConnectedAndMine()
+        {
+            return PhotonNetwork.IsConnected && photonView.IsMine ? true : false;
         }
 
         private void Update()

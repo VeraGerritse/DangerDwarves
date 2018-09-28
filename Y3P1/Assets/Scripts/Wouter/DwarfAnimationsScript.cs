@@ -8,13 +8,16 @@ public class DwarfAnimationsScript : MonoBehaviour
     private Animator myAnim;
     private IKControl myIKControl;
 
-    public void Initialise()
+    public void Initialise(bool local)
     {
-        initialised = true;
+        if (local)
+        {
+            initialised = true;
 
-        WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
-        WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
-        WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
+            WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
+            WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
+            WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
+        }
     }
 
     private void Awake()
