@@ -79,7 +79,11 @@ namespace Y3P1
                     col.enabled = false;
                 }
 
-                CreatePlayerUI();
+                if (PhotonNetwork.IsConnected)
+                {
+                    CreatePlayerUI();
+                }
+
                 DontDestroyOnLoad(gameObject);
             }
         }
@@ -92,6 +96,10 @@ namespace Y3P1
 
         public bool IsConnectedAndMine()
         {
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "WotrScene")
+            {
+                return true;
+            }
             return PhotonNetwork.IsConnected && photonView.IsMine ? true : false;
         }
 
