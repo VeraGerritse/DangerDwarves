@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Y3P1;
 
 public class AnimationEventPrimaryAttack : MonoBehaviour
 {
@@ -8,10 +9,11 @@ public class AnimationEventPrimaryAttack : MonoBehaviour
 
     private void Awake()
     {
+        Player.OnLocalPlayerInitialise += Initialise;
         weaponSlot = GetComponentInParent<WeaponSlot>();
     }
 
-    public void Initialise()
+    private void Initialise()
     {
         initialised = true;
     }
@@ -22,5 +24,10 @@ public class AnimationEventPrimaryAttack : MonoBehaviour
         {
             weaponSlot.AnimationEventOnUsePrimaryCall();
         }
+    }
+
+    private void OnDisable()
+    {
+        Player.OnLocalPlayerInitialise -= Initialise;
     }
 }

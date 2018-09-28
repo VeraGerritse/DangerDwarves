@@ -14,7 +14,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public UnityEvent OnHitEvent;
 
-    private void Awake()
+    public override void OnEnable()
     {
         health.Initialise(this);
     }

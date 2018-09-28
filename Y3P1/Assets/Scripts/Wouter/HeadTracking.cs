@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Y3P1;
 
 public class HeadTracking : MonoBehaviour
 {
@@ -12,7 +13,12 @@ public class HeadTracking : MonoBehaviour
 
     public bool gettarget;
 
-    public void Initialise()
+    private void Awake()
+    {
+        Player.OnLocalPlayerInitialise += Initialise;
+    }
+
+    private void Initialise()
     {
         initialised = true;
     }
@@ -56,5 +62,10 @@ public class HeadTracking : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        Player.OnLocalPlayerInitialise -= Initialise;
     }
 }

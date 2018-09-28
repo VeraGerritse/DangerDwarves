@@ -26,12 +26,12 @@ public class TrinketSlot : EquipmentSlot
     [PunRPC]
     private void ParentTrinket(int equipmentID, int parentID)
     {
-        GameObject equipment = PhotonNetwork.GetPhotonView(equipmentID).gameObject;
-        if (equipment)
+        PhotonView pv = PhotonNetwork.GetPhotonView(equipmentID);
+        if (pv)
         {
-            equipment.transform.SetParent(PhotonNetwork.GetPhotonView(parentID).transform);
-            equipment.transform.localPosition = Vector3.zero;
-            equipment.transform.localRotation = Quaternion.identity;
+            pv.transform.SetParent(PhotonNetwork.GetPhotonView(parentID).transform);
+            pv.transform.localPosition = Vector3.zero;
+            pv.transform.localRotation = Quaternion.identity;
         }
     }
 }
