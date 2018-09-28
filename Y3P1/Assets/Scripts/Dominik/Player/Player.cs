@@ -17,9 +17,9 @@ namespace Y3P1
         [SerializeField] private GameObject playerUICam;
 
         #region Components
+        public IKControl armIK;
         [HideInInspector] public WeaponChargeCanvas weaponChargeCanvas;
         [HideInInspector] public AnimationEventPrimaryAttack meleeAnimEvent;
-        [HideInInspector] public IKControl armIK;
         [HideInInspector] public HeadTracking rangedWeaponLookAt;
         [HideInInspector] public PlayerController playerController;
         [HideInInspector] public WeaponSlot weaponSlot;
@@ -78,6 +78,8 @@ namespace Y3P1
                     helmetSlot.enabled = false;
                     trinketSlot.enabled = false;
                     rangedWeaponLookAt.enabled = false;
+                    //armIK.ikActive = false;
+                    //Destroy(armIK);
                     Destroy(rb);
 
                     foreach (Collider col in GetComponentsInChildren<Collider>())

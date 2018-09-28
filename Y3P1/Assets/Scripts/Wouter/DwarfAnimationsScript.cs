@@ -7,14 +7,14 @@ public class DwarfAnimationsScript : MonoBehaviour
     private bool initialised;
 
     private Animator myAnim;
-    private IKControl myIKControl;
+    //public IKControl myIKControl;
 
     private void Awake()
     {
         Player.OnLocalPlayerInitialise += Initialise;
 
         myAnim = GetComponent<Animator>();
-        myIKControl = GetComponent<IKControl>();
+        //myIKControl = GetComponent<IKControl>();
     }
 
     private void Initialise()
@@ -40,20 +40,14 @@ public class DwarfAnimationsScript : MonoBehaviour
     {
         myAnim.SetBool("AimRanged", false);
         myAnim.SetBool("bMeleeStance", false);
-        if (myIKControl)
-        {
-            myIKControl.enabled = false;
-        }
+        Player.localPlayer.armIK.enabled = false;
 
         if (weapon is Weapon_Ranged)
         {
             myAnim.SetBool("AimRanged", true);
-            if (myIKControl)
-            {
-                myIKControl.enabled = true;
-            }
+            Player.localPlayer.armIK.enabled = true;
         }
-        else if(weapon is Weapon_Melee)
+        else if (weapon is Weapon_Melee)
         {
             myAnim.SetBool("bMeleeStance", true);
         }

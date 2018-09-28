@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using UnityEngine;
 using Y3P1;
 
 [RequireComponent(typeof(Animator))]
-
-public class IKControl : MonoBehaviour
+public class IKControl : MonoBehaviourPunCallbacks, IPunObservable
 {
 
     private bool initialised;
@@ -29,6 +29,11 @@ public class IKControl : MonoBehaviour
     void OnAnimatorIK()
     {
         if (!initialised)
+        {
+            return;
+        }
+
+        if (!photonView.IsMine)
         {
             return;
         }
@@ -69,5 +74,17 @@ public class IKControl : MonoBehaviour
     private void OnDisable()
     {
         Player.OnLocalPlayerInitialise -= Initialise;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(ikActive);
+        }
+        else
+        {
+            ikActive = (bool)stream.ReceiveNext();
+        }
     }
 }
