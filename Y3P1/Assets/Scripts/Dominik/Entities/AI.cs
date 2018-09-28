@@ -33,7 +33,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         entity = GetComponentInChildren<Entity>();
         entity.OnHitEvent.AddListener(() => Hit());
 
-        initialChaseTrigger.OnCollisionEvent.AddListener(() =>
+        initialChaseTrigger.OnZoneEnterEvent.AddListener(() =>
         {
             SetTarget(initialChaseTrigger.eventCaller);
             initialChaseTrigger.gameObject.SetActive(false);

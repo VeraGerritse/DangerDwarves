@@ -15,7 +15,8 @@ public class CollisionEventZone : MonoBehaviour
     [SerializeField]
     private string lookForTag;
 
-    public UnityEvent OnCollisionEvent;
+    public UnityEvent OnZoneEnterEvent;
+    public UnityEvent OnZoneExitEvent;
     [HideInInspector] public Transform eventCaller;
 
     [Space(10)]
@@ -32,7 +33,21 @@ public class CollisionEventZone : MonoBehaviour
         if (other.tag == lookForTag)
         {
             eventCaller = other.transform;
-            OnCollisionEvent.Invoke();
+            OnZoneEnterEvent.Invoke();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (collisionType != CollisionType.Trigger)
+        {
+            return;
+        }
+
+        if (other.tag == lookForTag)
+        {
+            eventCaller = other.transform;
+            OnZoneExitEvent.Invoke();
         }
     }
 
@@ -63,7 +78,21 @@ public class CollisionEventZone : MonoBehaviour
         if (collision.transform.tag == lookForTag)
         {
             eventCaller = collision.transform;
-            OnCollisionEvent.Invoke();
+            OnZoneEnterEvent.Invoke();
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collisionType != CollisionType.Collider)
+        {
+            return;
+        }
+
+        if (collision.transform.tag == lookForTag)
+        {
+            eventCaller = collision.transform;
+            OnZoneExitEvent.Invoke();
         }
     }
 }
