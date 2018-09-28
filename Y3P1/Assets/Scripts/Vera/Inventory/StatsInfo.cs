@@ -26,25 +26,34 @@ public class StatsInfo : MonoBehaviour {
         myImage.enabled = false;
     }
 
-    public void SetText(string[] item, string[] weapon, string[] ranged, string[] melee, string[] helmet, string[] trinket)
+    public void SetText(string[] item,string[] damage, string[] weapon, string[] ranged, string[] melee, string[] helmet, string[] trinket)
     {
         List<string> allTextNeeded = new List<string>();
         if(item != null)
         {
             allTextNeeded.AddRange(item);
         }
-        if(weapon != null)
+        if(damage != null)
         {
-            allTextNeeded.AddRange(weapon);
+            allTextNeeded.AddRange(damage);
+            allTextNeeded.Add("");
         }
-        if(ranged != null)
+        if (ranged != null)
         {
             allTextNeeded.AddRange(ranged);
+            allTextNeeded.Add("");
         }
-        if(melee != null)
+        if (melee != null)
         {
             allTextNeeded.AddRange(melee);
+            allTextNeeded.Add("");
         }
+        if (weapon != null)
+        {
+            allTextNeeded.AddRange(weapon);
+            allTextNeeded.Add("");
+        }
+
         if(helmet != null)
         {
             allTextNeeded.AddRange(helmet);

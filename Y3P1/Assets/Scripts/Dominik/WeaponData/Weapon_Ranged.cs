@@ -18,7 +18,7 @@ public class Weapon_Ranged : Weapon
 
     public override string[] RangedInfo()
     {
-        string[] rI = new string[] { "Projectiles in primary: " + amountOfProjectiles.ToString() };
+        string[] rI = new string[] {"Primary:", "Arrows: <color=#00A8FF>" + amountOfProjectiles.ToString() };
         return rI;
     }
 

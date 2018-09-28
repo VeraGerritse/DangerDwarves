@@ -85,5 +85,10 @@ public class DwarfAnimationsScript : MonoBehaviour
 
         myAnim.SetFloat("HorizontalAxis", combinedAxis.x);
         myAnim.SetFloat("VerticalAxis", combinedAxis.z);
+
+        if(Input.GetButtonDown("Jump"))
+        {
+            myAnim.SetTrigger("Dodge");
+        }
     }
 }

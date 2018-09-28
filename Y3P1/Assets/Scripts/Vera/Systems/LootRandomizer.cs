@@ -92,7 +92,7 @@ public class LootRandomizer : MonoBehaviour {
         //Item Creation XD
         testItem.StartUp(Database.hostInstance.GetAxeName(), rarity, Database.hostInstance.GetAxeSprite(), NewStats(nIL), Database.hostInstance.GetAxeObject(), nIL);
         testItem.StartWeapon(BaseDamage(nIL), FireRate(), secun , SecundaryFR(), ChargeTime(), Force(), 1, 0, Buff(secun),Single(secun));
-        testItem.StartMelee(Range(), Knockback());
+        testItem.StartMelee(Range(), 0);
         //end item creation
         return testItem;
     }
@@ -124,7 +124,7 @@ public class LootRandomizer : MonoBehaviour {
         //Item Creation XD
         testItem.StartUp(Database.hostInstance.GetSwordName(), rarity, Database.hostInstance.GetSwordSprite(), NewStats(nIL), Database.hostInstance.GetSwordObject(), nIL);
         testItem.StartWeapon(BaseDamage(nIL), FireRate(), secun, SecundaryFR(), ChargeTime(), Force(), 1, 0, Buff(secun), Single(secun));
-        testItem.StartMelee(Range(), Knockback());
+        testItem.StartMelee(Range(), 0);
         //end item creation
         return testItem;
     }
@@ -265,7 +265,7 @@ public class LootRandomizer : MonoBehaviour {
 
     private float Knockback()
     {
-        return Random.Range(0.5f, 2.5f);
+        return Random.Range(1f, 3.5f);
     }
 
     private int AmountPrimary()

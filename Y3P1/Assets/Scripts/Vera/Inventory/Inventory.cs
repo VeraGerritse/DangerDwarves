@@ -136,7 +136,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             if (allSlots[lastSlotIndex].slotType == InventorySlot.SlotType.weapon)
             {
-                UnequipWeapon(lastSlotIndex);
+                allSlots[lastSlotIndex].EquipWeapon(null);
             }
             if (allSlots[lastSlotIndex].slotType == InventorySlot.SlotType.helmet)
             {
@@ -147,7 +147,6 @@ public class Inventory : MonoBehaviourPunCallbacks
                 allSlots[lastSlotIndex].EquipTrinket(null);
             }
             GameObject newObj = Database.hostInstance.allGameobjects[allItems[lastSlotIndex].prefabIndex];
-            print(newObj);
             SaveItem(allItems[lastSlotIndex], newObj.name);
 
             RemoveItem(lastSlotIndex);
@@ -264,7 +263,6 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
         if (allSlots[currentSlotIndex].slotType == InventorySlot.SlotType.weapon)
         {
-            print("weapon");
             if (allItems[currentSlotIndex] != null)
             {
                 if (allItems[lastSlotIndex] is Weapon)
@@ -280,7 +278,6 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
         else if (allSlots[currentSlotIndex].slotType == InventorySlot.SlotType.helmet)
         {
-            print("helmet");
             if (allItems[currentSlotIndex] != null)
             {
                 if (allItems[lastSlotIndex] is Helmet)
@@ -296,7 +293,6 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
         else if (allSlots[currentSlotIndex].slotType == InventorySlot.SlotType.trinket)
         {
-            print("trinket");
             if (allItems[currentSlotIndex] != null)
             {
                 if (allItems[lastSlotIndex] is Trinket)
@@ -445,9 +441,19 @@ public class Inventory : MonoBehaviourPunCallbacks
                         index = i;
                     }
                 }
+
+
                 if (allItems[index] != null)
                 {
-                    int newSlot = 0;
+                    bool unEquip = false;
+                    if (allSlots[index].slotType != InventorySlot.SlotType.all)
+                    {
+                        unEquip = true;
+                    }
+
+
+
+                        int newSlot = 0;
                     int type = 0;
                     if (allItems[index] is Weapon)
                     {
@@ -488,24 +494,52 @@ public class Inventory : MonoBehaviourPunCallbacks
                         {
 
                         }
-                        Item temp = allItems[index];
-                        allItems[index] = allItems[newSlot];
-                        allItems[newSlot] = temp;
-                        if (type == 1)
+
+                        if (unEquip)
                         {
-                            allSlots[newSlot].EquipWeapon((Weapon)allItems[newSlot]);
-                            CalculateArmor();
+                            if (!CheckFull())
+                            {
+                                if (type == 1)
+                                {
+                                    allSlots[newSlot].EquipWeapon(null);
+                                    CalculateArmor();
+                                }
+                                if (type == 2)
+                                {
+                                    allSlots[newSlot].EquipHelmet(null);
+                                    CalculateArmor();
+                                }
+                                if (type == 3)
+                                {
+                                    allSlots[newSlot].EquipTrinket(null);
+                                    CalculateArmor();
+                                }
+                                AddItem(allItems[index]);
+                                RemoveItem(index);
+                            }
                         }
-                        if (type == 2)
+                        else
                         {
-                            allSlots[newSlot].EquipHelmet((Helmet)allItems[newSlot]);
-                            CalculateArmor();
+                            Item temp = allItems[index];
+                            allItems[index] = allItems[newSlot];
+                            allItems[newSlot] = temp;
+                            if (type == 1)
+                            {
+                                allSlots[newSlot].EquipWeapon((Weapon)allItems[newSlot]);
+                                CalculateArmor();
+                            }
+                            if (type == 2)
+                            {
+                                allSlots[newSlot].EquipHelmet((Helmet)allItems[newSlot]);
+                                CalculateArmor();
+                            }
+                            if (type == 3)
+                            {
+                                allSlots[newSlot].EquipTrinket((Trinket)allItems[newSlot]);
+                                CalculateArmor();
+                            }
                         }
-                        if (type == 3)
-                        {
-                            allSlots[newSlot].EquipTrinket((Trinket)allItems[newSlot]);
-                            CalculateArmor();
-                        }
+                        
                         if (allItems[newSlot] != null)
                         {
                             allSlots[newSlot].EnableImage();
@@ -530,13 +564,53 @@ public class Inventory : MonoBehaviourPunCallbacks
             }
         }
 
+        if (Input.GetButtonDown("Fire3"))
+        {
+            if(currentSlot != null)
+            {
+                int index = 0;
+                for (int i = 0; i < allSlots.Count; i++)
+                {
+                    if (currentSlot == allSlots[i])
+                    {
+                        index = i;
+                    }
+                }
+                if(allItems[index] != null)
+                {
+                    if (allSlots[index].slotType == InventorySlot.SlotType.weapon)
+                    {
+                        allSlots[index].EquipWeapon(null);
+                    }
+                    if (allSlots[index].slotType == InventorySlot.SlotType.helmet)
+                    {
+                        allSlots[index].EquipHelmet(null);
+                    }
+                    if (allSlots[index].slotType == InventorySlot.SlotType.trinket)
+                    {
+                        allSlots[index].EquipTrinket(null);
+                    }
+                    GameObject newObj = Database.hostInstance.allGameobjects[allItems[index].prefabIndex];
+                    SaveItem(allItems[index], newObj.name);
+
+                    RemoveItem(index);
+                    drag = null;
+                }
+
+            }
+            
+        }
+
         if (Input.GetButtonDown("Tab"))
         {
             OpenCloseInv();
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
-            AddItem(LootRandomizer.instance.DropLoot(averageILevel));
+            if(LootRandomizer.instance != null)
+            {
+                AddItem(LootRandomizer.instance.DropLoot(averageILevel));
+            }
         }
         if (drag == null)
         {

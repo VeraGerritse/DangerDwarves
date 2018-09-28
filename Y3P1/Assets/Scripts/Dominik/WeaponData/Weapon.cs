@@ -30,10 +30,21 @@ public abstract class Weapon : Item
     {
         if(secondaryProjectile == "")
         {
-            return new string[] {"damage: <color=red>" + CalculatePrimaryDamage().ToString() };
+            return null;
         }
-        string[] wI = new string[] { "damage: <color=red>" + CalculatePrimaryDamage().ToString(), "Secondary: " + secondaryProjectile, "Projectiles in secondary: " + secondaryAmountOfProjectiles.ToString(), "Casting time: " + secondaryChargeupTime.ToString() };
+        string[] wI = new string[] {"Secondary: ", "Attack: <color=#00A8FF>" + ProjectalName(secondaryProjectile), "Arrows: <color=#00A8FF>" + secondaryAmountOfProjectiles.ToString(), "Casting time: <color=#00A8FF>" + secondaryChargeupTime.ToString("F1") };
         return wI;
+    }
+
+    string ProjectalName(string name)
+    {
+        string[] x = name.Split('_');
+        return x[1];
+    }
+
+    public override string[] DamageInfo()
+    {
+        return new string[] { "Damage: <color=#00A8FF>" + CalculatePrimaryDamage().ToString() };
     }
     public override void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS,bool buff, bool single)
     {
