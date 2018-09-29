@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Y3P1;
 
-public class AnimationEventPrimaryAttack : MonoBehaviour
+public class AnimationEventsDwarf : MonoBehaviour
 {
 
     private bool initialised;
@@ -21,6 +21,14 @@ public class AnimationEventPrimaryAttack : MonoBehaviour
         if (initialised)
         {
             weaponSlot.AnimationEventOnUsePrimaryCall();
+        }
+    }
+
+    public void EndDodge()
+    {
+        if (initialised)
+        {
+            Player.localPlayer.playerController.EndDodge();
         }
     }
 }

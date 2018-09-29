@@ -15,7 +15,7 @@ namespace Y3P1
 
         #region Components
         [HideInInspector] public WeaponChargeCanvas weaponChargeCanvas;
-        [HideInInspector] public AnimationEventPrimaryAttack meleeAnimEvent;
+        [HideInInspector] public AnimationEventsDwarf dwarfAnimEvents;
         [HideInInspector] public HeadTracking rangedWeaponLookAt;
         [HideInInspector] public PlayerController playerController;
         [HideInInspector] public WeaponSlot weaponSlot;
@@ -52,7 +52,7 @@ namespace Y3P1
             trinketSlot = GetComponentInChildren<TrinketSlot>();
             myInventory = GetComponentInChildren<Inventory>();
             dwarfAnimController = GetComponentInChildren<DwarfAnimationsScript>();
-            meleeAnimEvent = GetComponentInChildren<AnimationEventPrimaryAttack>();
+            dwarfAnimEvents = GetComponentInChildren<AnimationEventsDwarf>();
         }
 
         private void Initialise()
@@ -60,7 +60,7 @@ namespace Y3P1
             playerCam.Initialise(IsConnectedAndMine());
             playerController.Initialise(IsConnectedAndMine());
             weaponChargeCanvas.Initialise(IsConnectedAndMine());
-            meleeAnimEvent.Initialise(IsConnectedAndMine());
+            dwarfAnimEvents.Initialise(IsConnectedAndMine());
             dwarfAnimController.Initialise(IsConnectedAndMine());
             rangedWeaponLookAt.Initialise(IsConnectedAndMine());
             myInventory.Initialise(IsConnectedAndMine());

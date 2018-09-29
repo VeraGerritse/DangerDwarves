@@ -5,14 +5,23 @@ using Y3P1;
 public class PlayerController : MonoBehaviour
 {
 
-    private GameObject mouseHitPlane;
     public static Vector3 mouseInWorldPos;
-    public Transform body;
+    private GameObject mouseHitPlane;
+    private Vector3 velocity;
+    private Vector3 dodgeVelocity;
+    private Quaternion dodgeRotation;
+    private float nextDodgeTime;
+    private bool isDodging;
 
+    public Transform body;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float dodgeSpeed;
+    [SerializeField] private float dodgeCooldown = 1;
     [SerializeField] private float recoilImpactForce = 5f;
     [SerializeField] private LayerMask mouseHitPlaneLayermask;
     [SerializeField] private LayerMask heightCheckLayermask;
+
+    public event Action OnDodge = delegate { };
 
     public void Initialise(bool local)
     {
@@ -28,6 +37,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         HandleRotation();
+        HandleDodging();
     }
 
     private void FixedUpdate()
@@ -38,6 +48,11 @@ public class PlayerController : MonoBehaviour
     // Basic rigidbody movement using velocity.
     private void HandleMovement()
     {
+        if (isDodging)
+        {
+            return;
+        }
+
         // Get inputs.
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
@@ -47,7 +62,7 @@ public class PlayerController : MonoBehaviour
         Vector3 vertical = Vector3.forward * y;
 
         // Calculate normalized velocity and multiply it by the deltatime and movement speed.
-        Vector3 velocity = (horizontal + vertical).normalized * (Time.deltaTime * moveSpeed);
+        velocity = (horizontal + vertical).normalized * (Time.deltaTime * moveSpeed);
 
         // Use built in rigidbody function to move the player.
         // NOTE: MovePosition causes jittery movement! Setting the velocity directly and having interpolate on the rigidbody on works better.
@@ -87,6 +102,11 @@ public class PlayerController : MonoBehaviour
     // Gets the position of a raycast firing from the camera in the direction of the mouse and onto an invisible plane and uses that position for the player to rotate towards.
     private void HandleRotation()
     {
+        if (isDodging)
+        {
+            return;
+        }
+
         RaycastHit hit;
         if (Physics.Raycast(Player.localPlayer.playerCam.cameraComponent.ScreenPointToRay(Input.mousePosition), out hit, 50, mouseHitPlaneLayermask))
         {
@@ -95,6 +115,41 @@ public class PlayerController : MonoBehaviour
 
         Vector3 lookAtTarget = new Vector3(mouseInWorldPos.x, body.position.y, mouseInWorldPos.z);
         body.LookAt(lookAtTarget);
+    }
+
+    // Adds a continuous force to the player and locks his movement and rotation abilities when dodging.
+    private void HandleDodging()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (Time.time > nextDodgeTime)
+            {
+                if (velocity != Vector3.zero)
+                {
+                    StartDodge();
+                    nextDodgeTime = Time.time + dodgeCooldown;
+                }
+            }
+        }
+
+        if (isDodging)
+        {
+            body.rotation = Quaternion.Slerp(body.rotation, dodgeRotation, Time.deltaTime * 10);
+            Player.localPlayer.rb.AddForce(dodgeVelocity * dodgeSpeed, ForceMode.Force);
+        }
+    }
+
+    private void StartDodge()
+    {
+        dodgeVelocity = velocity;
+        dodgeRotation = Quaternion.LookRotation((body.position + dodgeVelocity) - body.position, Vector3.up);
+        isDodging = true;
+        OnDodge();
+    }
+
+    public void EndDodge()
+    {
+        isDodging = false;
     }
 
     // Creates an invisible plane for the mouse to raycast on to.

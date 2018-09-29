@@ -188,12 +188,14 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(canAttack);
             stream.SendNext(canLookAtTarget);
             stream.SendNext(canMove);
+            stream.SendNext(initialChaseTrigger.gameObject.activeSelf);
         }
         else
         {
             canAttack = (bool)stream.ReceiveNext();
             canLookAtTarget = (bool)stream.ReceiveNext();
             canMove = (bool)stream.ReceiveNext();
+            initialChaseTrigger.gameObject.SetActive((bool)stream.ReceiveNext());
         }
     }
 }

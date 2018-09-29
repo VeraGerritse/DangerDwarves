@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Y3P1;
 
 public class DwarfAnimationsScript : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class DwarfAnimationsScript : MonoBehaviour
             WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
             WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
             WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
+
+            Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
         }
     }
 
@@ -24,6 +27,11 @@ public class DwarfAnimationsScript : MonoBehaviour
     {
         myAnim = GetComponent<Animator>();
         myIKControl = GetComponent<IKControl>();
+    }
+
+    private void PlayerController_OnDodge()
+    {
+        myAnim.SetTrigger("Dodge");
     }
 
     private void WeaponSlot_OnUsePrimary()
@@ -65,6 +73,8 @@ public class DwarfAnimationsScript : MonoBehaviour
             WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
             WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
             WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
+
+            Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;
         }
     }
 
