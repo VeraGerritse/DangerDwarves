@@ -75,10 +75,19 @@ public class PlayerController : MonoBehaviour
             {
                 Player.localPlayer.rb.velocity = velocity + Vector3.up * 0.5f;
             }
-            // If the player is moving on a flat surface, multiply velocity with a certain amount of downforce.
             else
             {
-                Player.localPlayer.rb.velocity = velocity + Vector3.down * 2;
+                // If the player is moving on a flat surface, multiply velocity with a certain amount of downforce.
+                if (Physics.Raycast(transform.localPosition, -transform.up, out hit, 0.05f, heightCheckLayermask))
+                {
+                    Player.localPlayer.rb.velocity = velocity + Vector3.down * 2;
+                }
+                // If the player is in the air and moving, increase the downwards velocity.
+                else
+                {
+                    Player.localPlayer.rb.velocity = velocity + Vector3.down * 5;
+                }
+
             }
         }
         else
