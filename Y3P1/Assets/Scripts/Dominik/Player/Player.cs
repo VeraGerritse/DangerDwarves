@@ -105,27 +105,10 @@ namespace Y3P1
             }
         }
 
-        //private bool iKControlBeforeDodge;
         private void PlayerController_OnDodge(bool dodgeStart)
         {
             rangedWeaponLookAt.enabled = !dodgeStart;
-
-            //if (dodgeStart)
-            //{
-            //    iKControlBeforeDodge = iKControl.enabled;
-
-            //    if (iKControlBeforeDodge)
-            //    {
-            //        iKControl.enabled = false;
-            //    }
-            //}
-            //else
-            //{
-            //    if (iKControlBeforeDodge)
-            //    {
-            //        iKControl.enabled = true;
-            //    }
-            //}
+            entity.health.isInvinsible = dodgeStart;
         }
 
         private void CreatePlayerUI()
