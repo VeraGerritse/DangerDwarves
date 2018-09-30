@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask mouseHitPlaneLayermask;
     [SerializeField] private LayerMask heightCheckLayermask;
 
-    public event Action OnDodge = delegate { };
+    public event Action<bool> OnDodge = delegate { };
 
     public void Initialise(bool local)
     {
@@ -153,12 +153,13 @@ public class PlayerController : MonoBehaviour
         dodgeVelocity = velocity;
         dodgeRotation = Quaternion.LookRotation((body.position + dodgeVelocity) - body.position, Vector3.up);
         isDodging = true;
-        OnDodge();
+        OnDodge(true);
     }
 
     public void EndDodge()
     {
         isDodging = false;
+        OnDodge(false);
     }
 
     // Creates an invisible plane for the mouse to raycast on to.

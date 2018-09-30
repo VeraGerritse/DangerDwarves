@@ -29,9 +29,12 @@ public class DwarfAnimationsScript : MonoBehaviour
         myIKControl = GetComponent<IKControl>();
     }
 
-    private void PlayerController_OnDodge()
+    private void PlayerController_OnDodge(bool dodgeStart)
     {
-        myAnim.SetTrigger("Dodge");
+        if (dodgeStart)
+        {
+            myAnim.SetTrigger("Dodge");
+        }
     }
 
     private void WeaponSlot_OnUsePrimary()

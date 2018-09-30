@@ -4,6 +4,7 @@ using Y3P1;
 public class PickUpTrigger : MonoBehaviour
 {
 
+    private bool checkForInput;
     private ItemPrefab myItemPrefab;
 
     private void Awake()
@@ -11,18 +12,33 @@ public class PickUpTrigger : MonoBehaviour
         myItemPrefab = GetComponentInParent<ItemPrefab>();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
-        if (other.tag == "Player")
+        if (checkForInput)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (!Player.localPlayer.myInventory.CheckFull())
                 {
-                    print("test");
                     myItemPrefab.PickUp();
                 }
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            checkForInput = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            checkForInput = false;
         }
     }
 }

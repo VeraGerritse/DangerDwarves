@@ -9259,7 +9259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myPoolName: TestExplosion
-  damageRange: 2
+  damageRange: 2.5
   damageMultiplier: 1
   continuousDamage: 0
   damageInterval: 0

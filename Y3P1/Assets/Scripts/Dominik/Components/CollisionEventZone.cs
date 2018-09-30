@@ -4,6 +4,8 @@ using UnityEngine.Events;
 public class CollisionEventZone : MonoBehaviour
 {
 
+    private bool checkForInput;
+
     private enum CollisionType
     {
         Trigger,
@@ -23,6 +25,17 @@ public class CollisionEventZone : MonoBehaviour
     [SerializeField] private KeyCode key;
     public UnityEvent OnKeyDownEvent;
 
+    private void Update()
+    {
+        if (checkForInput)
+        {
+            if (Input.GetKeyDown(key))
+            {
+                OnKeyDownEvent.Invoke();
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (collisionType != CollisionType.Trigger)
@@ -34,6 +47,8 @@ public class CollisionEventZone : MonoBehaviour
         {
             eventCaller = other.transform;
             OnZoneEnterEvent.Invoke();
+
+            checkForInput = true;
         }
     }
 
@@ -48,23 +63,8 @@ public class CollisionEventZone : MonoBehaviour
         {
             eventCaller = other.transform;
             OnZoneExitEvent.Invoke();
-        }
-    }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (collisionType != CollisionType.Trigger)
-        {
-            return;
-        }
-
-        if (other.tag == lookForTag)
-        {
-            if (Input.GetKeyDown(key))
-            {
-                eventCaller = other.transform;
-                OnKeyDownEvent.Invoke();
-            }
+            checkForInput = false;
         }
     }
 
@@ -79,6 +79,8 @@ public class CollisionEventZone : MonoBehaviour
         {
             eventCaller = collision.transform;
             OnZoneEnterEvent.Invoke();
+
+            checkForInput = true;
         }
     }
 
@@ -93,6 +95,8 @@ public class CollisionEventZone : MonoBehaviour
         {
             eventCaller = collision.transform;
             OnZoneExitEvent.Invoke();
+
+            checkForInput = false;
         }
     }
 }

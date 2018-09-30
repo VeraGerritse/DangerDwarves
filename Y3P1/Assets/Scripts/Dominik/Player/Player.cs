@@ -83,10 +83,17 @@ namespace Y3P1
                 {
                     CreatePlayerUI();
                 }
-
             }
+            else
+            {
+                playerController.OnDodge += PlayerController_OnDodge;
+                DontDestroyOnLoad(gameObject);
+            }
+        }
 
-            DontDestroyOnLoad(gameObject);
+        private void PlayerController_OnDodge(bool dodgeStart)
+        {
+            rangedWeaponLookAt.enabled = !dodgeStart;
         }
 
         private void CreatePlayerUI()
@@ -113,6 +120,11 @@ namespace Y3P1
                     Player.localPlayer.entity.Hit(-10);
                 }
             }
+        }
+
+        public override void OnDisable()
+        {
+            playerController.OnDodge -= PlayerController_OnDodge;
         }
     }
 }

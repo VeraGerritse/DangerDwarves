@@ -26,6 +26,16 @@ public class WeaponSlot : EquipmentSlot
     [SerializeField] private Transform rangedWeaponSpawn;
     [SerializeField] private Transform meleeWeaponSpawn;
 
+    public override void Initialise(bool local)
+    {
+        base.Initialise(local);
+
+        if (local)
+        {
+            Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
+        }
+    }
+
     private void Update()
     {
         if (UIManager.hasOpenUI)
@@ -119,6 +129,11 @@ public class WeaponSlot : EquipmentSlot
         }
     }
 
+    private void PlayerController_OnDodge(bool b)
+    {
+        canAttack = b ? false : true;
+    }
+
     public void AnimationEventOnUsePrimaryCall()
     {
         OnUsePrimary();
@@ -151,5 +166,10 @@ public class WeaponSlot : EquipmentSlot
             pv.transform.localPosition = Vector3.zero;
             pv.transform.localRotation = Quaternion.identity;
         }
+    }
+
+    public override void OnDisable()
+    {
+        Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;
     }
 }

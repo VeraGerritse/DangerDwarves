@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 8623143040424949917}
   moveSpeed: 200
-  dodgeSpeed: 3
+  dodgeSpeed: 1.5
   dodgeCooldown: 1
   recoilImpactForce: 5
   mouseHitPlaneLayermask:

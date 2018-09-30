@@ -10,7 +10,7 @@ public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
 
     public event Action OnEquip = delegate { };
 
-    public void Initialise(bool local)
+    public virtual void Initialise(bool local)
     {
         if (!local)
         {
