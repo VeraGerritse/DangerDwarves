@@ -55,4 +55,5 @@ MonoBehaviour:
   - ParentHelmet
   - ParentEquipment
   - ParentTrinket
+  - SetAppearance
   DisableAutoOpenWizard: 1
