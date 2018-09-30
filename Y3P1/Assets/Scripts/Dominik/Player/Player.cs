@@ -10,13 +10,6 @@ namespace Y3P1
         public static GameObject localPlayerObject;
         public static Player localPlayer;
 
-        [Header("Appearance")]
-
-        [SerializeField] private List<GameObject> beardObjects = new List<GameObject>();
-        [SerializeField] private List<Material> bodyMaterials = new List<Material>();
-        [SerializeField] private List<Material> beardMaterials = new List<Material>();
-        private SkinnedMeshRenderer dwarfRenderer;
-
         [Header("UI")]
 
         [SerializeField] private GameObject playerUIPrefab;
@@ -37,6 +30,7 @@ namespace Y3P1
         [HideInInspector] public Inventory myInventory;
         [HideInInspector] public DwarfAnimationsScript dwarfAnimController;
         [HideInInspector] public IKControl iKControl;
+        [HideInInspector] public PlayerAppearance playerAppearance;
         #endregion
 
         private void Awake()
@@ -65,7 +59,7 @@ namespace Y3P1
             dwarfAnimController = GetComponentInChildren<DwarfAnimationsScript>();
             dwarfAnimEvents = GetComponentInChildren<AnimationEventsDwarf>();
             iKControl = GetComponentInChildren<IKControl>();
-            dwarfRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+            playerAppearance = GetComponentInChildren<PlayerAppearance>();
         }
 
         private void Initialise()
@@ -99,7 +93,7 @@ namespace Y3P1
             }
             else
             {
-                RandomizeAppearance();
+                playerAppearance.RandomizeAppearance();
                 playerController.OnDodge += PlayerController_OnDodge;
                 DontDestroyOnLoad(gameObject);
             }
@@ -124,34 +118,6 @@ namespace Y3P1
                 return true;
             }
             return PhotonNetwork.IsConnected && photonView.IsMine ? true : false;
-        }
-
-        private void RandomizeAppearance()
-        {
-            int randomBeardModel = Random.Range(0, beardObjects.Count);
-            int randomBeardMat = Random.Range(0, beardMaterials.Count);
-            int randomDwarfMat = Random.Range(0, bodyMaterials.Count);
-
-            photonView.RPC("SetAppearance", RpcTarget.AllBuffered, randomBeardModel, randomBeardMat, randomDwarfMat);
-        }
-
-        [PunRPC]
-        private void SetAppearance(int beardModel, int beardMat, int bodyMat)
-        {
-            for (int i = 0; i < beardObjects.Count; i++)
-            {
-                if (i == beardModel)
-                {
-                    beardObjects[i].SetActive(true);
-                    beardObjects[i].GetComponent<Renderer>().material = beardMaterials[beardMat];
-                }
-                else
-                {
-                    beardObjects[i].SetActive(false);
-                }
-            }
-
-            dwarfRenderer.material = bodyMaterials[bodyMat];
         }
 
         private void Update()

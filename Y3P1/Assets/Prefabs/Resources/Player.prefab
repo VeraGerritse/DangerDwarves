@@ -625,6 +625,13 @@ MonoBehaviour:
   viewIdField: 7
   InstantiationId: 7
   isRuntimeInstantiated: 0
+--- !u!114 &427997793266238749 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 292211739105223957, guid: d9a22b72ec8f7f247bee4d1243af548b,
+    type: 3}
+  m_PrefabInstance: {fileID: 143737776361824264}
+  m_PrefabAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
 --- !u!1 &2224781018497381817 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5846533303144279460, guid: 0a6b28d5825057347a8708909654ceea,
@@ -824,6 +831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health:
     isImmortal: 0
+    isInvinsible: 0
     maxHealth: 100
   stats:
     stamina: 0
@@ -940,6 +948,20 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 143737776361824264}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8523901049679404455 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8625609797957434799, guid: d9a22b72ec8f7f247bee4d1243af548b,
+    type: 3}
+  m_PrefabInstance: {fileID: 143737776361824264}
+  m_PrefabAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+--- !u!114 &1983069049930310874 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1908381056402392274, guid: d9a22b72ec8f7f247bee4d1243af548b,
+    type: 3}
+  m_PrefabInstance: {fileID: 143737776361824264}
+  m_PrefabAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
 --- !u!1 &8464704438644112518
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,6 +979,7 @@ GameObject:
   - component: {fileID: 4680766272637851056}
   - component: {fileID: 8772981974835406868}
   - component: {fileID: 6201938878790210861}
+  - component: {fileID: 1207529182432145494}
   - component: {fileID: 8436074776764754610}
   m_Layer: 9
   m_Name: Player
@@ -1012,18 +1035,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2c01c9937a67c4b98c6dbcc333c415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beardObjects:
-  - {fileID: 8623143039569706877}
-  - {fileID: 8623143039569706879}
-  - {fileID: 8623143039569706873}
-  bodyMaterials:
-  - {fileID: 2100000, guid: 724a7d4352e38a94798b929bdd9f7226, type: 2}
-  - {fileID: 2100000, guid: 234ec553055edee4c98c57d03193cfae, type: 2}
-  - {fileID: 2100000, guid: 45df7636e68cf9b41a112c86c2d562f5, type: 2}
-  beardMaterials:
-  - {fileID: 2100000, guid: d103e5c1d5929864b859fc6918fe7f4c, type: 2}
-  - {fileID: 2100000, guid: 7b5c4f0f6807d2b4a811a986e9cda9cb, type: 2}
-  - {fileID: 2100000, guid: 0ca98268810ccd041a8d30330e91cebc, type: 2}
   playerUIPrefab: {fileID: 241, guid: 61a5a60cfa7db844ba3daff3ea02dedd, type: 3}
   playerUISpawnOffset: {x: 0, y: 2, z: 0.2}
   playerUICam: {fileID: 2224781018497381817}
@@ -1040,6 +1051,7 @@ MonoBehaviour:
   myInventory: {fileID: 0}
   dwarfAnimController: {fileID: 0}
   iKControl: {fileID: 0}
+  playerAppearance: {fileID: 0}
 --- !u!114 &7267311020839716367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1140,6 +1152,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trinketSpawn: {fileID: 5274453004842302274}
+--- !u!114 &1207529182432145494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8464704438644112518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21b51425919ebbd43afa4445165bf976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beardObjects:
+  - {fileID: 8623143039569706877}
+  - {fileID: 8623143039569706879}
+  - {fileID: 8623143039569706873}
+  beardMaterials:
+  - {fileID: 2100000, guid: d103e5c1d5929864b859fc6918fe7f4c, type: 2}
+  - {fileID: 2100000, guid: 7b5c4f0f6807d2b4a811a986e9cda9cb, type: 2}
+  - {fileID: 2100000, guid: 0ca98268810ccd041a8d30330e91cebc, type: 2}
+  bodyMaterials:
+  - {fileID: 2100000, guid: 724a7d4352e38a94798b929bdd9f7226, type: 2}
+  - {fileID: 2100000, guid: 234ec553055edee4c98c57d03193cfae, type: 2}
+  - {fileID: 2100000, guid: 45df7636e68cf9b41a112c86c2d562f5, type: 2}
+  beardObjectDropdown: {fileID: 8523901049679404455}
+  beardMatDropdown: {fileID: 427997793266238749}
+  bodyMatDropdown: {fileID: 1983069049930310874}
 --- !u!136 &8436074776764754610
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1724,6 +1763,56 @@ PrefabInstance:
     - target: {fileID: 3102659189459308873, guid: d9a22b72ec8f7f247bee4d1243af548b,
         type: 3}
       propertyPath: m_isInputParsingRequired
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2635901607204764903, guid: d9a22b72ec8f7f247bee4d1243af548b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2635901607204764903, guid: d9a22b72ec8f7f247bee4d1243af548b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664599437921567561, guid: d9a22b72ec8f7f247bee4d1243af548b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664599437921567561, guid: d9a22b72ec8f7f247bee4d1243af548b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5846690017432803354, guid: d9a22b72ec8f7f247bee4d1243af548b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5846690017432803354, guid: d9a22b72ec8f7f247bee4d1243af548b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063043729589688726, guid: d9a22b72ec8f7f247bee4d1243af548b,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063043729589688726, guid: d9a22b72ec8f7f247bee4d1243af548b,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7664599437921567561, guid: d9a22b72ec8f7f247bee4d1243af548b,
+        type: 3}
+      propertyPath: m_inputSource
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063043729589688726, guid: d9a22b72ec8f7f247bee4d1243af548b,
+        type: 3}
+      propertyPath: m_inputSource
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

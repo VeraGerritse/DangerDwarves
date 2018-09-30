@@ -58,9 +58,9 @@ public class InventorySlot : MonoBehaviour {
         myItem.enabled = false;
     }
 
-    private void Awake()
+    private void Start()
     {
-        inventory = GetComponentInParent<Inventory>();
+        inventory = Player.localPlayer.GetComponentInChildren<Inventory>();
         if(inventory == null)
         {
             Debug.Log("No inventory Found");
