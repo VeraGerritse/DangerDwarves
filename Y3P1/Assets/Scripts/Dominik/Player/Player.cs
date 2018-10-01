@@ -15,6 +15,7 @@ namespace Y3P1
         [SerializeField] private GameObject playerUIPrefab;
         [SerializeField] private Vector3 playerUISpawnOffset = new Vector3(0, 3, 0.2f);
         [SerializeField] private GameObject playerUICam;
+        [SerializeField] private GameObject characterCam;
 
         #region Components
         [HideInInspector] public WeaponChargeCanvas weaponChargeCanvas;
@@ -77,6 +78,7 @@ namespace Y3P1
             trinketSlot.Initialise(IsConnectedAndMine());
 
             playerUICam.SetActive(IsConnectedAndMine() ? true : false);
+            characterCam.SetActive(IsConnectedAndMine() ? true : false);
             Destroy(IsConnectedAndMine() ? null : rb);
 
             if (!IsConnectedAndMine())

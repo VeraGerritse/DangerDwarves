@@ -10,7 +10,7 @@ public class StatsInfo : MonoBehaviour {
     [SerializeField] private GameObject myPanel;
     [SerializeField] private Image myImage;
 
-
+    [SerializeField] private List<TMP_Text> allStatsText = new List<TMP_Text>();
 
     private void Awake()
     {
@@ -24,6 +24,35 @@ public class StatsInfo : MonoBehaviour {
     {
         myPanel.SetActive(false);
         myImage.enabled = false;
+    }
+
+    public void SetPlayerStats(string[] stats,string[] avrILvl)
+    {
+        List<string> allStrings = new List<string>();
+        if (avrILvl != null)
+        {
+            allStrings.AddRange(avrILvl);
+            allStrings.Add("");
+        }
+        if (stats != null)
+        {
+            allStrings.AddRange(stats);
+        }
+        for (int i = 0; i < allStatsText.Count; i++)
+        {
+            if (i < allStrings.Count)
+            {
+                if (allStatsText[i] != null)
+                {
+                    allStatsText[i].text = allStrings[i];
+                    allStatsText[i].enabled = true;
+                }
+            }
+            else
+            {
+                allStatsText[i].enabled = false;
+            }
+        }
     }
 
     public void SetText(string[] item,string[] damage, string[] weapon, string[] ranged, string[] melee, string[] helmet, string[] trinket)
