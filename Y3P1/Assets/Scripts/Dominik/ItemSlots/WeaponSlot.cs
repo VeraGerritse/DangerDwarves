@@ -8,7 +8,7 @@ public class WeaponSlot : EquipmentSlot
 
     public static Weapon currentWeapon;
 
-    public static bool canAttack;
+    public static bool canAttack = true;
 
     public static event Action OnUsePrimary = delegate { };
     public static event Action<Weapon.SecondaryType> OnUseSecondary = delegate { };
