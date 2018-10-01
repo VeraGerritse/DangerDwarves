@@ -347,8 +347,14 @@ public class Inventory : MonoBehaviourPunCallbacks
     {
         OpenCloseInv();
         drag = null;
+        StartCoroutine(Time());
     }
 
+    IEnumerator Time()
+    {
+        yield return new WaitForSeconds(0.1f);
+        CalculateArmor();
+    }
     public void OpenCloseInv()
     {
         if (GetComponentInParent<Canvas>().enabled == false)
