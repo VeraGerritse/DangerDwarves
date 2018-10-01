@@ -10,6 +10,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     private NavMeshAgent agent;
     private Entity entity;
     private Collider[] hits = new Collider[10];
+    private AttackAnimation currentAttack;
 
     private bool canAttack = true;
     private bool canLookAtTarget = true;
@@ -39,6 +40,9 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         public string attackName;
         [Range(0, 100)]
         public int attackChance;
+        public enum AttackType { Animation, Projectile };
+        public AttackType attackType;
+        public string projectilePoolName;
     }
 
     private void Awake()
@@ -103,6 +107,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void HandleAttacking()
     {
+        agent.isStopped = true;
         anim.SetBool("Is Walking", false);
 
         Vector3 toTarget = target.position - transform.position;
@@ -134,10 +139,23 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         canAttack = false;
         canLookAtTarget = false;
-        anim.SetTrigger(GetRandomAttack());
+        currentAttack = GetRandomAttack();
+        anim.SetTrigger(currentAttack.attackName);
     }
 
     public void Attack()
+    {
+        if (currentAttack.attackType == AttackAnimation.AttackType.Animation)
+        {
+            AnimationAttack();
+        }
+        else if (currentAttack.attackType == AttackAnimation.AttackType.Projectile)
+        {
+            ProjectileAttack();
+        }
+    }
+
+    private void AnimationAttack()
     {
         int collidersFound = Physics.OverlapSphereNonAlloc(damagePoint.position, damageRange, hits);
 
@@ -154,6 +172,22 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    private void ProjectileAttack()
+    {
+        photonView.RPC("SpawnProjectile", RpcTarget.All, 8, tempDamage);
+    }
+
+    [PunRPC]
+    private void SpawnProjectile(int speed, int damage)
+    {
+        Projectile newProjectile = ObjectPooler.instance.GrabFromPool(currentAttack.projectilePoolName, damagePoint.position, damagePoint.rotation).GetComponent<Projectile>();
+        newProjectile.Fire(new Projectile.FireData
+        {
+            speed = speed,
+            damage = damage
+        });
+    }
+
     public void EndAttack()
     {
         canAttack = true;
@@ -166,7 +200,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
         if (behaviourState == BehaviourState.Attack)
         {
-            canMove = false;
+            //canMove = false;
             //agent.isStopped = false;
             anim.SetTrigger("Spider_hit");
             //agent.speed = slowedSpeed;
@@ -175,7 +209,9 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     public void HitEnd()
     {
-        canMove = true;
+        canAttack = true;
+        canLookAtTarget = true;
+        //canMove = true;
         //agent.isStopped = true;
         //agent.speed = moveSpeed;
     }
@@ -205,7 +241,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         return directionToTarget.sqrMagnitude;
     }
 
-    private string GetRandomAttack()
+    private AttackAnimation GetRandomAttack()
     {
         int random = Random.Range(0, 101);
 
@@ -213,11 +249,11 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (random < attacks[i].attackChance)
             {
-                return attacks[i].attackName;
+                return attacks[i];
             }
         }
 
-        return attacks[0].attackName;
+        return attacks[0];
     }
 
     public override void OnDisable()

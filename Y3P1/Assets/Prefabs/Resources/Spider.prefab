@@ -219,7 +219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6357796064771890802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -254.84445, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8178971362703224468}
@@ -298,10 +298,16 @@ MonoBehaviour:
   attacks:
   - attackName: Attack
     attackChance: 50
+    attackType: 0
+    projectilePoolName: 
   - attackName: Leap_attack
     attackChance: 75
+    attackType: 0
+    projectilePoolName: 
   - attackName: Spit_attack
     attackChance: 100
+    attackType: 1
+    projectilePoolName: SpiderVenom
   attackDistance: 3.75
   attackRangeLookAtSpeed: 4
   damageRange: 0.65
@@ -390,7 +396,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2835736222214007849
 MonoBehaviour:
