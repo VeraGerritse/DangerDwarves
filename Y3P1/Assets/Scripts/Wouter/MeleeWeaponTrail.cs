@@ -59,6 +59,7 @@ public class MeleeWeaponTrail : MonoBehaviour
 #endif
     GameObject _o;
     Mesh _trailMesh;
+    MeshFilter _meshFilter;
     Vector3 _lastPosition;
     Vector3 _lastCameraPosition1;
     Vector3 _lastCameraPosition2;
@@ -73,7 +74,7 @@ public class MeleeWeaponTrail : MonoBehaviour
         public bool lineBreak = false;
     }
 
-    void Start()
+    private void Awake()
     {
         _lastPosition = transform.position;
         _o = new GameObject("Trail");
@@ -84,15 +85,31 @@ public class MeleeWeaponTrail : MonoBehaviour
         _o.AddComponent(typeof(MeshFilter));
         _o.AddComponent(typeof(MeshRenderer));
         _o.GetComponent<Renderer>().material = _material;
-
-        _trailMesh = new Mesh();
-        _trailMesh.name = name + "TrailMesh";
-        _o.GetComponent<MeshFilter>().mesh = _trailMesh;
+        _trailMesh = new Mesh
+        {
+            name = name + "TrailMesh"
+        };
+        _meshFilter = _o.GetComponent<MeshFilter>();
+        _meshFilter.mesh = _trailMesh;
     }
 
-    void OnDisable()
+    private void OnEnable()
     {
-        Destroy(_o);
+        _lastPosition = transform.position;
+        _o.transform.position = Vector3.zero;
+        _o.transform.rotation = Quaternion.identity;
+        _o.transform.localScale = Vector3.one;
+        _trailMesh = new Mesh
+        {
+            name = name + "TrailMesh"
+        };
+        _meshFilter.mesh = _trailMesh;
+        _o.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        _o.SetActive(false);
     }
 
     void Update()
