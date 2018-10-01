@@ -13,6 +13,7 @@ public class WeaponSlot : EquipmentSlot
     public static event Action OnUsePrimary = delegate { };
     public static event Action<Weapon.SecondaryType> OnUseSecondary = delegate { };
     public static event Action<Weapon> OnEquipWeapon = delegate { };
+    //public static event Action OnEndAttack = delegate { };
 
     public static event Action<float> OnStartChargeSecondary = delegate { };
     public static event Action OnStopChargeSecondary = delegate { };
@@ -154,8 +155,6 @@ public class WeaponSlot : EquipmentSlot
 
     public void EquipWeapon(Weapon weapon)
     {
-        Player.localPlayer.dwarfAnimController.CanEquipRanged();
-
         int[] ids = Equip(weapon, weapon is Weapon_Ranged ? rangedWeaponSpawn : meleeWeaponSpawn);
         currentWeapon = currentEquipment as Weapon;
         if (currentWeapon != null)

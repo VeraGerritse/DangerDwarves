@@ -56,4 +56,5 @@ MonoBehaviour:
   - ParentEquipment
   - ParentTrinket
   - SetAppearance
+  - SpawnProjectile
   DisableAutoOpenWizard: 1
