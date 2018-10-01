@@ -1,11 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!224 &1156906820987892572 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
-    type: 3}
-  m_PrefabInstance: {fileID: 5797328555185299410}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &388493675165110243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6689450368134285142, guid: 73553a4f294c67f4bb845f8c0b01cd00,
@@ -52,19 +46,19 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Spider_hit
   - Type: 4
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Is Walking
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Attack
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Leap_attack
   - Type: 9
-    SynchronizeType: 1
+    SynchronizeType: 2
     Name: Spit_attack
   m_SynchronizeLayers:
   - SynchronizeType: 2
@@ -93,6 +87,12 @@ MonoBehaviour:
   viewIdField: 1
   InstantiationId: 1
   isRuntimeInstantiated: 0
+--- !u!224 &1156906820987892572 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+    type: 3}
+  m_PrefabInstance: {fileID: 5797328555185299410}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6194897669489963111
 GameObject:
   m_ObjectHideFlags: 0
