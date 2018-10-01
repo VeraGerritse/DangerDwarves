@@ -18,6 +18,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     [SerializeField] private Image onMouse;
     [SerializeField] private List<Item> startingItems = new List<Item>();
     private bool isInitialised;
+    private Canvas canvas;
 
     private Stats currentStats;
     private int averageILevel = 1;
@@ -345,6 +346,7 @@ public class Inventory : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        canvas = GetComponentInParent<Canvas>();
         OpenCloseInv();
         drag = null;
         StartCoroutine(Time());
@@ -357,15 +359,13 @@ public class Inventory : MonoBehaviourPunCallbacks
     }
     public void OpenCloseInv()
     {
-        if (GetComponentInParent<Canvas>().enabled == false)
+        if (canvas.enabled == false)
         {
-            GetComponentInParent<Canvas>().enabled = true;
-            WeaponSlot.canAttack = false;
+            canvas.enabled = true;
         }
         else
         {
-            GetComponentInParent<Canvas>().enabled = false;
-            WeaponSlot.canAttack = true;
+            canvas.enabled = false;
         }
     }
 
@@ -760,5 +760,10 @@ public class Inventory : MonoBehaviourPunCallbacks
     public void SetInfo()
     {
         StatsInfo.instance.SetPlayerStats(Stats(), ILevel());
+    }
+
+    public bool InventoryIsOpen()
+    {
+        return canvas.enabled;
     }
 }

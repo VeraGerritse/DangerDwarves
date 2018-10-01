@@ -39,39 +39,26 @@ public class WeaponSlot : EquipmentSlot
 
     private void Update()
     {
-        if (UIManager.hasOpenUI)
+        if (CanAttack())
         {
-            return;
-        }
+            if (currentWeapon != null)
+            {
+                HandlePrimaryAttack();
+                HandleSecondaryAttack();
 
-        if (currentWeapon != null)
-        {
-            if (canAttack)
-            {
-                HandleWeaponActions();
-            }
-            else
-            {
-                Player.localPlayer.dwarfAnimController.SetMeleeStance(false);
-                OnStopChargeSecondary();
-                isChargingSecondary = false;
-            }
-
-            if (isChargingSecondary)
-            {
-                secondaryChargeCounter += Time.deltaTime;
+                if (isChargingSecondary)
+                {
+                    secondaryChargeCounter += Time.deltaTime;
+                }
             }
         }
         else
         {
-            // Just to be safe.
-            Player.localPlayer.dwarfAnimController.SetMeleeStance(false);
-            OnStopChargeSecondary();
-            isChargingSecondary = false;
+            StopAllAttacks();
         }
     }
 
-    private void HandleWeaponActions()
+    private void HandlePrimaryAttack()
     {
         if (Input.GetMouseButton(0))
         {
@@ -87,7 +74,7 @@ public class WeaponSlot : EquipmentSlot
                 }
                 else
                 {
-                    Player.localPlayer.dwarfAnimController.SetMeleeStance(canAttack ? true : false);
+                    Player.localPlayer.dwarfAnimController.SetMeleeStance(CanAttack() ? true : false);
                 }
             }
         }
@@ -99,7 +86,10 @@ public class WeaponSlot : EquipmentSlot
                 Player.localPlayer.dwarfAnimController.SetMeleeStance(false);
             }
         }
+    }
 
+    private void HandleSecondaryAttack()
+    {
         if (!string.IsNullOrEmpty(currentWeapon.secondaryProjectile))
         {
             if (Input.GetMouseButtonDown(1))
@@ -141,6 +131,23 @@ public class WeaponSlot : EquipmentSlot
                 }
             }
         }
+    }
+
+    private bool CanAttack()
+    {
+        if (canAttack && !Player.localPlayer.myInventory.InventoryIsOpen() && !UIManager.hasOpenUI)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void StopAllAttacks()
+    {
+        Player.localPlayer.dwarfAnimController.SetMeleeStance(false);
+        OnStopChargeSecondary();
+        isChargingSecondary = false;
     }
 
     private void PlayerController_OnDodge(bool b)
