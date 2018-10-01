@@ -11,8 +11,8 @@ public class PlayerAppearance : MonoBehaviourPunCallbacks
     [SerializeField] private List<GameObject> beardObjects = new List<GameObject>();
     [SerializeField] private List<Material> beardMaterials = new List<Material>();
     [SerializeField] private List<Material> bodyMaterials = new List<Material>();
-    private SkinnedMeshRenderer dwarfRenderer;
-
+    public SkinnedMeshRenderer dwarfRenderer;
+    public Material beardMat;
     [Space(10)]
 
     [SerializeField] private TMP_Dropdown beardObjectDropdown;
@@ -37,7 +37,7 @@ public class PlayerAppearance : MonoBehaviourPunCallbacks
         beardObjectDropdown.value = randomBeardModel;
         beardMatDropdown.value = randomBeardMat;
         bodyMatDropdown.value = randomDwarfMat;
-
+        beardMat = beardMaterials[randomBeardMat];
         photonView.RPC("SetAppearance", RpcTarget.AllBuffered, randomBeardModel, randomBeardMat, randomDwarfMat);
     }
 

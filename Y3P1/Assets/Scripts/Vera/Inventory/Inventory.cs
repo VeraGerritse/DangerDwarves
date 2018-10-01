@@ -433,132 +433,135 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             if (Input.GetButtonDown("Fire2"))
             {
-                int index = 0;
-                for (int i = 0; i < allSlots.Count; i++)
+                if (Player.localPlayer.dwarfAnimController.CanEquipRanged())
                 {
-                    if (currentSlot == allSlots[i])
+                    int index = 0;
+                    for (int i = 0; i < allSlots.Count; i++)
                     {
-                        index = i;
+                        if (currentSlot == allSlots[i])
+                        {
+                            index = i;
+                        }
                     }
-                }
 
 
-                if (allItems[index] != null)
-                {
-                    bool unEquip = false;
-                    if (allSlots[index].slotType != InventorySlot.SlotType.all)
+                    if (allItems[index] != null)
                     {
-                        unEquip = true;
-                    }
+                        bool unEquip = false;
+                        if (allSlots[index].slotType != InventorySlot.SlotType.all)
+                        {
+                            unEquip = true;
+                        }
 
 
 
                         int newSlot = 0;
-                    int type = 0;
-                    if (allItems[index] is Weapon)
-                    {
-                        for (int i = 0; i < allSlots.Count; i++)
+                        int type = 0;
+                        if (allItems[index] is Weapon)
                         {
-                            if (allSlots[i].slotType == InventorySlot.SlotType.weapon)
+                            for (int i = 0; i < allSlots.Count; i++)
                             {
-                                newSlot = i;
-                                type = 1;
+                                if (allSlots[i].slotType == InventorySlot.SlotType.weapon)
+                                {
+                                    newSlot = i;
+                                    type = 1;
+                                }
                             }
                         }
-                    }
-                    else if (allItems[index] is Helmet)
-                    {
-                        for (int i = 0; i < allSlots.Count; i++)
+                        else if (allItems[index] is Helmet)
                         {
-                            if (allSlots[i].slotType == InventorySlot.SlotType.helmet)
+                            for (int i = 0; i < allSlots.Count; i++)
                             {
-                                newSlot = i;
-                                type = 2;
+                                if (allSlots[i].slotType == InventorySlot.SlotType.helmet)
+                                {
+                                    newSlot = i;
+                                    type = 2;
+                                }
                             }
                         }
-                    }
-                    else if (allItems[index] is Trinket)
-                    {
-                        for (int i = 0; i < allSlots.Count; i++)
+                        else if (allItems[index] is Trinket)
                         {
-                            if (allSlots[i].slotType == InventorySlot.SlotType.trinket)
+                            for (int i = 0; i < allSlots.Count; i++)
                             {
-                                newSlot = i;
-                                type = 3;
+                                if (allSlots[i].slotType == InventorySlot.SlotType.trinket)
+                                {
+                                    newSlot = i;
+                                    type = 3;
+                                }
                             }
                         }
-                    }
-                    if (type != 0)
-                    {
-                        if (allItems[newSlot] == null)
+                        if (type != 0)
                         {
+                            if (allItems[newSlot] == null)
+                            {
 
-                        }
+                            }
 
-                        if (unEquip)
-                        {
-                            if (!CheckFull())
+                            if (unEquip)
                             {
+                                if (!CheckFull())
+                                {
+                                    if (type == 1)
+                                    {
+                                        allSlots[newSlot].EquipWeapon(null);
+                                        CalculateArmor();
+                                    }
+                                    if (type == 2)
+                                    {
+                                        allSlots[newSlot].EquipHelmet(null);
+                                        CalculateArmor();
+                                    }
+                                    if (type == 3)
+                                    {
+                                        allSlots[newSlot].EquipTrinket(null);
+                                        CalculateArmor();
+                                    }
+                                    AddItem(allItems[index]);
+                                    RemoveItem(index);
+                                }
+                            }
+                            else
+                            {
+                                Item temp = allItems[index];
+                                allItems[index] = allItems[newSlot];
+                                allItems[newSlot] = temp;
                                 if (type == 1)
                                 {
-                                    allSlots[newSlot].EquipWeapon(null);
+                                    allSlots[newSlot].EquipWeapon((Weapon)allItems[newSlot]);
                                     CalculateArmor();
                                 }
                                 if (type == 2)
                                 {
-                                    allSlots[newSlot].EquipHelmet(null);
+                                    allSlots[newSlot].EquipHelmet((Helmet)allItems[newSlot]);
                                     CalculateArmor();
                                 }
                                 if (type == 3)
                                 {
-                                    allSlots[newSlot].EquipTrinket(null);
+                                    allSlots[newSlot].EquipTrinket((Trinket)allItems[newSlot]);
                                     CalculateArmor();
                                 }
-                                AddItem(allItems[index]);
-                                RemoveItem(index);
                             }
-                        }
-                        else
-                        {
-                            Item temp = allItems[index];
-                            allItems[index] = allItems[newSlot];
-                            allItems[newSlot] = temp;
-                            if (type == 1)
+
+                            if (allItems[newSlot] != null)
                             {
-                                allSlots[newSlot].EquipWeapon((Weapon)allItems[newSlot]);
-                                CalculateArmor();
+                                allSlots[newSlot].EnableImage();
+                                allSlots[newSlot].SetImage(Database.hostInstance.allSprites[allItems[newSlot].spriteIndex]);
                             }
-                            if (type == 2)
+                            else
                             {
-                                allSlots[newSlot].EquipHelmet((Helmet)allItems[newSlot]);
-                                CalculateArmor();
+                                allSlots[newSlot].DisableImage();
                             }
-                            if (type == 3)
+                            if (allItems[index] != null)
                             {
-                                allSlots[newSlot].EquipTrinket((Trinket)allItems[newSlot]);
-                                CalculateArmor();
+                                allSlots[index].EnableImage();
+                                allSlots[index].SetImage(Database.hostInstance.allSprites[allItems[index].spriteIndex]);
                             }
+                            else
+                            {
+                                allSlots[index].DisableImage();
+                            }
+                            drag = null;
                         }
-                        
-                        if (allItems[newSlot] != null)
-                        {
-                            allSlots[newSlot].EnableImage();
-                            allSlots[newSlot].SetImage(Database.hostInstance.allSprites[allItems[newSlot].spriteIndex]);
-                        }
-                        else
-                        {
-                            allSlots[newSlot].DisableImage();
-                        }
-                        if (allItems[index] != null)
-                        {
-                            allSlots[index].EnableImage();
-                            allSlots[index].SetImage(Database.hostInstance.allSprites[allItems[index].spriteIndex]);
-                        }
-                        else
-                        {
-                            allSlots[index].DisableImage();
-                        }
-                        drag = null;
                     }
                 }
             }
@@ -734,5 +737,22 @@ public class Inventory : MonoBehaviourPunCallbacks
 
         currentStats = together;
         averageILevel = iLevel / 3;
+        SetInfo();
+    }
+
+
+    public string[] Stats()
+    {
+        return new string[] { "Stamina: <color=#00A8FF>" + currentStats.stamina.ToString(), "Strenght: <color=#00A8FF>" + currentStats.strength.ToString(), "Agility: <color=#00A8FF>" + currentStats.agility.ToString(), "Willpower: <color=#00A8FF>" + currentStats.willpower.ToString(), "Defence: <color=#00A8FF>" + currentStats.defense.ToString() };
+    }
+
+    public string[] ILevel()
+    {
+        return new string[] { "Item Level: <color=#00A8FF>" + averageILevel.ToString() };
+    }
+
+    public void SetInfo()
+    {
+        StatsInfo.instance.SetPlayerStats(Stats(), ILevel());
     }
 }
