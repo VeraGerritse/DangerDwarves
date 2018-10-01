@@ -69,6 +69,18 @@ public class DwarfAnimationsScript : MonoBehaviour
         myAnim.SetBool("bMelee", b);
     }
 
+    public bool CanEquipRanged()
+    {
+        if (myAnim.GetCurrentAnimatorStateInfo(3).IsTag("MeleeSwing"))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     private void OnDisable()
     {
         if (initialised)

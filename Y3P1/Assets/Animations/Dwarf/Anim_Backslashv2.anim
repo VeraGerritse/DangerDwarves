@@ -37394,7 +37394,7 @@ AnimationClip:
   m_GenerateMotionCurves: 0
   m_Events:
   - time: 0.76666665
-    functionName: 
+    functionName: UsePrimary
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
