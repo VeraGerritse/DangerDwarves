@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!224 &1156906820987892572 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+    type: 3}
+  m_PrefabInstance: {fileID: 5797328555185299410}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &388493675165110243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6689450368134285142, guid: 73553a4f294c67f4bb845f8c0b01cd00,
@@ -87,12 +93,6 @@ MonoBehaviour:
   viewIdField: 1
   InstantiationId: 1
   isRuntimeInstantiated: 0
---- !u!224 &1156906820987892572 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
-    type: 3}
-  m_PrefabInstance: {fileID: 5797328555185299410}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6194897669489963111
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6357796064771890802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -20.614916, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8178971362703224468}
@@ -297,7 +297,7 @@ MonoBehaviour:
   behaviourState: 0
   attacks:
   - attackName: Attack
-    attackChance: 50
+    attackChance: 60
     attackType: 0
     projectilePoolName: 
   - attackName: Leap_attack
@@ -453,7 +453,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8743185453173067219}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.1}
+  m_LocalPosition: {x: 0, y: 0.2, z: 1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6357796064771890800}
