@@ -15,9 +15,6 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     private bool canAttack = true;
     private bool canLookAtTarget = true;
     private bool canMove = true;
-    private bool isInAttackAnim;
-    private float moveSpeed;
-    private float slowedSpeed;
 
     public enum BehaviourState { Idle, Chase, Attack };
     public BehaviourState behaviourState;
@@ -56,9 +53,6 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             SetTarget(initialChaseTrigger.eventCaller);
             initialChaseTrigger.gameObject.SetActive(false);
         });
-
-        moveSpeed = agent.speed;
-        slowedSpeed = 0.2f * moveSpeed;
     }
 
     private void Update()
@@ -174,13 +168,13 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void ProjectileAttack()
     {
-        photonView.RPC("SpawnProjectile", RpcTarget.All, 8, tempDamage);
+        photonView.RPC("SpawnProjectile", RpcTarget.All, currentAttack.projectilePoolName, 8, tempDamage);
     }
 
     [PunRPC]
-    private void SpawnProjectile(int speed, int damage)
+    private void SpawnProjectile(string attackPoolName, int speed, int damage)
     {
-        Projectile newProjectile = ObjectPooler.instance.GrabFromPool(currentAttack.projectilePoolName, damagePoint.position, damagePoint.rotation).GetComponent<Projectile>();
+        Projectile newProjectile = ObjectPooler.instance.GrabFromPool(attackPoolName, damagePoint.position, damagePoint.rotation).GetComponent<Projectile>();
         newProjectile.Fire(new Projectile.FireData
         {
             speed = speed,
@@ -200,10 +194,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
         if (behaviourState == BehaviourState.Attack)
         {
-            //canMove = false;
-            //agent.isStopped = false;
             anim.SetTrigger("Spider_hit");
-            //agent.speed = slowedSpeed;
         }
     }
 
@@ -211,14 +202,11 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         canAttack = true;
         canLookAtTarget = true;
-        //canMove = true;
-        //agent.isStopped = true;
-        //agent.speed = moveSpeed;
     }
 
     private void AggroClosestPlayerOnHit()
     {
-        if (!target)
+        if (!target && initialChaseTrigger.gameObject.activeInHierarchy)
         {
             SetTarget(EntityManager.instance.GetClosestPlayer(transform));
         }
@@ -228,6 +216,13 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         this.target = target;
         SetState(target ? BehaviourState.Chase : BehaviourState.Idle);
+        photonView.RPC("SyncTarget", RpcTarget.AllBuffered, target.GetComponent<PhotonView>().ViewID);
+    }
+
+    [PunRPC]
+    private void SyncTarget(int targetID)
+    {
+        target = PhotonView.Find(targetID).transform;
     }
 
     private void SetState(BehaviourState state)
@@ -271,17 +266,19 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(canAttack);
-            stream.SendNext(canLookAtTarget);
-            stream.SendNext(canMove);
+            //stream.SendNext(canAttack);
+            //stream.SendNext(canLookAtTarget);
+            //stream.SendNext(canMove);
             stream.SendNext(initialChaseTrigger.gameObject.activeSelf);
+            //stream.SendNext((int)behaviourState);
         }
         else
         {
-            canAttack = (bool)stream.ReceiveNext();
-            canLookAtTarget = (bool)stream.ReceiveNext();
-            canMove = (bool)stream.ReceiveNext();
+            //canAttack = (bool)stream.ReceiveNext();
+            //canLookAtTarget = (bool)stream.ReceiveNext();
+            //canMove = (bool)stream.ReceiveNext();
             initialChaseTrigger.gameObject.SetActive((bool)stream.ReceiveNext());
+            //behaviourState = (BehaviourState)stream.ReceiveNext();
         }
     }
 

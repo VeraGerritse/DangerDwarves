@@ -86,13 +86,24 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
         {
             Entity newEntity = PhotonNetwork.InstantiateSceneObject(entityPrefab.name, GetRandomPos(), transform.rotation).GetComponentInChildren<Entity>();
             newEntity.health.isImmortal = spawnImmortal;
-            newEntity.OnDeath += () =>
-            {
-                PhotonNetwork.Destroy(newEntity.transform.root.gameObject);
-            };
 
-            EntityManager.instance.AddToAliveTargets(newEntity);
+            photonView.RPC("SetEntityInfo", RpcTarget.AllBuffered, newEntity.photonView.ViewID);
         }
+    }
+
+    [PunRPC]
+    private void SetEntityInfo(int entityID)
+    {
+        Entity entity = PhotonView.Find(entityID).GetComponent<Entity>();
+        entity.OnDeath += () =>
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(entity.transform.root.gameObject);
+            }
+        };
+
+        EntityManager.instance.AddToAliveTargets(entity);
     }
 
     [PunRPC]
