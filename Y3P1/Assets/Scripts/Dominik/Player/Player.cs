@@ -120,17 +120,6 @@ namespace Y3P1
             return PhotonNetwork.IsConnected && photonView.IsMine ? true : false;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                if (photonView.IsMine)
-                {
-                    Player.localPlayer.entity.Hit(-10);
-                }
-            }
-        }
-
         public override void OnDisable()
         {
             playerController.OnDodge -= PlayerController_OnDodge;

@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,6 +9,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     private Transform target;
     private NavMeshAgent agent;
     private Entity entity;
+    private Collider[] hits = new Collider[10];
 
     private bool canAttack = true;
     private bool canLookAtTarget = true;
@@ -19,13 +21,25 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     public enum BehaviourState { Idle, Chase, Attack };
     public BehaviourState behaviourState;
 
+    [SerializeField] private List<AttackAnimation> attacks = new List<AttackAnimation>();
     [SerializeField] private float attackDistance;
     [SerializeField] private float attackRangeLookAtSpeed;
+    [SerializeField] private float damageRange;
+    [SerializeField] private Transform damagePoint;
+    [SerializeField] private int tempDamage = 10;
 
     [Space(10)]
 
     [SerializeField] private Animator anim;
     [SerializeField] private CollisionEventZone initialChaseTrigger;
+
+    [System.Serializable]
+    private struct AttackAnimation
+    {
+        public string attackName;
+        [Range(0, 100)]
+        public int attackChance;
+    }
 
     private void Awake()
     {
@@ -91,32 +105,53 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         anim.SetBool("Is Walking", false);
 
+        Vector3 toTarget = target.position - transform.position;
+
         if (canLookAtTarget)
         {
-            Vector3 toTarget = target.position - transform.position;
             Quaternion newRotation = Quaternion.LookRotation(toTarget);
             transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * attackRangeLookAtSpeed);
         }
 
         if (canAttack)
         {
-            Attack();
-        }
-
-        if (GetDistanceToTarget() > attackDistance)
-        {
-            //if (canAttack)
-            //{
-            SetState(BehaviourState.Chase);
-            //}
+            if (GetDistanceToTarget() < attackDistance)
+            {
+                float angle = Vector3.Angle(toTarget, transform.forward);
+                if (angle < 10)
+                {
+                    StartAttack();
+                }
+            }
+            else
+            {
+                SetState(BehaviourState.Chase);
+            }
         }
     }
 
-    private void Attack()
+    private void StartAttack()
     {
         canAttack = false;
-        //canLookAtTarget = false;
-        anim.SetTrigger("Attacck");
+        canLookAtTarget = false;
+        anim.SetTrigger(GetRandomAttack());
+    }
+
+    public void Attack()
+    {
+        int collidersFound = Physics.OverlapSphereNonAlloc(damagePoint.position, damageRange, hits);
+
+        for (int i = 0; i < collidersFound; i++)
+        {
+            Entity entity = hits[i].GetComponent<Entity>();
+            if (entity)
+            {
+                if (hits[i].transform.parent.tag == "Player")
+                {
+                    entity.Hit(-tempDamage);
+                }
+            }
+        }
     }
 
     public void EndAttack()
@@ -133,7 +168,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         {
             canMove = false;
             //agent.isStopped = false;
-            anim.SetTrigger("Hit");
+            anim.SetTrigger("Spider_hit");
             //agent.speed = slowedSpeed;
         }
     }
@@ -170,6 +205,21 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         return directionToTarget.sqrMagnitude;
     }
 
+    private string GetRandomAttack()
+    {
+        int random = Random.Range(0, 101);
+
+        for (int i = 0; i < attacks.Count; i++)
+        {
+            if (random < attacks[i].attackChance)
+            {
+                return attacks[i].attackName;
+            }
+        }
+
+        return attacks[0].attackName;
+    }
+
     public override void OnDisable()
     {
         canAttack = true;
@@ -196,6 +246,15 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             canLookAtTarget = (bool)stream.ReceiveNext();
             canMove = (bool)stream.ReceiveNext();
             initialChaseTrigger.gameObject.SetActive((bool)stream.ReceiveNext());
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (damagePoint)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(damagePoint.position, damageRange);
         }
     }
 }

@@ -10,6 +10,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     private string gameVersion = "1.0.0";
     private static string playerNamePrefKey = "PlayerName";
     private bool isConnecting;
+    private bool solo;
 
     [SerializeField] private TMP_InputField nameInputField;
     [SerializeField] private GameObject playMenuPanel;
@@ -50,11 +51,24 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
     }
 
+    public void ConnectSolo()
+    {
+        solo = true;
+        Connect();
+    }
+
     public override void OnConnectedToMaster()
     {
         if (isConnecting)
         {
-            PhotonNetwork.JoinRandomRoom();
+            if (solo)
+            {
+                PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = 1 }, null);
+            }
+            else
+            {
+                PhotonNetwork.JoinRandomRoom();
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AnimationEventSpiderHit : MonoBehaviour
+public class AnimationEventsSpider : MonoBehaviour
 {
 
     private AI ai;
@@ -8,6 +8,16 @@ public class AnimationEventSpiderHit : MonoBehaviour
     private void Awake()
     {
         ai = GetComponentInParent<AI>();
+    }
+
+    public void AttackEnd()
+    {
+        ai.EndAttack();
+    }
+
+    public void Attack()
+    {
+        ai.Attack();
     }
 
     public void HitEnd()
