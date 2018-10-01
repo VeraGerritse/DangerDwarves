@@ -49,11 +49,24 @@ public class WeaponSlot : EquipmentSlot
             {
                 HandleWeaponActions();
             }
+            else
+            {
+                Player.localPlayer.dwarfAnimController.SetMeleeStance(false);
+                OnStopChargeSecondary();
+                isChargingSecondary = false;
+            }
 
             if (isChargingSecondary)
             {
                 secondaryChargeCounter += Time.deltaTime;
             }
+        }
+        else
+        {
+            // Just to be safe.
+            Player.localPlayer.dwarfAnimController.SetMeleeStance(false);
+            OnStopChargeSecondary();
+            isChargingSecondary = false;
         }
     }
 
@@ -141,6 +154,8 @@ public class WeaponSlot : EquipmentSlot
 
     public void EquipWeapon(Weapon weapon)
     {
+        Player.localPlayer.dwarfAnimController.CanEquipRanged();
+
         int[] ids = Equip(weapon, weapon is Weapon_Ranged ? rangedWeaponSpawn : meleeWeaponSpawn);
         currentWeapon = currentEquipment as Weapon;
         if (currentWeapon != null)

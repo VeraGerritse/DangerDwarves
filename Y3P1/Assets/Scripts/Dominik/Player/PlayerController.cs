@@ -7,7 +7,8 @@ public class PlayerController : MonoBehaviour
 
     public static Vector3 mouseInWorldPos;
     private GameObject mouseHitPlane;
-    private Vector3 velocity;
+    private Vector3 rawVelocity;
+    private Vector3 moveVelocity;
     private Vector3 dodgeVelocity;
     private Quaternion dodgeRotation;
     private float nextDodgeTime;
@@ -62,30 +63,31 @@ public class PlayerController : MonoBehaviour
         Vector3 vertical = Vector3.forward * y;
 
         // Calculate normalized velocity and multiply it by the deltatime and movement speed.
-        velocity = (horizontal + vertical).normalized * (Time.deltaTime * moveSpeed);
+        rawVelocity = (horizontal + vertical).normalized;
+        moveVelocity = rawVelocity * (Time.deltaTime * moveSpeed);
 
         // Use built in rigidbody function to move the player.
         // NOTE: MovePosition causes jittery movement! Setting the velocity directly and having interpolate on the rigidbody on works better.
         //Player.localPlayer.rb.MovePosition(transform.position + velocity);
-        if (velocity != Vector3.zero)
+        if (moveVelocity != Vector3.zero)
         {
             // If the player is moving against a slope, help him a little bit by applying upwards velocity.
             RaycastHit hit;
-            if (Physics.Raycast(transform.localPosition, velocity, out hit, 0.15f, heightCheckLayermask))
+            if (Physics.Raycast(transform.localPosition, moveVelocity, out hit, 0.15f, heightCheckLayermask))
             {
-                Player.localPlayer.rb.velocity = velocity + Vector3.up * 0.5f;
+                Player.localPlayer.rb.velocity = moveVelocity + Vector3.up * 0.5f;
             }
             else
             {
                 // If the player is moving on a flat surface, multiply velocity with a certain amount of downforce.
                 if (Physics.Raycast(transform.localPosition, -transform.up, out hit, 0.05f, heightCheckLayermask))
                 {
-                    Player.localPlayer.rb.velocity = velocity + Vector3.down * 2;
+                    Player.localPlayer.rb.velocity = moveVelocity + Vector3.down * 2;
                 }
                 // If the player is in the air and moving, increase the downwards velocity.
                 else
                 {
-                    Player.localPlayer.rb.velocity = velocity + Vector3.down * 5;
+                    Player.localPlayer.rb.velocity = moveVelocity + Vector3.down * 5;
                 }
 
             }
@@ -105,7 +107,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        Debug.DrawRay(transform.localPosition, velocity * 0.15f, Color.red);
+        Debug.DrawRay(transform.localPosition, moveVelocity * 0.15f, Color.red);
     }
 
     // Gets the position of a raycast firing from the camera in the direction of the mouse and onto an invisible plane and uses that position for the player to rotate towards.
@@ -133,7 +135,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Time.time > nextDodgeTime)
             {
-                if (velocity != Vector3.zero)
+                if (rawVelocity != Vector3.zero)
                 {
                     StartDodge();
                     nextDodgeTime = Time.time + dodgeCooldown;
@@ -144,13 +146,13 @@ public class PlayerController : MonoBehaviour
         if (isDodging)
         {
             body.rotation = Quaternion.Slerp(body.rotation, dodgeRotation, Time.deltaTime * 10);
-            Player.localPlayer.rb.AddForce(dodgeVelocity * dodgeSpeed, ForceMode.Force);
+            Player.localPlayer.rb.AddForce(dodgeVelocity * Time.deltaTime * dodgeSpeed, ForceMode.Force);
         }
     }
 
     private void StartDodge()
     {
-        dodgeVelocity = velocity;
+        dodgeVelocity = rawVelocity;
         dodgeRotation = Quaternion.LookRotation((body.position + dodgeVelocity) - body.position, Vector3.up);
         isDodging = true;
         OnDodge(true);
