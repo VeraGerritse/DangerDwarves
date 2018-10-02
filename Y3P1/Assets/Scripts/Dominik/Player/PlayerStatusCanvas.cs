@@ -18,7 +18,6 @@ public class PlayerStatusCanvas : MonoBehaviour
     {
         if (!local)
         {
-            NotificationManager.instance.NewNotification("aksdlkjsabdksahjbdksabdsabdlasubdlsabdasbdlsa");
             enabled = false;
             return;
         }

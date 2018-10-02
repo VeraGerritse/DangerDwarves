@@ -344,14 +344,6 @@ public class Inventory : MonoBehaviourPunCallbacks
         allSlots[slot].EquipWeapon(null);
     }
 
-    private void Awake()
-    {
-        canvas = GetComponentInParent<Canvas>();
-        OpenCloseInv();
-        drag = null;
-        StartCoroutine(Time());
-    }
-
     IEnumerator Time()
     {
         yield return new WaitForSeconds(0.1f);
@@ -654,7 +646,16 @@ public class Inventory : MonoBehaviourPunCallbacks
     {
         if (local)
         {
+            canvas = GetComponentInParent<Canvas>();
+            OpenCloseInv();
+            drag = null;
+            StartCoroutine(Time());
+
             isInitialised = true;
+        }
+        else
+        {
+            enabled = false;
         }
     }
 
