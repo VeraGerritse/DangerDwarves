@@ -84,7 +84,7 @@ MonoBehaviour:
   swordNames:
   - Sword
   - Greatsword
-  - Great great holy amazing blade
+  - Great holy amazing blade
   swordSprite:
   - {fileID: 21300000, guid: 1d2acff5fd149f140ad3afc8f644bd11, type: 3}
   - {fileID: 21300000, guid: 83cc72fd9307d904fac3b34ba6812253, type: 3}

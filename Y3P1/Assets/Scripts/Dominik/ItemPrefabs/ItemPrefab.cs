@@ -20,12 +20,24 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        SetRarityParticleColors();
 
-        if (!photonView.IsMine)
+        //if (!photonView.IsMine)
+        //{
+        //    Player.localPlayer.SetLayer(transform, 14);
+        //}
+    }
+
+    private void Start()
+    {
+        // If you join a game and a dropped item has no name it means that this player already received the data sync RPC in a previous login and cannot get it again 
+        // on another login. To prevent weird things from happening, disable the item. Other players can still see it.
+        if (!transform.parent && string.IsNullOrEmpty(myItem.itemName))
         {
-            Player.localPlayer.SetLayer(transform, 14);
+            gameObject.SetActive(false);
+            return;
         }
+
+        SetRarityParticleColors();
     }
 
     public virtual void Drop()

@@ -60,8 +60,8 @@ public class InventorySlot : MonoBehaviour {
 
     private void Start()
     {
-        inventory = Player.localPlayer.GetComponentInChildren<Inventory>();
-        if(inventory == null)
+        inventory = Player.localPlayer.myInventory;
+        if (inventory == null)
         {
             Debug.Log("No inventory Found");
             Destroy(gameObject);
@@ -70,7 +70,7 @@ public class InventorySlot : MonoBehaviour {
 
         //myItem = GetComponentInChildren<Image>();
         //myItem.enabled = false;
-        inventory.AddSlots();
+        //inventory.AddSlots();
     }
 
     public void OnMouseEnter()

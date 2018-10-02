@@ -644,9 +644,11 @@ public class Inventory : MonoBehaviourPunCallbacks
 
     public void Initialise(bool local)
     {
+        canvas = GetComponentInParent<Canvas>();
+
         if (local)
         {
-            canvas = GetComponentInParent<Canvas>();
+            AddSlots();
             OpenCloseInv();
             drag = null;
             StartCoroutine(Time());
@@ -655,6 +657,8 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
         else
         {
+            OpenCloseInv();
+            drag = null;
             enabled = false;
         }
     }

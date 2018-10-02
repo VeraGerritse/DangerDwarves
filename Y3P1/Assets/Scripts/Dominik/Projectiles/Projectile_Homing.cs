@@ -17,6 +17,12 @@ public class Projectile_Homing : Projectile
         base.OnEnable();
 
         currentRotateSpeed = 0;
+    }
+
+    public override void Fire(FireData fireData)
+    {
+        base.Fire(fireData);
+
         target = GetClosestTarget(fireData.mousePos);
     }
 
