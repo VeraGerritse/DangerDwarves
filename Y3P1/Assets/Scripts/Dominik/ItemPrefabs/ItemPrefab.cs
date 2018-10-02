@@ -21,6 +21,11 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
     {
         rb = GetComponent<Rigidbody>();
         SetRarityParticleColors();
+
+        if (!photonView.IsMine)
+        {
+            Player.localPlayer.SetLayer(transform, 14);
+        }
     }
 
     public virtual void Drop()

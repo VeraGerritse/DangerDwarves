@@ -6,6 +6,7 @@ using System;
 public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
 
+    public bool isPlayer;
     public Health health;
     public Stats stats;
     public event Action OnDeath = delegate { };
@@ -28,6 +29,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     private void HitRPC(int amount)
     {
+        NotificationManager.instance.NewNotification("hvlfkfkvlhk,gkhghglvgkgjvghjfjfxddtyjt");
         health.ModifyHealth(CalculateAmount(amount));
     }
 
@@ -45,11 +47,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     public void Kill()
     {
         OnDeath();
-
-        if (EntityManager.instance.aliveTargets.Contains(this))
-        {
-            EntityManager.instance.aliveTargets.Remove(this);
-        }
+        EntityManager.instance.RemoveFromAliveTargets(this);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

@@ -31,13 +31,27 @@ public class EntityManager : MonoBehaviourPunCallbacks
     [PunRPC]
     private void SyncAliveTargets(int photonViewID)
     {
-        Entity target = PhotonView.Find(photonViewID).gameObject.GetComponent<Entity>();
+        PhotonView targetPV = PhotonView.Find(photonViewID);
+        if (!targetPV)
+        {
+            return;
+        }
+
+        Entity target = targetPV.gameObject.GetComponent<Entity>();
         if (target)
         {
             if (!aliveTargets.Contains(target))
             {
                 aliveTargets.Add(target);
             }
+        }
+    }
+
+    public void RemoveFromAliveTargets(Entity entity)
+    {
+        if (aliveTargets.Contains(entity))
+        {
+            aliveTargets.Remove(entity);
         }
     }
 

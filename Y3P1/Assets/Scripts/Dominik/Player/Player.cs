@@ -83,6 +83,8 @@ namespace Y3P1
 
             if (!IsConnectedAndMine())
             {
+                SetLayer(transform, 14);
+
                 foreach (Collider col in GetComponentsInChildren<Collider>())
                 {
                     col.enabled = false;
@@ -120,6 +122,15 @@ namespace Y3P1
                 return true;
             }
             return PhotonNetwork.IsConnected && photonView.IsMine ? true : false;
+        }
+
+        public void SetLayer(Transform root, int layer)
+        {
+            root.gameObject.layer = layer;
+            foreach (Transform child in root)
+            {
+                SetLayer(child, layer);
+            }
         }
 
         public override void OnDisable()
