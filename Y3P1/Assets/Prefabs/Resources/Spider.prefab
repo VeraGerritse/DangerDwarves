@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!224 &1156906820987892572 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+    type: 3}
+  m_PrefabInstance: {fileID: 5797328555185299410}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &388493675165110243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6689450368134285142, guid: 73553a4f294c67f4bb845f8c0b01cd00,
@@ -87,12 +93,6 @@ MonoBehaviour:
   viewIdField: 1
   InstantiationId: 1
   isRuntimeInstantiated: 0
---- !u!224 &1156906820987892572 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
-    type: 3}
-  m_PrefabInstance: {fileID: 5797328555185299410}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6194897669489963111
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,7 +309,7 @@ MonoBehaviour:
     attackType: 1
     projectilePoolName: SpiderVenom
   attackDistance: 3.75
-  attackRangeLookAtSpeed: 4
+  attackRangeLookAtSpeed: 5
   damageRange: 0.65
   damagePoint: {fileID: 854608063657418639}
   tempDamage: 10

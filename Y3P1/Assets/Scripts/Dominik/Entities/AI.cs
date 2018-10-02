@@ -50,8 +50,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
         initialChaseTrigger.OnZoneEnterEvent.AddListener(() =>
         {
-            SetTarget(initialChaseTrigger.eventCaller);
-            initialChaseTrigger.gameObject.SetActive(false);
+            photonView.RPC("SetTarget", RpcTarget.AllBuffered, initialChaseTrigger.eventCaller.GetComponent<PhotonView>().ViewID);
         });
     }
 
@@ -83,8 +82,8 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (canMove)
         {
-            agent.isStopped = false;
             agent.SetDestination(target.position);
+            agent.isStopped = false;
             anim.SetBool("Is Walking", true);
         }
         else
@@ -208,21 +207,16 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (!target && initialChaseTrigger.gameObject.activeInHierarchy)
         {
-            SetTarget(EntityManager.instance.GetClosestPlayer(transform));
+            photonView.RPC("SetTarget", RpcTarget.AllBuffered, EntityManager.instance.GetClosestPlayer(transform).GetComponent<PhotonView>().ViewID);
         }
     }
 
-    public void SetTarget(Transform target)
-    {
-        this.target = target;
-        SetState(target ? BehaviourState.Chase : BehaviourState.Idle);
-        photonView.RPC("SyncTarget", RpcTarget.AllBuffered, target.GetComponent<PhotonView>().ViewID);
-    }
-
     [PunRPC]
-    private void SyncTarget(int targetID)
+    public void SetTarget(int targetID)
     {
         target = PhotonView.Find(targetID).transform;
+        initialChaseTrigger.gameObject.SetActive(false);
+        SetState(target ? BehaviourState.Chase : BehaviourState.Idle);
     }
 
     private void SetState(BehaviourState state)
@@ -266,19 +260,15 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (stream.IsWriting)
         {
-            //stream.SendNext(canAttack);
-            //stream.SendNext(canLookAtTarget);
-            //stream.SendNext(canMove);
-            stream.SendNext(initialChaseTrigger.gameObject.activeSelf);
-            //stream.SendNext((int)behaviourState);
+            stream.SendNext(canAttack);
+            stream.SendNext(canLookAtTarget);
+            stream.SendNext(canMove);
         }
         else
         {
-            //canAttack = (bool)stream.ReceiveNext();
-            //canLookAtTarget = (bool)stream.ReceiveNext();
-            //canMove = (bool)stream.ReceiveNext();
-            initialChaseTrigger.gameObject.SetActive((bool)stream.ReceiveNext());
-            //behaviourState = (BehaviourState)stream.ReceiveNext();
+            canAttack = (bool)stream.ReceiveNext();
+            canLookAtTarget = (bool)stream.ReceiveNext();
+            canMove = (bool)stream.ReceiveNext();
         }
     }
 

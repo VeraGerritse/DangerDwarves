@@ -59,4 +59,5 @@ MonoBehaviour:
   - SpawnProjectile
   - SetEntityInfo
   - SyncTarget
+  - SetTarget
   DisableAutoOpenWizard: 1

@@ -41,7 +41,7 @@ public class WeaponSlot : EquipmentSlot
     {
         if (CanAttack())
         {
-            if (currentWeapon != null)
+            if (currentWeapon != null && equipedItem != null)
             {
                 HandlePrimaryAttack();
                 HandleSecondaryAttack();
