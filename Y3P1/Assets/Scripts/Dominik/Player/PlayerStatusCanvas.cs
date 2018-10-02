@@ -14,14 +14,8 @@ public class PlayerStatusCanvas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI localPlayerNameText; 
     [SerializeField] private TextMeshProUGUI localPlayerHealthText;
 
-    public void Initialise(bool local)
+    public void Start()
     {
-        if (!local)
-        {
-            enabled = false;
-            return;
-        }
-
         playerHealthBar = GetComponentInChildren<HealthBar>();
         playerHealthBar.Initialise(Player.localPlayer.entity);
         if (WeaponSlot.currentWeapon != null)

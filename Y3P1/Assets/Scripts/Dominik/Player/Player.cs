@@ -32,7 +32,7 @@ namespace Y3P1
         [HideInInspector] public DwarfAnimationsScript dwarfAnimController;
         [HideInInspector] public IKControl iKControl;
         [HideInInspector] public PlayerAppearance playerAppearance;
-        [HideInInspector] public PlayerStatusCanvas playerStatusCanvas;
+        //[HideInInspector] public PlayerStatusCanvas playerStatusCanvas;
         #endregion
 
         private void Awake()
@@ -62,7 +62,7 @@ namespace Y3P1
             dwarfAnimEvents = GetComponentInChildren<AnimationEventsDwarf>();
             iKControl = GetComponentInChildren<IKControl>();
             playerAppearance = GetComponentInChildren<PlayerAppearance>();
-            playerStatusCanvas = FindObjectOfType<PlayerStatusCanvas>();
+            //playerStatusCanvas = FindObjectOfType<PlayerStatusCanvas>();
         }
 
         private void Initialise()
@@ -74,7 +74,7 @@ namespace Y3P1
             dwarfAnimController.Initialise(IsConnectedAndMine());
             rangedWeaponLookAt.Initialise(IsConnectedAndMine());
             myInventory.Initialise(IsConnectedAndMine());
-            playerStatusCanvas.Initialise(IsConnectedAndMine());
+            //playerStatusCanvas.Initialise(IsConnectedAndMine());
 
             weaponSlot.Initialise(IsConnectedAndMine());
             helmetSlot.Initialise(IsConnectedAndMine());
