@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageText: {fileID: 646390775427469768}
-  randomSpawnOffset: 0.4
+  randomSpawnOffsetX: 0.4
+  randomSpawnOffsetY: 0.05
   moveSpeed: 1
   fadeSpeed: 1

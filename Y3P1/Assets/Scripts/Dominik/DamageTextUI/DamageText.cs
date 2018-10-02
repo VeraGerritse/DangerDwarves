@@ -1,26 +1,36 @@
-﻿using UnityEngine;
-using TMPro;
+﻿using TMPro;
+using UnityEngine;
 
-public class DamageText : MonoBehaviour 
+public class DamageText : MonoBehaviour
 {
 
     private Vector3 newPos;
     private Color newColor;
+    private Vector3 originalScale;
 
     [SerializeField] private TextMeshProUGUI damageText;
-    [SerializeField] private float randomSpawnOffset = 0.5f;
+    [SerializeField] private float randomSpawnOffsetX = 0.5f;
+    [SerializeField] private float randomSpawnOffsetY = 0.1f;
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float fadeSpeed = 1f;
+
+    private void Awake()
+    {
+        originalScale = transform.localScale;
+    }
 
     public void Initialise(int damage)
     {
         SetTextColor(damage);
 
-        damageText.text = damage.ToString();
-        transform.position += new Vector3(Random.Range(-randomSpawnOffset, randomSpawnOffset), 0, 0);
+        damageText.text = Mathf.Abs(damage).ToString();
+        transform.position += new Vector3(Random.Range(-randomSpawnOffsetX, randomSpawnOffsetX), Random.Range(-randomSpawnOffsetY, randomSpawnOffsetY), 0);
 
         newPos = transform.position;
         newColor = damageText.color;
+
+        transform.localScale = originalScale;
+        transform.localScale *= Mathf.Clamp((1 + Mathf.Abs(damage) / 50), 1, 2);
     }
 
     private void Update()

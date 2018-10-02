@@ -82,7 +82,15 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (canMove)
         {
-            agent.SetDestination(target.position);
+            if (target)
+            {
+                agent.SetDestination(target.position);
+            }
+            else
+            {
+                AggroClosestPlayer();
+            }
+
             agent.isStopped = false;
             anim.SetBool("Is Walking", true);
         }
@@ -103,7 +111,15 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         agent.isStopped = true;
         anim.SetBool("Is Walking", false);
 
-        Vector3 toTarget = target.position - transform.position;
+        Vector3 toTarget = Vector3.zero;
+        if (target)
+        {
+            toTarget = target.position - transform.position;
+        }
+        else
+        {
+            SetState(BehaviourState.Chase);
+        }
 
         if (canLookAtTarget)
         {
@@ -189,7 +205,10 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Hit()
     {
-        AggroClosestPlayerOnHit();
+        if (!target && initialChaseTrigger.gameObject.activeInHierarchy)
+        {
+            AggroClosestPlayer();
+        }
 
         if (behaviourState == BehaviourState.Attack)
         {
@@ -203,12 +222,10 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         canLookAtTarget = true;
     }
 
-    private void AggroClosestPlayerOnHit()
+    private void AggroClosestPlayer()
     {
-        if (!target && initialChaseTrigger.gameObject.activeInHierarchy)
-        {
-            photonView.RPC("SetTarget", RpcTarget.AllBuffered, EntityManager.instance.GetClosestPlayer(transform).GetComponent<PhotonView>().ViewID);
-        }
+        target = EntityManager.instance.GetClosestPlayer(transform);
+        photonView.RPC("SetTarget", RpcTarget.AllBuffered, target.GetComponent<PhotonView>().ViewID);
     }
 
     [PunRPC]

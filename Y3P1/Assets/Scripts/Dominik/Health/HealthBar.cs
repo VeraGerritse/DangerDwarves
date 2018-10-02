@@ -6,7 +6,6 @@ public class HealthBar : MonoBehaviour
 {
 
     private bool initialised;
-
     private Animator anim;
 
     [SerializeField] private Image foregroundHealthBar;

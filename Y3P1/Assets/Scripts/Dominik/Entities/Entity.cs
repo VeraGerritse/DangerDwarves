@@ -6,7 +6,6 @@ using System;
 public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
 
-    public bool isPlayer;
     public Health health;
     public Stats stats;
     public event Action OnDeath = delegate { };
@@ -29,7 +28,6 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     private void HitRPC(int amount)
     {
-        NotificationManager.instance.NewNotification("hvlfkfkvlhk,gkhghglvgkgjvghjfjfxddtyjt");
         health.ModifyHealth(CalculateAmount(amount));
     }
 
