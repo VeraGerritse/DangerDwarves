@@ -17,6 +17,7 @@ MonoBehaviour:
   - {fileID: 114417721448267600}
   - {fileID: 114643385557109640}
   - {fileID: 114690061827458408}
+  - {fileID: 114906381402481792}
 --- !u!114 &114301597103166126
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -47,10 +48,10 @@ MonoBehaviour:
     value: 65472
   diffusion:
     overrideState: 1
-    value: 7
+    value: 9.94
   anamorphicRatio:
     overrideState: 1
-    value: 0
+    value: -0.25
   color:
     overrideState: 1
     value: {r: 1, g: 1, b: 1, a: 1}
@@ -222,7 +223,7 @@ MonoBehaviour:
     value: -7
   saturation:
     overrideState: 1
-    value: 6
+    value: -1
   brightness:
     overrideState: 1
     value: 0
@@ -231,7 +232,7 @@ MonoBehaviour:
     value: 1.2
   contrast:
     overrideState: 1
-    value: 1
+    value: 0
   mixerRedOutRedIn:
     overrideState: 0
     value: 100
@@ -1468,3 +1469,29 @@ MonoBehaviour:
       - 0.5
       - 0.5
       - 0.5
+--- !u!114 &114906381402481792
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  spectralLut:
+    overrideState: 1
+    value: {fileID: 0}
+    defaultState: 1
+  intensity:
+    overrideState: 1
+    value: 0.071
+  fastMode:
+    overrideState: 1
+    value: 1
