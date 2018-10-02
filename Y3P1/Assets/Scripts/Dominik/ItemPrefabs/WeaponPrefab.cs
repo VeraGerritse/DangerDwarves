@@ -8,6 +8,8 @@ public class WeaponPrefab : ItemPrefab
     private Collider[] meleeHits = new Collider[15];
 
     public Transform projectileSpawn;
+    public MeshRenderer renderer;
+    [SerializeField] private Material[] materials;
 
     protected override void Awake()
     {
@@ -21,6 +23,11 @@ public class WeaponPrefab : ItemPrefab
         }
 
         projectileSpawn = transform.GetChild(0).transform;
+
+        if (materials.Length > 0)
+        {
+            renderer.material = materials[Random.Range(0, materials.Length)];
+        }
     }
 
     private void WeaponSlot_OnUsePrimary()

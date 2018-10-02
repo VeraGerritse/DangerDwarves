@@ -154,6 +154,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4984602334252734509}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &4984602334250434637 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: 8e45983f7a5788f4d993d6bf0bd121b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 4984602334252734509}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5980796425491674147
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +229,10 @@ MonoBehaviour:
   weaponRarityParticles: []
   dropRotationAdjustment: {x: 0, y: 0, z: 0}
   projectileSpawn: {fileID: 5808629879463845336}
+  renderer: {fileID: 4984602334250434637}
+  materials:
+  - {fileID: 2100000, guid: 1fe5fbfc50e1feb478e5b63022716c23, type: 2}
+  - {fileID: 2100000, guid: 613aeca4d573d534e8f445844e20a49e, type: 2}
 --- !u!114 &1045404800596999195
 MonoBehaviour:
   m_ObjectHideFlags: 0
