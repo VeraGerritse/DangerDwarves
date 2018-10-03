@@ -96,9 +96,10 @@ MonoBehaviour:
   selfDestroyTime: 5
   prefabToSpawnOnHit: 
   prefabToSpawnOnDeath: 
+  stayOnOwner: 0
   volleyArrowPrefab: VolleyArrow
-  volleyRange: 2.5
-  volleyAmount: 20
+  volleyRange: 5
+  volleyAmount: 30
   volleyArrowSpeed: 25
 --- !u!114 &9156334626702542129
 MonoBehaviour:
