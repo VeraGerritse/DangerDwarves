@@ -10,7 +10,8 @@ public class Health
     public bool isImmortal;
     public bool isInvinsible;
     private bool isDead;
-    [SerializeField] private int maxHealth = 100;
+
+    [SerializeField] private int baseHealth = 100;
     private int currentHealth;
 
     public event Action<float, int?> OnHealthModified = delegate { };
@@ -34,7 +35,7 @@ public class Health
                 currentHealth += amount;
             }
         }
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        currentHealth = Mathf.Clamp(currentHealth, 0, GetMaxHealth());
         OnHealthModified(GetHealthPercentage(), amount);
 
         if (currentHealth <= 0 && !isDead)
@@ -46,18 +47,34 @@ public class Health
 
     private float GetHealthPercentage()
     {
-        return (float)currentHealth / maxHealth;
+        return (float)currentHealth / GetMaxHealth();
     }
 
     public string GetHealthString()
     {
-        return currentHealth + "/" + maxHealth;
+        return currentHealth + "/" + GetMaxHealth();
+    }
+
+    private int GetMaxHealth()
+    {
+        if (myEntity)
+        {
+            return baseHealth + myEntity.stats.stamina * 5;
+        }
+
+        return baseHealth;
+    }
+
+    public void UpdateHealth()
+    {
+        currentHealth = Mathf.Clamp(currentHealth, 0, GetMaxHealth());
+        OnHealthModified(GetHealthPercentage(), null);
     }
 
     public void ResetHealth()
     {
         isDead = false;
-        currentHealth = maxHealth;
+        currentHealth = GetMaxHealth();
         OnHealthModified(GetHealthPercentage(), null);
     }
 }

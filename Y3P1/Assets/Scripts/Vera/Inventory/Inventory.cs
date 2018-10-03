@@ -760,6 +760,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
 
         currentStats = together;
+        Player.localPlayer.entity.UpdateStats(together);
         averageILevel = iLevel / 3;
         SetInfo();
     }

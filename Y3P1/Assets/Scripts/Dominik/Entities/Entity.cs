@@ -9,7 +9,6 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     public Health health;
     public Stats stats;
     public bool canDropLoot;
-    private bool isDead;
     public event Action OnDeath = delegate { };
 
     [Space(10)]
@@ -42,6 +41,12 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         return (int)Mathf.Clamp((amount + stats.defense), -99999999999999999, 0);
+    }
+
+    public void UpdateStats(Stats stats)
+    {
+        this.stats = stats;
+        health.UpdateHealth();
     }
 
     public void Kill()
