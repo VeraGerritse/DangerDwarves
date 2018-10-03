@@ -59,6 +59,7 @@ MonoBehaviour:
   - Buff_Thorns
   singleSecondary:
   - Arrow_Animated
+  - Arrow_Volley
   crossbowNames:
   - Bow
   - Crossbow
