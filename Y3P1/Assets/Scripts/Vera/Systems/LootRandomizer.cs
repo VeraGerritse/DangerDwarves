@@ -275,12 +275,12 @@ public class LootRandomizer : MonoBehaviour {
 
     private int AmountPrimary()
     {
-        return Random.Range(1, 12);
+        return Random.Range(1, 5);
     }
 
     private int AmountSecun()
     {
-        return Random.Range(1, 6);
+        return Random.Range(1, 3);
     }
 
     private float Force()
@@ -295,7 +295,7 @@ public class LootRandomizer : MonoBehaviour {
         {
             return 0;
         }
-        return Random.Range(10, 180);
+        return Random.Range(10, 90);
     }
 
     private float ChargeTime()
