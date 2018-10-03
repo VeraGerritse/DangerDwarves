@@ -111,10 +111,10 @@ public class Inventory : MonoBehaviourPunCallbacks
         return obj;
     }
 
-    void SaveItem(Item toSave, string objName)
+    void SaveItem(Item toSave, string objName, Vector3 loc)
     {
         byte[] saved = ObjectToByteArray(toSave);
-        photonView.RPC("DropItem", RpcTarget.AllBuffered, objName, saved, Player.localPlayer.transform.position);
+        photonView.RPC("DropItem", RpcTarget.AllBuffered, objName, saved, loc);
     }
 
     public void StopDragging()
@@ -148,7 +148,7 @@ public class Inventory : MonoBehaviourPunCallbacks
                 allSlots[lastSlotIndex].EquipTrinket(null);
             }
             GameObject newObj = Database.hostInstance.allGameobjects[allItems[lastSlotIndex].prefabIndex];
-            SaveItem(allItems[lastSlotIndex], newObj.name);
+            SaveItem(allItems[lastSlotIndex], newObj.name, Player.localPlayer.transform.position);
 
             RemoveItem(lastSlotIndex);
             drag = null;
@@ -592,7 +592,7 @@ public class Inventory : MonoBehaviourPunCallbacks
                         allSlots[index].EquipTrinket(null);
                     }
                     GameObject newObj = Database.hostInstance.allGameobjects[allItems[index].prefabIndex];
-                    SaveItem(allItems[index], newObj.name);
+                    SaveItem(allItems[index], newObj.name, Player.localPlayer.transform.position);
 
                     RemoveItem(index);
                     drag = null;
@@ -611,6 +611,13 @@ public class Inventory : MonoBehaviourPunCallbacks
             if(LootRandomizer.instance != null)
             {
                 AddItem(LootRandomizer.instance.DropLoot(averageILevel));
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (LootRandomizer.instance != null)
+            {
+                DropNewItem(Player.localPlayer.transform.position);
             }
         }
         if (drag == null)
@@ -770,5 +777,12 @@ public class Inventory : MonoBehaviourPunCallbacks
     public bool InventoryIsOpen()
     {
         return canvas.enabled;
+    }
+
+    public void DropNewItem(Vector3 loc)
+    {
+        Item newItem = LootRandomizer.instance.DropLoot(averageILevel);
+        GameObject newObj = Database.hostInstance.allGameobjects[newItem.prefabIndex];
+        SaveItem(newItem, newObj.name,loc);
     }
 }

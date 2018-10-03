@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using UnityEngine;
+using Y3P1;
 
 public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -100,6 +101,10 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
             if (PhotonNetwork.IsMasterClient)
             {
                 PhotonNetwork.Destroy(entity.transform.root.gameObject);
+                if (entity.canDropLoot)
+                {
+                    Player.localPlayer.myInventory.DropNewItem(entity.transform.position);
+                }
             }
         };
 

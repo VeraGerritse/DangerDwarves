@@ -8,6 +8,8 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public Health health;
     public Stats stats;
+    public bool canDropLoot;
+    private bool isDead;
     public event Action OnDeath = delegate { };
 
     [Space(10)]

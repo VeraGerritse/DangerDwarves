@@ -162,6 +162,7 @@ MonoBehaviour:
     agility: 0
     willpower: 0
     defense: 0
+  canDropLoot: 1
   OnHitEvent:
     m_PersistentCalls:
       m_Calls: []
