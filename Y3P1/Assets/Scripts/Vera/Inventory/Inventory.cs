@@ -139,14 +139,17 @@ public class Inventory : MonoBehaviourPunCallbacks
             if (allSlots[lastSlotIndex].slotType == InventorySlot.SlotType.weapon)
             {
                 allSlots[lastSlotIndex].EquipWeapon(null);
+                CalculateArmor();
             }
             if (allSlots[lastSlotIndex].slotType == InventorySlot.SlotType.helmet)
             {
                 allSlots[lastSlotIndex].EquipHelmet(null);
+                CalculateArmor();
             }
             if (allSlots[lastSlotIndex].slotType == InventorySlot.SlotType.trinket)
             {
                 allSlots[lastSlotIndex].EquipTrinket(null);
+                CalculateArmor();
             }
             GameObject newObj = Database.hostInstance.allGameobjects[allItems[lastSlotIndex].prefabIndex];
             SaveItem(allItems[lastSlotIndex], newObj.name, Player.localPlayer.transform.position);
@@ -178,14 +181,17 @@ public class Inventory : MonoBehaviourPunCallbacks
             if (allSlots[lastSlotIndex].slotType == InventorySlot.SlotType.weapon)
             {
                 allSlots[lastSlotIndex].EquipWeapon(null);
+                CalculateArmor();
             }
             if (allSlots[lastSlotIndex].slotType == InventorySlot.SlotType.helmet)
             {
                 allSlots[lastSlotIndex].EquipHelmet(null);
+                CalculateArmor();
             }
             if (allSlots[lastSlotIndex].slotType == InventorySlot.SlotType.trinket)
             {
                 allSlots[lastSlotIndex].EquipTrinket(null);
+                CalculateArmor();
             }
             allItems[currentSlotIndex] = allItems[lastSlotIndex];
             allSlots[currentSlotIndex].EnableImage();
@@ -343,6 +349,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     private void UnequipWeapon(int slot)
     {
         allSlots[slot].EquipWeapon(null);
+        CalculateArmor();
     }
 
     IEnumerator Time()
@@ -563,6 +570,7 @@ public class Inventory : MonoBehaviourPunCallbacks
                         }
                     }
                 }
+                CalculateArmor();
             }
         }
 
@@ -583,14 +591,17 @@ public class Inventory : MonoBehaviourPunCallbacks
                     if (allSlots[index].slotType == InventorySlot.SlotType.weapon)
                     {
                         allSlots[index].EquipWeapon(null);
+                        CalculateArmor();
                     }
                     if (allSlots[index].slotType == InventorySlot.SlotType.helmet)
                     {
                         allSlots[index].EquipHelmet(null);
+                        CalculateArmor();
                     }
                     if (allSlots[index].slotType == InventorySlot.SlotType.trinket)
                     {
                         allSlots[index].EquipTrinket(null);
+
                     }
                     GameObject newObj = Database.hostInstance.allGameobjects[allItems[index].prefabIndex];
                     SaveItem(allItems[index], newObj.name, Player.localPlayer.transform.position);
@@ -600,7 +611,7 @@ public class Inventory : MonoBehaviourPunCallbacks
                 }
 
             }
-            
+            CalculateArmor();
         }
 
         if (Input.GetButtonDown("Tab"))
@@ -621,10 +632,8 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.M))
         {
-            if (LootRandomizer.instance != null)
-            {
-                DropNewItem(Player.localPlayer.transform.position);
-            }
+            CalculateArmor();
+            SetInfo();
         }
         if (drag == null)
         {

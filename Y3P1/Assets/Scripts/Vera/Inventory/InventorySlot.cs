@@ -24,6 +24,7 @@ public class InventorySlot : MonoBehaviour {
         if(Player.localPlayer != null)
         {
             Player.localPlayer.weaponSlot.EquipWeapon(toEquip);
+            inventory.SetInfo();
         }
     }
 
@@ -32,6 +33,7 @@ public class InventorySlot : MonoBehaviour {
         if (Player.localPlayer != null)
         {
             Player.localPlayer.trinketSlot.EquipTrinket(toEquip);
+            inventory.SetInfo();
         }
     }
 
@@ -40,6 +42,7 @@ public class InventorySlot : MonoBehaviour {
         if (Player.localPlayer != null)
         {
             Player.localPlayer.helmetSlot.EquipHelmet(toEquip);
+            inventory.SetInfo();
         }
     }
 
