@@ -610,7 +610,12 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             if(LootRandomizer.instance != null)
             {
-                AddItem(LootRandomizer.instance.DropLoot(averageILevel));
+                Item newItem = LootRandomizer.instance.DropLoot(averageILevel);
+                if (newItem == null)
+                {
+                    return;
+                }
+                AddItem(newItem);
             }
         }
         if (Input.GetKeyDown(KeyCode.M))
@@ -782,6 +787,10 @@ public class Inventory : MonoBehaviourPunCallbacks
     public void DropNewItem(Vector3 loc)
     {
         Item newItem = LootRandomizer.instance.DropLoot(averageILevel);
+        if(newItem == null)
+        {
+            return;
+        }
         GameObject newObj = Database.hostInstance.allGameobjects[newItem.prefabIndex];
         SaveItem(newItem, newObj.name,loc);
     }

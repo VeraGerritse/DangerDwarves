@@ -36,6 +36,11 @@ public class LootRandomizer : MonoBehaviour {
 
     public Item DropLoot(int currentItemLevel)
     {
+        int drop = Random.Range(0, 100);
+        if(drop < 50)
+        {
+            return null;
+        }
 
         int randomType = Random.Range(0, amountTypes);
         Item newItem = null;
