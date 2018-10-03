@@ -8,11 +8,6 @@ public class Weapon_Melee : Weapon
     public float attackRange = 2;
     public float knockBack;
 
-    public override int CalculatePrimaryDamage()
-    {
-        return baseDamage + myStats.strength;
-    }
-
     public override void StartMelee(float range, float knockback)
     {
         attackRange = range;

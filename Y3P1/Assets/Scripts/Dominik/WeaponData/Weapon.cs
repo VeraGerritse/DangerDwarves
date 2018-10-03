@@ -20,12 +20,7 @@ public abstract class Weapon : Item
     public int secondaryAmountOfProjectiles = 1;
     public int secondaryConeOfFireInDegrees = 0;
 
-    public abstract int CalculatePrimaryDamage();
-
-    public int CalculateSecondaryDamage()
-    {
-        return baseDamage + myStats.willpower;
-    }
+    public enum DamageType { Melee, Ranged, Secondary };
 
     public override string[] WeaponInfo()
     {
@@ -45,7 +40,7 @@ public abstract class Weapon : Item
 
     public override string[] DamageInfo()
     {
-        return new string[] { "Damage: <color=#00A8FF>" + CalculatePrimaryDamage().ToString() };
+        return new string[] { "Damage: <color=#00A8FF>" + baseDamage.ToString() };
     }
     public override void StartWeapon(int baseDamage_, float fireRate, string sS, float sFR, float charge, float fS, int aS, int dS,bool buff, bool single)
     {

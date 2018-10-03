@@ -49,6 +49,23 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         health.UpdateHealth();
     }
 
+    public int CalculateDamage(Weapon.DamageType damageType)
+    {
+        switch (damageType)
+        {
+            case Weapon.DamageType.Melee:
+
+                return stats.strength;
+            case Weapon.DamageType.Ranged:
+
+                return stats.agility; 
+            case Weapon.DamageType.Secondary:
+                return stats.willpower;
+        }
+
+        return 0;
+    }
+
     public void Kill()
     {
         OnDeath();

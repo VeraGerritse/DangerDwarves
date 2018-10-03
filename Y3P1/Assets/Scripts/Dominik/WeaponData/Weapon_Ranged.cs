@@ -11,11 +11,6 @@ public class Weapon_Ranged : Weapon
     public int amountOfProjectiles = 1;
     public int coneOfFireInDegrees = 0;
 
-    public override int CalculatePrimaryDamage()
-    {
-        return baseDamage + myStats.agility;
-    }
-
     public override string[] RangedInfo()
     {
         string[] rI = new string[] {"Primary:", "Arrows: <color=#00A8FF>" + amountOfProjectiles.ToString() };

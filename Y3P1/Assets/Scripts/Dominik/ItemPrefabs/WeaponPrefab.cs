@@ -41,7 +41,7 @@ public class WeaponPrefab : ItemPrefab
                 projectileSpawn.rotation,
                 weapon.primaryProjectile,
                 weapon.force,
-                weapon.CalculatePrimaryDamage(),
+                weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Ranged),
                 weapon.amountOfProjectiles,
                 weapon.coneOfFireInDegrees,
                 PlayerController.mouseInWorldPos,
@@ -64,7 +64,7 @@ public class WeaponPrefab : ItemPrefab
                         Vector3 toHit = meleeHits[i].transform.position - Player.localPlayer.playerController.body.position;
                         if (Vector3.Dot(Player.localPlayer.playerController.body.forward, toHit) > 0)
                         {
-                            entity.Hit(-weapon.CalculatePrimaryDamage());
+                            entity.Hit(-(weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Melee)));
 
                             if (weapon.knockBack > 0)
                             {
@@ -94,7 +94,7 @@ public class WeaponPrefab : ItemPrefab
             secondaryType == Weapon.SecondaryType.Attack ? projectileSpawn.rotation : Player.localPlayer.transform.rotation,
             weapon.secondaryProjectile,
             weapon.secondaryForce,
-            weapon.CalculateSecondaryDamage(),
+            weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Secondary),
             weapon.secondaryAmountOfProjectiles,
             weapon.secondaryConeOfFireInDegrees,
             PlayerController.mouseInWorldPos,
