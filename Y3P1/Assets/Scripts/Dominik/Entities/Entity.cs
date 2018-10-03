@@ -55,12 +55,13 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         {
             case Weapon.DamageType.Melee:
 
-                return stats.strength;
+                return stats.strength + (int)(0.2 * stats.agility);
             case Weapon.DamageType.Ranged:
 
-                return stats.agility; 
+                return stats.agility + (int)(0.2 * stats.strength);
             case Weapon.DamageType.Secondary:
-                return stats.willpower;
+
+                return stats.willpower + (int)(0.5 * stats.strength) + (int)(0.5 * stats.agility);
         }
 
         return 0;
