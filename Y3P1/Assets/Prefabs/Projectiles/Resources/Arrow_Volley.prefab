@@ -98,8 +98,8 @@ MonoBehaviour:
   prefabToSpawnOnDeath: 
   stayOnOwner: 0
   volleyArrowPrefab: VolleyArrow
-  volleyRange: 5
-  volleyAmount: 30
+  volleyRange: 4.5
+  volleyAmount: 50
   volleyArrowSpeed: 25
 --- !u!114 &9156334626702542129
 MonoBehaviour:
