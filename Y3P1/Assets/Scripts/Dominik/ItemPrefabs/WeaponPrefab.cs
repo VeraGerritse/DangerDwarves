@@ -23,11 +23,6 @@ public class WeaponPrefab : ItemPrefab
         }
 
         projectileSpawn = transform.GetChild(0).transform;
-
-        if (materials.Length > 0)
-        {
-            renderer.material = materials[Random.Range(0, materials.Length)];
-        }
     }
 
     private void WeaponSlot_OnUsePrimary()
@@ -116,7 +111,33 @@ public class WeaponPrefab : ItemPrefab
         if (weapon != null)
         {
             myItem = WeaponSlot.currentWeapon;
+            SetWeaponMaterial((myItem as Weapon).materialIndex);
         }
+    }
+
+    private void SetWeaponMaterial(int? index)
+    {
+        if (index == null)
+        {
+            if (materials.Length > 0)
+            {
+                int randomMat = Random.Range(0, materials.Length);
+                renderer.material = materials[randomMat];
+                (myItem as Weapon).materialIndex = randomMat;
+
+                photonView.RPC("SyncMaterial", RpcTarget.AllBuffered, randomMat);
+            }
+        }
+        else
+        {
+            renderer.material = materials[(int)index];
+        }
+    }
+
+    [PunRPC]
+    private void SyncMaterial(int index)
+    {
+        SetWeaponMaterial(index);
     }
 
     [PunRPC]

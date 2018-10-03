@@ -7,6 +7,7 @@ public abstract class Weapon : Item
     [Header("Base Weapon Stats")]
     public int baseDamage = 10;
     public float primaryFireRate = 0.3f;
+    public int? materialIndex;
 
     [Header("Secondary Attack")]
     public string secondaryProjectile = "Arrow_Animated";
