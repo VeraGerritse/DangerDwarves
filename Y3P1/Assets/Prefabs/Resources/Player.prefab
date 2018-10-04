@@ -567,8 +567,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 9
-  InstantiationId: 9
+  viewIdField: 43
+  InstantiationId: 43
   isRuntimeInstantiated: 0
 --- !u!1 &329707718254758027
 GameObject:
@@ -692,8 +692,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 8
-  InstantiationId: 8
+  viewIdField: 41
+  InstantiationId: 41
   isRuntimeInstantiated: 0
 --- !u!1 &751775990373621006
 GameObject:
@@ -745,8 +745,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 7
-  InstantiationId: 7
+  viewIdField: 46
+  InstantiationId: 46
   isRuntimeInstantiated: 0
 --- !u!1 &2224781018497381817 stripped
 GameObject:
@@ -899,8 +899,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 6
-  InstantiationId: 6
+  viewIdField: 45
+  InstantiationId: 45
   isRuntimeInstantiated: 0
 --- !u!1 &3365887358606820787
 GameObject:
@@ -961,7 +961,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb944ea6121cec94a9147d0853eaa725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlayer: 1
   health:
     isImmortal: 0
     isInvinsible: 0
@@ -996,8 +995,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 0}
-  viewIdField: 5
-  InstantiationId: 5
+  viewIdField: 39
+  InstantiationId: 39
   isRuntimeInstantiated: 0
 --- !u!1 &6094335770218507037 stripped
 GameObject:
@@ -1230,8 +1229,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 2140086444260932015}
-  viewIdField: 10
-  InstantiationId: 10
+  viewIdField: 44
+  InstantiationId: 44
   isRuntimeInstantiated: 0
 --- !u!114 &2140086444260932015
 MonoBehaviour:
@@ -1529,8 +1528,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 3668461740091435899}
   - {fileID: 8623143039569706719}
-  viewIdField: 2
-  InstantiationId: 2
+  viewIdField: 40
+  InstantiationId: 40
   isRuntimeInstantiated: 0
 --- !u!114 &3668461740091435899
 MonoBehaviour:
@@ -1646,8 +1645,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 7015515767854335457}
-  viewIdField: 4
-  InstantiationId: 4
+  viewIdField: 42
+  InstantiationId: 42
   isRuntimeInstantiated: 0
 --- !u!114 &7015515767854335457
 MonoBehaviour:
