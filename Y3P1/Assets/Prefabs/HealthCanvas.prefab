@@ -356,6 +356,7 @@ MonoBehaviour:
   foregroundHealthBar: {fileID: 6192987289836115895}
   backgroundHealthBar: {fileID: 4261166414810637546}
   backgroundLerpTime: 0.25
+  showDamageText: 1
 --- !u!114 &3230430368776370222
 MonoBehaviour:
   m_ObjectHideFlags: 0

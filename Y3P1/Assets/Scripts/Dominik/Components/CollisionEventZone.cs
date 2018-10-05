@@ -24,6 +24,7 @@ public class CollisionEventZone : MonoBehaviour
     [Space(10)]
     [SerializeField] private KeyCode key;
     public UnityEvent OnKeyDownEvent;
+    public UnityEvent OnKeyUpEvent;
 
     private void Update()
     {
@@ -32,6 +33,11 @@ public class CollisionEventZone : MonoBehaviour
             if (Input.GetKeyDown(key))
             {
                 OnKeyDownEvent.Invoke();
+            }
+
+            if (Input.GetKeyUp(key))
+            {
+                OnKeyUpEvent.Invoke();
             }
         }
     }
