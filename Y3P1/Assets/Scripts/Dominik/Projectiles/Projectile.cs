@@ -12,7 +12,7 @@ public class Projectile : MonoBehaviour
     public enum Target { Enemy, Player };
 
     [SerializeField] private string myPoolName;
-    public Target target;
+    public Target damageTarget;
     [SerializeField] private float selfDestroyTime = 5f;
     [SerializeField] private string prefabToSpawnOnHit;
     [SerializeField] private string prefabToSpawnOnDeath;
@@ -72,7 +72,7 @@ public class Projectile : MonoBehaviour
         Entity entity = other.GetComponent<Entity>();
         if (entity)
         {
-            switch (target)
+            switch (damageTarget)
             {
                 case Target.Enemy:
 

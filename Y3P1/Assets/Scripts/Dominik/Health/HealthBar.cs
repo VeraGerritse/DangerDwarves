@@ -11,6 +11,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Image foregroundHealthBar;
     [SerializeField] private Image backgroundHealthBar;
     [SerializeField] private float backgroundLerpTime = 1;
+    [SerializeField] private bool showDamageText = true;
 
     private void Awake()
     {
@@ -43,7 +44,7 @@ public class HealthBar : MonoBehaviour
         foregroundHealthBar.fillAmount = percentage;
         StartCoroutine(LerpBackgroundHealthBar(percentage));
 
-        if (amount != null)
+        if (amount != null && showDamageText)
         {
             DamageText newDamageText = ObjectPooler.instance.GrabFromPool("DamageText", transform.position, transform.rotation).GetComponent<DamageText>();
             newDamageText.Initialise((int)amount);

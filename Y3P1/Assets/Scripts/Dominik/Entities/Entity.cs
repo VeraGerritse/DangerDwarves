@@ -22,8 +22,11 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Hit(int amount)
     {
-        OnHitEvent.Invoke();
-        photonView.RPC("HitRPC", RpcTarget.AllBuffered, amount);
+        if (photonView.IsMine)
+        {
+            OnHitEvent.Invoke();
+            photonView.RPC("HitRPC", RpcTarget.AllBuffered, amount);
+        }
     }
 
     [PunRPC]

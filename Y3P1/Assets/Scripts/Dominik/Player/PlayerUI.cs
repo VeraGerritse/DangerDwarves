@@ -31,8 +31,6 @@ public class PlayerUI : MonoBehaviour
             nameText.text = target.photonView.Owner.NickName;
         }
 
-        GetComponentInChildren<HealthBar>().Initialise(target.entity);
-
         isInitialised = true;
     }
 }

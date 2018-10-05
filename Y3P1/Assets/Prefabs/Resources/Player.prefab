@@ -972,6 +972,7 @@ MonoBehaviour:
     willpower: 0
     defense: 0
   canDropLoot: 0
+  autoInitialise: 0
   OnHitEvent:
     m_PersistentCalls:
       m_Calls: []

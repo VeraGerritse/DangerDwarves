@@ -67,7 +67,7 @@ public class AOEDamage : MonoBehaviourPunCallbacks
             Entity entity = entitiesInRange[i].GetComponent<Entity>();
             if (entity)
             {
-                switch (parentProjectile.target)
+                switch (parentProjectile.damageTarget)
                 {
                     case Projectile.Target.Enemy:
 

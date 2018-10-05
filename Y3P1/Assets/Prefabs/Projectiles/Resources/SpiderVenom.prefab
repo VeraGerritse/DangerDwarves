@@ -4713,7 +4713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myPoolName: SpiderVenom
-  target: 1
+  damageTarget: 1
   selfDestroyTime: 5
   prefabToSpawnOnHit: SpiderVenomHit
   prefabToSpawnOnDeath: 

@@ -84,13 +84,17 @@ namespace Y3P1
             characterCam.SetActive(IsConnectedAndMine() ? true : false);
             Destroy(IsConnectedAndMine() ? null : rb);
 
+
             if (!IsConnectedAndMine())
             {
                 SetLayer(transform, 14);
 
                 foreach (Collider col in GetComponentsInChildren<Collider>())
                 {
-                    col.enabled = false;
+                    if (!col.GetComponent<Entity>())
+                    {
+                        col.enabled = false;
+                    }
                 }
 
                 if (PhotonNetwork.IsConnected)

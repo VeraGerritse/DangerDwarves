@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myPoolName: Buff_Heal
-  target: 1
+  damageTarget: 1
   selfDestroyTime: 10
   prefabToSpawnOnHit: 
   prefabToSpawnOnDeath: 

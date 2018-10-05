@@ -173,7 +173,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             Entity entity = hits[i].GetComponent<Entity>();
             if (entity)
             {
-                if (hits[i].transform.parent.tag == "Player")
+                if (entity.transform.parent.tag == "Player")
                 {
                     entity.Hit(-tempDamage);
                 }
