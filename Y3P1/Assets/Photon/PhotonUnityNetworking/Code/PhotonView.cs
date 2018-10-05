@@ -356,6 +356,7 @@ namespace Photon.Pun
             }
             else
             {
+                NotificationManager.instance.NewNotification(component.ToString());
                 Debug.LogError("Observed scripts have to implement IPunObservable. " + component + " does not. It is Type: " + component.GetType(), component.gameObject);
             }
         }

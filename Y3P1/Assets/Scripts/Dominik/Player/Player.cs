@@ -1,5 +1,4 @@
 ﻿using Photon.Pun;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Y3P1
@@ -17,7 +16,6 @@ namespace Y3P1
         [SerializeField] private GameObject playerUICam;
         [SerializeField] private GameObject characterCam;
         [SerializeField] private GameObject deathCanvas;
-        [SerializeField] private GameObject reviveZone;
 
         #region Components
         [HideInInspector] public WeaponChargeCanvas weaponChargeCanvas;
@@ -34,7 +32,7 @@ namespace Y3P1
         [HideInInspector] public DwarfAnimationsScript dwarfAnimController;
         [HideInInspector] public IKControl iKControl;
         [HideInInspector] public PlayerAppearance playerAppearance;
-        //[HideInInspector] public PlayerStatusCanvas playerStatusCanvas;
+        [HideInInspector] public ReviveZone reviveZone;
         #endregion
 
         private void Awake()
@@ -64,7 +62,7 @@ namespace Y3P1
             dwarfAnimEvents = GetComponentInChildren<AnimationEventsDwarf>();
             iKControl = GetComponentInChildren<IKControl>();
             playerAppearance = GetComponentInChildren<PlayerAppearance>();
-            //playerStatusCanvas = FindObjectOfType<PlayerStatusCanvas>();
+            reviveZone = GetComponentInChildren<ReviveZone>();
         }
 
         private void Initialise()
@@ -76,7 +74,6 @@ namespace Y3P1
             dwarfAnimController.Initialise(IsConnectedAndMine());
             rangedWeaponLookAt.Initialise(IsConnectedAndMine());
             myInventory.Initialise(IsConnectedAndMine());
-            //playerStatusCanvas.Initialise(IsConnectedAndMine());
 
             weaponSlot.Initialise(IsConnectedAndMine());
             helmetSlot.Initialise(IsConnectedAndMine());
@@ -85,7 +82,6 @@ namespace Y3P1
             playerUICam.SetActive(IsConnectedAndMine() ? true : false);
             characterCam.SetActive(IsConnectedAndMine() ? true : false);
             Destroy(IsConnectedAndMine() ? null : rb);
-
 
             if (!IsConnectedAndMine())
             {
@@ -118,7 +114,8 @@ namespace Y3P1
         private void Entity_OnDeath()
         {
             deathCanvas.SetActive(true);
-            reviveZone.SetActive(true);
+            //reviveZone.SetReviveCollider(true);
+            NotificationManager.instance.NewNotification(photonView.Owner.NickName + " has been downed!");
         }
 
         private void PlayerController_OnDodge(bool dodgeStart)
@@ -154,9 +151,17 @@ namespace Y3P1
         public void Revive(bool hub)
         {
             entity.Revive();
-            transform.position = hub ? Vector3.up * 0.1f : transform.position;
             deathCanvas.SetActive(false);
-            reviveZone.SetActive(false);
+            //reviveZone.SetReviveCollider(false);
+
+            if (!hub)
+            {
+                NotificationManager.instance.NewNotification(photonView.Owner.NickName + " has been revived!");
+            }
+            else
+            {
+                transform.position = Vector3.up * 0.1f;
+            }
         }
 
         public override void OnDisable()

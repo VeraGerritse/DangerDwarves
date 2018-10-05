@@ -84,9 +84,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4632788799289022125}
   - component: {fileID: 5136702523468610616}
-  - component: {fileID: 1414874227159844162}
   - component: {fileID: 1811582833061712189}
-  - component: {fileID: 637357459727516481}
+  - component: {fileID: 4983923302939106923}
   m_Layer: 0
   m_Name: ReviveZone
   m_TagString: Untagged
@@ -118,101 +117,10 @@ SphereCollider:
   m_GameObject: {fileID: 2045483662164750772}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1414874227159844162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2045483662164750772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be98ca0b8c326884f912980ad3a5d41a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionType: 0
-  lookForTag: Player
-  OnZoneEnterEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7609187671008103216}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnZoneExitEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7609187671008103216}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1811582833061712189}
-        m_MethodName: ToggleRevive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  eventCaller: {fileID: 0}
-  key: 101
-  OnKeyDownEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1811582833061712189}
-        m_MethodName: ToggleRevive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnKeyUpEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1811582833061712189}
-        m_MethodName: ToggleRevive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1811582833061712189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +136,8 @@ MonoBehaviour:
   reviveSpeed: 0.5
   progressImage: {fileID: 7461985059463590657}
   progressPanel: {fileID: 1996665474257957528}
---- !u!114 &637357459727516481
+  interactIndicator: {fileID: 7609187671008103216}
+--- !u!114 &4983923302939106923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,10 +152,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 1811582833061712189}
   viewIdField: 1
   InstantiationId: 1
   isRuntimeInstantiated: 0
@@ -341,135 +250,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4632788799289022125}
     m_Modifications:
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071063
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071073
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90.00001
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
+    - target: {fileID: 1339927805897611193, guid: 88b76ff183e6cda4e85968a8fd276133,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3807893992796590895, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_Name
-      value: InteractPopup
-      objectReference: {fileID: 0}
-    - target: {fileID: 4189869857774731667, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_havePropertiesChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4189869857774731667, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_text
-      value: Hold E to revive ally
-      objectReference: {fileID: 0}
-    - target: {fileID: 4189869857774731667, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_isInputParsingRequired
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3807893992796590895, guid: 88b76ff183e6cda4e85968a8fd276133,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: 170.7
       objectReference: {fileID: 0}
     - target: {fileID: 3119566030496604550, guid: 88b76ff183e6cda4e85968a8fd276133,
         type: 3}
@@ -481,10 +265,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 150.7
       objectReference: {fileID: 0}
-    - target: {fileID: 1339927805897611193, guid: 88b76ff183e6cda4e85968a8fd276133,
+    - target: {fileID: 4189869857774731667, guid: 88b76ff183e6cda4e85968a8fd276133,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 170.7
+      propertyPath: m_text
+      value: Hold E to revive ally
       objectReference: {fileID: 0}
     - target: {fileID: 4189869857774731667, guid: 88b76ff183e6cda4e85968a8fd276133,
         type: 3}
@@ -500,6 +284,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.wordCount
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873863518372558190, guid: 88b76ff183e6cda4e85968a8fd276133,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88b76ff183e6cda4e85968a8fd276133, type: 3}

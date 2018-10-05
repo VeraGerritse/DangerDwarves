@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!224 &1156906820987892572 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+    type: 3}
+  m_PrefabInstance: {fileID: 5797328555185299410}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &388493675165110243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6689450368134285142, guid: 73553a4f294c67f4bb845f8c0b01cd00,
@@ -87,12 +93,6 @@ MonoBehaviour:
   viewIdField: 1
   InstantiationId: 1
   isRuntimeInstantiated: 0
---- !u!224 &1156906820987892572 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
-    type: 3}
-  m_PrefabInstance: {fileID: 5797328555185299410}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6194897669489963111
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   health:
     isImmortal: 0
     isInvinsible: 0
+    isDead: 0
     baseHealth: 100
   stats:
     stamina: 0
@@ -204,6 +205,7 @@ GameObject:
   - component: {fileID: 8917421558838006630}
   - component: {fileID: 2064121580250200424}
   - component: {fileID: 1898242398378090830}
+  - component: {fileID: 3089280432792375321}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Untagged
@@ -249,6 +251,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 8917421558838006630}
+  - {fileID: 3089280432792375321}
   viewIdField: 8
   InstantiationId: 8
   isRuntimeInstantiated: 0
@@ -337,6 +340,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &3089280432792375321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6357796064771890802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 0
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
 --- !u!1 &6739881251898509230
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,6 +427,11 @@ MonoBehaviour:
   eventCaller: {fileID: 0}
   key: 0
   OnKeyDownEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnKeyUpEvent:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,

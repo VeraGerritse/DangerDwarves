@@ -62,4 +62,7 @@ MonoBehaviour:
   - SetTarget
   - SyncMaterial
   - AddGold
+  - ActivateReviveZone
+  - SyncRevive
+  - SetReviveZone
   DisableAutoOpenWizard: 1

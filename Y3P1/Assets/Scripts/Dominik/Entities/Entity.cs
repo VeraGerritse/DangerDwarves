@@ -25,7 +25,10 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (photonView.IsMine)
         {
-            OnHitEvent.Invoke();
+            if (amount < 0)
+            {
+                OnHitEvent.Invoke();
+            }
             photonView.RPC("HitRPC", RpcTarget.AllBuffered, amount);
         }
     }
