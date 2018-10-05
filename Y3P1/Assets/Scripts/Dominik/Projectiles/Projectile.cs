@@ -1,6 +1,6 @@
 ﻿using Photon.Pun;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
@@ -9,8 +9,10 @@ public class Projectile : MonoBehaviour
     private PhotonView photonView;
     protected bool hitEntity;
     private Transform owner;
+    public enum Target { Enemy, Player };
 
     [SerializeField] private string myPoolName;
+    public Target target;
     [SerializeField] private float selfDestroyTime = 5f;
     [SerializeField] private string prefabToSpawnOnHit;
     [SerializeField] private string prefabToSpawnOnDeath;
@@ -70,7 +72,23 @@ public class Projectile : MonoBehaviour
         Entity entity = other.GetComponent<Entity>();
         if (entity)
         {
-            HandleHitEntity(entity);
+            switch (target)
+            {
+                case Target.Enemy:
+
+                    if (entity.tag != "Player")
+                    {
+                        HandleHitEntity(entity);
+                    }
+                    break;
+                case Target.Player:
+
+                    if (entity.tag == "Player")
+                    {
+                        HandleHitEntity(entity);
+                    }
+                    break;
+            }
             return;
         }
 

@@ -916,7 +916,7 @@ GameObject:
   - component: {fileID: 369534039127860333}
   m_Layer: 9
   m_Name: Hitbox
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -964,13 +964,14 @@ MonoBehaviour:
   health:
     isImmortal: 0
     isInvinsible: 0
-    maxHealth: 100
+    baseHealth: 100
   stats:
     stamina: 0
     strength: 0
     agility: 0
     willpower: 0
     defense: 0
+  canDropLoot: 0
   OnHitEvent:
     m_PersistentCalls:
       m_Calls: []

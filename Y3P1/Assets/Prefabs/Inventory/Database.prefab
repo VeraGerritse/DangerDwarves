@@ -54,9 +54,11 @@ MonoBehaviour:
   secundaryMeleeAttacks:
   - 
   - Buff_Thorns
+  - Buff_Heal
   primaryAttacks: []
   secundaryBuffs:
   - Buff_Thorns
+  - Buff_Heal
   singleSecondary:
   - Arrow_Animated
   - Arrow_Volley

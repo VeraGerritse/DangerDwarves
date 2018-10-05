@@ -109,3 +109,13 @@ MonoBehaviour:
       type: 3}
     poolSize: 50
     autoExpand: 1
+  - poolName: SpiderVenomHit
+    poolPrefab: {fileID: 3716037247890611631, guid: c0af923ff4abf37478179fabc4b27a8f,
+      type: 3}
+    poolSize: 25
+    autoExpand: 1
+  - poolName: Buff_Heal
+    poolPrefab: {fileID: 3716037247890611631, guid: 1a6c6e6bb4795a141b9bed6ed10033ab,
+      type: 3}
+    poolSize: 25
+    autoExpand: 1

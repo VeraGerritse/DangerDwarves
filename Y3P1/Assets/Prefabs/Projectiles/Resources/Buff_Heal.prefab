@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &3618714402200841494 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8372213477175729722, guid: 3bf7437f9ad821b48b8f4888810a604d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5046373953732965164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3716037247890611631
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,7 +20,7 @@ GameObject:
   - component: {fileID: 4915653778860839161}
   - component: {fileID: 9156334626702542129}
   m_Layer: 10
-  m_Name: Buff_Thorns
+  m_Name: Buff_Heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +37,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 7644387257700386708}
+  - {fileID: 3618714402200841494}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -71,8 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747753adf2cbc954a91ce764b48cf948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myPoolName: Buff_Thorns
-  target: 0
+  myPoolName: Buff_Heal
+  target: 1
   selfDestroyTime: 10
   prefabToSpawnOnHit: 
   prefabToSpawnOnDeath: 
@@ -99,82 +105,76 @@ MonoBehaviour:
   viewIdField: 104
   InstantiationId: 104
   isRuntimeInstantiated: 0
---- !u!4 &7644387257700386708 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
-    type: 3}
-  m_PrefabInstance: {fileID: 2172496958752364974}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &2172496958752364974
+--- !u!1001 &5046373953732965164
 PrefabInstance:
   m_ObjectHideFlags: 0
   m_Modification:
     m_TransformParent: {fileID: 7106649673028893103}
     m_Modifications:
-    - target: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 8372213477175729722, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 8372213477175729722, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.75
+      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 8372213477175729722, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 8372213477175729722, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.70710576
+      value: -0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 8372213477175729722, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 8372213477175729722, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 8372213477175729722, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071079
+      value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 8372213477175729722, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 8372213477175729722, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90.00001
       objectReference: {fileID: 0}
-    - target: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 8372213477175729722, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8372213477175729722, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 8372213477175729722, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8586123337403472862, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 8586123337403472862, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: m_Name
-      value: Buff_ThornsParticle
+      value: Buff_HealParticle
       objectReference: {fileID: 0}
-    - target: {fileID: 1524229930069568983, guid: 9015ca026e5b1f84b80348bd71164c17,
+    - target: {fileID: 1524229930069568983, guid: 3bf7437f9ad821b48b8f4888810a604d,
         type: 3}
       propertyPath: viewIdField
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9015ca026e5b1f84b80348bd71164c17, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 3bf7437f9ad821b48b8f4888810a604d, type: 3}

@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myPoolName: Arrow
+  target: 0
   selfDestroyTime: 5
   prefabToSpawnOnHit: 
   prefabToSpawnOnDeath: 

@@ -67,10 +67,24 @@ public class AOEDamage : MonoBehaviourPunCallbacks
             Entity entity = entitiesInRange[i].GetComponent<Entity>();
             if (entity)
             {
-                if (entitiesInRange[i].transform.parent.tag != "Player")
+                switch (parentProjectile.target)
                 {
-                    entity.Hit(-damage);
+                    case Projectile.Target.Enemy:
+
+                        if (entitiesInRange[i].transform.parent.tag != "Player")
+                        {
+                            entity.Hit(-damage);
+                        }
+                        break;
+                    case Projectile.Target.Player:
+
+                        if (entitiesInRange[i].transform.parent.tag == "Player")
+                        {
+                            entity.Hit(-damage);
+                        }
+                        break;
                 }
+
             }
         }
     }
