@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8438312430354037338}
   - component: {fileID: 434452323442619361}
   - component: {fileID: 8397494540635884007}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2449556846035212662
 MonoBehaviour:

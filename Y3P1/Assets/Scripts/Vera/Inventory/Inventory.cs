@@ -81,6 +81,10 @@ public class Inventory : MonoBehaviourPunCallbacks
     [PunRPC]
     private void AddGold(int amount)
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            NotificationManager.instance.NewNotification((totalGoldAmount + amount).ToString());
+        }
         totalGoldAmount += amount;
     }
 
@@ -382,6 +386,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         if(toAdd is Gold)
         {
             Gold tA = (Gold)toAdd;
+
             photonView.RPC("AddGold", RpcTarget.All, tA.amount);
             return;
         }
