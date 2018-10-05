@@ -9,6 +9,8 @@ public class DwarfAnimationsScript : MonoBehaviour
     private Animator myAnim;
     private IKControl myIKControl;
 
+    public float moodSpectrum;
+
     public void Initialise(bool local)
     {
         if (local)
@@ -108,5 +110,11 @@ public class DwarfAnimationsScript : MonoBehaviour
 
         myAnim.SetFloat("HorizontalAxis", combinedAxis.x);
         myAnim.SetFloat("VerticalAxis", combinedAxis.z);
+        myAnim.SetFloat("Mood", moodSpectrum);
+        if(Input.GetKeyDown("z"))
+        {
+            //myAnim.SetTrigger("Flinch");
+            //myAnim.SetBool("Dead", !myAnim.GetBool("Dead"));
+        }
     }
 }
