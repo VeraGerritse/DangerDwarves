@@ -61,4 +61,5 @@ MonoBehaviour:
   - SyncTarget
   - SetTarget
   - SyncMaterial
+  - AddGold
   DisableAutoOpenWizard: 1
