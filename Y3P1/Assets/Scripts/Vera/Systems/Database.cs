@@ -10,6 +10,9 @@ public class Database : MonoBehaviour {
 
     [Header("Weapons")]
 
+    [Header("Gold")]
+    public List<GameObject> goldObject = new List<GameObject>();
+
     [Header("Attacks")]
     [SerializeField] private List<string> secundaryRangedAttacks = new List<string>();
     [SerializeField] private List<string> secundaryMeleeAttacks = new List<string>();
@@ -66,6 +69,7 @@ public class Database : MonoBehaviour {
         allGameobjects.AddRange(hammerObject);
         allGameobjects.AddRange(helmetObject);
         allGameobjects.AddRange(trinketObject);
+        allGameobjects.AddRange(goldObject);
 
         allSprites.AddRange(crossbowSprite);
         allSprites.AddRange(axeSprite);
@@ -217,6 +221,34 @@ public class Database : MonoBehaviour {
     }
 
     //objects
+
+    public int GetGoldObject(int rarity)
+    {
+
+        GameObject myObj = goldObject[0];
+        if(rarity == 1 && rarity < goldObject.Count)
+        {
+            myObj = goldObject[1];
+        }
+        if (rarity == 2 && rarity < goldObject.Count)
+        {
+            myObj = goldObject[2];
+        }
+        if (rarity == 3 && rarity < goldObject.Count)
+        {
+            myObj = goldObject[3];
+        }
+
+        int index = 0;
+        for (int i = 0; i < allGameobjects.Count; i++)
+        {
+            if (myObj == allGameobjects[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
 
     public int GetCrossbowObject()
     {

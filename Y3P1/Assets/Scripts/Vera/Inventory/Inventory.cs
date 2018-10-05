@@ -19,6 +19,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     [SerializeField] private List<Item> startingItems = new List<Item>();
     private bool isInitialised;
     private Canvas canvas;
+    public int totalGoldAmount;
 
     private Stats currentStats;
     private int averageILevel = 1;
@@ -75,6 +76,12 @@ public class Inventory : MonoBehaviourPunCallbacks
             int id = insItem.GetComponent<PhotonView>().ViewID;
             photonView.RPC("RI", RpcTarget.AllBuffered, item, id);
         }
+    }
+
+    [PunRPC]
+    private void AddGold(int amount)
+    {
+        totalGoldAmount += amount;
     }
 
     [PunRPC]
@@ -357,6 +364,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(0.1f);
         CalculateArmor();
     }
+
     public void OpenCloseInv()
     {
         if (canvas.enabled == false)
@@ -371,6 +379,12 @@ public class Inventory : MonoBehaviourPunCallbacks
 
     public void AddItem(Item toAdd)
     {
+        if(toAdd is Gold)
+        {
+            Gold tA = (Gold)toAdd;
+            photonView.RPC("AddGold", RpcTarget.All, tA.amount);
+            return;
+        }
         for (int i = 0; i < allItems.Count; i++)
         {
             if (allItems[i] == null && allSlots[i].CheckSlotType())
@@ -773,7 +787,6 @@ public class Inventory : MonoBehaviourPunCallbacks
         averageILevel = iLevel / 3;
         SetInfo();
     }
-
 
     public string[] Stats()
     {

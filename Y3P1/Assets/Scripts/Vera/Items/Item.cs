@@ -40,7 +40,10 @@ public class Item
         }
         return newInfo;
     }
-
+    public virtual void StartGold(int amount)
+    {
+        
+    }
     public virtual string[] DamageInfo()
     {
         return null;

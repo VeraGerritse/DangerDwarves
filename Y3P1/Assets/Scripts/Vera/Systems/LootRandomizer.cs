@@ -39,7 +39,7 @@ public class LootRandomizer : MonoBehaviour {
         int drop = Random.Range(0, 100);
         if(drop < 50)
         {
-            return null;
+            return LootGold(currentItemLevel);
         }
 
         int randomType = Random.Range(0, amountTypes);
@@ -66,6 +66,16 @@ public class LootRandomizer : MonoBehaviour {
                 break;
         }     
 
+        return newItem;
+    }
+    private Item LootGold(int currentItemLevel)
+    {
+        Item newItem = new Gold();
+        int rarity = Rarity();
+        int nIL = NewItemLevel(rarity, currentItemLevel);
+        int amount = GoldAmount(nIL,rarity);
+        newItem.StartUp("", 0, 0, null, Database.hostInstance.GetGoldObject(rarity), nIL);
+        newItem.StartGold(amount);
         return newItem;
     }
 
@@ -199,6 +209,30 @@ public class LootRandomizer : MonoBehaviour {
 
         test.Add((Weapon_Ranged)testItem);
         return testItem;
+    }
+
+    private int GoldAmount(int currentItemLevel,int rarity)
+    {
+        float gold = 0;
+        if(rarity == 0)
+        {
+            gold = Random.Range(1, 6);
+        }
+        else if (rarity == 1)
+        {
+            gold = Random.Range(6, 16);
+        }
+        else if (rarity == 2)
+        {
+            gold = Random.Range(16, 31);
+        }
+        else if (rarity == 3)
+        {
+            gold = Random.Range(31, 51);
+        }
+
+        int g = Mathf.RoundToInt(gold * (currentItemLevel / 10 + 1));
+        return g;
     }
 
     private Item LootHelmet(int currentItemLevel)

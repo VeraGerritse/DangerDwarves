@@ -45,6 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSprites: []
   allGameobjects: []
+  goldObject:
+  - {fileID: 87033270630793182, guid: 62c7ab6c150d67943a16d26d72f863ad, type: 3}
   secundaryRangedAttacks:
   - 
   - Arrow_Animated
