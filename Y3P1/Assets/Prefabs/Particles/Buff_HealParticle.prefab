@@ -18514,7 +18514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myPoolName: 
-  damageRange: 3
+  damageRange: 2.8
   damageMultiplier: -0.25
   continuousDamage: 1
   damageInterval: 0.5
