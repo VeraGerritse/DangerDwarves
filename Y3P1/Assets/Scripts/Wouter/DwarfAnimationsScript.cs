@@ -17,11 +17,14 @@ public class DwarfAnimationsScript : MonoBehaviour
         {
             initialised = true;
 
-            WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
-            WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
+            WeaponSlot.OnUsePrimary += () => myAnim.SetTrigger("FireRanged");
+            WeaponSlot.OnUseSecondary += (Weapon.SecondaryType secondaryType) => myAnim.SetTrigger("FireRanged");
             WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
 
             Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
+            Player.localPlayer.entity.OnDeath += () => myAnim.SetBool("Dead", true);
+            Player.localPlayer.entity.OnRevive += () => myAnim.SetBool("Dead", false);
+            Player.localPlayer.entity.OnHitEvent.AddListener(() => myAnim.SetTrigger("Flinch"));
         }
     }
 
@@ -37,16 +40,6 @@ public class DwarfAnimationsScript : MonoBehaviour
         {
             myAnim.SetTrigger("Dodge");
         }
-    }
-
-    private void WeaponSlot_OnUsePrimary()
-    {
-        myAnim.SetTrigger("FireRanged");
-    }
-
-    private void WeaponSlot_OnUseSecondary(Weapon.SecondaryType secondaryType)
-    {
-        myAnim.SetTrigger("FireRanged");
     }
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
@@ -87,17 +80,20 @@ public class DwarfAnimationsScript : MonoBehaviour
     {
         if (initialised)
         {
-            WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
-            WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
+            WeaponSlot.OnUsePrimary -= () => myAnim.SetTrigger("FireRanged");
+            WeaponSlot.OnUseSecondary -= (Weapon.SecondaryType secondaryType) => myAnim.SetTrigger("FireRanged");
             WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
 
             Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;
+            Player.localPlayer.entity.OnDeath -= () => myAnim.SetBool("Dead", true);
+            Player.localPlayer.entity.OnRevive -= () => myAnim.SetBool("Dead", false);
+            Player.localPlayer.entity.OnHitEvent.RemoveAllListeners();
         }
     }
 
     private void Update()
     {
-        if (!initialised)
+        if (!initialised || Player.localPlayer.entity.health.isDead)
         {
             return;
         }

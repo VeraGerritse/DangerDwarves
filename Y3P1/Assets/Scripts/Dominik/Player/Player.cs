@@ -16,6 +16,7 @@ namespace Y3P1
         [SerializeField] private Vector3 playerUISpawnOffset = new Vector3(0, 3, 0.2f);
         [SerializeField] private GameObject playerUICam;
         [SerializeField] private GameObject characterCam;
+        [SerializeField] private GameObject deathCanvas;
 
         #region Components
         [HideInInspector] public WeaponChargeCanvas weaponChargeCanvas;
@@ -105,7 +106,10 @@ namespace Y3P1
             else
             {
                 playerAppearance.RandomizeAppearance();
+
                 playerController.OnDodge += PlayerController_OnDodge;
+                entity.OnDeath += () => deathCanvas.SetActive(true);
+
                 DontDestroyOnLoad(gameObject);
             }
         }
@@ -138,6 +142,13 @@ namespace Y3P1
             {
                 SetLayer(child, layer);
             }
+        }
+
+        public void Revive()
+        {
+            entity.Revive();
+            transform.position = Vector3.up * 0.1f;
+            deathCanvas.SetActive(false);
         }
 
         public override void OnDisable()
