@@ -76,14 +76,21 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Kill()
     {
-        OnDeath();
+        if (photonView.IsMine)
+        {
+            OnDeath();
+        }
+
         EntityManager.instance.RemoveFromAliveTargets(this);
     }
 
     public void Revive()
     {
-        OnRevive();
-        health.ResetHealth();
+        if (photonView.IsMine)
+        {
+            OnRevive();
+            health.ResetHealth();
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

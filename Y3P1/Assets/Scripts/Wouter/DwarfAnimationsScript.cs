@@ -2,7 +2,7 @@
 using UnityEngine;
 using Y3P1;
 
-public class DwarfAnimationsScript : MonoBehaviourPunCallbacks
+public class DwarfAnimationsScript : MonoBehaviour
 {
 
     private bool initialised;
@@ -23,9 +23,9 @@ public class DwarfAnimationsScript : MonoBehaviourPunCallbacks
             WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
 
             Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
-            Player.localPlayer.entity.OnDeath += () => photonView.RPC("SetAnimationBool", RpcTarget.All, "Dead", true);
-            Player.localPlayer.entity.OnRevive += () => photonView.RPC("SetAnimationBool", RpcTarget.All, "Dead", false);
-            Player.localPlayer.entity.OnHitEvent.AddListener(() => photonView.RPC("SetAnimationTrigger", RpcTarget.All, "Flinch"));
+            Player.localPlayer.entity.OnDeath += () => myAnim.SetBool("Dead", true);
+            Player.localPlayer.entity.OnRevive += () => myAnim.SetBool("Dead", false);
+            Player.localPlayer.entity.OnHitEvent.AddListener(() => myAnim.SetTrigger("Flinch"));
         }
     }
 
@@ -33,18 +33,6 @@ public class DwarfAnimationsScript : MonoBehaviourPunCallbacks
     {
         myAnim = GetComponent<Animator>();
         myIKControl = GetComponent<IKControl>();
-    }
-
-    [PunRPC]
-    private void SetAnimationTrigger(string trigger)
-    {
-        myAnim.SetTrigger(trigger);
-    }
-
-    [PunRPC]
-    private void SetAnimationBool(string name, bool state)
-    {
-        myAnim.SetBool(name, state);
     }
 
     private void PlayerController_OnDodge(bool dodgeStart)
@@ -89,7 +77,7 @@ public class DwarfAnimationsScript : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnDisable()
+    private void OnDisable()
     {
         if (initialised)
         {

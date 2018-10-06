@@ -152,7 +152,7 @@ namespace Y3P1
         {
             entity.Revive();
             deathCanvas.SetActive(false);
-            //reviveZone.SetReviveCollider(false);
+            reviveZone.SetReviveCollider(false);
 
             if (!hub)
             {
@@ -167,6 +167,7 @@ namespace Y3P1
         public override void OnDisable()
         {
             playerController.OnDodge -= PlayerController_OnDodge;
+            entity.OnDeath -= Entity_OnDeath;
         }
     }
 }
