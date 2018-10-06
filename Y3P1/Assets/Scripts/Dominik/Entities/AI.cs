@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class AI : MonoBehaviourPunCallbacks, IPunObservable
 {
 
-    private Transform target;
+    private Entity target;
+    private Entity targetEntity;
     private NavMeshAgent agent;
     private Entity entity;
     private Collider[] hits = new Collider[10];
@@ -50,7 +51,11 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
         initialChaseTrigger.OnZoneEnterEvent.AddListener(() =>
         {
-            photonView.RPC("SetTarget", RpcTarget.AllBuffered, initialChaseTrigger.eventCaller.GetComponent<PhotonView>().ViewID);
+            Entity entity = initialChaseTrigger.eventCaller.GetComponentInChildren<Entity>();
+            if (!entity.health.isDead)
+            {
+                photonView.RPC("SetTarget", RpcTarget.AllBuffered, entity.photonView.ViewID);
+            }
         });
     }
 
@@ -84,7 +89,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (target)
             {
-                agent.SetDestination(target.position);
+                agent.SetDestination(target.transform.position);
             }
             else
             {
@@ -114,7 +119,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         Vector3 toTarget = Vector3.zero;
         if (target)
         {
-            toTarget = target.position - transform.position;
+            toTarget = target.transform.position - transform.position;
         }
         else
         {
@@ -224,16 +229,29 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void AggroClosestPlayer()
     {
-        target = EntityManager.instance.GetClosestPlayer(transform);
-        photonView.RPC("SetTarget", RpcTarget.AllBuffered, target.GetComponent<PhotonView>().ViewID);
+        Entity newTarget = EntityManager.instance.GetClosestPlayer(transform);
+        if (newTarget)
+        {
+            photonView.RPC("SetTarget", RpcTarget.AllBuffered, newTarget.photonView.ViewID);
+        }
     }
 
     [PunRPC]
     public void SetTarget(int targetID)
     {
-        target = PhotonView.Find(targetID).transform;
-        initialChaseTrigger.gameObject.SetActive(false);
-        SetState(target ? BehaviourState.Chase : BehaviourState.Idle);
+        target = PhotonView.Find(targetID).GetComponent<Entity>();
+        if (target)
+        {
+            target.OnDeath += Target_OnDeath;
+            initialChaseTrigger.gameObject.SetActive(false);
+            SetState(target ? BehaviourState.Chase : BehaviourState.Idle);
+        }
+    }
+
+    private void Target_OnDeath()
+    {
+        ResetAI();
+        AggroClosestPlayer();
     }
 
     private void SetState(BehaviourState state)
@@ -243,7 +261,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private float GetDistanceToTarget()
     {
-        Vector3 directionToTarget = target.position - transform.position;
+        Vector3 directionToTarget = target.transform.position - transform.position;
         return directionToTarget.sqrMagnitude;
     }
 
@@ -264,13 +282,28 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnDisable()
     {
+        ResetAI();
+    }
+
+    private void ResetAI()
+    {
         canAttack = true;
         canLookAtTarget = true;
         canMove = true;
 
-        target = null;
+        if (target)
+        {
+            target.OnDeath -= Target_OnDeath;
+            target = null;
+        }
+
         initialChaseTrigger.gameObject.SetActive(true);
         behaviourState = BehaviourState.Idle;
+    }
+
+    private bool TargetIsDead()
+    {
+        return targetEntity.health.isDead;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -280,12 +313,14 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(canAttack);
             stream.SendNext(canLookAtTarget);
             stream.SendNext(canMove);
+            stream.SendNext((int)behaviourState);
         }
         else
         {
             canAttack = (bool)stream.ReceiveNext();
             canLookAtTarget = (bool)stream.ReceiveNext();
             canMove = (bool)stream.ReceiveNext();
+            behaviourState = (BehaviourState)stream.ReceiveNext();
         }
     }
 

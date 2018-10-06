@@ -27,13 +27,15 @@ public class Launcher : MonoBehaviourPunCallbacks
         connectionProgress.SetActive(false);
     }
 
-    public void Connect()
+    public void Connect(bool offline)
     {
         // Player name is empty.
         if (string.IsNullOrEmpty(nameInputField.text) || nameInputField.text.All(char.IsWhiteSpace))
         {
             return;
         }
+
+        PhotonNetwork.OfflineMode = offline;
 
         isConnecting = true;
 
@@ -51,24 +53,11 @@ public class Launcher : MonoBehaviourPunCallbacks
         }
     }
 
-    public void ConnectSolo()
-    {
-        solo = true;
-        Connect();
-    }
-
     public override void OnConnectedToMaster()
     {
         if (isConnecting)
         {
-            if (solo)
-            {
-                PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = 1 }, null);
-            }
-            else
-            {
-                PhotonNetwork.JoinRandomRoom();
-            }
+            PhotonNetwork.JoinRandomRoom();
         }
     }
 

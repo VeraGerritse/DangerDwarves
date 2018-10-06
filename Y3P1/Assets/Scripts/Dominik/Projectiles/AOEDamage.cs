@@ -15,9 +15,11 @@ public class AOEDamage : MonoBehaviourPunCallbacks
     [SerializeField] private bool continuousDamage;
     [SerializeField] private float damageInterval;
     [SerializeField] private bool initialiseInParent;
+    [SerializeField] private Projectile.Target damageTarget;
 
     private void Awake()
     {
+        // This means that this object is childed to a Projectile so that it can receive that projectiles data when it gets fired.
         if (initialiseInParent)
         {
             parentProjectile = GetComponentInParent<Projectile>();
@@ -33,6 +35,7 @@ public class AOEDamage : MonoBehaviourPunCallbacks
     public void Initialise(int damage)
     {
         this.damage = Mathf.RoundToInt(damage * damageMultiplier);
+        damageTarget = parentProjectile.damageTarget;
 
         TriggerAOE(this.damage);
         if (continuousDamage)
@@ -67,7 +70,7 @@ public class AOEDamage : MonoBehaviourPunCallbacks
             Entity entity = entitiesInRange[i].GetComponent<Entity>();
             if (entity)
             {
-                switch (parentProjectile.damageTarget)
+                switch (damageTarget)
                 {
                     case Projectile.Target.Enemy:
 

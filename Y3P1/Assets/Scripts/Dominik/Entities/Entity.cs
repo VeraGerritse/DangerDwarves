@@ -91,10 +91,12 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(health.isImmortal);
+            stream.SendNext(health.isDead);
         }
         else
         {
             health.isImmortal = (bool)stream.ReceiveNext();
+            health.isDead = (bool)stream.ReceiveNext();
         }
     }
 }
