@@ -15,9 +15,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2580002343529212439}
+  - component: {fileID: 1971656299101111454}
   m_Layer: 0
   m_Name: Chest
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,13 +31,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9198351622957362943}
   m_LocalRotation: {x: -0, y: 0.70711, z: -0, w: -0.70710367}
-  m_LocalPosition: {x: 10.472, y: 0.10000031, z: 1.585}
+  m_LocalPosition: {x: 0, y: 0.10000031, z: 0}
   m_LocalScale: {x: 1.500001, y: 1.5, z: 1.500001}
   m_Children:
   - {fileID: 3400485393250192331}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1971656299101111454
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9198351622957362943}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.7227511, y: 0.66057605, z: 0.57380635}
+  m_Center: {x: 0, y: 0.33565325, z: -0}
 --- !u!1001 &3400485393250062667
 PrefabInstance:
   m_ObjectHideFlags: 0
