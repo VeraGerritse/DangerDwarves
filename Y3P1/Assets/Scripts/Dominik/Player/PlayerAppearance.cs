@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Photon.Realtime;
 
 public class PlayerAppearance : MonoBehaviourPunCallbacks
 {
@@ -23,9 +24,9 @@ public class PlayerAppearance : MonoBehaviourPunCallbacks
     {
         dwarfRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
 
-        beardObjectDropdown.onValueChanged.AddListener((int i) => { photonView.RPC("SetAppearance", RpcTarget.AllBuffered, i, beardMatDropdown.value, bodyMatDropdown.value); });
-        beardMatDropdown.onValueChanged.AddListener((int i) => { photonView.RPC("SetAppearance", RpcTarget.AllBuffered, beardObjectDropdown.value, i, bodyMatDropdown.value); });
-        bodyMatDropdown.onValueChanged.AddListener((int i) => { photonView.RPC("SetAppearance", RpcTarget.AllBuffered, beardObjectDropdown.value, beardMatDropdown.value, i); });
+        beardObjectDropdown.onValueChanged.AddListener((int i) => { photonView.RPC("SetAppearance", RpcTarget.All, i, beardMatDropdown.value, bodyMatDropdown.value); });
+        beardMatDropdown.onValueChanged.AddListener((int i) => { photonView.RPC("SetAppearance", RpcTarget.All, beardObjectDropdown.value, i, bodyMatDropdown.value); });
+        bodyMatDropdown.onValueChanged.AddListener((int i) => { photonView.RPC("SetAppearance", RpcTarget.All, beardObjectDropdown.value, beardMatDropdown.value, i); });
     }
 
     public void RandomizeAppearance()
@@ -38,7 +39,7 @@ public class PlayerAppearance : MonoBehaviourPunCallbacks
         beardMatDropdown.value = randomBeardMat;
         bodyMatDropdown.value = randomDwarfMat;
         beardMat = beardMaterials[randomBeardMat];
-        photonView.RPC("SetAppearance", RpcTarget.AllBuffered, randomBeardModel, randomBeardMat, randomDwarfMat);
+        photonView.RPC("SetAppearance", RpcTarget.All, randomBeardModel, randomBeardMat, randomDwarfMat);
     }
 
     [PunRPC]
@@ -62,5 +63,10 @@ public class PlayerAppearance : MonoBehaviourPunCallbacks
             dwarfRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         }
         dwarfRenderer.material = bodyMaterials[bodyMat];
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        photonView.RPC("SetAppearance", RpcTarget.All, beardObjectDropdown.value, beardMatDropdown.value, bodyMatDropdown.value);
     }
 }

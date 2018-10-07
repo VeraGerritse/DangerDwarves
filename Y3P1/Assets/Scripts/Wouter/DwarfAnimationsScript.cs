@@ -1,5 +1,4 @@
-﻿using Photon.Pun;
-using UnityEngine;
+﻿using UnityEngine;
 using Y3P1;
 
 public class DwarfAnimationsScript : MonoBehaviour
@@ -18,14 +17,11 @@ public class DwarfAnimationsScript : MonoBehaviour
         {
             initialised = true;
 
-            WeaponSlot.OnUsePrimary += () => myAnim.SetTrigger("FireRanged");
-            WeaponSlot.OnUseSecondary += (Weapon.SecondaryType secondaryType) => myAnim.SetTrigger("FireRanged");
+            WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
+            WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
             WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
 
             Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
-            //Player.localPlayer.entity.OnDeath += () => myAnim.SetBool("Dead", true);
-            //Player.localPlayer.entity.OnRevive += () => myAnim.SetBool("Dead", false);
-            //Player.localPlayer.entity.OnHitEvent.AddListener(() => myAnim.SetTrigger("Flinch"));
         }
     }
 
@@ -43,9 +39,14 @@ public class DwarfAnimationsScript : MonoBehaviour
         }
     }
 
-    public void Hit()
+    private void WeaponSlot_OnUsePrimary()
     {
-        myAnim.SetTrigger("Flinch");
+        myAnim.SetTrigger("FireRanged");
+    }
+
+    private void WeaponSlot_OnUseSecondary(Weapon.SecondaryType secondaryType)
+    {
+        myAnim.SetTrigger("FireRanged");
     }
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
@@ -63,16 +64,6 @@ public class DwarfAnimationsScript : MonoBehaviour
         {
             myAnim.SetBool("bMeleeStance", true);
         }
-    }
-
-    public void Die()
-    {
-        myAnim.SetBool("Dead", true);
-    }
-
-    public void Revive()
-    {
-        myAnim.SetBool("Dead", false);
     }
 
     public void SetMeleeStance(bool b)
@@ -96,14 +87,11 @@ public class DwarfAnimationsScript : MonoBehaviour
     {
         if (initialised)
         {
-            WeaponSlot.OnUsePrimary -= () => myAnim.SetTrigger("FireRanged");
-            WeaponSlot.OnUseSecondary -= (Weapon.SecondaryType secondaryType) => myAnim.SetTrigger("FireRanged");
+            WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
+            WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
             WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
 
             Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;
-            //Player.localPlayer.entity.OnDeath -= () => myAnim.SetBool("Dead", true);
-            //Player.localPlayer.entity.OnRevive -= () => myAnim.SetBool("Dead", false);
-            //Player.localPlayer.entity.OnHitEvent.RemoveAllListeners();
         }
     }
 
@@ -120,13 +108,10 @@ public class DwarfAnimationsScript : MonoBehaviour
         Vector3 combinedAxis = new Vector3(x, 0, y);
         combinedAxis = transform.parent.InverseTransformDirection(combinedAxis);
 
-        if (!Player.localPlayer.entity.health.isDead)
-        {
-            myAnim.SetFloat("HorizontalAxis", combinedAxis.x);
-            myAnim.SetFloat("VerticalAxis", combinedAxis.z);
-            myAnim.SetFloat("Mood", moodSpectrum);
-        }
-        if(Input.GetKeyDown("z"))
+        myAnim.SetFloat("HorizontalAxis", combinedAxis.x);
+        myAnim.SetFloat("VerticalAxis", combinedAxis.z);
+        myAnim.SetFloat("Mood", moodSpectrum);
+        if (Input.GetKeyDown("z"))
         {
             //myAnim.SetTrigger("Flinch");
             //myAnim.SetBool("Dead", !myAnim.GetBool("Dead"));

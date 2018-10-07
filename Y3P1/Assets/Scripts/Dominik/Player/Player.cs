@@ -113,21 +113,21 @@ namespace Y3P1
             entity.health.isInvinsible = dodgeStart;
         }
 
-        private void RevivePlayer()
-        {
-            localPlayer.entity.Revive();
-        }
+        //private void RevivePlayer()
+        //{
+        //    localPlayer.entity.Revive();
+        //}
 
-        private void Update()
-        {
-            if (photonView.IsMine)
-            {
-                if (Input.GetKeyDown(KeyCode.V))
-                {
-                    RevivePlayer();
-                }
-            }
-        }
+        //private void Update()
+        //{
+        //    if (photonView.IsMine)
+        //    {
+        //        if (Input.GetKeyDown(KeyCode.V))
+        //        {
+        //            RevivePlayer();
+        //        }
+        //    }
+        //}
 
         private void CreatePlayerUI()
         {

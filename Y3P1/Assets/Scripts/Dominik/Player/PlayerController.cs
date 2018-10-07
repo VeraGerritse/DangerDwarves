@@ -34,8 +34,8 @@ public class PlayerController : MonoBehaviour
         }
 
         CreateMouseHitPlane();
-        Player.localPlayer.entity.OnDeath += () => canControl = false;
-        Player.localPlayer.entity.OnRevive += () => canControl = true;
+        //Player.localPlayer.entity.OnDeath += () => canControl = false;
+        //Player.localPlayer.entity.OnRevive += () => canControl = true;
     }
 
     private void Update()

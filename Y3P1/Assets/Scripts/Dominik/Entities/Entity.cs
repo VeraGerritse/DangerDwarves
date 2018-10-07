@@ -23,8 +23,11 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Hit(int amount)
     {
-        OnHitEvent.Invoke();
-        photonView.RPC("HitRPC", RpcTarget.AllBuffered, amount);
+        if (photonView.IsMine)
+        {
+            OnHitEvent.Invoke();
+            photonView.RPC("HitRPC", RpcTarget.AllBuffered, amount);
+        }
     }
 
     [PunRPC]
@@ -85,11 +88,13 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(health.isImmortal);
+            stream.SendNext(health.isInvinsible);
             stream.SendNext(health.isDead);
         }
         else
         {
             health.isImmortal = (bool)stream.ReceiveNext();
+            health.isInvinsible = (bool)stream.ReceiveNext();
             health.isDead = (bool)stream.ReceiveNext();
         }
     }
