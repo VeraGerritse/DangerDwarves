@@ -55,22 +55,25 @@ public class EntityManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public Transform GetClosestPlayer(Transform origin)
+    public Entity GetClosestPlayer(Transform origin)
     {
         Player[] players = FindObjectsOfType<Player>();
 
-        Transform closestPlayer = null;
+        Entity closestPlayer = null;
         float closestDistanceSqr = Mathf.Infinity;
 
         for (int i = 0; i < players.Length; i++)
         {
-            Vector3 toPlayer = players[i].transform.position - origin.position;
-            float dSqrToTarget = toPlayer.sqrMagnitude;
-
-            if (dSqrToTarget < closestDistanceSqr)
+            if (!players[i].entity.health.isDead)
             {
-                closestDistanceSqr = dSqrToTarget;
-                closestPlayer = players[i].transform;
+                Vector3 toPlayer = players[i].transform.position - origin.position;
+                float dSqrToTarget = toPlayer.sqrMagnitude;
+
+                if (dSqrToTarget < closestDistanceSqr)
+                {
+                    closestDistanceSqr = dSqrToTarget;
+                    closestPlayer = players[i].entity;
+                }
             }
         }
 
