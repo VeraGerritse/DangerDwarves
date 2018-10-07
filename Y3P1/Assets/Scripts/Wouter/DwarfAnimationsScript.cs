@@ -23,9 +23,9 @@ public class DwarfAnimationsScript : MonoBehaviour
             WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
 
             Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
-            Player.localPlayer.entity.OnDeath += () => myAnim.SetBool("Dead", true);
-            Player.localPlayer.entity.OnRevive += () => myAnim.SetBool("Dead", false);
-            Player.localPlayer.entity.OnHitEvent.AddListener(() => myAnim.SetTrigger("Flinch"));
+            //Player.localPlayer.entity.OnDeath += () => myAnim.SetBool("Dead", true);
+            //Player.localPlayer.entity.OnRevive += () => myAnim.SetBool("Dead", false);
+            //Player.localPlayer.entity.OnHitEvent.AddListener(() => myAnim.SetTrigger("Flinch"));
         }
     }
 
@@ -43,6 +43,11 @@ public class DwarfAnimationsScript : MonoBehaviour
         }
     }
 
+    public void Hit()
+    {
+        myAnim.SetTrigger("Flinch");
+    }
+
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
     {
         myAnim.SetBool("AimRanged", false);
@@ -58,6 +63,16 @@ public class DwarfAnimationsScript : MonoBehaviour
         {
             myAnim.SetBool("bMeleeStance", true);
         }
+    }
+
+    public void Die()
+    {
+        myAnim.SetBool("Dead", true);
+    }
+
+    public void Revive()
+    {
+        myAnim.SetBool("Dead", false);
     }
 
     public void SetMeleeStance(bool b)
@@ -86,15 +101,15 @@ public class DwarfAnimationsScript : MonoBehaviour
             WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
 
             Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;
-            Player.localPlayer.entity.OnDeath -= () => myAnim.SetBool("Dead", true);
-            Player.localPlayer.entity.OnRevive -= () => myAnim.SetBool("Dead", false);
-            Player.localPlayer.entity.OnHitEvent.RemoveAllListeners();
+            //Player.localPlayer.entity.OnDeath -= () => myAnim.SetBool("Dead", true);
+            //Player.localPlayer.entity.OnRevive -= () => myAnim.SetBool("Dead", false);
+            //Player.localPlayer.entity.OnHitEvent.RemoveAllListeners();
         }
     }
 
     private void Update()
     {
-        if (!initialised || Player.localPlayer.entity.health.isDead)
+        if (!initialised)
         {
             return;
         }
@@ -105,9 +120,12 @@ public class DwarfAnimationsScript : MonoBehaviour
         Vector3 combinedAxis = new Vector3(x, 0, y);
         combinedAxis = transform.parent.InverseTransformDirection(combinedAxis);
 
-        myAnim.SetFloat("HorizontalAxis", combinedAxis.x);
-        myAnim.SetFloat("VerticalAxis", combinedAxis.z);
-        myAnim.SetFloat("Mood", moodSpectrum);
+        if (!Player.localPlayer.entity.health.isDead)
+        {
+            myAnim.SetFloat("HorizontalAxis", combinedAxis.x);
+            myAnim.SetFloat("VerticalAxis", combinedAxis.z);
+            myAnim.SetFloat("Mood", moodSpectrum);
+        }
         if(Input.GetKeyDown("z"))
         {
             //myAnim.SetTrigger("Flinch");

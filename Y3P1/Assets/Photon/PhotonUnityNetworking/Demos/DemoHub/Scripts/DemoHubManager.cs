@@ -140,13 +140,13 @@ namespace Photon.Pun.Demo.Hub
 				new DemoData()
 				{
 				Title = "Chat",
-				Description = "Uses the Chat API (now part of PUN).\n" +
+				Description = "Uses the Chat API.\n" +
 					"Simple UI.\n" +
 					"You can enter any User ID.\n" +
 					"Automatically subscribes some channels.\n" +
 					"Allows simple commands via text.\n" +
 					"\n" +
-					"Requires configuration of Chat App ID in scene.",
+					"Requires configuration of Chat App ID in ServerSettings.",
 						Scene = "DemoChat-Scene",
 						DocLink = "http://j.mp/2iwQkPJ" 
 				}

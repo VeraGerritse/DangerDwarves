@@ -213,7 +213,7 @@ namespace Photon.Realtime
 
             // let's check only the preferred region to detect if it's still "good enough"
             this.previousPing = prevBestRegionPing;
-            
+
             Region preferred = this.EnabledRegions.Find(r => r.Code.Equals(prevBestRegionCode));
             RegionPinger singlePinger = new RegionPinger(preferred, this.OnPreferredRegionPinged);
             singlePinger.Start();
@@ -354,7 +354,7 @@ namespace Photon.Realtime
             #if UNITY_WEBGL
             GameObject go = new GameObject();
             go.name = "RegionPing_" + this.region.Code + "_" + this.region.Cluster;
-            this.coroutineMonoBehaviour = go.AddComponent<MonoBehaviourExt>();
+            this.coroutineMonoBehaviour = go.AddComponent<MonoBehaviourEmpty>();        // is defined below, as special case for Unity WegGL
             this.coroutineMonoBehaviour.StartCoroutine(this.RegionPingCoroutine());
             #else
             SupportClass.StartBackgroundCalls(this.RegionPingThreaded, 0, "RegionPing_" + this.region.Code+"_"+this.region.Cluster);
@@ -559,6 +559,9 @@ namespace Photon.Realtime
 
             return ipv4Address;
         }
-
     }
+
+    #if UNITY_WEBGL
+    internal class MonoBehaviourEmpty : MonoBehaviour { }
+    #endif
 }

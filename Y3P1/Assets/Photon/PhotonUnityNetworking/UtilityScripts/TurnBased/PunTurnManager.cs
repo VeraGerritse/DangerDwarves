@@ -25,7 +25,7 @@ namespace Photon.Pun.UtilityScripts
     /// Provides an Interface (IPunTurnManagerCallbacks) for the typical turn flow and logic, between players
     /// Provides Extensions for Player, Room and RoomInfo to feature dedicated api for TurnBased Needs
     /// </summary>
-    public class PunTurnManager : MonoBehaviourPunCallbacks
+	public class PunTurnManager : MonoBehaviourPunCallbacks, IOnEventCallback
     {
         /// <summary>
         /// Wraps accessing the "turn" custom properties of a room.
@@ -127,14 +127,8 @@ namespace Photon.Pun.UtilityScripts
 
         #region MonoBehaviour CallBack
 
-        /// <summary>
-        /// Register for Event Call from PhotonNetwork.
-        /// </summary>
-        void Start()
-        {
-            throw new NotImplementedException();
-            //PhotonNetwork.OnEventCall = OnEvent;
-        }
+
+        void Start(){}
 
         void Update()
         {
@@ -145,7 +139,6 @@ namespace Photon.Pun.UtilityScripts
             }
 
         }
-
 
         #endregion
 
@@ -187,7 +180,7 @@ namespace Photon.Pun.UtilityScripts
 
             // the server won't send the event back to the origin (by default). to get the event, call it locally
             // (note: the order of events might be mixed up as we do this locally)
-            //OnEvent(evCode, moveHt, PhotonNetwork.player.ID);   // TODO: implement this
+			ProcessOnEvent(evCode, moveHt, PhotonNetwork.LocalPlayer.ActorNumber);
         }
 
         /// <summary>
@@ -207,47 +200,51 @@ namespace Photon.Pun.UtilityScripts
 
         #region Callbacks
 
+		// called internally
+		void ProcessOnEvent(byte eventCode, object content, int senderId)
+		{
+			Player sender = PhotonNetwork.CurrentRoom.GetPlayer(senderId);
+			switch (eventCode)
+			{
+			case EvMove:
+				{
+					Hashtable evTable = content as Hashtable;
+					int turn = (int)evTable["turn"];
+					object move = evTable["move"];
+					this.TurnManagerListener.OnPlayerMove(sender, turn, move);
+
+					break;
+				}
+			case EvFinalMove:
+				{
+					Hashtable evTable = content as Hashtable;
+					int turn = (int)evTable["turn"];
+					object move = evTable["move"];
+
+					if (turn == this.Turn)
+					{
+						this.finishedPlayers.Add(sender);
+
+						this.TurnManagerListener.OnPlayerFinished(sender, turn, move);
+
+					}
+
+					if (IsCompletedByAll)
+					{
+						this.TurnManagerListener.OnTurnCompleted(this.Turn);
+					}
+					break;
+				}
+			}
+		}
+
         /// <summary>
         /// Called by PhotonNetwork.OnEventCall registration
         /// </summary>
-        /// <param name="eventCode">Event code.</param>
-        /// <param name="content">Content.</param>
-        /// <param name="senderId">Sender identifier.</param>
-        public void OnEvent(byte eventCode, object content, int senderId)
+		/// <param name="photonEvent">Photon event.</param>
+		public void OnEvent(EventData photonEvent)
         {
-            Player sender = PhotonNetwork.CurrentRoom.GetPlayer(senderId);
-            switch (eventCode)
-            {
-                case EvMove:
-                {
-                    Hashtable evTable = content as Hashtable;
-                    int turn = (int) evTable["turn"];
-                    object move = evTable["move"];
-                    this.TurnManagerListener.OnPlayerMove(sender, turn, move);
-
-                    break;
-                }
-                case EvFinalMove:
-                {
-                    Hashtable evTable = content as Hashtable;
-                    int turn = (int) evTable["turn"];
-                    object move = evTable["move"];
-
-                    if (turn == this.Turn)
-                    {
-                        this.finishedPlayers.Add(sender);
-
-                        this.TurnManagerListener.OnPlayerFinished(sender, turn, move);
-
-                    }
-
-                    if (IsCompletedByAll)
-                    {
-                        this.TurnManagerListener.OnTurnCompleted(this.Turn);
-                    }
-                    break;
-                }
-            }
+			ProcessOnEvent(photonEvent.Code, photonEvent.CustomData, photonEvent.Sender);
         }
 
         /// <summary>

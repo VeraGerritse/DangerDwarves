@@ -84,10 +84,14 @@ namespace Photon.Realtime
 
             Type websocketType = null;
             #if UNITY_XBOXONE && !UNITY_EDITOR
-            websocketType = Type.GetType("ExitGames.Client.Photon.SocketWebTcpNativeDynamic, Assembly-CSharp", false);
+            websocketType = Type.GetType("ExitGames.Client.Photon.SocketWebTcpNativeDynamic, PhotonWebSocket", false);
             if (websocketType == null)
             {
                 websocketType = Type.GetType("ExitGames.Client.Photon.SocketWebTcpNativeDynamic, Assembly-CSharp-firstpass", false);
+            }
+            if (websocketType == null)
+            {
+                websocketType = Type.GetType("ExitGames.Client.Photon.SocketWebTcpNativeDynamic, Assembly-CSharp", false);
             }
             if (websocketType == null)
             {
@@ -96,10 +100,14 @@ namespace Photon.Realtime
             #else
             // to support WebGL export in Unity, we find and assign the SocketWebTcp class (if it's in the project).
             // alternatively class SocketWebTcp might be in the Photon3Unity3D.dll
-            websocketType = Type.GetType("ExitGames.Client.Photon.SocketWebTcp, Assembly-CSharp", false);
+            websocketType = Type.GetType("ExitGames.Client.Photon.SocketWebTcp, PhotonWebSocket", false);
             if (websocketType == null)
             {
                 websocketType = Type.GetType("ExitGames.Client.Photon.SocketWebTcp, Assembly-CSharp-firstpass", false);
+            }
+            if (websocketType == null)
+            {
+                websocketType = Type.GetType("ExitGames.Client.Photon.SocketWebTcp, Assembly-CSharp", false);
             }
             #endif
 
@@ -1737,7 +1745,7 @@ namespace Photon.Realtime
         /// <summary>The number of the Interest Group to send this to. 0 goes to all users but to get 1 and up, clients must subscribe to the group first.</summary>
         public byte InterestGroup;
 
-        /// <summary>A list of PhotonPlayer.IDs to send this event to. You can implement events that just go to specific users this way.</summary>
+        /// <summary>A list of Player.ActorNumbers to send this event to. You can implement events that just go to specific users this way.</summary>
         public int[] TargetActors;
 
         /// <summary>Sends the event to All, MasterClient or Others (default). Be careful with MasterClient, as the client might disconnect before it got the event and it gets lost.</summary>

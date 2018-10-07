@@ -57,7 +57,17 @@ namespace Photon.Pun
         private static event Action<PhotonView, Player> OnOwnershipTransferedEv;
 
 
-        internal static void AddCallbackTarget(object target)
+        /// <summary>
+        /// Registers an object for callbacks for the implemented callback-interfaces.
+        /// </summary>
+        /// <remarks>
+        /// The covered callback interfaces are: IConnectionCallbacks, IMatchmakingCallbacks,
+        /// ILobbyCallbacks, IInRoomCallbacks, IOnEventCallback and IWebRpcCallback.
+        ///
+        /// See: <a href="https://doc.photonengine.com/en-us/pun/v2/getting-started/dotnet-callbacks">.Net Callbacks</a>
+        /// </remarks>
+        /// <param name="target">The object that registers to get callbacks from PUN's LoadBalancingClient.</param>
+        public static void AddCallbackTarget(object target)
         {
             if (target is PhotonView)
             {
@@ -74,7 +84,18 @@ namespace Photon.Pun
             NetworkingClient.AddCallbackTarget(target);
         }
 
-        internal static void RemoveCallbackTarget(object target)
+
+        /// <summary>
+        /// Removes the target object from callbacks for its implemented callback-interfaces.
+        /// </summary>
+        /// <remarks>
+        /// The covered callback interfaces are: IConnectionCallbacks, IMatchmakingCallbacks,
+        /// ILobbyCallbacks, IInRoomCallbacks, IOnEventCallback and IWebRpcCallback.
+        ///
+        /// See: <a href="https://doc.photonengine.com/en-us/pun/v2/getting-started/dotnet-callbacks">.Net Callbacks</a>
+        /// </remarks>
+        /// <param name="target">The object that unregisters from getting callbacks.</param>
+        public static void RemoveCallbackTarget(object target)
         {
             if (target is PhotonView || NetworkingClient == null)
             {
@@ -97,7 +118,7 @@ namespace Photon.Pun
             return string.Join(", ", x);
         }
 
-        internal static short currentLevelPrefix = 0;
+        internal static byte currentLevelPrefix = 0;
 
         /// <summary>Internally used to flag if the message queue was disabled by a "scene sync" situation (to re-enable it).</summary>
         internal static bool loadingLevelAndPausedNetwork = false;
@@ -108,21 +129,32 @@ namespace Photon.Pun
 
 
         /// <summary>
-        /// An Object Pool can be used to keep and reuse instantiated object instances. It replaced Unity's default Instantiate and Destroy methods.
+        /// An Object Pool can be used to keep and reuse instantiated object instances. Replaces Unity's default Instantiate and Destroy methods.
         /// </summary>
         /// <remarks>
+        /// Defaults to the DefaultPool type.
         /// To use a GameObject pool, implement IPunPrefabPool and assign it here.
         /// Prefabs are identified by name.
         /// </remarks>
-        public static IPunPrefabPool PrefabPool { get { return ObjectPool; } set { ObjectPool = value; } }
+        public static IPunPrefabPool PrefabPool
+        {
+            get
+            {
+                return prefabPool; 
+            }
+            set
+            {
+                if (value == null)
+                {
+                    Debug.LogError("PhotonNetwork.PrefabPool cannot be set to null. Please check your code.");
+                    return;
+                }
 
-        internal static IPunPrefabPool ObjectPool;
+                prefabPool = value;
+            }
+        }
 
-        public static bool UsePrefabCache = true;
-
-        public static Dictionary<string, GameObject> PrefabCache = new Dictionary<string, GameObject>();
-
-
+        private static IPunPrefabPool prefabPool;
 
         /// <summary>
         /// While enabled, the MonoBehaviours on which we call RPCs are cached, avoiding costly GetComponents&lt;MonoBehaviour&gt;() calls.
@@ -196,7 +228,6 @@ namespace Photon.Pun
             if (autoCleanupSettingOfRoom)
             {
                 LocalCleanupAnythingInstantiated(true);
-                PhotonNetwork.manuallyAllocatedViewIds = new List<int>();       // filled and easier to replace completely
             }
         }
 
@@ -206,10 +237,10 @@ namespace Photon.Pun
         /// </summary>
         internal static void LocalCleanupAnythingInstantiated(bool destroyInstantiatedGameObjects)
         {
-            if (tempInstantiationData.Count > 0)
-            {
-                Debug.LogWarning("It seems some instantiation is not completed, as instantiation data is used. You should make sure instantiations are paused when calling this method. Cleaning now, despite ");
-            }
+            //if (tempInstantiationData.Count > 0)
+            //{
+            //    Debug.LogWarning("It seems some instantiation is not completed, as instantiation data is used. You should make sure instantiations are paused when calling this method. Cleaning now, despite ");
+            //}
 
             // Destroy GO's (if we should)
             if (destroyInstantiatedGameObjects)
@@ -232,7 +263,6 @@ namespace Photon.Pun
 
             // photonViewList is cleared of anything instantiated (so scene items are left inside)
             // any other lists can be
-            tempInstantiationData.Clear(); // should be empty but to be safe we clear (no new list needed)
             PhotonNetwork.lastUsedViewSubId = 0;
             PhotonNetwork.lastUsedViewSubIdStatic = 0;
         }
@@ -520,251 +550,201 @@ namespace Photon.Pun
         }
 
 
-        internal static Hashtable SendInstantiate(string prefabName, Vector3 position, Quaternion rotation, byte group, int[] viewIDs, object[] data, bool isGlobalObject)
-        {
-            // first viewID is now also the gameobject's instantiateId
-            int instantiateId = viewIDs[0];   // LIMITS PHOTONVIEWS&PLAYERS
+        
+        //internal static GameObject DoInstantiate(Hashtable evData, Player player, GameObject resourceGameObject)
+        //{
+        //    // some values always present:
+        //    string prefabName = (string)evData[(byte)0];
+        //    int serverTime = (int)evData[(byte)6];
+        //    int instantiationId = (int)evData[(byte)7];
 
-            //TODO: reduce hashtable key usage by using a parameter array for the various values
-            ExitGames.Client.Photon.Hashtable instantiateEvent = new ExitGames.Client.Photon.Hashtable(); // This players info is sent via ActorID
-            instantiateEvent[(byte)0] = prefabName;
+        //    Vector3 position;
+        //    if (evData.ContainsKey((byte)1))
+        //    {
+        //        position = (Vector3)evData[(byte)1];
+        //    }
+        //    else
+        //    {
+        //        position = Vector3.zero;
+        //    }
 
-            if (position != Vector3.zero)
-            {
-                instantiateEvent[(byte)1] = position;
-            }
+        //    Quaternion rotation = Quaternion.identity;
+        //    if (evData.ContainsKey((byte)2))
+        //    {
+        //        rotation = (Quaternion)evData[(byte)2];
+        //    }
 
-            if (rotation != Quaternion.identity)
-            {
-                instantiateEvent[(byte)2] = rotation;
-            }
+        //    byte group = 0;
+        //    if (evData.ContainsKey((byte)3))
+        //    {
+        //        group = (byte)evData[(byte)3];
+        //    }
 
-            if (group != 0)
-            {
-                instantiateEvent[(byte)3] = group;
-            }
+        //    short objLevelPrefix = 0;
+        //    if (evData.ContainsKey((byte)8))
+        //    {
+        //        objLevelPrefix = (short)evData[(byte)8];
+        //    }
 
-            // send the list of viewIDs only if there are more than one. else the instantiateId is the viewID
-            if (viewIDs.Length > 1)
-            {
-                instantiateEvent[(byte)4] = viewIDs; // LIMITS PHOTONVIEWS&PLAYERS
-            }
+        //    int[] viewsIDs;
+        //    if (evData.ContainsKey((byte)4))
+        //    {
+        //        viewsIDs = (int[])evData[(byte)4];
+        //    }
+        //    else
+        //    {
+        //        viewsIDs = new int[1] { instantiationId };
+        //    }
 
-            if (data != null)
-            {
-                instantiateEvent[(byte)5] = data;
-            }
+        //    object[] incomingInstantiationData;
+        //    if (evData.ContainsKey((byte)5))
+        //    {
+        //        incomingInstantiationData = (object[])evData[(byte)5];
+        //    }
+        //    else
+        //    {
+        //        incomingInstantiationData = null;
+        //    }
 
-            if (currentLevelPrefix > 0)
-            {
-                instantiateEvent[(byte)8] = currentLevelPrefix;    // photonview's / object's level prefix
-            }
+        //    // SetReceiving filtering
+        //    if (group != 0 && !allowedReceivingGroups.Contains(group))
+        //    {
+        //        return null; // Ignore group
+        //    }
 
-            instantiateEvent[(byte)6] = PhotonNetwork.ServerTimestamp;
-            instantiateEvent[(byte)7] = instantiateId;
+        //    if (ObjectPool != null)
+        //    {
+        //        GameObject go = ObjectPool.Instantiate(prefabName, position, rotation);
 
+        //        PhotonView[] photonViews = go.GetPhotonViewsInChildren();
+        //        if (photonViews.Length != viewsIDs.Length)
+        //        {
+        //            throw new Exception("Error in Instantiation! The resource's PhotonView count is not the same as in incoming data.");
+        //        }
+        //        for (int i = 0; i < photonViews.Length; i++)
+        //        {
+        //            photonViews[i].didAwake = false;
+        //            photonViews[i].ViewID = 0;
 
-            RaiseEventOptions options = new RaiseEventOptions();
-            options.CachingOption = (isGlobalObject) ? EventCaching.AddToRoomCacheGlobal : EventCaching.AddToRoomCache;
+        //            photonViews[i].Prefix = objLevelPrefix;
+        //            photonViews[i].InstantiationId = instantiationId;
+        //            photonViews[i].isRuntimeInstantiated = true;
+        //            photonViews[i].instantiationDataField = incomingInstantiationData;
 
-            PhotonNetwork.RaiseEventInternal(PunEvent.Instantiation, instantiateEvent, options, new SendOptions() { Reliability = true });
-            return instantiateEvent;
-        }
-
-        internal static GameObject DoInstantiate(Hashtable evData, Player player, GameObject resourceGameObject)
-        {
-            // some values always present:
-            string prefabName = (string)evData[(byte)0];
-            int serverTime = (int)evData[(byte)6];
-            int instantiationId = (int)evData[(byte)7];
-
-            Vector3 position;
-            if (evData.ContainsKey((byte)1))
-            {
-                position = (Vector3)evData[(byte)1];
-            }
-            else
-            {
-                position = Vector3.zero;
-            }
-
-            Quaternion rotation = Quaternion.identity;
-            if (evData.ContainsKey((byte)2))
-            {
-                rotation = (Quaternion)evData[(byte)2];
-            }
-
-            byte group = 0;
-            if (evData.ContainsKey((byte)3))
-            {
-                group = (byte)evData[(byte)3];
-            }
-
-            short objLevelPrefix = 0;
-            if (evData.ContainsKey((byte)8))
-            {
-                objLevelPrefix = (short)evData[(byte)8];
-            }
-
-            int[] viewsIDs;
-            if (evData.ContainsKey((byte)4))
-            {
-                viewsIDs = (int[])evData[(byte)4];
-            }
-            else
-            {
-                viewsIDs = new int[1] { instantiationId };
-            }
-
-            object[] incomingInstantiationData;
-            if (evData.ContainsKey((byte)5))
-            {
-                incomingInstantiationData = (object[])evData[(byte)5];
-            }
-            else
-            {
-                incomingInstantiationData = null;
-            }
-
-            // SetReceiving filtering
-            if (group != 0 && !allowedReceivingGroups.Contains(group))
-            {
-                return null; // Ignore group
-            }
-
-            if (ObjectPool != null)
-            {
-                GameObject go = ObjectPool.Instantiate(prefabName, position, rotation);
-
-                PhotonView[] photonViews = go.GetPhotonViewsInChildren();
-                if (photonViews.Length != viewsIDs.Length)
-                {
-                    throw new Exception("Error in Instantiation! The resource's PhotonView count is not the same as in incoming data.");
-                }
-                for (int i = 0; i < photonViews.Length; i++)
-                {
-                    photonViews[i].didAwake = false;
-                    photonViews[i].ViewID = 0;
-
-                    photonViews[i].Prefix = objLevelPrefix;
-                    photonViews[i].InstantiationId = instantiationId;
-                    photonViews[i].isRuntimeInstantiated = true;
-                    photonViews[i].instantiationDataField = incomingInstantiationData;
-
-                    photonViews[i].didAwake = true;
-                    photonViews[i].ViewID = viewsIDs[i];    // with didAwake true and viewID == 0, this will also register the view
-                }
+        //            photonViews[i].didAwake = true;
+        //            photonViews[i].ViewID = viewsIDs[i];    // with didAwake true and viewID == 0, this will also register the view
+        //        }
 
 
-                // if IPunInstantiateMagicCallback is implemented on any script of the instantiated GO, let's call it directly:
-                var list = go.GetComponents<IPunInstantiateMagicCallback>();
-                if (list.Length > 0)
-                {
-                    PhotonMessageInfo pmi = new PhotonMessageInfo(player, serverTime, null);
-                    foreach (IPunInstantiateMagicCallback callbackComponent in list)
-                    {
-                        callbackComponent.OnPhotonInstantiate(pmi);
-                    }
-                }
-                return go;
-            }
-            else
-            {
-                // load prefab, if it wasn't loaded before (calling methods might do this)
-                if (resourceGameObject == null)
-                {
-                    if (!UsePrefabCache || !PrefabCache.TryGetValue(prefabName, out resourceGameObject))
-                    {
-                        resourceGameObject = (GameObject)Resources.Load(prefabName, typeof(GameObject));
-                        if (UsePrefabCache)
-                        {
-                            PrefabCache.Add(prefabName, resourceGameObject);
-                        }
-                    }
+        //        // if IPunInstantiateMagicCallback is implemented on any script of the instantiated GO, let's call it directly:
+        //        var list = go.GetComponents<IPunInstantiateMagicCallback>();
+        //        if (list.Length > 0)
+        //        {
+        //            PhotonMessageInfo pmi = new PhotonMessageInfo(player, serverTime, null);
+        //            foreach (IPunInstantiateMagicCallback callbackComponent in list)
+        //            {
+        //                callbackComponent.OnPhotonInstantiate(pmi);
+        //            }
+        //        }
+        //        return go;
+        //    }
+        //    else
+        //    {
+        //        // load prefab, if it wasn't loaded before (calling methods might do this)
+        //        if (resourceGameObject == null)
+        //        {
+        //            if (!UsePrefabCache || !PrefabCache.TryGetValue(prefabName, out resourceGameObject))
+        //            {
+        //                resourceGameObject = (GameObject)Resources.Load(prefabName, typeof(GameObject));
+        //                if (UsePrefabCache)
+        //                {
+        //                    PrefabCache.Add(prefabName, resourceGameObject);
+        //                }
+        //            }
 
-                    if (resourceGameObject == null)
-                    {
-                        Debug.LogError("PhotonNetwork error: Could not Instantiate the prefab [" + prefabName + "]. Please verify you have this gameobject in a Resources folder.");
-                        return null;
-                    }
-                }
+        //            if (resourceGameObject == null)
+        //            {
+        //                Debug.LogError("PhotonNetwork error: Could not Instantiate the prefab [" + prefabName + "]. Please verify you have this gameobject in a Resources folder.");
+        //                return null;
+        //            }
+        //        }
 
-                // now modify the loaded "blueprint" object before it becomes a part of the scene (by instantiating it)
-                PhotonView[] resourcePVs = resourceGameObject.GetPhotonViewsInChildren();
-                if (resourcePVs.Length != viewsIDs.Length)
-                {
-                    throw new Exception("Error in Instantiation! The resource's PhotonView count is not the same as in incoming data.");
-                }
+        //        // now modify the loaded "blueprint" object before it becomes a part of the scene (by instantiating it)
+        //        PhotonView[] resourcePVs = resourceGameObject.GetPhotonViewsInChildren();
+        //        if (resourcePVs.Length != viewsIDs.Length)
+        //        {
+        //            throw new Exception("Error in Instantiation! The resource's PhotonView count is not the same as in incoming data.");
+        //        }
 
-                for (int i = 0; i < viewsIDs.Length; i++)
-                {
-                    // NOTE instantiating the loaded resource will keep the viewID but would not copy instantiation data, so it's set below
-                    // so we only set the viewID and instantiationId now. the InstantiationData can be fetched
-                    resourcePVs[i].ViewID = viewsIDs[i];
-                    resourcePVs[i].Prefix = objLevelPrefix;
-                    resourcePVs[i].InstantiationId = instantiationId;
-                    resourcePVs[i].isRuntimeInstantiated = true;
-                }
+        //        for (int i = 0; i < viewsIDs.Length; i++)
+        //        {
+        //            // NOTE instantiating the loaded resource will keep the viewID but would not copy instantiation data, so it's set below
+        //            // so we only set the viewID and instantiationId now. the InstantiationData can be fetched
+        //            resourcePVs[i].ViewID = viewsIDs[i];
+        //            resourcePVs[i].Prefix = objLevelPrefix;
+        //            resourcePVs[i].InstantiationId = instantiationId;
+        //            resourcePVs[i].isRuntimeInstantiated = true;
+        //        }
 
-                StoreInstantiationData(instantiationId, incomingInstantiationData);
+        //        StoreInstantiationData(instantiationId, incomingInstantiationData);
 
-                // load the resource and set it's values before instantiating it:
-                GameObject go = (GameObject)GameObject.Instantiate(resourceGameObject, position, rotation);
+        //        // load the resource and set it's values before instantiating it:
+        //        GameObject go = (GameObject)GameObject.Instantiate(resourceGameObject, position, rotation);
 
-                for (int i = 0; i < viewsIDs.Length; i++)
-                {
-                    // NOTE instantiating the loaded resource will keep the viewID but would not copy instantiation data, so it's set below
-                    // so we only set the viewID and instantiationId now. the InstantiationData can be fetched
-                    resourcePVs[i].ViewID = 0;
-                    resourcePVs[i].Prefix = -1;
-                    resourcePVs[i].prefixField = -1;
-                    resourcePVs[i].InstantiationId = -1;
-                    resourcePVs[i].isRuntimeInstantiated = false;
-                }
-
-
-                // if IPunInstantiateMagicCallback is implemented on any script of the instantiated GO, let's call it directly:
-                var list = go.GetComponents<IPunInstantiateMagicCallback>();
-                if (list.Length > 0)
-                {
-                    PhotonMessageInfo pmi = new PhotonMessageInfo(player, serverTime, null);
-                    foreach (IPunInstantiateMagicCallback callbackComponent in list)
-                    {
-                        callbackComponent.OnPhotonInstantiate(pmi);
-                    }
-                }
+        //        for (int i = 0; i < viewsIDs.Length; i++)
+        //        {
+        //            // NOTE instantiating the loaded resource will keep the viewID but would not copy instantiation data, so it's set below
+        //            // so we only set the viewID and instantiationId now. the InstantiationData can be fetched
+        //            resourcePVs[i].ViewID = 0;
+        //            resourcePVs[i].Prefix = -1;
+        //            resourcePVs[i].prefixField = -1;
+        //            resourcePVs[i].InstantiationId = -1;
+        //            resourcePVs[i].isRuntimeInstantiated = false;
+        //        }
 
 
-                RemoveInstantiationData(instantiationId);
-                return go;
-            }
-        }
+        //        // if IPunInstantiateMagicCallback is implemented on any script of the instantiated GO, let's call it directly:
+        //        var list = go.GetComponents<IPunInstantiateMagicCallback>();
+        //        if (list.Length > 0)
+        //        {
+        //            PhotonMessageInfo pmi = new PhotonMessageInfo(player, serverTime, null);
+        //            foreach (IPunInstantiateMagicCallback callbackComponent in list)
+        //            {
+        //                callbackComponent.OnPhotonInstantiate(pmi);
+        //            }
+        //        }
 
-        private static Dictionary<int, object[]> tempInstantiationData = new Dictionary<int, object[]>();
 
-        private static void StoreInstantiationData(int instantiationId, object[] instantiationData)
-        {
-            // Debug.Log("StoreInstantiationData() instantiationId: " + instantiationId + " tempInstantiationData.Count: " + tempInstantiationData.Count);
-            tempInstantiationData[instantiationId] = instantiationData;
-        }
+        //        RemoveInstantiationData(instantiationId);
+        //        return go;
+        //    }
+        //}
 
-        public static object[] FetchInstantiationData(int instantiationId)
-        {
-            object[] data = null;
-            if (instantiationId == 0)
-            {
-                return null;
-            }
+        //private static Dictionary<int, object[]> tempInstantiationData = new Dictionary<int, object[]>();
 
-            tempInstantiationData.TryGetValue(instantiationId, out data);
-            // Debug.Log("FetchInstantiationData() instantiationId: " + instantiationId + " tempInstantiationData.Count: " + tempInstantiationData.Count);
-            return data;
-        }
+        //private static void StoreInstantiationData(int instantiationId, object[] instantiationData)
+        //{
+        //    // Debug.Log("StoreInstantiationData() instantiationId: " + instantiationId + " tempInstantiationData.Count: " + tempInstantiationData.Count);
+        //    tempInstantiationData[instantiationId] = instantiationData;
+        //}
 
-        private static void RemoveInstantiationData(int instantiationId)
-        {
-            tempInstantiationData.Remove(instantiationId);
-        }
+        //public static object[] FetchInstantiationData(int instantiationId)
+        //{
+        //    object[] data = null;
+        //    if (instantiationId == 0)
+        //    {
+        //        return null;
+        //    }
+
+        //    tempInstantiationData.TryGetValue(instantiationId, out data);
+        //    // Debug.Log("FetchInstantiationData() instantiationId: " + instantiationId + " tempInstantiationData.Count: " + tempInstantiationData.Count);
+        //    return data;
+        //}
+
+        //private static void RemoveInstantiationData(int instantiationId)
+        //{
+        //    tempInstantiationData.Remove(instantiationId);
+        //}
 
 
         /// <summary>
@@ -782,7 +762,7 @@ namespace Photon.Pun
             {
                 // clean server's Instantiate and RPC buffers
                 OpRemoveFromServerInstantiationsOfPlayer(playerId);
-                OpCleanRpcBuffer(playerId);
+                OpCleanActorRpcBuffer(playerId);
 
                 // send Destroy(player) to anyone else
                 SendDestroyOfPlayer(playerId);
@@ -852,10 +832,11 @@ namespace Photon.Pun
             PhotonView viewZero = views[0];
             int creatorId = viewZero.CreatorActorNr;            // creatorId of obj is needed to delete EvInstantiate (only if it's from that user)
             int instantiationId = viewZero.InstantiationId;     // actual, live InstantiationIds start with 1 and go up
-
+            
             // Don't remove GOs that are owned by others (unless this is the master and the remote player left)
             if (!localOnly)
             {
+                //Debug.LogWarning("Destroy " + instantiationId + " creator " + creatorId, go);
                 if (!viewZero.IsMine)
                 {
                     Debug.LogError("Failed to 'network-remove' GameObject. Client is neither owner nor MasterClient taking over for owner who left: " + viewZero);
@@ -896,6 +877,8 @@ namespace Photon.Pun
                 {
                     OpCleanRpcBuffer(view);
                 }
+
+                view.ViewID = 0;    // marks the PV as not being used currently. it may be returned to the pool
             }
 
             if (PhotonNetwork.LogLevel >= PunLogLevel.Full)
@@ -903,49 +886,33 @@ namespace Photon.Pun
                 Debug.Log("Network destroy Instantiated GO: " + go.name);
             }
 
-
-            if (ObjectPool != null)
-            {
-                PhotonView[] photonViews = go.GetPhotonViewsInChildren();
-                for (int i = 0; i < photonViews.Length; i++)
-                {
-                    photonViews[i].ViewID = 0;  // marks the PV as not being in use currently.
-                }
-                ObjectPool.Destroy(go);
-            }
-            else
-            {
-                GameObject.Destroy(go);
-            }
+            go.SetActive(false);            // PUN 2 disables objects before the return to the pool
+            prefabPool.Destroy(go);         // PUN 2 always uses a PrefabPool (even for the default implementation)
         }
+
+
+
+        private static readonly ExitGames.Client.Photon.Hashtable removeFilter = new ExitGames.Client.Photon.Hashtable();
+        private static readonly ExitGames.Client.Photon.Hashtable ServerCleanDestroyEvent = new ExitGames.Client.Photon.Hashtable();
+        private static readonly RaiseEventOptions ServerCleanOptions = new RaiseEventOptions() { CachingOption = EventCaching.RemoveFromRoomCache };
 
         /// <summary>
         /// Removes an instantiation event from the server's cache. Needs id and actorNr of player who instantiated.
         /// </summary>
         private static void ServerCleanInstantiateAndDestroy(int instantiateId, int creatorId, bool isRuntimeInstantiated)
         {
-            ExitGames.Client.Photon.Hashtable removeFilter = new ExitGames.Client.Photon.Hashtable();
+            // remove the Instantiate-event from the server cache:
             removeFilter[(byte)7] = instantiateId;
+            ServerCleanOptions.CachingOption = EventCaching.RemoveFromRoomCache;
 
-            RaiseEventOptions options = new RaiseEventOptions() { CachingOption = EventCaching.RemoveFromRoomCache, TargetActors = new int[] { creatorId } };
-            PhotonNetwork.RaiseEventInternal(PunEvent.Instantiation, removeFilter, options, SendOptions.SendReliable);
-            //NetworkingClient.OpRaiseEvent(PunEvent.Instantiation, removeFilter, options, new SendOptions() { Reliability = true });
-            //NetworkingClient.OpRaiseEvent(PunEvent.Instantiation, removeFilter, true, 0, new int[] { actorNr }, EventCaching.RemoveFromRoomCache);
+            PhotonNetwork.RaiseEventInternal(PunEvent.Instantiation, removeFilter, ServerCleanOptions, SendOptions.SendReliable);
 
-            ExitGames.Client.Photon.Hashtable evData = new ExitGames.Client.Photon.Hashtable();
-            evData[(byte)0] = instantiateId;
-            options = null;
-            if (!isRuntimeInstantiated)
-            {
-                // if the view got loaded with the scene, the EvDestroy must be cached (there is no Instantiate-msg which we can remove)
-                // reason: joining players will load the obj and have to destroy it (too)
-                options = new RaiseEventOptions();
-                options.CachingOption = EventCaching.AddToRoomCacheGlobal;
-                Debug.Log("Destroying GO as global. ID: " + instantiateId);
-            }
 
-            PhotonNetwork.RaiseEventInternal(PunEvent.Destroy, evData, options, SendOptions.SendReliable);
-            //NetworkingClient.OpRaiseEvent(PunEvent.Destroy, evData, options, new SendOptions() { Reliability = true });
+            // send a Destroy-event to everyone (removing an event from the cache, doesn't send this to anyone else):
+            ServerCleanDestroyEvent[(byte)0] = instantiateId;
+            ServerCleanOptions.CachingOption = (isRuntimeInstantiated) ? EventCaching.DoNotCache : EventCaching.AddToRoomCacheGlobal;   // if the view got loaded with the scene, cache EvDestroy for anyone (re)joining later
+
+            PhotonNetwork.RaiseEventInternal(PunEvent.Destroy, ServerCleanDestroyEvent, ServerCleanOptions, SendOptions.SendReliable);
         }
 
         private static void SendDestroyOfPlayer(int actorNr)
@@ -1073,7 +1040,7 @@ namespace Photon.Pun
         /// This won't clean any local caches. It just tells the server to forget a player's RPCs and instantiates.
         /// </summary>
         /// <param name="actorNumber"></param>
-        public static void OpCleanRpcBuffer(int actorNumber)
+        public static void OpCleanActorRpcBuffer(int actorNumber)
         {
             RaiseEventOptions options = new RaiseEventOptions() { CachingOption = EventCaching.RemoveFromRoomCache, TargetActors = new int[] { actorNumber } };
             PhotonNetwork.RaiseEventInternal(PunEvent.RPC, null, options, SendOptions.SendReliable);
@@ -1122,17 +1089,15 @@ namespace Photon.Pun
             OpCleanRpcBuffer(view);
         }
 
+
+        private static readonly Hashtable rpcFilterByViewId = new ExitGames.Client.Photon.Hashtable();
+        private static readonly RaiseEventOptions OpCleanRpcBufferOptions = new RaiseEventOptions() { CachingOption = EventCaching.RemoveFromRoomCache };
+
         /// <summary>Cleans server RPCs for PhotonView (without any further checks).</summary>
         public static void OpCleanRpcBuffer(PhotonView view)
         {
-            ExitGames.Client.Photon.Hashtable rpcFilterByViewId = new ExitGames.Client.Photon.Hashtable();
             rpcFilterByViewId[(byte)0] = view.ViewID;
-
-            RaiseEventOptions options = new RaiseEventOptions() { CachingOption = EventCaching.RemoveFromRoomCache };
-            //NetworkingClient.OpRaiseEvent(PunEvent.RPC, rpcFilterByViewId, true, 0, EventCaching.RemoveFromRoomCache, ReceiverGroup.Others);
-            //NetworkingClient.OpRaiseEvent(PunEvent.RPC, rpcFilterByViewId, true, options);
-            PhotonNetwork.RaiseEventInternal(PunEvent.RPC, rpcFilterByViewId, options, SendOptions.SendReliable);
-            //NetworkingClient.OpRaiseEvent(PunEvent.RPC, rpcFilterByViewId, options, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEventInternal(PunEvent.RPC, rpcFilterByViewId, OpCleanRpcBufferOptions, SendOptions.SendReliable);
         }
 
         /// <summary>
@@ -1170,8 +1135,8 @@ namespace Photon.Pun
         ///
         /// Be aware that PUN never resets this value, you'll have to do so yourself.
         /// </remarks>
-        /// <param name="prefix">Max value is short.MaxValue = 32767</param>
-        public static void SetLevelPrefix(short prefix)
+        /// <param name="prefix">Max value is short.MaxValue = 255</param>
+        public static void SetLevelPrefix(byte prefix)
         {
             // TODO: check can use network
 
@@ -1640,7 +1605,7 @@ namespace Photon.Pun
                 PhotonView view = enumerator.Current.Value;
 
                 // a client only sends updates for active, synchronized PhotonViews that are under it's control (isMine)
-                if (view.Synchronization == ViewSynchronization.Off || view.IsMine == false || view.gameObject.activeInHierarchy == false)
+                if (view.Synchronization == ViewSynchronization.Off || view.IsMine == false || view.isActiveAndEnabled == false)
                 {
                     continue;
                 }
@@ -2226,7 +2191,7 @@ namespace Photon.Pun
                     break;
 
                 case PunEvent.Instantiation:
-                    DoInstantiate((Hashtable) photonEvent[ParameterCode.Data], originatingPlayer, null);
+                    NetworkInstantiate((Hashtable) photonEvent[ParameterCode.Data], originatingPlayer);
                     break;
 
                 case PunEvent.CloseConnection:

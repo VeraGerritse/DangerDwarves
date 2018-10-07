@@ -12,7 +12,7 @@ public class Health
     public bool isDead;
 
     [SerializeField] private int baseHealth = 100;
-    private int currentHealth;
+    public int currentHealth;
 
     public event Action<float, int?> OnHealthModified = delegate { };
 

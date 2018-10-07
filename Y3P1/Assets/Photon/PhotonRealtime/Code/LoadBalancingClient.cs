@@ -266,7 +266,8 @@ namespace Photon.Realtime
 
 
         /// <summary>True if this client uses a NameServer to get the Master Server address.</summary>
-        public bool IsUsingNameServer { get; protected internal set; }
+        /// <remarks>This value is public, despite being an internal value, which should only be set by this client or PUN.</remarks>
+        public bool IsUsingNameServer { get; set; }
 
         /// <summary>Name Server Host Name for Photon Cloud. Without port and without any prefix.</summary>
         public string NameServerHost = "ns.exitgames.com";
@@ -304,7 +305,7 @@ namespace Photon.Realtime
         /// In the Photon Cloud, explicit definition of a Master Server Address is not best practice.
         /// The Photon Cloud has a "Name Server" which redirects clients to a specific Master Server (per Region and AppId).
         /// </remarks>
-        public string MasterServerAddress { get; protected internal set; }
+        public string MasterServerAddress { get; set; }
 
         /// <summary>The game server's address for a particular room. In use temporarily, as assigned by master.</summary>
         public string GameServerAddress { get; protected internal set; }
@@ -326,7 +327,7 @@ namespace Photon.Realtime
                 return this.state;
             }
 
-            protected internal set
+            set
             {
                 if (this.state == value)
                 {
@@ -410,11 +411,11 @@ namespace Photon.Realtime
 
         /// <summary>Wraps up the target objects for a group of callbacks, so they can be called conveniently.</summary>
         /// <remarks>By using Add or Remove, objects can "subscribe" or "unsubscribe" for this group  of callbacks.</remarks>
-        internal ConnectionCallbacksContainer ConnectionCallbackTargets = new ConnectionCallbacksContainer();
+        public ConnectionCallbacksContainer ConnectionCallbackTargets = new ConnectionCallbacksContainer();
 
         /// <summary>Wraps up the target objects for a group of callbacks, so they can be called conveniently.</summary>
         /// <remarks>By using Add or Remove, objects can "subscribe" or "unsubscribe" for this group  of callbacks.</remarks>
-        internal MatchMakingCallbacksContainer MatchMakingCallbackTargets = new MatchMakingCallbacksContainer();
+        public MatchMakingCallbacksContainer MatchMakingCallbackTargets = new MatchMakingCallbacksContainer();
 
         /// <summary>Wraps up the target objects for a group of callbacks, so they can be called conveniently.</summary>
         /// <remarks>By using Add or Remove, objects can "subscribe" or "unsubscribe" for this group  of callbacks.</remarks>
@@ -445,7 +446,7 @@ namespace Photon.Realtime
         public bool InLobby { get; private set; }
 
         /// <summary>The lobby this client currently uses.</summary>
-        public TypedLobby CurrentLobby { get; protected internal set; }
+        public TypedLobby CurrentLobby { get; set; }
 
         /// <summary>
         /// If enabled, the client will get a list of available lobbies from the Master Server.
@@ -594,11 +595,7 @@ namespace Photon.Realtime
             {
                 this.LoadBalancingPeer.Listener.DebugReturn(DebugLevel.WARNING, "WebGL requires WebSockets. Switching TransportProtocol to WebSocketSecure.");
                 this.LoadBalancingPeer.TransportProtocol = ConnectionProtocol.WebSocketSecure;
-            }
-            if (this.LoadBalancingPeer.SerializationProtocolType != SerializationProtocol.GpBinaryV16)
-            {
-                this.LoadBalancingPeer.Listener.DebugReturn(DebugLevel.WARNING, "WebGL requires SerializationProtocolType GpBinaryV16. Switching that now.");
-                this.LoadBalancingPeer.SerializationProtocolType = SerializationProtocol.GpBinaryV16;
+                //SocketWebTcp.SerializationProtocol = Enum.GetName(typeof(SerializationProtocol), this.LoadBalancingPeer.SerializationProtocolType);
             }
             #endif
 
@@ -1545,7 +1542,7 @@ namespace Photon.Realtime
 
         /// <summary>Internally used to cache and set properties (including well known properties).</summary>
         /// <remarks>Requires being in a room (because this attempts to send an operation which will fail otherwise).</remarks>
-        protected internal bool OpSetPropertiesOfRoom(Hashtable gameProperties, Hashtable expectedProperties = null, WebFlags webFlags = null)
+        public bool OpSetPropertiesOfRoom(Hashtable gameProperties, Hashtable expectedProperties = null, WebFlags webFlags = null)
         {
             if (this.CurrentRoom == null)
             {
@@ -1686,7 +1683,7 @@ namespace Photon.Realtime
         /// Internally used to set the LocalPlayer's ID (from -1 to the actual in-room ID).
         /// </summary>
         /// <param name="newID">New actor ID (a.k.a actorNr) assigned when joining a room.</param>
-        protected internal void ChangeLocalID(int newID)
+        public void ChangeLocalID(int newID)
         {
             if (this.LocalPlayer == null)
             {
@@ -2630,7 +2627,16 @@ namespace Photon.Realtime
         }
 
 
-
+        /// <summary>
+        /// Registers an object for callbacks for the implemented callback-interfaces.
+        /// </summary>
+        /// <remarks>
+        /// The covered callback interfaces are: IConnectionCallbacks, IMatchmakingCallbacks,
+        /// ILobbyCallbacks, IInRoomCallbacks, IOnEventCallback and IWebRpcCallback.
+        ///
+        /// See: <a href="https://doc.photonengine.com/en-us/pun/v2/getting-started/dotnet-callbacks"/>
+        /// </remarks>
+        /// <param name="target">The object that registers to get callbacks from this client.</param>
         public void AddCallbackTarget(object target)
         {
 
@@ -2671,6 +2677,17 @@ namespace Photon.Realtime
             }
         }
 
+
+        /// <summary>
+        /// Unregisters an object from callbacks for the implemented callback-interfaces.
+        /// </summary>
+        /// <remarks>
+        /// The covered callback interfaces are: IConnectionCallbacks, IMatchmakingCallbacks,
+        /// ILobbyCallbacks, IInRoomCallbacks, IOnEventCallback and IWebRpcCallback.
+        ///
+        /// See: <a href="https://doc.photonengine.com/en-us/pun/v2/getting-started/dotnet-callbacks">.Net Callbacks</a>
+        /// </remarks>
+        /// <param name="target">The object that unregisters from getting callbacks.</param>
         public void RemoveCallbackTarget(object target)
         {
             IInRoomCallbacks inRoomCallback = target as IInRoomCallbacks;
@@ -3098,7 +3115,7 @@ namespace Photon.Realtime
     /// While the interfaces of callbacks wrap up the methods that will be called,
     /// the container classes implement a simple way to call a method on all registered objects.
     /// </remarks>
-    internal class ConnectionCallbacksContainer : List<IConnectionCallbacks>, IConnectionCallbacks
+    public class ConnectionCallbacksContainer : List<IConnectionCallbacks>, IConnectionCallbacks
     {
         private HashSet<IConnectionCallbacks> targetsToAdd;
         private HashSet<IConnectionCallbacks> targetsToRemove;
@@ -3211,7 +3228,7 @@ namespace Photon.Realtime
     /// While the interfaces of callbacks wrap up the methods that will be called,
     /// the container classes implement a simple way to call a method on all registered objects.
     /// </remarks>
-    internal class MatchMakingCallbacksContainer : List<IMatchmakingCallbacks>, IMatchmakingCallbacks
+    public class MatchMakingCallbacksContainer : List<IMatchmakingCallbacks>, IMatchmakingCallbacks
     {
 
         private HashSet<IMatchmakingCallbacks> targetsToAdd;

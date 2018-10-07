@@ -29,6 +29,33 @@ namespace Photon.Pun
     #endif
 
 
+    public struct InstantiateParameters
+    {
+        public int[] viewIDs;
+        public byte objLevelPrefix;
+        public object[] data;
+        public byte @group;
+        public Quaternion rotation;
+        public Vector3 position;
+        public string prefabName;
+        public Player creator;
+        public int timestamp;
+
+        public InstantiateParameters(string prefabName, Vector3 position, Quaternion rotation, byte @group, object[] data, byte objLevelPrefix, int[] viewIDs, Player creator, int timestamp)
+        {
+            this.prefabName = prefabName;
+            this.position = position;
+            this.rotation = rotation;
+            this.@group = @group;
+            this.data = data;
+            this.objLevelPrefix = objLevelPrefix;
+            this.viewIDs = viewIDs;
+            this.creator = creator;
+            this.timestamp = timestamp;
+        }
+    }
+
+
     /// <summary>
     /// The main class to use the PhotonNetwork plugin.
     /// This class is static.
@@ -37,7 +64,7 @@ namespace Photon.Pun
     public static partial class PhotonNetwork
     {
         /// <summary>Version number of PUN. Used in the AppVersion, which separates your playerbase in matchmaking.</summary>
-        public const string PunVersion = "2.0";
+        public const string PunVersion = "2.2";
 
         /// <summary>Version number of your game. Setting this updates the AppVersion, which separates your playerbase in matchmaking.</summary>
         /// <remarks>
@@ -74,7 +101,7 @@ namespace Photon.Pun
         private static readonly PhotonHandler photonMono;
 
         /// <summary>The LoadBalancingClient is part of Photon Realtime and wraps up multiple servers and states for PUN.</summary>
-        internal static LoadBalancingClient NetworkingClient;
+        public static LoadBalancingClient NetworkingClient;
 
         /// <summary>
         /// The maximum number of assigned PhotonViews <i>per player</i> (or scene). See the [General Documentation](@ref general) topic "Limitations" on how to raise this limitation.
@@ -253,13 +280,6 @@ namespace Photon.Pun
             }
         }
 
-        /// <summary>If true, Instantiate methods will check if you are in a room and fail if you are not.</summary>
-        /// <remarks>
-        /// Instantiating anything outside of a specific room is very likely to break things.
-        /// Turn this off only if you know what you do.
-        /// </remarks>
-        public static bool InstantiateInRoomOnly = true;
-
         /// <summary>
         /// Controls how verbose PUN is.
         /// </summary>
@@ -307,7 +327,9 @@ namespace Photon.Pun
             }
         }
 
-
+        /// <summary>
+        /// A sorted copy of the players-list of the current room. This is using Linq, so better cache this value. Update when players join / leave.
+        /// </summary>
         public static Player[] PlayerList
         {
             get
@@ -322,7 +344,9 @@ namespace Photon.Pun
             }
         }
 
-
+        /// <summary>
+        /// A sorted copy of the players-list of the current room, excluding this client. This is using Linq, so better cache this value. Update when players join / leave.
+        /// </summary>
         public static Player[] PlayerListOthers
         {
             get
@@ -410,7 +434,7 @@ namespace Photon.Pun
         /// <summary>Defines if all clients in a room should load the same level as the Master Client (if that used PhotonNetwork.LoadLevel).</summary>
         /// <remarks>
         /// To synchronize the loaded level, the Master Client should use PhotonNetwork.LoadLevel.
-        /// All clients will load the new scene when they get the update or when they join.
+        /// All clients will load the new scene immediately when they enter a room (even before the callback OnJoinedRoom) or on change.
         ///
         /// Internally, a Custom Room Property is set for the loaded scene. When a client reads that
         /// and is not in the same scene yet, it will immediately pause the Message Queue
@@ -884,7 +908,6 @@ namespace Photon.Pun
 
         private static int lastUsedViewSubId = 0;  // each player only needs to remember it's own (!) last used subId to speed up assignment
         private static int lastUsedViewSubIdStatic = 0;  // per room, the master is able to instantiate GOs. the subId for this must be unique too
-        private static List<int> manuallyAllocatedViewIds = new List<int>();
 
 
         /// <summary>
@@ -921,6 +944,7 @@ namespace Photon.Pun
                 Application.runInBackground = PhotonServerSettings.RunInBackground;
             }
 
+            PrefabPool = new DefaultPool();
 
 
             // Set up the NetworkingPeer and use protocol of PhotonServerSettings
@@ -933,10 +957,13 @@ namespace Photon.Pun
             NetworkingClient.OpResponseReceived += OnOperation;
             NetworkingClient.StateChanged += (previousState, state) =>
                                                     {
-                                                        if (Server == ServerConnection.GameServer && (state == ClientState.Disconnecting || state == ClientState.DisconnectingFromGameserver))
-                                                        {
-                                                            LeftRoomCleanup();
-                                                        }
+														if ( 
+															(previousState == ClientState.Joined && state == ClientState.Disconnected) || 
+															(Server == ServerConnection.GameServer && (state == ClientState.Disconnecting || state == ClientState.DisconnectingFromGameserver))
+															)
+														{
+										                	LeftRoomCleanup();
+														}
                                                     };
 
 
@@ -2107,32 +2134,44 @@ namespace Photon.Pun
 
 
         /// <summary>
-        /// Allocates a viewID that's valid for the current/local player.
+        /// Allocates a viewID for the current/local player.
         /// </summary>
-        /// <returns>A viewID that can be used for a new PhotonView.</returns>
-        public static int AllocateViewID()
+        /// <returns></returns>
+        public static bool AllocateViewID(PhotonView view)
         {
+            if (view.ViewID != 0)
+            {
+                Debug.LogError("AllocateViewID() can't be used for PhotonViews that already have a viewID. This view is: " + view.ToString());
+                return false;
+            }
+
             int manualId = AllocateViewID(LocalPlayer.ActorNumber);
-            manuallyAllocatedViewIds.Add(manualId);
-            return manualId;
+            view.ViewID = manualId;
+            return true;
         }
 
 
         /// <summary>
         /// Enables the Master Client to allocate a viewID that is valid for scene objects.
         /// </summary>
-        /// <returns>A viewID that can be used for a new PhotonView or -1 in case of an error.</returns>
-        public static int AllocateSceneViewID()
+        /// <returns></returns>
+        public static bool AllocateSceneViewID(PhotonView view)
         {
             if (!PhotonNetwork.IsMasterClient)
             {
                 Debug.LogError("Only the Master Client can AllocateSceneViewID(). Check PhotonNetwork.IsMasterClient!");
-                return -1;
+                return false;
+            }
+
+            if (view.ViewID != 0)
+            {
+                Debug.LogError("AllocateSceneViewID() can't be used for PhotonViews that already have a viewID. This view is: " + view.ToString());
+                return false;
             }
 
             int manualId = AllocateViewID(0);
-            manuallyAllocatedViewIds.Add(manualId);
-            return manualId;
+            view.ViewID = manualId;
+            return true;
         }
 
         // use 0 for scene-targetPhotonView-ids
@@ -2162,7 +2201,7 @@ namespace Photon.Pun
                 }
 
                 // this is the error case: we didn't find any (!) free subId for this user
-                throw new Exception(string.Format("AllocateViewID() failed. Room (user {0}) is out of 'scene' viewIDs. It seems all available are in use.", ownerId));
+                throw new Exception(string.Format("AllocateViewID() failed. The room (user {0}) is out of 'scene' viewIDs. It seems all available are in use.", ownerId));
             }
             else
             {
@@ -2179,170 +2218,243 @@ namespace Photon.Pun
                     }
 
                     newViewId = newSubId + ownerIdOffset;
-                    if (!photonViewList.ContainsKey(newViewId) && !manuallyAllocatedViewIds.Contains(newViewId))
+                    if (!photonViewList.ContainsKey(newViewId))
                     {
                         lastUsedViewSubId = newSubId;
                         return newViewId;
                     }
                 }
 
-                throw new Exception(string.Format("AllocateViewID() failed. User {0} is out of subIds, as all viewIDs are used.", ownerId));
-            }
-        }
-
-        private static int[] AllocateSceneViewIDs(int countOfNewViews)
-        {
-            int[] viewIDs = new int[countOfNewViews];
-            for (int view = 0; view < countOfNewViews; view++)
-            {
-                viewIDs[view] = AllocateViewID(0);
-            }
-
-            return viewIDs;
-        }
-
-        /// <summary>
-        /// Unregister a viewID (of manually instantiated and destroyed networked objects).
-        /// </summary>
-        /// <param name="viewID">A viewID manually allocated by this player.</param>
-        public static void UnAllocateViewID(int viewID)
-        {
-            manuallyAllocatedViewIds.Remove(viewID);
-
-            if (photonViewList.ContainsKey(viewID))
-            {
-                Debug.LogWarning(string.Format("UnAllocateViewID() should be called after the PhotonView was destroyed (GameObject.Destroy()). ViewID: {0} still found in: {1}", viewID, photonViewList[viewID]));
+                throw new Exception(string.Format("AllocateViewID() failed. User {0} is out of viewIDs. It seems all available are in use.", ownerId));
             }
         }
 
 
-        /// <summary>
-        /// Instantiate a prefab over the network.
-        /// </summary>
-        /// <remarks>
-        /// By default, a prefab needs to be located in the root of a "Resources" folder.
-        /// Instead of using prefabs in the Resources folder, you can manually Instantiate and assign PhotonViews.
-        /// </remarks>
-        /// <param name="prefabName">Name of the prefab to instantiate.</param>
-        /// <param name="position">Position Vector3 to apply on instantiation.</param>
-        /// <param name="rotation">Rotation Quaternion to apply on instantiation.</param>
-        /// <param name="group">Optional Interest Group value for this PhotonView.</param>
-        /// <param name="data">Optional instantiation data. This will be saved to it's PhotonView.InstantiationData.</param>
-        /// <returns>The new instance of a GameObject with initialized PhotonView.</returns>
         public static GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation, byte group = 0, object[] data = null)
         {
-            if (!IsConnected || (InstantiateInRoomOnly && !InRoom))
+            Pun.InstantiateParameters netParams = new InstantiateParameters(prefabName, position, rotation, group, data, currentLevelPrefix, null, LocalPlayer, ServerTimestamp);
+            return NetworkInstantiate(netParams, false);
+        }
+
+        public static GameObject InstantiateSceneObject(string prefabName, Vector3 position, Quaternion rotation, byte group = 0, object[] data = null)
+        {
+            if (LocalPlayer.IsMasterClient)
             {
-                Debug.LogError("Failed to Instantiate prefab: " + prefabName + ". Client should be in a room. Current NetworkClientState: " + PhotonNetwork.NetworkClientState);
+                Pun.InstantiateParameters netParams = new InstantiateParameters(prefabName, position, rotation, group, data, currentLevelPrefix, null, LocalPlayer, ServerTimestamp);
+                return NetworkInstantiate(netParams, true);
+            }
+
+            return null;
+        }
+
+        private static GameObject NetworkInstantiate(Hashtable networkEvent, Player creator)
+        {
+
+            // some values always present:
+            string prefabName = (string)networkEvent[(byte)0];
+            int serverTime = (int)networkEvent[(byte)6];
+            int instantiationId = (int)networkEvent[(byte)7];
+
+            Vector3 position;
+            if (networkEvent.ContainsKey((byte)1))
+            {
+                position = (Vector3)networkEvent[(byte)1];
+            }
+            else
+            {
+                position = Vector3.zero;
+            }
+
+            Quaternion rotation = Quaternion.identity;
+            if (networkEvent.ContainsKey((byte)2))
+            {
+                rotation = (Quaternion)networkEvent[(byte)2];
+            }
+
+            byte group = 0;
+            if (networkEvent.ContainsKey((byte)3))
+            {
+                group = (byte)networkEvent[(byte)3];
+            }
+
+            byte objLevelPrefix = 0;
+            if (networkEvent.ContainsKey((byte)8))
+            {
+                objLevelPrefix = (byte)networkEvent[(byte)8];
+            }
+
+            int[] viewsIDs;
+            if (networkEvent.ContainsKey((byte)4))
+            {
+                viewsIDs = (int[])networkEvent[(byte)4];
+            }
+            else
+            {
+                viewsIDs = new int[1] { instantiationId };
+            }
+
+            object[] incomingInstantiationData;
+            if (networkEvent.ContainsKey((byte)5))
+            {
+                incomingInstantiationData = (object[])networkEvent[(byte)5];
+            }
+            else
+            {
+                incomingInstantiationData = null;
+            }
+
+            // SetReceiving filtering
+            if (group != 0 && !allowedReceivingGroups.Contains(group))
+            {
+                return null; // Ignore group
+            }
+
+
+            Pun.InstantiateParameters netParams = new InstantiateParameters(prefabName, position, rotation, group, incomingInstantiationData, objLevelPrefix, viewsIDs, creator, serverTime);
+            return NetworkInstantiate(netParams, false);
+        }
+
+        
+        private static readonly HashSet<string> PrefabsWithoutMagicCallback = new HashSet<string>();
+
+        private static GameObject NetworkInstantiate(Pun.InstantiateParameters parameters, bool sceneObject = false)
+        {
+            //Instantiate(name, pos, rot)
+            //pv[] GetPhotonViewsInChildren()
+            //if (event==null) init send-params
+            //Setup of PVs and callback
+            //if (event == null) SendInstantiate(name, pos, rot, etc...)
+
+            GameObject go = null;
+            PhotonView[] photonViews;
+
+            go = prefabPool.Instantiate(parameters.prefabName, parameters.position, parameters.rotation);
+            
+
+            if (go == null)
+            {
+                Debug.LogError("Failed to network-Instantiate: " + parameters.prefabName);
                 return null;
             }
 
-            GameObject prefabGo;
-            if (!UsePrefabCache || !PrefabCache.TryGetValue(prefabName, out prefabGo))
+            if (go.activeSelf)
             {
-                prefabGo = (GameObject)Resources.Load(prefabName, typeof(GameObject));
-                if (UsePrefabCache)
+                Debug.LogWarning("PrefabPool.Instantiate() should return an inactive GameObject. " + prefabPool.GetType().Name + " returned an active object. PrefabId: " + parameters.prefabName);
+            }
+
+
+            photonViews = go.GetPhotonViewsInChildren();
+
+
+            bool localInstantiate = LocalPlayer.Equals(parameters.creator);
+            if (localInstantiate)
+            {
+                // init viewIDs array, so it can be filled (below), before it gets sent
+                parameters.viewIDs = new int[photonViews.Length];
+            }
+
+            for (int i = 0; i < photonViews.Length; i++)
+            {
+                if (localInstantiate)
                 {
-                    PrefabCache.Add(prefabName, prefabGo);
+                    // when this client instantiates a GO, it has to allocate viewIDs accordingly.
+                    // SCENE objects are created as actorNumber 0 (no matter which number this player has).
+                    parameters.viewIDs[i] = (sceneObject) ? AllocateViewID(0) : AllocateViewID(parameters.creator.ActorNumber);
+                }
+
+                photonViews[i].didAwake = false;
+                photonViews[i].ViewID = 0;
+
+                photonViews[i].Prefix = parameters.objLevelPrefix;
+                photonViews[i].InstantiationId = parameters.viewIDs[0];   
+                photonViews[i].isRuntimeInstantiated = true;
+                photonViews[i].InstantiationData = parameters.data;
+
+                photonViews[i].didAwake = true;
+                photonViews[i].ViewID = parameters.viewIDs[i];    // with didAwake true and viewID == 0, this will also register the view
+            }
+
+            go.SetActive(true);
+
+            // if IPunInstantiateMagicCallback is implemented on any script of the instantiated GO, let's call it directly:
+            if (!PrefabsWithoutMagicCallback.Contains(parameters.prefabName))
+            {
+                var list = go.GetComponents<IPunInstantiateMagicCallback>();
+                if (list.Length > 0)
+                {
+                    PhotonMessageInfo pmi = new PhotonMessageInfo(parameters.creator, parameters.timestamp, photonViews[0]);
+                    foreach (IPunInstantiateMagicCallback callbackComponent in list)
+                    {
+                        callbackComponent.OnPhotonInstantiate(pmi);
+                    }
+                }
+                else
+                {
+                    PrefabsWithoutMagicCallback.Add(parameters.prefabName);
                 }
             }
 
-            if (prefabGo == null)
+
+            if (localInstantiate)
             {
-                Debug.LogError("Failed to Instantiate prefab: " + prefabName + ". Verify the Prefab is in a Resources folder (and not in a subfolder)");
-                return null;
+                // send instantiate network event
+                SendInstantiate(parameters, sceneObject);
             }
 
-            // a scene object instantiated with network visibility has to contain a PhotonView
-            if (prefabGo.GetComponent<PhotonView>() == null)
-            {
-                Debug.LogError("Failed to Instantiate prefab:" + prefabName + ". Prefab must have a PhotonView component.");
-                return null;
-            }
-
-            Component[] views = (Component[])prefabGo.GetPhotonViewsInChildren();
-            int[] viewIDs = new int[views.Length];
-            for (int i = 0; i < viewIDs.Length; i++)
-            {
-                //Debug.Log("Instantiate prefabName: " + prefabName + " player.ID: " + player.ID);
-                viewIDs[i] = AllocateViewID(LocalPlayer.ActorNumber);
-            }
-
-            // Send to others, create info
-            Hashtable instantiateEvent = SendInstantiate(prefabName, position, rotation, group, viewIDs, data, false);
-
-            // Instantiate the GO locally (but the same way as if it was done via event). This will also cache the instantiationId
-            return DoInstantiate(instantiateEvent, NetworkingClient.LocalPlayer, prefabGo);
+            return go;
         }
 
 
-        /// <summary>
-        /// Instantiate a scene-owned prefab over the network.
-        /// </summary>
-        /// <remarks>
-        /// The networked Game Object will be controllable by the MasterClient (via PhotonView).
-        /// Only the master client can Instantiate scene objects.
-        ///
-        /// By default, a prefab needs to be located in the root of a "Resources" folder.
-        /// Instead of using prefabs in the Resources folder, you can manually Instantiate and assign PhotonViews.
-        /// </remarks>
-        /// <param name="prefabName">Name of the prefab to instantiate.</param>
-        /// <param name="position">Position Vector3 to apply on instantiation.</param>
-        /// <param name="rotation">Rotation Quaternion to apply on instantiation.</param>
-        /// <param name="group">Optional Interest Group value for this PhotonView.</param>
-        /// <param name="data">Optional instantiation data. This will be saved to it's PhotonView.InstantiationData.</param>
-        /// <returns>The new instance of a GameObject with initialized PhotonView.</returns>
-        public static GameObject InstantiateSceneObject(string prefabName, Vector3 position, Quaternion rotation, byte group = 0, object[] data = null)
+        private static readonly Hashtable SendInstantiateEvHashtable = new Hashtable();                             // SendInstantiate reuses this to reduce GC
+        private static readonly RaiseEventOptions SendInstantiateRaiseEventOptions = new RaiseEventOptions();       // SendInstantiate reuses this to reduce GC
+
+        internal static bool SendInstantiate(Pun.InstantiateParameters parameters, bool sceneObject = false)
         {
-            if (!IsConnected || (InstantiateInRoomOnly && !InRoom))
+            // first viewID is now also the gameobject's instantiateId
+            int instantiateId = parameters.viewIDs[0];   // LIMITS PHOTONVIEWS&PLAYERS
+
+            SendInstantiateEvHashtable.Clear();     // SendInstantiate reuses this Hashtable to reduce GC
+
+            SendInstantiateEvHashtable[(byte)0] = parameters.prefabName;
+
+            if (parameters.position != Vector3.zero)
             {
-                Debug.LogError("Failed to InstantiateSceneObject prefab: " + prefabName + ". Client should be in a room. Current NetworkClientState: " + PhotonNetwork.NetworkClientState);
-                return null;
+                SendInstantiateEvHashtable[(byte)1] = parameters.position;
             }
 
-            if (!IsMasterClient)
+            if (parameters.rotation != Quaternion.identity)
             {
-                Debug.LogError("Failed to InstantiateSceneObject prefab: " + prefabName + ". Client is not the MasterClient in this room.");
-                return null;
+                SendInstantiateEvHashtable[(byte)2] = parameters.rotation;
             }
 
-            GameObject prefabGo;
-            if (!UsePrefabCache || !PrefabCache.TryGetValue(prefabName, out prefabGo))
+            if (parameters.group != 0)
             {
-                prefabGo = (GameObject)Resources.Load(prefabName, typeof(GameObject));
-                if (UsePrefabCache)
-                {
-                    PrefabCache.Add(prefabName, prefabGo);
-                }
+                SendInstantiateEvHashtable[(byte)3] = parameters.group;
             }
 
-            if (prefabGo == null)
+            // send the list of viewIDs only if there are more than one. else the instantiateId is the viewID
+            if (parameters.viewIDs.Length > 1)
             {
-                Debug.LogError("Failed to InstantiateSceneObject prefab: " + prefabName + ". Verify the Prefab is in a Resources folder (and not in a subfolder)");
-                return null;
+                SendInstantiateEvHashtable[(byte)4] = parameters.viewIDs; // LIMITS PHOTONVIEWS&PLAYERS
             }
 
-            // a scene object instantiated with network visibility has to contain a PhotonView
-            if (prefabGo.GetComponent<PhotonView>() == null)
+            if (parameters.data != null)
             {
-                Debug.LogError("Failed to InstantiateSceneObject prefab:" + prefabName + ". Prefab must have a PhotonView component.");
-                return null;
+                SendInstantiateEvHashtable[(byte)5] = parameters.data;
             }
 
-            Component[] views = (Component[])prefabGo.GetPhotonViewsInChildren();
-            int[] viewIDs = AllocateSceneViewIDs(views.Length);
-
-            if (viewIDs == null)
+            if (currentLevelPrefix > 0)
             {
-                Debug.LogError("Failed to InstantiateSceneObject prefab: " + prefabName + ". No ViewIDs are free to use. Max is: " + MAX_VIEW_IDS);
-                return null;
+                SendInstantiateEvHashtable[(byte)8] = currentLevelPrefix;    // photonview's / object's level prefix
             }
 
-            // Send to others, create info
-            Hashtable instantiateEvent = SendInstantiate(prefabName, position, rotation, group, viewIDs, data, true);
+            SendInstantiateEvHashtable[(byte)6] = PhotonNetwork.ServerTimestamp;
+            SendInstantiateEvHashtable[(byte)7] = instantiateId;
 
-            // Instantiate the GO locally (but the same way as if it was done via event). This will also cache the instantiationId
-            return DoInstantiate(instantiateEvent, NetworkingClient.LocalPlayer, prefabGo);
+
+            SendInstantiateRaiseEventOptions.CachingOption = (sceneObject) ? EventCaching.AddToRoomCacheGlobal : EventCaching.AddToRoomCache;
+
+            return PhotonNetwork.RaiseEventInternal(PunEvent.Instantiation, SendInstantiateEvHashtable, SendInstantiateRaiseEventOptions, new SendOptions() { Reliability = true });
         }
 
 
@@ -2512,7 +2624,7 @@ namespace Photon.Pun
                 return;
             }
 
-            OpCleanRpcBuffer(targetPlayer.ActorNumber);
+            OpCleanActorRpcBuffer(targetPlayer.ActorNumber);
         }
 
         /// <summary>
@@ -2672,8 +2784,7 @@ namespace Photon.Pun
 
             PhotonNetwork.IsMessageQueueRunning = false;
             loadingLevelAndPausedNetwork = true;
-            //_AsyncLevelLoadingOperation = SceneManager.LoadSceneAsync(levelNumber,LoadSceneMode.Single);
-            Y3P1.SceneManager.instance.LoadScene(levelNumber, false);
+            _AsyncLevelLoadingOperation = SceneManager.LoadSceneAsync(levelNumber,LoadSceneMode.Single);
         }
 
         /// <summary>Wraps loading a level to pause the network message-queue. Optionally syncs the loaded level in a room.</summary>

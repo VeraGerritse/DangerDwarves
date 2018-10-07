@@ -135,12 +135,7 @@ namespace Photon.Pun
 
         private static double lastWarning = 0;
         private static bool postCompileActionsDone;
-
-        private static bool isPunPlus;
-        private static bool androidLibExists;
-        private static bool iphoneLibExists;
-
-
+        
         // setup once on load
         static PhotonEditor()
         {
@@ -158,9 +153,6 @@ namespace Photon.Pun
             EditorApplication.hierarchyWindowChanged += EditorUpdate;
             #endif
             EditorApplication.update += OnUpdate;
-
-            // detect optional packages
-            PhotonEditor.CheckPunPlus();
         }
 
         // setup per window
@@ -590,20 +582,6 @@ namespace Photon.Pun
                 }
             }
         }
-
-
-        protected internal static bool CheckPunPlus()
-        {
-            androidLibExists = File.Exists("Assets/Plugins/Android/armeabi-v7a/libPhotonSocketPlugin.so") &&
-                               File.Exists("Assets/Plugins/Android/x86/libPhotonSocketPlugin.so");
-
-
-            iphoneLibExists = File.Exists("Assets/Plugins/IOS/libPhotonSocketPlugin.a");
-
-            isPunPlus = androidLibExists || iphoneLibExists;
-            return isPunPlus;
-        }
-
 
 
         // Pings PhotonServerSettings and makes it selected (show in Inspector)

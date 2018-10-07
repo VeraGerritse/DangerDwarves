@@ -129,39 +129,44 @@ namespace Photon.Pun
     }
 
     /// <summary>
-    /// Defines all the methods that a Object Pool must implement, so that PUN can use it.
+    /// Defines an interface for object pooling, used in PhotonNetwork.Instantiate and PhotonNetwork.Destroy.
     /// </summary>
     /// <remarks>
-    /// To use a Object Pool for instantiation, you can set PhotonNetwork.ObjectPool.
-    /// That is used for all objects, as long as ObjectPool is not null.
-    /// The pool has to return a valid non-null GameObject when PUN calls Instantiate.
+    /// To apply your custom IPunPrefabPool, set PhotonNetwork.PrefabPool.
+    ///
+    /// The pool has to return a valid, disabled GameObject when PUN calls Instantiate.
     /// Also, the position and rotation must be applied.
     ///
-    /// Please note that pooled GameObjects don't get the usual Awake and Start calls.
-    /// OnEnable will be called (by your pool) but the networking values are not updated yet
-    /// when that happens. OnEnable will have outdated values for PhotonView (isMine, etc.).
-    /// You might have to adjust scripts.
+    /// Note that Awake and Start are only called once by Unity, so scripts on re-used GameObjects
+    /// should make use of OnEnable and or OnDisable. When OnEnable gets called, the PhotonView
+    /// is already updated to the new values.
     ///
-    /// PUN will call OnPhotonInstantiate (see IPunCallbacks). This should be used to
-    /// setup the re-used object with regards to networking values / ownership.
+    /// To be able to enable a GameObject, Instantiate must return an inactive object.
+    ///
+    /// Before PUN "destroys" GameObjects, it will disable them. 
+    ///
+    /// If a component implements IPunInstantiateMagicCallback, PUN will call OnPhotonInstantiate
+    /// when the networked object gets instantiated. If no components implement this on a prefab,
+    /// PUN will optimize the instantiation and no longer looks up IPunInstantiateMagicCallback
+    /// via GetComponents.
     /// </remarks>
     public interface IPunPrefabPool
     {
         /// <summary>
-        /// This is called when PUN wants to create a new instance of an entity prefab. Must return valid GameObject with PhotonView.
+        /// Called to get an instance of a prefab. Must return valid, disabled GameObject with PhotonView.
         /// </summary>
         /// <param name="prefabId">The id of this prefab.</param>
-        /// <param name="position">The position we want the instance instantiated at.</param>
-        /// <param name="rotation">The rotation we want the instance to take.</param>
-        /// <returns>The newly instantiated object, or null if a prefab with <paramref name="prefabId"/> was not found.</returns>
+        /// <param name="position">The position for the instance.</param>
+        /// <param name="rotation">The rotation for the instance.</param>
+        /// <returns>A disabled instance to use by PUN or null if the prefabId is unknown.</returns>
         GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation);
 
         /// <summary>
-        /// This is called when PUN wants to destroy the instance of an entity prefab.
+        /// Called to destroy (or just return) the instance of a prefab. It's disabled and the pool may reset and cache it for later use in Instantiate.
         /// </summary>
         /// <remarks>
         /// A pool needs some way to find out which type of GameObject got returned via Destroy().
-        /// It could be a tag or name or anything similar.
+        /// It could be a tag, name, a component or anything similar.
         /// </remarks>
         /// <param name="gameObject">The instance to destroy.</param>
         void Destroy(GameObject gameObject);
@@ -491,7 +496,7 @@ namespace Photon.Pun
         /// this won't be called!
         /// </remarks>
         /// <param name="debugMessage">Contains a debug message why authentication failed. This has to be fixed during development.</param>
-        public void OnCustomAuthenticationFailed (string debugMessage)
+        public virtual void OnCustomAuthenticationFailed (string debugMessage)
         {
         }
 
@@ -887,6 +892,60 @@ namespace Photon.Pun
             get { return SceneManager.GetActiveScene().name; }
         }
         #endif
+    }
+
+
+    /// <summary>
+    /// The default implementation of a PrefabPool for PUN, which actually Instantiates and Destroys GameObjects but pools a resource.
+    /// </summary>
+    /// <remarks>
+    /// This pool is not actually storing GameObjects for later reuse. Instead, it's destroying used GameObjects.
+    /// However, prefabs will be loaded from a Resources folder and cached, which speeds up Instantiation a bit.
+    ///
+    /// The ResourceCache is public, so it can be filled without relying on the Resources folders.
+    /// </remarks>
+    public class DefaultPool : IPunPrefabPool
+    {
+        /// <summary>Contains a GameObject per prefabId, to speed up instantiation.</summary>
+        public readonly Dictionary<string, GameObject> ResourceCache = new Dictionary<string, GameObject>();
+        
+        /// <summary>Returns an inactive instance of a networked GameObject, to be used by PUN.</summary>
+        /// <param name="prefabId">String identifier for the networked object.</param>
+        /// <param name="position">Location of the new object.</param>
+        /// <param name="rotation">Rotation of the new object.</param>
+        /// <returns></returns>
+        public GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation)
+        {
+            GameObject res = null;
+            bool cached = this.ResourceCache.TryGetValue(prefabId, out res);
+            if (!cached)
+            {
+                res = (GameObject)Resources.Load(prefabId, typeof(GameObject));
+                if (res == null)
+                {
+                    Debug.LogError("DefaultPool failed to load \"" + prefabId + "\" . Make sure it's in a \"Resources\" folder.");
+                }
+                else
+                {
+                    this.ResourceCache.Add(prefabId, res);
+                }
+            }
+
+            bool wasActive = res.activeSelf;
+            if (wasActive) res.SetActive(false);
+
+            GameObject instance =GameObject.Instantiate(res, position, rotation) as GameObject;
+
+            if (wasActive) res.SetActive(true);
+            return instance;
+        }
+
+        /// <summary>Simply destroys a GameObject.</summary>
+        /// <param name="gameObject">The GameObject to get rid of.</param>
+        public void Destroy(GameObject gameObject)
+        {
+            GameObject.Destroy(gameObject);
+        }
     }
 
 

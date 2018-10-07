@@ -32,7 +32,6 @@ namespace Y3P1
         [HideInInspector] public DwarfAnimationsScript dwarfAnimController;
         [HideInInspector] public IKControl iKControl;
         [HideInInspector] public PlayerAppearance playerAppearance;
-        [HideInInspector] public ReviveZone reviveZone;
         #endregion
 
         private void Awake()
@@ -62,7 +61,6 @@ namespace Y3P1
             dwarfAnimEvents = GetComponentInChildren<AnimationEventsDwarf>();
             iKControl = GetComponentInChildren<IKControl>();
             playerAppearance = GetComponentInChildren<PlayerAppearance>();
-            reviveZone = GetComponentInChildren<ReviveZone>();
         }
 
         private void Initialise()
@@ -103,23 +101,32 @@ namespace Y3P1
             else
             {
                 playerAppearance.RandomizeAppearance();
-
                 playerController.OnDodge += PlayerController_OnDodge;
-                entity.OnDeath += Entity_OnDeath;
-
                 DontDestroyOnLoad(gameObject);
             }
-        }
 
-        private void Entity_OnDeath()
-        {
-            deathCanvas.SetActive(true);
         }
 
         private void PlayerController_OnDodge(bool dodgeStart)
         {
             rangedWeaponLookAt.enabled = !dodgeStart;
             entity.health.isInvinsible = dodgeStart;
+        }
+
+        private void RevivePlayer()
+        {
+            localPlayer.entity.Revive();
+        }
+
+        private void Update()
+        {
+            if (photonView.IsMine)
+            {
+                if (Input.GetKeyDown(KeyCode.V))
+                {
+                    RevivePlayer();
+                }
+            }
         }
 
         private void CreatePlayerUI()
@@ -146,19 +153,9 @@ namespace Y3P1
             }
         }
 
-        public void Revive(bool hub)
-        {
-            if (photonView.IsMine)
-            {
-                entity.Revive();
-                deathCanvas.SetActive(false);
-            }
-        }
-
         public override void OnDisable()
         {
             playerController.OnDodge -= PlayerController_OnDodge;
-            entity.OnDeath -= Entity_OnDeath;
         }
     }
 }

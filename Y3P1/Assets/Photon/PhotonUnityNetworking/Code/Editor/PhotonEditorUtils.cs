@@ -9,6 +9,7 @@
 // ----------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using UnityEditor;
@@ -16,38 +17,45 @@ using UnityEngine;
 
 using System.IO;
 
-namespace ExitGames.Client.Photon
+
+namespace Photon.Pun
 {
     [InitializeOnLoad]
     public class PhotonEditorUtils
     {
         /// <summary>True if the ChatClient of the Photon Chat API is available. If so, the editor may (e.g.) show additional options in settings.</summary>
         public static bool HasChat;
+
         /// <summary>True if the VoiceClient of the Photon Voice API is available. If so, the editor may (e.g.) show additional options in settings.</summary>
         public static bool HasVoice;
+
+        public static bool HasPun;
+
         /// <summary>True if the PhotonEditorUtils checked the available products / APIs. If so, the editor may (e.g.) show additional options in settings.</summary>
         public static bool HasCheckedProducts;
 
         static PhotonEditorUtils()
         {
-            HasVoice = Type.GetType("ExitGames.Client.Photon.Voice.VoiceClient, Assembly-CSharp") != null || Type.GetType("ExitGames.Client.Photon.Voice.VoiceClient, Assembly-CSharp-firstpass") != null;
-            HasChat = Type.GetType("ExitGames.Client.Photon.Chat.ChatClient, Assembly-CSharp") != null || Type.GetType("ExitGames.Client.Photon.Chat.ChatClient, Assembly-CSharp-firstpass") != null;
+            HasVoice = Type.GetType("Photon.Voice.VoiceClient, Assembly-CSharp") != null || Type.GetType("Photon.Voice.VoiceClient, Assembly-CSharp-firstpass") != null || Type.GetType("Photon.Voice.VoiceClient, PhotonVoice.API") != null;
+            HasChat = Type.GetType("Photon.Chat.ChatClient, Assembly-CSharp") != null || Type.GetType("Photon.Chat.ChatClient, Assembly-CSharp-firstpass") != null || Type.GetType("Photon.Chat.ChatClient, PhotonChat") != null;
+            HasPun = Type.GetType("Photon.Pun.PhotonNetworking, Assembly-CSharp") != null || Type.GetType("Photon.Pun.PhotonNetworking, Assembly-CSharp-firstpass") != null || Type.GetType("Photon.Pun.PhotonNetworking, PhotonUnityNetworking") != null;
             PhotonEditorUtils.HasCheckedProducts = true;
 
-
-            // MOUNTING SYMBOLS
-            #if !PHOTON_UNITY_NETWORKING
+            if (HasPun)
+            {
+                // MOUNTING SYMBOLS
+                #if !PHOTON_UNITY_NETWORKING
                 AddScriptingDefineSymbolToAllBuildTargetGroups("PHOTON_UNITY_NETWORKING");
-            #endif
+                #endif
 
-            #if !PUN_2_0_OR_NEWER
+                #if !PUN_2_0_OR_NEWER
                 AddScriptingDefineSymbolToAllBuildTargetGroups("PUN_2_0_OR_NEWER");
-            #endif
+                #endif
 
-            #if !PUN_2_OR_NEWER
+                #if !PUN_2_OR_NEWER
                 AddScriptingDefineSymbolToAllBuildTargetGroups("PUN_2_OR_NEWER");
-            #endif
-
+                #endif
+            }
         }
 
         /// <summary>
@@ -59,7 +67,7 @@ namespace ExitGames.Client.Photon
         {
             foreach (BuildTarget target in Enum.GetValues(typeof(BuildTarget)))
             {
-                BuildTargetGroup group = BuildPipeline.GetBuildTargetGroup (target);
+                BuildTargetGroup group = BuildPipeline.GetBuildTargetGroup(target);
 
                 if (group == BuildTargetGroup.Unknown)
                 {
@@ -78,8 +86,50 @@ namespace ExitGames.Client.Photon
                     }
                     catch (Exception e)
                     {
-                        Debug.Log("Could not set Photon "+defineSymbol+" defines for build target: "+ target+ " group: "+ group+" "+e );
+                        Debug.Log("Could not set Photon " + defineSymbol + " defines for build target: " + target + " group: " + group + " " + e);
                     }
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Removes PUN2's Script Define Symbols from project
+        /// </summary>
+        public static void CleanUpPunDefineSymbols()
+        {
+            foreach (BuildTarget target in Enum.GetValues(typeof(BuildTarget)))
+            {
+                BuildTargetGroup group = BuildPipeline.GetBuildTargetGroup(target);
+
+                if (group == BuildTargetGroup.Unknown)
+                {
+                    continue;
+                }
+
+                var defineSymbols = PlayerSettings.GetScriptingDefineSymbolsForGroup(group)
+                    .Split(';')
+                    .Select(d => d.Trim())
+                    .ToList();
+
+                List<string> newDefineSymbols = new List<string>();
+                foreach (var symbol in defineSymbols)
+                {
+                    if ("PHOTON_UNITY_NETWORKING".Equals(symbol) || symbol.StartsWith("PUN_2_"))
+                    {
+                        continue;
+                    }
+
+                    newDefineSymbols.Add(symbol);
+                }
+
+                try
+                {
+                    PlayerSettings.SetScriptingDefineSymbolsForGroup(group, string.Join(";", newDefineSymbols.ToArray()));
+                }
+                catch (Exception e)
+                {
+                    Debug.LogErrorFormat("Could not set clean up PUN2's define symbols for build target: {0} group: {1}, {2}", target, group, e);
                 }
             }
         }
@@ -102,7 +152,7 @@ namespace ExitGames.Client.Photon
 
             if (string.IsNullOrEmpty(parentName))
             {
-                return  dir.Parent.FullName;
+                return dir.Parent.FullName;
             }
 
             if (dir.Parent.Name == parentName)
@@ -111,6 +161,20 @@ namespace ExitGames.Client.Photon
             }
 
             return GetParent(dir.Parent.FullName, parentName);
+        }
+    }
+
+
+    public class CleanUpDefinesOnPunDelete : AssetModificationProcessor
+    {
+        public static AssetDeleteResult OnWillDeleteAsset(string assetPath, RemoveAssetOptions rao)
+        {
+            if ("Assets/Photon/PhotonUnityNetworking".Equals(assetPath))
+            {
+                PhotonEditorUtils.CleanUpPunDefineSymbols();
+            }
+
+            return AssetDeleteResult.DidNotDelete;
         }
     }
 }

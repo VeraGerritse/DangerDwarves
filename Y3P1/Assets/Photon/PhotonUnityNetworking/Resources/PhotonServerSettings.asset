@@ -67,4 +67,6 @@ MonoBehaviour:
   - SetReviveZone
   - SetAnimationBool
   - SetAnimationTrigger
+  - Die
+  - ReviveRPC
   DisableAutoOpenWizard: 1

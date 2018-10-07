@@ -74,7 +74,7 @@ namespace Photon.Pun.UtilityScripts
         // the following methods are implemented to give you some context. re-implement them as needed.
         public override void OnDisconnected(DisconnectCause cause)
         {
-			Debug.LogError("OnDisconnected("+cause+")");
+			Debug.Log("OnDisconnected("+cause+")");
         }
 
         public override void OnJoinedRoom()
@@ -89,6 +89,19 @@ namespace Photon.Pun.UtilityScripts
 [CustomEditor(typeof(ConnectAndJoinRandom), true)]
 public class ConnectAndJoinRandomInspector : Editor
 {
+	void OnEnable() { EditorApplication.update += Update; }
+	void OnDisable() { EditorApplication.update -= Update; }
+
+	bool IsConnectedCache = false;
+
+	void Update()
+	{
+		if (IsConnectedCache != PhotonNetwork.IsConnected)
+		{
+			Repaint ();
+		}
+	}
+
     public override void OnInspectorGUI()
     {
         this.DrawDefaultInspector(); // Draw the normal inspector
@@ -97,9 +110,7 @@ public class ConnectAndJoinRandomInspector : Editor
         {
             if (GUILayout.Button("Connect"))
             {
-                // If the user clicks the button, invoke the method immediately.
-                // There are many ways to do this but I chose to use Invoke which only works in Play Mode.
-                ((ConnectAndJoinRandom)this.target).Invoke("ConnectNow", 0f);
+				((ConnectAndJoinRandom)this.target).ConnectNow ();
             }
         }
     }

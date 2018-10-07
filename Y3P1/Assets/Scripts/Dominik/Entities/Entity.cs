@@ -1,7 +1,7 @@
-﻿using Photon.Pun;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
+using Photon.Pun;
+using System;
 
 public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -23,14 +23,8 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Hit(int amount)
     {
-        if (photonView.IsMine)
-        {
-            if (amount < 0)
-            {
-                OnHitEvent.Invoke();
-            }
-            photonView.RPC("HitRPC", RpcTarget.AllBuffered, amount);
-        }
+        OnHitEvent.Invoke();
+        photonView.RPC("HitRPC", RpcTarget.AllBuffered, amount);
     }
 
     [PunRPC]

@@ -40,11 +40,11 @@ namespace Photon.Realtime
     public class Room : RoomInfo
     {
         /// <summary>
-        /// A reference to the LoadbalancingClient which is currently keeping the connection and state.
+        /// A reference to the LoadBalancingClient which is currently keeping the connection and state.
         /// </summary>
-        protected internal LoadBalancingClient LoadBalancingClient { get; set; }
+        public LoadBalancingClient LoadBalancingClient { get; set; }
 
-        /// <summary>The name of a room. Unique identifier (per Loadbalancing group) for a room/match.</summary>
+        /// <summary>The name of a room. Unique identifier (per region and virtual appid) for a room/match.</summary>
         /// <remarks>The name can't be changed once it's set by the server.</remarks>
         public new string Name
         {
@@ -288,7 +288,7 @@ namespace Photon.Realtime
         /// <summary>Creates a Room (representation) with given name and properties and the "listing options" as provided by parameters.</summary>
         /// <param name="roomName">Name of the room (can be null until it's actually created on server).</param>
         /// <param name="options">Room options.</param>
-        protected internal Room(string roomName, RoomOptions options, bool isOffline = false) : base(roomName, options != null ? options.CustomRoomProperties : null)
+        public Room(string roomName, RoomOptions options, bool isOffline = false) : base(roomName, options != null ? options.CustomRoomProperties : null)
         {
             // base() sets name and (custom)properties. here we set "well known" properties
             if (options != null)

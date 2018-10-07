@@ -61,6 +61,11 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
         switch (behaviourState)
         {
             case BehaviourState.Idle:
@@ -171,6 +176,11 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void AnimationAttack()
     {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+
         int collidersFound = Physics.OverlapSphereNonAlloc(damagePoint.position, damageRange, hits);
 
         for (int i = 0; i < collidersFound; i++)
@@ -250,8 +260,11 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Target_OnDeath()
     {
-        ResetAI();
-        AggroClosestPlayer();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            ResetAI();
+            AggroClosestPlayer();
+        }
     }
 
     private void SetState(BehaviourState state)
