@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using Photon.Pun;
+﻿using Photon.Pun;
 using System;
+using UnityEngine;
+using UnityEngine.Events;
 
 public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -76,21 +76,14 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Kill()
     {
-        if (photonView.IsMine)
-        {
-            OnDeath();
-        }
-
+        OnDeath();
         EntityManager.instance.RemoveFromAliveTargets(this);
     }
 
     public void Revive()
     {
-        if (photonView.IsMine)
-        {
-            OnRevive();
-            health.ResetHealth();
-        }
+        OnRevive();
+        health.ResetHealth();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

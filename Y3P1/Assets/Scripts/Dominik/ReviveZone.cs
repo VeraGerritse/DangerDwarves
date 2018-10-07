@@ -104,7 +104,7 @@ public class ReviveZone : MonoBehaviourPunCallbacks, IPunObservable
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonView toRevive = PhotonView.Find(toReviveID);
-            toRevive.GetComponent<Player>().Revive(false);
+            //toRevive.GetComponent<Player>().Revive(false);
         }
     }
 

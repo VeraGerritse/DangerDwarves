@@ -114,8 +114,6 @@ namespace Y3P1
         private void Entity_OnDeath()
         {
             deathCanvas.SetActive(true);
-            //reviveZone.SetReviveCollider(true);
-            NotificationManager.instance.NewNotification(photonView.Owner.NickName + " has been downed!");
         }
 
         private void PlayerController_OnDodge(bool dodgeStart)
@@ -150,17 +148,10 @@ namespace Y3P1
 
         public void Revive(bool hub)
         {
-            entity.Revive();
-            deathCanvas.SetActive(false);
-            reviveZone.SetReviveCollider(false);
-
-            if (!hub)
+            if (photonView.IsMine)
             {
-                NotificationManager.instance.NewNotification(photonView.Owner.NickName + " has been revived!");
-            }
-            else
-            {
-                transform.position = Vector3.up * 0.1f;
+                entity.Revive();
+                deathCanvas.SetActive(false);
             }
         }
 

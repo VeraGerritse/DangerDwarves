@@ -308,20 +308,20 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(canAttack);
-            stream.SendNext(canLookAtTarget);
-            stream.SendNext(canMove);
-            stream.SendNext((int)behaviourState);
-        }
-        else
-        {
-            canAttack = (bool)stream.ReceiveNext();
-            canLookAtTarget = (bool)stream.ReceiveNext();
-            canMove = (bool)stream.ReceiveNext();
-            behaviourState = (BehaviourState)stream.ReceiveNext();
-        }
+        //if (stream.IsWriting)
+        //{
+        //    stream.SendNext(canAttack);
+        //    stream.SendNext(canLookAtTarget);
+        //    stream.SendNext(canMove);
+        //    stream.SendNext((int)behaviourState);
+        //}
+        //else
+        //{
+        //    canAttack = (bool)stream.ReceiveNext();
+        //    canLookAtTarget = (bool)stream.ReceiveNext();
+        //    canMove = (bool)stream.ReceiveNext();
+        //    behaviourState = (BehaviourState)stream.ReceiveNext();
+        //}
     }
 
     private void OnDrawGizmosSelected()
