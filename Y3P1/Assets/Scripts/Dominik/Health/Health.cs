@@ -12,7 +12,7 @@ public class Health
     public bool isDead;
 
     [SerializeField] private int baseHealth = 100;
-    private int currentHealth;
+    [HideInInspector] public int currentHealth;
 
     public event Action<float, int?> OnHealthModified = delegate { };
 
@@ -45,7 +45,7 @@ public class Health
         }
     }
 
-    private float GetHealthPercentage()
+    public float GetHealthPercentage()
     {
         return (float)currentHealth / GetMaxHealth();
     }

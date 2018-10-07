@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using Photon.Pun;
 using System;
+using Photon.Realtime;
 
 public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -23,7 +24,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     public void Hit(int amount)
     {
         OnHitEvent.Invoke();
-        photonView.RPC("HitRPC", RpcTarget.AllBuffered, CalculateAmount(amount));
+        photonView.RPC("HitRPC", RpcTarget.All, CalculateAmount(amount));
     }
 
     [PunRPC]
@@ -80,12 +81,14 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(health.isImmortal);
             stream.SendNext(health.isInvinsible);
             stream.SendNext(health.isDead);
+            stream.SendNext(health.currentHealth);
         }
         else
         {
             health.isImmortal = (bool)stream.ReceiveNext();
             health.isInvinsible = (bool)stream.ReceiveNext();
             health.isDead = (bool)stream.ReceiveNext();
+            health.currentHealth = (int)stream.ReceiveNext();
         }
     }
 }
