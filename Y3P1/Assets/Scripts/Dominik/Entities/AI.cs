@@ -12,6 +12,10 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     private Entity entity;
     private Collider[] hits = new Collider[10];
     private AttackAnimation currentAttack;
+    private Vector3 toTarget;
+    private float randomRangedAttack;
+    private List<AttackAnimation> rangedAttacks;
+    private float nextRandomRangedTime;
 
     private bool canAttack = true;
     private bool canLookAtTarget = true;
@@ -26,6 +30,8 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] private float damageRange;
     [SerializeField] private Transform damagePoint;
     [SerializeField] private int tempDamage = 10;
+    [SerializeField] [Range(0, 100)] private float randomRangedAttackChance;
+    [SerializeField] private float randomRangedAttackInterval = 1f;
 
     [Space(10)]
 
@@ -57,6 +63,8 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
                 photonView.RPC("SetTarget", RpcTarget.AllBuffered, entity.photonView.ViewID);
             }
         });
+
+        GatherRangedAttacks();
     }
 
     private void Update()
@@ -110,6 +118,26 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             anim.SetBool("Is Walking", false);
         }
 
+        if (target && rangedAttacks.Count != 0)
+        {
+            if (Time.time >= nextRandomRangedTime)
+            {
+                nextRandomRangedTime = Time.time + randomRangedAttackInterval;
+
+                toTarget = target.transform.position - transform.position;
+
+                float angle = Vector3.Angle(toTarget, transform.forward);
+                if (angle < 20)
+                {
+                    randomRangedAttack = Random.Range(0, 101);
+                    if (randomRangedAttack < randomRangedAttackChance)
+                    {
+                        StartRandomRangedAttack();
+                    }
+                }
+            }
+        }
+
         if (GetDistanceToTarget() < attackDistance)
         {
             SetState(BehaviourState.Attack);
@@ -121,7 +149,6 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         agent.isStopped = true;
         anim.SetBool("Is Walking", false);
 
-        Vector3 toTarget = Vector3.zero;
         if (target)
         {
             toTarget = target.transform.position - transform.position;
@@ -159,6 +186,14 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         canAttack = false;
         canLookAtTarget = false;
         currentAttack = GetRandomAttack();
+        anim.SetTrigger(currentAttack.attackName);
+    }
+
+    private void StartRandomRangedAttack()
+    {
+        canAttack = false;
+        //canLookAtTarget = false;
+        currentAttack = rangedAttacks[Random.Range(0, rangedAttacks.Count)];
         anim.SetTrigger(currentAttack.attackName);
     }
 
@@ -291,6 +326,18 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         return attacks[0];
+    }
+
+    private void GatherRangedAttacks()
+    {
+        rangedAttacks = new List<AttackAnimation>();
+        for (int i = 0; i < attacks.Count; i++)
+        {
+            if (attacks[i].attackType == AttackAnimation.AttackType.Projectile)
+            {
+                rangedAttacks.Add(attacks[i]);
+            }
+        }
     }
 
     public override void OnDisable()
