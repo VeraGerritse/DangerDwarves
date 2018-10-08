@@ -722,22 +722,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5747452515737573405}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7388646020557500645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2224781018497381817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c668cb6b1fcaafc4a9182d2edb8a3197, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAppearance: {fileID: 1207529182432145494}
-  eyes: {fileID: 2100000, guid: db16216c3f288ea4eb77dfefecada55a, type: 2}
-  s1: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  s2: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &2465700507291491988
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,28 +965,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3534462990499320098}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6094335770218507037 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8587705028569781468, guid: 70b24a5409f08e241989d69f806375df,
-    type: 3}
-  m_PrefabInstance: {fileID: 2575713883187085249}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4480659959036516748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6094335770218507037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c668cb6b1fcaafc4a9182d2edb8a3197, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAppearance: {fileID: 1207529182432145494}
-  eyes: {fileID: 2100000, guid: db16216c3f288ea4eb77dfefecada55a, type: 2}
-  s1: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  s2: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!4 &7405904766569494419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2285231024201167962, guid: 87418ae4bf9d67d41879d78e13315c5d,
@@ -1196,7 +1158,7 @@ MonoBehaviour:
   playerUIPrefab: {fileID: 241, guid: 61a5a60cfa7db844ba3daff3ea02dedd, type: 3}
   playerUISpawnOffset: {x: 0, y: 2, z: 0.2}
   playerUICam: {fileID: 2224781018497381817}
-  characterCam: {fileID: 6094335770218507037}
+  characterCam: {fileID: 0}
   deathCanvas: {fileID: 1963476409204493732}
   weaponChargeCanvas: {fileID: 0}
   dwarfAnimEvents: {fileID: 0}
@@ -2704,7 +2666,8 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3222972762933696561, guid: 0a6b28d5825057347a8708909654ceea, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0a6b28d5825057347a8708909654ceea, type: 3}
 --- !u!1001 &8249625635999065126
 PrefabInstance:
