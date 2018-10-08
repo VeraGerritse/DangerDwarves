@@ -32,7 +32,7 @@ public class Projectile_Volley : Projectile
     {
         base.OnDisable();
 
-        if (hitEntity)
+        if (hitAnything)
         {
             SpawnVolley();
         }

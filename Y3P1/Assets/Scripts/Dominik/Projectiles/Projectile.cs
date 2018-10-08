@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody rb;
     private PhotonView photonView;
-    protected bool hitEntity;
+    protected bool hitAnything;
     private Transform owner;
     public enum Target { Enemy, Player };
 
@@ -39,7 +39,7 @@ public class Projectile : MonoBehaviour
 
     public virtual void OnEnable()
     {
-        hitEntity = false;
+        hitAnything = false;
         Invoke("ReturnToPool", selfDestroyTime);
     }
 
@@ -107,6 +107,22 @@ public class Projectile : MonoBehaviour
             OnEntityHit(this);
         }
 
+        SpawnPrefabOnHit();
+
+        hitAnything = true;
+        ReturnToPool();
+    }
+
+    public virtual void HandleHitEnvironment()
+    {
+        hitAnything = true;
+        SpawnPrefabOnHit();
+        OnEnvironmentHit(this);
+        ReturnToPool();
+    }
+
+    private void SpawnPrefabOnHit()
+    {
         if (!string.IsNullOrEmpty(prefabToSpawnOnHit))
         {
             GameObject newSpawn = ObjectPooler.instance.GrabFromPool(prefabToSpawnOnHit, transform.position, Quaternion.identity);
@@ -117,15 +133,6 @@ public class Projectile : MonoBehaviour
                 aoeComponent.Initialise(fireData.damage);
             }
         }
-
-        hitEntity = true;
-        ReturnToPool();
-    }
-
-    public virtual void HandleHitEnvironment()
-    {
-        OnEnvironmentHit(this);
-        ReturnToPool();
     }
 
     protected void ReturnToPool()

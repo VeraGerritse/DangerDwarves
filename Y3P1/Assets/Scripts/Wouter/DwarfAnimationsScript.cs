@@ -112,7 +112,7 @@ public class DwarfAnimationsScript : MonoBehaviour
         float y = Input.GetAxis("Vertical");
 
         Vector3 combinedAxis = new Vector3(x, 0, y);
-        combinedAxis = transform.parent.InverseTransformDirection(combinedAxis);
+        combinedAxis = !Player.localPlayer.entity.health.isDead ? transform.parent.InverseTransformDirection(combinedAxis) : Vector3.zero;
 
         myAnim.SetFloat("HorizontalAxis", combinedAxis.x);
         myAnim.SetFloat("VerticalAxis", combinedAxis.z);

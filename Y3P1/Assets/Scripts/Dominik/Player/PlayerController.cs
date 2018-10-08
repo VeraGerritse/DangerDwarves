@@ -34,7 +34,12 @@ public class PlayerController : MonoBehaviour
         }
 
         CreateMouseHitPlane();
-        Player.localPlayer.entity.OnDeath += () => canControl = false;
+
+        Player.localPlayer.entity.OnDeath += () =>
+        {
+            canControl = false;
+            Player.localPlayer.rb.velocity = Vector3.zero;
+        };
         Player.localPlayer.entity.OnRevive += () => canControl = true;
     }
 
