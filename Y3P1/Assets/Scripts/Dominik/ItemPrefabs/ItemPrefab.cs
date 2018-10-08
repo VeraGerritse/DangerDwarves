@@ -8,6 +8,7 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
 
     protected Rigidbody rb;
     protected bool isDropped;
+    [HideInInspector] public bool isDecoy;
     protected DroppedItemLabel droppedItemLabel;
 
     public Item myItem;

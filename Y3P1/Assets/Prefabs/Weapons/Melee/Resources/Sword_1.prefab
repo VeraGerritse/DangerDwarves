@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &1473937625969597584 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: e7aa7253b6ad04342b0f9b143def3036,
+    type: 3}
+  m_PrefabInstance: {fileID: 1473937625969985040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1473937625972022896 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2300000, guid: e7aa7253b6ad04342b0f9b143def3036,
+    type: 3}
+  m_PrefabInstance: {fileID: 1473937625969985040}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &365438877656968415
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,18 +130,6 @@ Transform:
   m_Father: {fileID: 8136903220673741615}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1473937625969597584 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: e7aa7253b6ad04342b0f9b143def3036,
-    type: 3}
-  m_PrefabInstance: {fileID: 1473937625969985040}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &1473937625972022896 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2300000, guid: e7aa7253b6ad04342b0f9b143def3036,
-    type: 3}
-  m_PrefabInstance: {fileID: 1473937625969985040}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3665424878903179539
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae917dbffd789743b73c1e7520bf70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDecoy: 0
   myItem:
     itemName: 
     itemRarity: 0
@@ -330,7 +331,7 @@ MonoBehaviour:
   _emit: 0
   _emitTime: 0
   _material: {fileID: 2100000, guid: 9b110db844e5aee48ad87c1e8436b128, type: 2}
-  _lifeTime: 1
+  _lifeTime: 0.5
   _colors: []
   _sizes: []
   _minVertexDistance: 0.1

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Photon.Pun;
+using System.Collections.Generic;
 using UnityEngine;
 using Y3P1;
 
@@ -6,6 +7,15 @@ public class BountyManager : MonoBehaviour
 {
 
     public static BountyManager instance;
+
+    [SerializeField] private GameObject bountyCanvas;
+    [SerializeField] private GameObject availableBountiesOverview;
+    [SerializeField] private GameObject activeBountyOverview;
+    [SerializeField] private Transform activeBountySpawn;
+    [SerializeField] private GameObject bountyUIPrefab;
+    [SerializeField] private Transform availableBountySpawn;
+
+    [Space(10)]
 
     [SerializeField] private List<Bounty> availableBounties = new List<Bounty>();
 
@@ -20,6 +30,13 @@ public class BountyManager : MonoBehaviour
         public int goldReward;
         public enum BountyState { InActive, Active, Completed };
         [HideInInspector] public BountyState bountyState;
+
+        public void Reset()
+        {
+            amountToKill = 0;
+            progress = 0;
+            bountyState = BountyState.InActive;
+        }
     }
 
     private void Awake()
@@ -32,14 +49,45 @@ public class BountyManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        ToggleBountyCanvas(false);
+        SetupAvailableBountyUI();
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (bountyCanvas.activeInHierarchy)
+            {
+                ToggleBountyCanvas(false);
+            }
+        }
+    }
+
+    public void ToggleBountyCanvas(bool b)
+    {
+        bountyCanvas.SetActive(b);
+    }
+
+    private void SetupAvailableBountyUI()
+    {
+        for (int i = 0; i < availableBounties.Count; i++)
+        {
+            BountyUI newBountyUI = Instantiate(bountyUIPrefab, availableBountySpawn.position, Quaternion.identity, availableBountySpawn).GetComponent<BountyUI>();
+            newBountyUI.Setup(availableBounties[i]);
+        }
     }
 
     public void ActivateBounty(string bountyName)
     {
         for (int i = 0; i < availableBounties.Count; i++)
         {
+            availableBounties[i].Reset();
             availableBounties[i].bountyState = availableBounties[i].bountyName == bountyName ? Bounty.BountyState.Active : Bounty.BountyState.InActive;
         }
+
+        NotificationManager.instance.NewNotification("<color=yellow>" + PhotonNetwork.NickName + "</color> has started the bounty: <color=yellow>" + bountyName + "</color>!");
     }
 
     public void RegisterKill(int entityID)

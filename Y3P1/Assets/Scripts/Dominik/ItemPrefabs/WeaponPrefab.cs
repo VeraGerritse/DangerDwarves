@@ -31,7 +31,7 @@ public class WeaponPrefab : ItemPrefab
 
     private void WeaponSlot_OnUsePrimary()
     {
-        if (isDropped)
+        if (isDropped || isDecoy)
         {
             return;
         }
@@ -87,7 +87,7 @@ public class WeaponPrefab : ItemPrefab
 
     private void WeaponSlot_OnUseSecondary(Weapon.SecondaryType secondaryType)
     {
-        if (isDropped)
+        if (isDropped || isDecoy)
         {
             return;
         }
@@ -107,7 +107,7 @@ public class WeaponPrefab : ItemPrefab
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
     {
-        if (isDropped)
+        if (isDropped || isDecoy)
         {
             return;
         }

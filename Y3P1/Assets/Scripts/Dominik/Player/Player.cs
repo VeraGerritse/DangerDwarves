@@ -103,7 +103,7 @@ namespace Y3P1
             {
                 playerAppearance.RandomizeAppearance();
                 playerController.OnDodge += PlayerController_OnDodge;
-                entity.OnDeath += () => deathCanvas.SetActive(true);
+                entity.OnDeath += () => Entity_OnDeath();
                 DontDestroyOnLoad(gameObject);
             }
         }
@@ -118,6 +118,12 @@ namespace Y3P1
         {
             rangedWeaponLookAt.enabled = !dodgeStart;
             entity.health.isInvinsible = dodgeStart;
+        }
+
+        private void Entity_OnDeath()
+        {
+            deathCanvas.SetActive(true);
+            NotificationManager.instance.NewNotification("<color=red>" + PhotonNetwork.NickName + "</color> has been downed!");
         }
 
         public void Respawn(bool hub)

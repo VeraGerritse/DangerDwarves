@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae917dbffd789743b73c1e7520bf70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDecoy: 0
   myItem:
     itemName: 
     itemRarity: 0
@@ -300,7 +301,7 @@ MonoBehaviour:
   _emit: 0
   _emitTime: 0
   _material: {fileID: 2100000, guid: 9b110db844e5aee48ad87c1e8436b128, type: 2}
-  _lifeTime: 1
+  _lifeTime: 0.5
   _colors: []
   _sizes: []
   _minVertexDistance: 0.1

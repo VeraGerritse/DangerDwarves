@@ -60,7 +60,8 @@ public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
             Destroy(decoyEquipedItem);
         }
 
-        decoyEquipedItem = Instantiate(Database.hostInstance.allGameobjects[toEquip.prefabIndex], spawnpoint.position, spawnpoint.rotation);
+        decoyEquipedItem = Instantiate(Database.hostInstance.allGameobjects[toEquip.prefabIndex], spawnpoint.position, spawnpoint.rotation, spawnpoint);
+        decoyEquipedItem.GetComponent<ItemPrefab>().isDecoy = true;
     }
 
     protected abstract void ParentEquipment(int equipmentID, int parentID);

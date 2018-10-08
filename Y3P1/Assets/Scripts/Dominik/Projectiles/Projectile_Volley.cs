@@ -17,7 +17,6 @@ public class Projectile_Volley : Projectile
         {
             Vector3 randomPos = transform.position + Random.insideUnitSphere * volleyRange;
             randomPos.y += 20;
-            print(randomPos);
 
             Projectile projectile = ObjectPooler.instance.GrabFromPool(volleyArrowPrefab, randomPos, Quaternion.Euler(volleyArrowSpawnRotation)).GetComponent<Projectile>();
             projectile.Fire(new FireData
