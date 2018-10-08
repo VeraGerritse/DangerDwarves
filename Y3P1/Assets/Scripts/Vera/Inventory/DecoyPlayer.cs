@@ -8,7 +8,7 @@ public class DecoyPlayer : MonoBehaviour {
     [SerializeField] private List<Material> beardMaterials = new List<Material>();
     [SerializeField] private List<Material> skinMaterials = new List<Material>();
 
-    private GameObject currentBeard;
+    public GameObject currentBeard;
 
     public Renderer skins;
 

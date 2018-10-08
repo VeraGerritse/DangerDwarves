@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2094361627473578287}
+  - component: {fileID: 3714847007974160338}
   m_Layer: 15
   m_Name: CamBody
   m_TagString: Untagged
@@ -63,6 +64,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3714847007974160338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094361627473578282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b865282e40799478d9597db4c3e077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beards:
+  - {fileID: 2288831310382713553}
+  - {fileID: 2288831310382713555}
+  - {fileID: 2288831310382713557}
+  beardMaterials:
+  - {fileID: 2100000, guid: d103e5c1d5929864b859fc6918fe7f4c, type: 2}
+  - {fileID: 2100000, guid: 7b5c4f0f6807d2b4a811a986e9cda9cb, type: 2}
+  - {fileID: 2100000, guid: 0ca98268810ccd041a8d30330e91cebc, type: 2}
+  skinMaterials:
+  - {fileID: 2100000, guid: 724a7d4352e38a94798b929bdd9f7226, type: 2}
+  - {fileID: 2100000, guid: 234ec553055edee4c98c57d03193cfae, type: 2}
+  - {fileID: 2100000, guid: 45df7636e68cf9b41a112c86c2d562f5, type: 2}
+  currentBeard: {fileID: 2288831310382713557}
+  skins: {fileID: 2288831310396377041}
+  faceCam: {fileID: 2859746058240218432}
+  bodyCam: {fileID: 4998205450204747485}
 --- !u!1 &2288831310382713473
 GameObject:
   m_ObjectHideFlags: 0
@@ -1738,7 +1767,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: -0.58}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.017993629, y: 0.106000036, z: -0.10100007}
+  m_ConnectedAnchor: {x: -0.017993629, y: 0.106000066, z: -0.10100013}
   m_UseSpring: 0
   m_Spring:
     spring: 0

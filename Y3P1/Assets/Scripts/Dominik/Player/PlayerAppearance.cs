@@ -14,19 +14,22 @@ public class PlayerAppearance : MonoBehaviourPunCallbacks
     [SerializeField] private List<Material> bodyMaterials = new List<Material>();
     public SkinnedMeshRenderer dwarfRenderer;
     public Material beardMat;
+    [SerializeField] private DecoyPlayer decoy;
     [Space(10)]
 
     [SerializeField] private TMP_Dropdown beardObjectDropdown;
     [SerializeField] private TMP_Dropdown beardMatDropdown;
     [SerializeField] private TMP_Dropdown bodyMatDropdown;
 
+
+
     private void Awake()
     {
         dwarfRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
 
-        beardObjectDropdown.onValueChanged.AddListener((int i) => { photonView.RPC("SetAppearance", RpcTarget.All, i, beardMatDropdown.value, bodyMatDropdown.value); });
-        beardMatDropdown.onValueChanged.AddListener((int i) => { photonView.RPC("SetAppearance", RpcTarget.All, beardObjectDropdown.value, i, bodyMatDropdown.value); });
-        bodyMatDropdown.onValueChanged.AddListener((int i) => { photonView.RPC("SetAppearance", RpcTarget.All, beardObjectDropdown.value, beardMatDropdown.value, i); });
+        beardObjectDropdown.onValueChanged.AddListener((int i) => { photonView.RPC("SetAppearance", RpcTarget.All, i, beardMatDropdown.value, bodyMatDropdown.value); SetDecoyAppearance(beardObjectDropdown.value, beardMatDropdown.value, bodyMatDropdown.value); });
+        beardMatDropdown.onValueChanged.AddListener((int i) => { photonView.RPC("SetAppearance", RpcTarget.All, beardObjectDropdown.value, i, bodyMatDropdown.value); SetDecoyAppearance(beardObjectDropdown.value, beardMatDropdown.value, bodyMatDropdown.value); });
+        bodyMatDropdown.onValueChanged.AddListener((int i) => { photonView.RPC("SetAppearance", RpcTarget.All, beardObjectDropdown.value, beardMatDropdown.value, i); SetDecoyAppearance(beardObjectDropdown.value, beardMatDropdown.value, bodyMatDropdown.value); });
     }
 
     public void RandomizeAppearance()
@@ -40,6 +43,12 @@ public class PlayerAppearance : MonoBehaviourPunCallbacks
         bodyMatDropdown.value = randomDwarfMat;
         beardMat = beardMaterials[randomBeardMat];
         photonView.RPC("SetAppearance", RpcTarget.All, randomBeardModel, randomBeardMat, randomDwarfMat);
+        SetDecoyAppearance(beardObjectDropdown.value, beardMatDropdown.value, bodyMatDropdown.value);
+    }
+
+    public void SetDecoyAppearance(int beard, int color, int skin)
+    {
+        decoy.ChangeAppearance(beard, color, skin);
     }
 
     [PunRPC]

@@ -363,6 +363,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(0.1f);
         CalculateArmor();
+        UpdateGold(0);
     }
 
     public void OpenCloseInv()
