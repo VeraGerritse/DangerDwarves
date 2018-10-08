@@ -63,4 +63,5 @@ MonoBehaviour:
   - SyncMaterial
   - AddGold
   - UpdateHealthOnJoin
+  - SyncDeathState
   DisableAutoOpenWizard: 1

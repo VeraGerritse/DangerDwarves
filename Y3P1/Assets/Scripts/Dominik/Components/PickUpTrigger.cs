@@ -30,7 +30,10 @@ public class PickUpTrigger : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            checkForInput = true;
+            if (other.gameObject.layer == 9)
+            {
+                checkForInput = true;
+            }
         }
     }
 
@@ -38,7 +41,10 @@ public class PickUpTrigger : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            checkForInput = false;
+            if (other.gameObject.layer == 9)
+            {
+                checkForInput = false;
+            }
         }
     }
 }

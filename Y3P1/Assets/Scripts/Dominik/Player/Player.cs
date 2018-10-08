@@ -82,7 +82,6 @@ namespace Y3P1
             characterCam.SetActive(IsConnectedAndMine() ? true : false);
             Destroy(IsConnectedAndMine() ? null : rb);
 
-
             if (!IsConnectedAndMine())
             {
                 SetLayer(transform, 14);
@@ -104,8 +103,16 @@ namespace Y3P1
             {
                 playerAppearance.RandomizeAppearance();
                 playerController.OnDodge += PlayerController_OnDodge;
+                //entity.OnDeath += () => photonView.RPC("SyncDeathState", RpcTarget.AllBuffered, true);
+                //entity.OnRevive += () => photonView.RPC("SyncDeathState", RpcTarget.AllBuffered, false);
                 DontDestroyOnLoad(gameObject);
             }
+        }
+
+        private void CreatePlayerUI()
+        {
+            PlayerUI playerUI = Instantiate(playerUIPrefab, transform.position + playerUISpawnOffset, Quaternion.identity, transform).GetComponent<PlayerUI>();
+            playerUI.Initialise(this);
         }
 
         private void PlayerController_OnDodge(bool dodgeStart)
@@ -114,10 +121,10 @@ namespace Y3P1
             entity.health.isInvinsible = dodgeStart;
         }
 
-        private void CreatePlayerUI()
+        [PunRPC]
+        private void SyncDeathState(bool dead)
         {
-            PlayerUI playerUI = Instantiate(playerUIPrefab, transform.position + playerUISpawnOffset, Quaternion.identity, transform).GetComponent<PlayerUI>();
-            playerUI.Initialise(this);
+            dwarfAnimController.SetDeathState(dead);
         }
 
         public bool IsConnectedAndMine()

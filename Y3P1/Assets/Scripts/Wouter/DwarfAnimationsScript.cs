@@ -39,6 +39,11 @@ public class DwarfAnimationsScript : MonoBehaviour
         }
     }
 
+    public void SetDeathState(bool dead)
+    {
+        myAnim.SetBool("Dead", dead);
+    }
+
     private void WeaponSlot_OnUsePrimary()
     {
         myAnim.SetTrigger("FireRanged");

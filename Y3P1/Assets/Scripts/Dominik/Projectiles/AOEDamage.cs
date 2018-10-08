@@ -4,7 +4,7 @@ using UnityEngine;
 public class AOEDamage : MonoBehaviourPunCallbacks
 {
 
-    private Collider[] entitiesInRange = new Collider[20];
+    private Collider[] entitiesInRange = new Collider[30];
     private float nextDamageTick;
     private int damage;
     private Projectile parentProjectile;
@@ -74,14 +74,14 @@ public class AOEDamage : MonoBehaviourPunCallbacks
                 {
                     case Projectile.Target.Enemy:
 
-                        if (entitiesInRange[i].transform.parent.tag != "Player")
+                        if (entitiesInRange[i].transform.tag != "Player")
                         {
                             entity.Hit(-damage);
                         }
                         break;
                     case Projectile.Target.Player:
 
-                        if (entitiesInRange[i].transform.parent.tag == "Player")
+                        if (entitiesInRange[i].transform.tag == "Player")
                         {
                             entity.Hit(-damage);
                         }

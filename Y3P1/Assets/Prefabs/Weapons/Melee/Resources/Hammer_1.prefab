@@ -233,6 +233,7 @@ MonoBehaviour:
   materials:
   - {fileID: 2100000, guid: fdc3c8fbca542844699de626d6c8104c, type: 2}
   - {fileID: 2100000, guid: e5155761c6cced14eafd332e1f1d9141, type: 2}
+  weaponTrail: {fileID: 3835265929745483598}
 --- !u!114 &1045404800596999195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c783d03e845db214592d1a2a28ccae58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emit: 1
+  _emit: 0
   _emitTime: 0
   _material: {fileID: 2100000, guid: 9b110db844e5aee48ad87c1e8436b128, type: 2}
   _lifeTime: 1

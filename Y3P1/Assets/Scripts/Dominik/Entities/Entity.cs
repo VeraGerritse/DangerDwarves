@@ -11,6 +11,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     public Stats stats;
     public bool canDropLoot;
     public event Action OnDeath = delegate { };
+    public event Action OnRevive = delegate { };
 
     [Space(10)]
 
@@ -72,6 +73,12 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     {
         OnDeath();
         EntityManager.instance.RemoveFromAliveTargets(this);
+    }
+
+    public void Revive()
+    {
+        OnRevive();
+        health.ResetHealth();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

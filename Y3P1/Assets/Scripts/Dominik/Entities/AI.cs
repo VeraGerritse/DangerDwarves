@@ -118,6 +118,16 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             anim.SetBool("Is Walking", false);
         }
 
+        RandomRangedAttack();
+
+        if (GetDistanceToTarget() < attackDistance)
+        {
+            SetState(BehaviourState.Attack);
+        }
+    }
+
+    private void RandomRangedAttack()
+    {
         if (target && rangedAttacks.Count != 0)
         {
             if (Time.time >= nextRandomRangedTime)
@@ -136,11 +146,6 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
                     }
                 }
             }
-        }
-
-        if (GetDistanceToTarget() < attackDistance)
-        {
-            SetState(BehaviourState.Attack);
         }
     }
 
@@ -223,7 +228,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             Entity entity = hits[i].GetComponent<Entity>();
             if (entity)
             {
-                if (entity.transform.parent.tag == "Player")
+                if (entity.transform.tag == "Player")
                 {
                     entity.Hit(-tempDamage);
                 }

@@ -24,6 +24,14 @@ public class AnimationEventsDwarf : MonoBehaviour
         }
     }
 
+    public void EndPrimary()
+    {
+        if (initialised)
+        {
+            weaponSlot.EndMeleeAnim();
+        }
+    }
+
     public void EndDodge()
     {
         if (initialised)
