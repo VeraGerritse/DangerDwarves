@@ -2,10 +2,11 @@
 using UnityEngine.Events;
 using Photon.Pun;
 using System;
-using Photon.Realtime;
 
 public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
+
+    [SerializeField] private int entityID;
 
     public Health health;
     public Stats stats;
@@ -76,6 +77,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     {
         OnDeath();
         EntityManager.instance.RemoveFromAliveTargets(this);
+        BountyManager.instance.RegisterKill(entityID);
     }
 
     public void Revive()
