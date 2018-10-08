@@ -583,9 +583,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.36564046
-  m_TransitionOffset: 0.1457471
-  m_ExitTime: 0.59226114
+  m_TransitionDuration: 0.11524516
+  m_TransitionOffset: 0.09642857
+  m_ExitTime: 0.8200037
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -965,9 +965,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.3065998
-  m_TransitionOffset: 0.18527512
-  m_ExitTime: 0.71533775
+  m_TransitionDuration: 0.22306627
+  m_TransitionOffset: 0.22613445
+  m_ExitTime: 0.6571352
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1214,7 +1214,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 93ce14c09fe7572498cd805946b4e51a, type: 2}
+  m_Motion: {fileID: 7400000, guid: 9fa0f6e28fd6ff141a2f132068557a23, type: 2}
   m_Tag: MeleeSwing
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -1294,7 +1294,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d12dafd8794779445b250a92d8dfce2a, type: 2}
+  m_Motion: {fileID: 7400000, guid: 952758a84a0c91b46aff3f01e48b6272, type: 2}
   m_Tag: MeleeSwing
   m_SpeedParameter: 
   m_MirrorParameter: 
