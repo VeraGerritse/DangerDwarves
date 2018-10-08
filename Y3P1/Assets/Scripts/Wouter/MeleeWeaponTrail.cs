@@ -15,7 +15,7 @@ public class MeleeWeaponTrail : MonoBehaviour
 {
     [SerializeField]
     bool _emit = true;
-    public bool Emit { set { _emit = value; } }
+    public bool Emit { get { return _emit; } set { _emit = value; } }
 
     [SerializeField]
     float _emitTime = 0.00f;

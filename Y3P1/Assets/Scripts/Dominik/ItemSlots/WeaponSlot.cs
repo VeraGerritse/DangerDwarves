@@ -13,7 +13,10 @@ public class WeaponSlot : EquipmentSlot
     public static event Action OnUsePrimary = delegate { };
     public static event Action<Weapon.SecondaryType> OnUseSecondary = delegate { };
     public static event Action<Weapon> OnEquipWeapon = delegate { };
-    //public static event Action OnEndAttack = delegate { };
+
+    private bool attackingMelee;
+    public static event Action OnStartMelee = delegate { };
+    public static event Action OnEndMelee = delegate { };
 
     public static event Action<float> OnStartChargeSecondary = delegate { };
     public static event Action OnStopChargeSecondary = delegate { };
@@ -75,6 +78,11 @@ public class WeaponSlot : EquipmentSlot
                 else
                 {
                     Player.localPlayer.dwarfAnimController.SetMeleeStance(CanAttack() ? true : false);
+                    if (!attackingMelee)
+                    {
+                        OnStartMelee();
+                        attackingMelee = true;
+                    }
                 }
             }
         }
@@ -148,6 +156,12 @@ public class WeaponSlot : EquipmentSlot
         Player.localPlayer.dwarfAnimController.SetMeleeStance(false);
         OnStopChargeSecondary();
         isChargingSecondary = false;
+    }
+
+    public void EndMeleeAnim()
+    {
+        OnEndMelee();
+        attackingMelee = false;
     }
 
     private void PlayerController_OnDodge(bool b)

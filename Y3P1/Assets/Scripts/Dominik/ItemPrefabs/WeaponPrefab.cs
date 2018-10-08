@@ -10,6 +10,7 @@ public class WeaponPrefab : ItemPrefab
     public Transform projectileSpawn;
     public MeshRenderer renderer;
     [SerializeField] private Material[] materials;
+    [SerializeField] private MeleeWeaponTrail weaponTrail;
 
     protected override void Awake()
     {
@@ -20,6 +21,9 @@ public class WeaponPrefab : ItemPrefab
             WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
             WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
             WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
+
+            WeaponSlot.OnStartMelee += () => SetWeaponTrail(true);
+            WeaponSlot.OnEndMelee += () => SetWeaponTrail(false);
         }
 
         projectileSpawn = transform.GetChild(0).transform;
@@ -59,7 +63,7 @@ public class WeaponPrefab : ItemPrefab
                 Entity entity = meleeHits[i].GetComponent<Entity>();
                 if (entity)
                 {
-                    if (meleeHits[i].transform.parent.tag != "Player")
+                    if (meleeHits[i].transform.tag != "Player")
                     {
                         Vector3 toHit = meleeHits[i].transform.position - Player.localPlayer.playerController.body.position;
                         if (Vector3.Dot(Player.localPlayer.playerController.body.forward, toHit) > 0)
@@ -194,6 +198,14 @@ public class WeaponPrefab : ItemPrefab
         droppedItemLabel.anim.SetTrigger("Pickup");
     }
 
+    public void SetWeaponTrail(bool b)
+    {
+        if (weaponTrail)
+        {
+            weaponTrail.Emit = b;
+        }
+    }
+
     public override void OnDisable()
     {
         if (photonView.IsMine)
@@ -201,6 +213,29 @@ public class WeaponPrefab : ItemPrefab
             WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
             WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
             WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
+
+            WeaponSlot.OnStartMelee -= () => SetWeaponTrail(true);
+            WeaponSlot.OnEndMelee -= () => SetWeaponTrail(false);
+        }
+    }
+
+    public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        base.OnPhotonSerializeView(stream, info);
+
+        if (stream.IsWriting)
+        {
+            if (weaponTrail)
+            {
+                stream.SendNext(weaponTrail.Emit);
+            }
+        }
+        else
+        {
+            if (weaponTrail)
+            {
+                weaponTrail.Emit = (bool)stream.ReceiveNext();
+            }
         }
     }
 }
