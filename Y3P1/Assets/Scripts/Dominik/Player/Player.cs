@@ -103,8 +103,7 @@ namespace Y3P1
             {
                 playerAppearance.RandomizeAppearance();
                 playerController.OnDodge += PlayerController_OnDodge;
-                //entity.OnDeath += () => photonView.RPC("SyncDeathState", RpcTarget.AllBuffered, true);
-                //entity.OnRevive += () => photonView.RPC("SyncDeathState", RpcTarget.AllBuffered, false);
+                entity.OnDeath += () => deathCanvas.SetActive(true);
                 DontDestroyOnLoad(gameObject);
             }
         }
@@ -121,10 +120,15 @@ namespace Y3P1
             entity.health.isInvinsible = dodgeStart;
         }
 
-        [PunRPC]
-        private void SyncDeathState(bool dead)
+        public void Respawn(bool hub)
         {
-            dwarfAnimController.SetDeathState(dead);
+            deathCanvas.SetActive(false);
+            localPlayer.entity.Revive();
+
+            if (hub)
+            {
+                transform.position = Vector3.up * 0.1f;
+            }
         }
 
         public bool IsConnectedAndMine()

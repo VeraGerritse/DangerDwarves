@@ -22,6 +22,9 @@ public class DwarfAnimationsScript : MonoBehaviour
             WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
 
             Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
+            Player.localPlayer.entity.OnDeath += () => myAnim.SetBool("Dead", true);
+            Player.localPlayer.entity.OnRevive += () => myAnim.SetBool("Dead", false);
+            Player.localPlayer.entity.OnHitEvent.AddListener(() => myAnim.SetTrigger("Flinch"));
         }
     }
 
@@ -37,11 +40,6 @@ public class DwarfAnimationsScript : MonoBehaviour
         {
             myAnim.SetTrigger("Dodge");
         }
-    }
-
-    public void SetDeathState(bool dead)
-    {
-        myAnim.SetBool("Dead", dead);
     }
 
     private void WeaponSlot_OnUsePrimary()
@@ -97,6 +95,9 @@ public class DwarfAnimationsScript : MonoBehaviour
             WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
 
             Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;
+            Player.localPlayer.entity.OnDeath -= () => myAnim.SetBool("Dead", true);
+            Player.localPlayer.entity.OnRevive -= () => myAnim.SetBool("Dead", false);
+            Player.localPlayer.entity.OnHitEvent.RemoveAllListeners();
         }
     }
 

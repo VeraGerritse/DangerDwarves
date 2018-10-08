@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Quaternion dodgeRotation;
     private float nextDodgeTime;
     private bool isDodging;
+    private bool canControl = true;
 
     public Transform body;
     [SerializeField] private float moveSpeed;
@@ -33,17 +34,25 @@ public class PlayerController : MonoBehaviour
         }
 
         CreateMouseHitPlane();
+        Player.localPlayer.entity.OnDeath += () => canControl = false;
+        Player.localPlayer.entity.OnRevive += () => canControl = true;
     }
 
     private void Update()
     {
-        HandleRotation();
-        HandleDodging();
+        if (canControl)
+        {
+            HandleRotation();
+            HandleDodging();
+        }
     }
 
     private void FixedUpdate()
     {
-        HandleMovement();
+        if (canControl && !isDodging)
+        {
+            HandleMovement();
+        }
     }
 
     // Basic rigidbody movement using velocity.
