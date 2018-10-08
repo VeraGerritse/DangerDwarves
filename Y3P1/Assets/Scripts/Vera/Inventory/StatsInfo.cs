@@ -9,7 +9,7 @@ public class StatsInfo : MonoBehaviour {
     [SerializeField] private List<TMP_Text> allText = new List<TMP_Text>();
     [SerializeField] private GameObject myPanel;
     [SerializeField] private Image myImage;
-
+    [SerializeField] private TMP_Text gold;
     [SerializeField] private List<TMP_Text> allStatsText = new List<TMP_Text>();
 
     private void Awake()
@@ -25,6 +25,40 @@ public class StatsInfo : MonoBehaviour {
         myPanel.SetActive(false);
         myImage.enabled = false;
     }
+
+    public void UpdateGold(int amount)
+    {
+        gold.text = "Gold: " + AddPoints(amount.ToString());
+    }
+
+    private string AddPoints(string amount)
+    {
+        List<char> myString = new List<char>(amount);
+        myString.Reverse();
+        List<char> allSymbols = new List<char>();
+        int a = 0;
+        
+        for (int i = 0; i < myString.Count; i++)
+        {
+            a++;
+            if (a < 4)
+            {
+                allSymbols.Add(myString[i]);
+            }
+            else
+            {
+                allSymbols.Add('.');
+                a = 0;
+                i--;
+            }
+
+        }
+        allSymbols.Reverse();
+        string test = new string(allSymbols.ToArray());
+        return test;
+    }
+
+
 
     public void SetPlayerStats(string[] stats,string[] avrILvl)
     {

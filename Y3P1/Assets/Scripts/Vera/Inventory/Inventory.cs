@@ -81,11 +81,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     [PunRPC]
     private void AddGold(int amount)
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            NotificationManager.instance.NewNotification((totalGoldAmount + amount).ToString());
-        }
-        totalGoldAmount += amount;
+        UpdateGold(amount);
     }
 
     [PunRPC]
@@ -381,6 +377,16 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
     }
 
+    private void UpdateGold(int amount)
+    {
+        Player.localPlayer.myInventory.totalGoldAmount += amount;
+        if (Player.localPlayer.myInventory.totalGoldAmount > 999999999)
+        {
+            Player.localPlayer.myInventory.totalGoldAmount = 999999999;
+        }
+        StatsInfo.instance.UpdateGold(Player.localPlayer.myInventory.totalGoldAmount);
+    }
+
     public void AddItem(Item toAdd)
     {
         if(toAdd is Gold)
@@ -424,6 +430,11 @@ public class Inventory : MonoBehaviourPunCallbacks
         if (!isInitialised)
         {
             return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            photonView.RPC("AddGold", RpcTarget.All, Random.Range(500, 1000)); 
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
