@@ -29,6 +29,8 @@ public class WeaponSlot : EquipmentSlot
 
     [SerializeField] private Transform rangedWeaponSpawn;
     [SerializeField] private Transform meleeWeaponSpawn;
+    [SerializeField] private Transform decoyRangedWeaponSpawn;
+    [SerializeField] private Transform decoyMeleeWeaponSpawn;
 
     public override void Initialise(bool local)
     {
@@ -177,6 +179,7 @@ public class WeaponSlot : EquipmentSlot
     public void EquipWeapon(Weapon weapon)
     {
         int[] ids = Equip(weapon, weapon is Weapon_Ranged ? rangedWeaponSpawn : meleeWeaponSpawn);
+        DecoyEquip(weapon, weapon is Weapon_Ranged ? decoyRangedWeaponSpawn : decoyMeleeWeaponSpawn);
         currentWeapon = currentEquipment as Weapon;
         if (currentWeapon != null)
         {

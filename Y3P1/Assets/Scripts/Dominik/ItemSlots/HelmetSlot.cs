@@ -7,10 +7,12 @@ public class HelmetSlot : EquipmentSlot
     public static Helmet currentHelmet;
 
     [SerializeField] private Transform helmetSpawn;
+    [SerializeField] private Transform decoyHelmetSpawn;
 
     public void EquipHelmet(Helmet helmet)
     {
         int[] ids = Equip(helmet, helmetSpawn);
+        DecoyEquip(helmet, helmetSpawn);
         currentHelmet = currentEquipment as Helmet;
         if (currentHelmet != null)
         {

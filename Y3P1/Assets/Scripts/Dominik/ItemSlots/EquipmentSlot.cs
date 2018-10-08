@@ -7,6 +7,7 @@ public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
 
     protected Item currentEquipment;
     protected GameObject equipedItem;
+    protected GameObject decoyEquipedItem;
 
     public event Action OnEquip = delegate { };
 
@@ -45,6 +46,21 @@ public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
         }
 
         return null;
+    }
+
+    protected void DecoyEquip(Item toEquip, Transform spawnpoint)
+    {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
+        if (decoyEquipedItem)
+        {
+            Destroy(decoyEquipedItem);
+        }
+
+        decoyEquipedItem = Instantiate(Database.hostInstance.allGameobjects[toEquip.prefabIndex], spawnpoint.position, spawnpoint.rotation);
     }
 
     protected abstract void ParentEquipment(int equipmentID, int parentID);
