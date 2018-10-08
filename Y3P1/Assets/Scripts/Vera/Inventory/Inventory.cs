@@ -377,7 +377,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
     }
 
-    private void UpdateGold(int amount)
+    public void UpdateGold(int amount)
     {
         Player.localPlayer.myInventory.totalGoldAmount += amount;
         if (Player.localPlayer.myInventory.totalGoldAmount > 999999999)
