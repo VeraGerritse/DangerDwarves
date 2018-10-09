@@ -123,7 +123,7 @@ public class DwarfAnimationsScript : MonoBehaviour
             //myAnim.SetTrigger("Flinch");
             //myAnim.SetBool("Dead", !myAnim.GetBool("Dead"));
             //myAnim.SetBool("RangedAbilityCharging", !myAnim.GetBool("RangedAbilityCharging"));
-            myAnim.SetTrigger("RangedAbilityCharging");
+            //myAnim.SetTrigger("RangedAbilityCharging");
         }
     }
 }
