@@ -5,7 +5,7 @@ using Y3P1;
 public class WeaponPrefab : ItemPrefab
 {
 
-    private Collider[] meleeHits = new Collider[15];
+    private Collider[] meleeHits = new Collider[30];
 
     public Transform projectileSpawn;
     public MeshRenderer renderer;

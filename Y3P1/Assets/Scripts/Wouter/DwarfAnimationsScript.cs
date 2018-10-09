@@ -59,11 +59,7 @@ public class DwarfAnimationsScript : MonoBehaviour
     {
         if (weapon is Weapon_Ranged)
         {
-            if (chargeTime == 0)
-            {
-                myAnim.SetFloat("Chargelenght", 2f);
-            }
-            else if (chargeTime < 1)
+            if (chargeTime < 1)
             {
                 myAnim.SetFloat("Chargelenght", 1f);
             }
@@ -74,14 +70,25 @@ public class DwarfAnimationsScript : MonoBehaviour
 
             myAnim.SetBool("RangedAbilityCharging", true);
         }
+        else if (weapon is Weapon_Melee)
+        {
+            if (chargeTime < 1)
+            {
+                myAnim.SetFloat("Chargelenght", 1.2f);
+            }
+            else
+            {
+                myAnim.SetFloat("Chargelenght", 0.8f);
+            }
+
+            myAnim.SetBool("MeleeAbilityCharging", true);
+        }
     }
 
     private void WeaponSlot_OnStopChargeSecondary(Weapon weapon)
     {
-        if (weapon is Weapon_Ranged)
-        {
-            myAnim.SetBool("RangedAbilityCharging", false);
-        }
+        myAnim.SetBool("RangedAbilityCharging", false);
+        myAnim.SetBool("MeleeAbilityCharging", false);
     }
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
