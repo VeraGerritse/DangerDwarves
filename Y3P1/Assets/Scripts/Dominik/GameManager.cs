@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public static GameManager instance;
 
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject bountyManagerPrefab;
 
     private void Awake()
     {
@@ -23,9 +24,17 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        if (!Y3P1.Player.localPlayerObject && playerPrefab)
+        if (!Player.localPlayerObject && playerPrefab)
         {
             PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0.1f, 0), Quaternion.identity);
+        }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (!FindObjectOfType<BountyManager>())
+            {
+                PhotonNetwork.InstantiateSceneObject(bountyManagerPrefab.name, Vector3.zero, Quaternion.identity);
+            }
         }
     }
 

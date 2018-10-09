@@ -19,6 +19,8 @@ public class DwarfAnimationsScript : MonoBehaviour
 
             WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
             WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
+            WeaponSlot.OnStartChargeSecondary += WeaponSlot_OnStartChargeSecondary;
+            WeaponSlot.OnStopChargeSecondary += WeaponSlot_OnStopChargeSecondary;
             WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
 
             Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
@@ -27,6 +29,7 @@ public class DwarfAnimationsScript : MonoBehaviour
             Player.localPlayer.entity.OnHitEvent.AddListener(() => myAnim.SetTrigger("Flinch"));
         }
     }
+
 
     private void Awake()
     {
@@ -50,6 +53,35 @@ public class DwarfAnimationsScript : MonoBehaviour
     private void WeaponSlot_OnUseSecondary(Weapon.SecondaryType secondaryType)
     {
         myAnim.SetTrigger("FireRanged");
+    }
+
+    private void WeaponSlot_OnStartChargeSecondary(float chargeTime, Weapon weapon)
+    {
+        if (weapon is Weapon_Ranged)
+        {
+            if (chargeTime == 0)
+            {
+                myAnim.SetFloat("Chargelenght", 2f);
+            }
+            else if (chargeTime < 1)
+            {
+                myAnim.SetFloat("Chargelenght", 1f);
+            }
+            else
+            {
+                myAnim.SetFloat("Chargelenght", 0.5f);
+            }
+
+            myAnim.SetBool("RangedAbilityCharging", true);
+        }
+    }
+
+    private void WeaponSlot_OnStopChargeSecondary(Weapon weapon)
+    {
+        if (weapon is Weapon_Ranged)
+        {
+            myAnim.SetBool("RangedAbilityCharging", false);
+        }
     }
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
@@ -92,6 +124,7 @@ public class DwarfAnimationsScript : MonoBehaviour
         {
             WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
             WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
+            WeaponSlot.OnStartChargeSecondary -= WeaponSlot_OnStartChargeSecondary;
             WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
 
             Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;

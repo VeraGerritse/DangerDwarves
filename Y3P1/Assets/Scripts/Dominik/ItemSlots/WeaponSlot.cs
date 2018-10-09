@@ -18,8 +18,8 @@ public class WeaponSlot : EquipmentSlot
     public static event Action OnStartMelee = delegate { };
     public static event Action OnEndMelee = delegate { };
 
-    public static event Action<float> OnStartChargeSecondary = delegate { };
-    public static event Action OnStopChargeSecondary = delegate { };
+    public static event Action<float, Weapon> OnStartChargeSecondary = delegate { };
+    public static event Action<Weapon> OnStopChargeSecondary = delegate { };
 
     private float nextPrimaryTime;
     private float nextSecondaryTime;
@@ -115,7 +115,7 @@ public class WeaponSlot : EquipmentSlot
                     {
                         if (!isChargingSecondary)
                         {
-                            OnStartChargeSecondary(currentWeapon.secondaryChargeupTime);
+                            OnStartChargeSecondary(currentWeapon.secondaryChargeupTime, currentWeapon);
                             isChargingSecondary = true;
                             secondaryChargeCounter = 0;
                         }
@@ -129,7 +129,7 @@ public class WeaponSlot : EquipmentSlot
                 {
                     if (isChargingSecondary)
                     {
-                        OnStopChargeSecondary();
+                        OnStopChargeSecondary(currentWeapon);
                         isChargingSecondary = false;
 
                         if (secondaryChargeCounter >= currentWeapon.secondaryChargeupTime)
@@ -156,7 +156,7 @@ public class WeaponSlot : EquipmentSlot
     private void StopAllAttacks()
     {
         Player.localPlayer.dwarfAnimController.SetMeleeStance(false);
-        OnStopChargeSecondary();
+        OnStopChargeSecondary(currentWeapon);
         isChargingSecondary = false;
     }
 

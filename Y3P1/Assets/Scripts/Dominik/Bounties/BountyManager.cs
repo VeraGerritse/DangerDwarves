@@ -1,12 +1,14 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 using Y3P1;
 
-public class BountyManager : MonoBehaviour
+public class BountyManager : MonoBehaviourPunCallbacks
 {
 
     public static BountyManager instance;
+    public static Bounty activeBounty;
 
     [SerializeField] private GameObject bountyCanvas;
     [SerializeField] private GameObject availableBountiesOverview;
@@ -33,9 +35,14 @@ public class BountyManager : MonoBehaviour
 
         public void Reset()
         {
-            amountToKill = 0;
             progress = 0;
             bountyState = BountyState.InActive;
+        }
+
+        public void Complete()
+        {
+            bountyState = BountyState.Completed;
+            Y3P1.Player.localPlayer.myInventory.UpdateGold(goldReward);
         }
     }
 
@@ -81,13 +88,64 @@ public class BountyManager : MonoBehaviour
 
     public void ActivateBounty(string bountyName)
     {
+        photonView.RPC("SyncActiveBounty", RpcTarget.All, bountyName, 0);
+        NotificationManager.instance.NewNotification("<color=yellow>" + PhotonNetwork.NickName + "</color> has <b>started</b> the bounty: <color=yellow>" + bountyName + "</color>!");
+    }
+
+    [PunRPC]
+    private void SyncActiveBounty(string bountyName, int progress)
+    {
+        if (activeBounty != null)
+        {
+            return;
+        }
+
         for (int i = 0; i < availableBounties.Count; i++)
         {
             availableBounties[i].Reset();
-            availableBounties[i].bountyState = availableBounties[i].bountyName == bountyName ? Bounty.BountyState.Active : Bounty.BountyState.InActive;
+
+            if (availableBounties[i].bountyName == bountyName)
+            {
+                activeBounty = availableBounties[i];
+                activeBounty.bountyState = Bounty.BountyState.Active;
+                activeBounty.progress = progress;
+
+                BountyUI newBountyUI = Instantiate(bountyUIPrefab, activeBountySpawn.position, Quaternion.identity, activeBountySpawn).GetComponent<BountyUI>();
+                newBountyUI.Setup(activeBounty);
+            }
         }
 
-        NotificationManager.instance.NewNotification("<color=yellow>" + PhotonNetwork.NickName + "</color> has started the bounty: <color=yellow>" + bountyName + "</color>!");
+        ToggleView();
+    }
+
+    public void CancelBounty(string bountyName)
+    {
+        photonView.RPC("SyncCancelBounty", RpcTarget.All);
+        NotificationManager.instance.NewNotification("<color=yellow>" + PhotonNetwork.NickName + "</color> has <b>canceled</b> the bounty: <color=yellow>" + bountyName + "</color>!");
+    }
+
+    [PunRPC]
+    private void SyncCancelBounty()
+    {
+        activeBounty.Reset();
+        activeBounty = null;
+        Destroy(activeBountySpawn.childCount > 0 ? activeBountySpawn.GetChild(0).gameObject : null);
+        ToggleView();
+    }
+
+    public void CompleteBounty(string bountyName)
+    {
+        photonView.RPC("SyncCompleteBounty", RpcTarget.All);
+        NotificationManager.instance.NewNotification("<color=yellow>" + PhotonNetwork.NickName + "</color> has <b>completed</b> the bounty: <color=yellow>" + bountyName + "</color>!");
+    }
+
+    [PunRPC]
+    private void SyncCompleteBounty()
+    {
+        activeBounty.Complete();
+        activeBounty = null;
+        Destroy(activeBountySpawn.childCount > 0 ? activeBountySpawn.GetChild(0).gameObject : null);
+        ToggleView();
     }
 
     public void RegisterKill(int entityID)
@@ -99,33 +157,22 @@ public class BountyManager : MonoBehaviour
                 if (availableBounties[i].entityID == entityID)
                 {
                     availableBounties[i].progress++;
-
-                    if (availableBounties[i].progress == availableBounties[i].amountToKill)
-                    {
-                        CompleteBounty(availableBounties[i].bountyName);
-                        return;
-                    }
                 }
             }
         }
     }
 
-    private void CompleteBounty(string bountyName)
+    private void ToggleView()
     {
-        Bounty completedBounty = null;
+        availableBountiesOverview.SetActive(activeBounty == null ? true : false);
+        activeBountyOverview.SetActive(activeBounty == null ? false : true);
+    }
 
-        for (int i = 0; i < availableBounties.Count; i++)
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    {
+        if (activeBounty != null)
         {
-            if (availableBounties[i].bountyName == bountyName)
-            {
-                completedBounty = availableBounties[i];
-            }
-        }
-
-        if (completedBounty != null)
-        {
-            completedBounty.bountyState = Bounty.BountyState.Completed;
-            Player.localPlayer.myInventory.UpdateGold(completedBounty.goldReward);
+            photonView.RPC("SyncActiveBounty", RpcTarget.All, activeBounty.progress);
         }
     }
 }

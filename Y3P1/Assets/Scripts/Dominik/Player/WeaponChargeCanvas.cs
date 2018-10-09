@@ -40,14 +40,14 @@ public class WeaponChargeCanvas : MonoBehaviour
         }
     }
 
-    private void WeaponSlot_OnStartChargeSecondary(float chargeTime)
+    private void WeaponSlot_OnStartChargeSecondary(float chargeTime, Weapon weapon)
     {
         this.chargeTime = chargeTime;
         currentChargeTime = 0;
         chargePanel.SetActive(true);
     }
 
-    private void WeaponSlot_OnStopChargeSecondary()
+    private void WeaponSlot_OnStopChargeSecondary(Weapon weapon)
     {
         chargePanel.SetActive(false);
     }
