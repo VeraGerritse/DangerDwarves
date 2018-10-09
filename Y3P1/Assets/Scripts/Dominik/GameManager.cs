@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using Y3P1;
 
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        if (!Player.localPlayerObject && playerPrefab)
+        if (!Y3P1.Player.localPlayerObject && playerPrefab)
         {
             PhotonNetwork.Instantiate(playerPrefab.name, new Vector3(0, 0.1f, 0), Quaternion.identity);
         }
@@ -62,5 +63,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         SceneManager.instance.LoadScene(0, false);
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+#if !UNITY_EDITOR
+        if (cause != DisconnectCause.DisconnectByClientLogic || cause != DisconnectCause.DisconnectByServerLogic)
+        {
+            PhotonNetwork.Destroy(Y3P1.Player.localPlayerObject);
+        }
+#endif
     }
 }

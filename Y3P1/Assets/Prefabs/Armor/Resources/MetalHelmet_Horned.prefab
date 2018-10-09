@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!4 &3406883770649223260 stripped
+--- !u!4 &2692977427856109581 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 727557903423444133, guid: a1efd5470e995374694b1980c3adccff,
     type: 3}
@@ -10,7 +10,7 @@ Transform:
 PrefabInstance:
   m_ObjectHideFlags: 0
   m_Modification:
-    m_TransformParent: {fileID: 3406883770649223260}
+    m_TransformParent: {fileID: 2692977427856109581}
     m_Modifications:
     - target: {fileID: 400000, guid: d48058dbc7fdb2f4ab622373f99a78e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -149,13 +149,23 @@ PrefabInstance:
       propertyPath: viewIdField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8676818531126917720, guid: a1efd5470e995374694b1980c3adccff,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4555522520552425865, guid: a1efd5470e995374694b1980c3adccff,
+        type: 3}
+      propertyPath: InstantiationId
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1efd5470e995374694b1980c3adccff, type: 3}
 --- !u!1001 &3040736508424228662
 PrefabInstance:
   m_ObjectHideFlags: 0
   m_Modification:
-    m_TransformParent: {fileID: 3406883770649223260}
+    m_TransformParent: {fileID: 2692977427856109581}
     m_Modifications:
     - target: {fileID: 400000, guid: d48058dbc7fdb2f4ab622373f99a78e9, type: 3}
       propertyPath: m_LocalPosition.x

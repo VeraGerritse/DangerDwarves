@@ -49,6 +49,7 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
         objectCollider.enabled = true;
 
         transform.eulerAngles += dropRotationAdjustment;
+        transform.Rotate(new Vector3(0, Random.Range(0, 360), 0), Space.World);
 
         SpawnDroppedItemLabel();
     }
@@ -83,13 +84,13 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
 
     private void SetRarityParticleColors()
     {
-        if (WeaponSlot.currentWeapon == null)
+        if (myItem == null)
         {
             return;
         }
 
         Color rarityColor = new Color();
-        switch (WeaponSlot.currentWeapon.itemRarity)
+        switch (myItem.itemRarity)
         {
             case Item.ItemRarity.common:
 

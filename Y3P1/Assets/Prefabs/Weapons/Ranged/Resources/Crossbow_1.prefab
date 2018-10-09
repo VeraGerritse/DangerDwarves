@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae917dbffd789743b73c1e7520bf70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDecoy: 0
   myItem:
     itemName: 
     itemRarity: 0
@@ -215,6 +216,7 @@ MonoBehaviour:
   materials:
   - {fileID: 2100000, guid: 7fb772bcb1ab81b4f912fe76639dc6cd, type: 2}
   - {fileID: 2100000, guid: 761bbbf31d50ddc419438edd2dfa5834, type: 2}
+  weaponTrail: {fileID: 0}
 --- !u!114 &1045404800596999195
 MonoBehaviour:
   m_ObjectHideFlags: 0

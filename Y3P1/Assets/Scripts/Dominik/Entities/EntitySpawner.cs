@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System.Collections.Generic;
 using UnityEngine;
 using Y3P1;
 
@@ -7,6 +8,7 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
 
     private bool canSpawn = true;
     private Collider spawnTrigger;
+    private List<Entity> spawnedEntities = new List<Entity>();
 
     //[SerializeField] private string entityObjectPoolName;
     [SerializeField] private GameObject entityPrefab;
@@ -72,7 +74,6 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         photonView.RPC("SpawnEntities", RpcTarget.All);
-        photonView.RPC("SetCanSpawn", RpcTarget.AllBuffered, false);
     }
 
     [PunRPC]
@@ -88,6 +89,8 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
             Entity newEntity = PhotonNetwork.InstantiateSceneObject(entityPrefab.name, GetRandomPos(), transform.rotation).GetComponentInChildren<Entity>();
             newEntity.health.isImmortal = spawnImmortal;
 
+            spawnedEntities.Add(newEntity);
+            //TODO: Find a way to get rid of this buffered RPC, a cleaner solution is to send the data to whoever connects.
             photonView.RPC("SetEntityInfo", RpcTarget.AllBuffered, newEntity.photonView.ViewID);
         }
     }
@@ -95,7 +98,13 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     private void SetEntityInfo(int entityID)
     {
-        Entity entity = PhotonView.Find(entityID).GetComponent<Entity>();
+        PhotonView pv = PhotonView.Find(entityID);
+        if (!pv)
+        {
+            return;
+        }
+
+        Entity entity = pv.GetComponent<Entity>();
         entity.OnDeath += () =>
         {
             if (PhotonNetwork.IsMasterClient)
@@ -109,16 +118,6 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
         };
 
         EntityManager.instance.AddToAliveTargets(entity);
-    }
-
-    [PunRPC]
-    private void SetCanSpawn(bool canSpawn)
-    {
-        this.canSpawn = canSpawn;
-        if (spawnTrigger)
-        {
-            spawnTrigger.enabled = canSpawn ? true : false;
-        }
     }
 
     private Vector3 GetRandomPos()
@@ -186,10 +185,18 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(canSpawn);
+            if (spawnTrigger)
+            {
+                stream.SendNext(spawnTrigger.enabled);
+            }
         }
         else
         {
             canSpawn = (bool)stream.ReceiveNext();
+            if (spawnTrigger)
+            {
+                spawnTrigger.enabled = (bool)stream.ReceiveNext();
+            }
         }
     }
 }

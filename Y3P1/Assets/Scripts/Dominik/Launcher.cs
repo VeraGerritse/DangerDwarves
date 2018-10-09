@@ -63,7 +63,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        roomPanel.SetActive(true);
+        playMenuPanel.SetActive(true);
+        //roomPanel.SetActive(true);
         connectionProgress.SetActive(false);
     }
 
