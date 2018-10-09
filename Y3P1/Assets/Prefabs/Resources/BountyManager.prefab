@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &6565914077446542912 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1280665594}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &360604737
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,7 +718,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2559465403299657368}
   m_Direction: 0
   m_Value: 0.9999991
-  m_Size: 0.9638476
+  m_Size: 0.96384776
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1246,7 +1252,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -16.800018, y: -0.000034951165}
+  m_AnchoredPosition: {x: -16.799988, y: -0.000018806322}
   m_SizeDelta: {x: 16.8, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4621723037839369473
@@ -1272,12 +1278,6 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
---- !u!4 &6565914077446542912 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1280665594}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4631268020249587534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,7 +1556,7 @@ RectTransform:
   m_Father: {fileID: 618028263167261828}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.036152422, y: 0}
+  m_AnchorMin: {x: 0.036152244, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -2049,21 +2049,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
         type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
-        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
@@ -2084,28 +2069,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
         type: 3}
-      propertyPath: m_RootOrder
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
         type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90.00001
-      objectReference: {fileID: 0}
-    - target: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3741289052965386034, guid: 0e2662363b0a8224db02ffbdffa4bab0,
-        type: 3}
-      propertyPath: m_Name
-      value: Dwarven_Face_Statue
+      propertyPath: m_LocalPosition.y
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
         type: 3}
@@ -2121,6 +2091,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90.00001
       objectReference: {fileID: 0}
     - target: {fileID: 7264653745700191187, guid: 0e2662363b0a8224db02ffbdffa4bab0,
         type: 3}

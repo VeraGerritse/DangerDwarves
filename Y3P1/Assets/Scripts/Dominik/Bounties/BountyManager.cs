@@ -172,7 +172,7 @@ public class BountyManager : MonoBehaviourPunCallbacks
     {
         if (activeBounty != null)
         {
-            photonView.RPC("SyncActiveBounty", RpcTarget.All, activeBounty.progress);
+            photonView.RPC("SyncActiveBounty", RpcTarget.All, activeBounty.bountyName, activeBounty.progress);
         }
     }
 }
