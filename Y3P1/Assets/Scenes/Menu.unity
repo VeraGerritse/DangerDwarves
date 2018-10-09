@@ -6520,5 +6520,20 @@ PrefabInstance:
       propertyPath: m_sendNavigationEvents
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7971783874125841899, guid: 41d322eb211565d4c92d40077ca0795a,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7971783874125841899, guid: 41d322eb211565d4c92d40077ca0795a,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7892600969668640213, guid: 41d322eb211565d4c92d40077ca0795a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41d322eb211565d4c92d40077ca0795a, type: 3}

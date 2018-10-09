@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 namespace Y3P1
 {
@@ -33,6 +33,7 @@ namespace Y3P1
         [SerializeField] private bool showLoadingBar = true;
         [SerializeField] private GameObject loadingBar;
         [SerializeField] private Image loadingBarFill;
+        [SerializeField] private GameObject loadingHubText;
 
         [Header("Pause Game")]
         [SerializeField] private string pauseInputButton = "Cancel";
@@ -160,6 +161,8 @@ namespace Y3P1
                 loadingBar.SetActive(true);
             }
 
+            loadingHubText.SetActive(index == 1 ? true : false);
+
             // Load the level asynchronously and output the progress to the loading bar.
             AsyncOperation loadScene = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(index);
             while (!loadScene.isDone)
@@ -168,8 +171,15 @@ namespace Y3P1
                 yield return null;
             }
 
+            if (loadingHubText.activeInHierarchy && Photon.Pun.PhotonNetwork.IsConnected)
+            {
+                // Havent figured out a clean way to do this so for now when were loading the hub i'll wait a little bit longer for the ObjectPooler and buffered RPC's to finish their thing.
+                yield return new WaitForSeconds(0.5f);
+            }
+
             // Deactivate the loading bar.
             loadingBar.SetActive(false);
+            loadingHubText.SetActive(false);
 
             // Set the transition speed and display another transition animation.
             transitionAnim.speed = tSpeedOut;
