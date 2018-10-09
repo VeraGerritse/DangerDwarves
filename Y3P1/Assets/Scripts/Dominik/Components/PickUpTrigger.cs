@@ -18,6 +18,12 @@ public class PickUpTrigger : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                if (myItemPrefab.myItem is Gold)
+                {
+                    myItemPrefab.PickUp();
+                    return;
+                }
+
                 if (!Player.localPlayer.myInventory.CheckFull())
                 {
                     myItemPrefab.PickUp();

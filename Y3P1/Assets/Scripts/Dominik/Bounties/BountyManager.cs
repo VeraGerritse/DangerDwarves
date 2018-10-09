@@ -136,7 +136,7 @@ public class BountyManager : MonoBehaviourPunCallbacks
     public void CompleteBounty(string bountyName)
     {
         photonView.RPC("SyncCompleteBounty", RpcTarget.All);
-        NotificationManager.instance.NewNotification("<color=yellow>" + PhotonNetwork.NickName + "</color> has <b>completed</b> the bounty: <color=yellow>" + bountyName + "</color>!");
+        NotificationManager.instance.NewNotification("Bounty <b>completed</b>: <color=yellow>" + bountyName + "</color>!");
     }
 
     [PunRPC]
@@ -157,6 +157,14 @@ public class BountyManager : MonoBehaviourPunCallbacks
                 if (availableBounties[i].entityID == entityID)
                 {
                     availableBounties[i].progress++;
+
+                    if (availableBounties[i].progress == availableBounties[i].amountToKill)
+                    {
+                        if (PhotonNetwork.IsMasterClient)
+                        {
+                            NotificationManager.instance.NewNotification("Bounty ready to complete: <color=yellow>" + availableBounties[i].bountyName + "</color>");
+                        }
+                    }
                 }
             }
         }
