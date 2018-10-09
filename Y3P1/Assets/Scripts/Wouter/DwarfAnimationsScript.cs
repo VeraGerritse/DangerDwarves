@@ -117,10 +117,13 @@ public class DwarfAnimationsScript : MonoBehaviour
         myAnim.SetFloat("HorizontalAxis", combinedAxis.x);
         myAnim.SetFloat("VerticalAxis", combinedAxis.z);
         myAnim.SetFloat("Mood", moodSpectrum);
-        if(Input.GetKeyDown("z"))
+
+        if (Input.GetKeyDown("z"))
         {
             //myAnim.SetTrigger("Flinch");
             //myAnim.SetBool("Dead", !myAnim.GetBool("Dead"));
+            //myAnim.SetBool("RangedAbilityCharging", !myAnim.GetBool("RangedAbilityCharging"));
+            myAnim.SetTrigger("RangedAbilityCharging");
         }
     }
 }
