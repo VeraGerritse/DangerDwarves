@@ -5,11 +5,13 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Y3P1;
+using Photon.Pun;
 
 public class SafeManager : MonoBehaviour {
     public static SafeManager instance;
     public SafeFile lastSafeFile;
     public Safe safe;
+    
 
     private void Start()
     {
@@ -25,26 +27,7 @@ public class SafeManager : MonoBehaviour {
         {
             safe = new Safe();
         }
-        if (File.Exists(Application.dataPath + "/SavedGame.xml"))
-        {
-            print("started Loading");
-            lastSafeFile = Load();
-            byte[] test = lastSafeFile.test;
-            if(lastSafeFile.test != null)
-            {
-                safe = (Safe)ByteArrayToObject(test);
-                print(safe +  "    safe");
-                //Safe temp = lastSafeFile.safeFile;
-                //safe.gold = temp.gold;
-                //test.inInv = temp.inInv;
-            }
-
-        }
-        else
-        {
-            lastSafeFile = new SafeFile();
-            safe = new Safe();
-        }
+        
 
     }
 
@@ -72,7 +55,7 @@ public class SafeManager : MonoBehaviour {
     {
         //NotificationManager.instance.NewNotification("is saving");
         var serializer = new XmlSerializer(typeof(SafeFile));
-        using (var stream = new System.IO.FileStream(Application.dataPath + "/SavedGame.xml", FileMode.Create))
+        using (var stream = new System.IO.FileStream(Application.persistentDataPath + "/SavedGame_" + PhotonNetwork.NickName + ".xml", FileMode.Create))
         {
             serializer.Serialize(stream, toSave);
         }
@@ -81,7 +64,21 @@ public class SafeManager : MonoBehaviour {
 
     public void LoadGame()
     {
-        NotificationManager.instance.NewNotification("AAAAAh");
+        if (File.Exists(Application.persistentDataPath + "/SavedGame_" + PhotonNetwork.NickName + ".xml"))
+        {
+            lastSafeFile = Load();
+            print(lastSafeFile + "test");
+            byte[] test = lastSafeFile.test;
+            if (lastSafeFile.test != null)
+            {
+                safe = (Safe)ByteArrayToObject(test);
+            }
+        }
+        else
+        {
+            lastSafeFile = new SafeFile();
+            safe = new Safe();
+        }
         LoadFile();
     }
 
@@ -89,7 +86,7 @@ public class SafeManager : MonoBehaviour {
     {
         print("loading");
         var serializer = new XmlSerializer(typeof(SafeFile));
-        using (var stream = new System.IO.FileStream(Application.dataPath + "/SavedGame.xml", FileMode.Open))
+        using (var stream = new System.IO.FileStream(Application.persistentDataPath + "/SavedGame_" + PhotonNetwork.NickName + ".xml", FileMode.Open))
         {
             return serializer.Deserialize(stream) as SafeFile;
         }
@@ -103,8 +100,7 @@ public class SafeManager : MonoBehaviour {
             return;
         }
 
-        safe.testItem = new Item();
-        safe.testItem.StartUp("test", 1, 1, new Stats(), 1, 1);
+
         safe.gold = Player.localPlayer.myInventory.totalGoldAmount;
         safe.inInv = Player.localPlayer.myInventory.allItems;
         lastSafeFile.test = ObjectToByteArray(safe);
@@ -118,12 +114,23 @@ public class SafeManager : MonoBehaviour {
         {
             if (safe.inInv[i] != null)
             {
-                isItem.Add(true);
+                if(safe.inInv[i].itemLevel != -1)
+                {
+                    isItem.Add(true);
+                    print(safe.inInv.Count - 1 + "true");
+                }
+                else
+                {
+                    isItem.Add(false);
+                    print(safe.inInv.Count - 1 + "false");
+                }
             }
             else
             {
                 isItem.Add(false);
+                print(safe.inInv.Count - 1 + "false");
             }
+            //print(isItem[ isItem.Count - 1] + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAh");
         }
         Player.localPlayer.myInventory.LoadInventory(safe.inInv, safe.gold,isItem);
     }
