@@ -24,4 +24,12 @@ public class AnimationEventsSpider : MonoBehaviour
     {
         ai.HitEnd();
     }
+
+    public void DestroySpider()
+    {
+        if (Photon.Pun.PhotonNetwork.IsMasterClient)
+        {
+            Photon.Pun.PhotonNetwork.Destroy(ai.gameObject);
+        }
+    }
 }

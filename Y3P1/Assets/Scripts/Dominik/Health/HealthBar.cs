@@ -28,11 +28,6 @@ public class HealthBar : MonoBehaviour
         if (entity)
         {
             entity.health.OnHealthModified += Health_OnHealthModified;
-
-            float currentPercentage = entity.health.GetHealthPercentage();
-            foregroundHealthBar.fillAmount = currentPercentage;
-            StartCoroutine(LerpBackgroundHealthBar(currentPercentage));
-
             initialised = true;
         }
     }

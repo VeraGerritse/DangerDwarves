@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,7 +10,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     private Entity target;
     private Entity targetEntity;
     private NavMeshAgent agent;
-    private Entity entity;
+    private Entity myEntity;
     private Collider[] hits = new Collider[10];
     private AttackAnimation currentAttack;
     private Vector3 toTarget;
@@ -52,8 +53,9 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        entity = GetComponentInChildren<Entity>();
-        entity.OnHitEvent.AddListener(() => Hit());
+        myEntity = GetComponentInChildren<Entity>();
+        myEntity.OnHit.AddListener(() => Hit());
+        myEntity.OnDeath += () => Die();
 
         initialChaseTrigger.OnZoneEnterEvent.AddListener(() =>
         {
@@ -282,13 +284,18 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         Entity newTarget = EntityManager.instance.GetClosestPlayer(transform);
         if (newTarget)
         {
-            photonView.RPC("SetTarget", RpcTarget.AllBuffered, newTarget.photonView.ViewID);
+            photonView.RPC("SetTarget", RpcTarget.All, newTarget.photonView.ViewID);
         }
     }
 
     [PunRPC]
     public void SetTarget(int targetID)
     {
+        if (target)
+        {
+            return;
+        }
+
         target = PhotonView.Find(targetID).GetComponent<Entity>();
         if (target)
         {
@@ -354,7 +361,6 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         canAttack = true;
         canLookAtTarget = true;
-        canMove = true;
 
         if (target)
         {
@@ -363,12 +369,31 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         initialChaseTrigger.gameObject.SetActive(true);
+        myEntity.gameObject.SetActive(true);
+        agent.isStopped = false;
         behaviourState = BehaviourState.Idle;
     }
 
     private bool TargetIsDead()
     {
         return targetEntity.health.isDead;
+    }
+
+    private void Die()
+    {
+        ResetAI();
+        initialChaseTrigger.gameObject.SetActive(false);
+        myEntity.gameObject.SetActive(false);
+        agent.isStopped = true;
+        anim.SetTrigger("Spider_death");
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        if (PhotonNetwork.IsMasterClient && target)
+        {
+            photonView.RPC("SetTarget", RpcTarget.All, target.photonView.ViewID);
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

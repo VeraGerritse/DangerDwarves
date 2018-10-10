@@ -2,12 +2,12 @@
 using UnityEngine.Events;
 using Photon.Pun;
 using System;
-using Photon.Realtime;
 
 public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
 
     [SerializeField] private int entityID;
+    [SerializeField] private bool instaDestroyOnDeath;
 
     public Health health;
     public Stats stats;
@@ -17,7 +17,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     [Space(10)]
 
-    public UnityEvent OnHitEvent;
+    public UnityEvent OnHit;
 
     public override void OnEnable()
     {
@@ -28,7 +28,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (amount <= 0)
         {
-            OnHitEvent.Invoke();
+            OnHit.Invoke();
         }
         photonView.RPC("HitRPC", RpcTarget.All, CalculateAmount(amount));
     }
@@ -79,6 +79,11 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         OnDeath();
         EntityManager.instance.RemoveFromAliveTargets(this);
         BountyManager.instance.RegisterKill(entityID);
+
+        if (PhotonNetwork.IsMasterClient && instaDestroyOnDeath)
+        {
+            PhotonNetwork.Destroy(transform.root.gameObject);
+        }
     }
 
     public void Revive()

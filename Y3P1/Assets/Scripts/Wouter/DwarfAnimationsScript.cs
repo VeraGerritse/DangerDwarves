@@ -26,7 +26,7 @@ public class DwarfAnimationsScript : MonoBehaviour
             Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
             Player.localPlayer.entity.OnDeath += () => myAnim.SetBool("Dead", true);
             Player.localPlayer.entity.OnRevive += () => myAnim.SetBool("Dead", false);
-            Player.localPlayer.entity.OnHitEvent.AddListener(() => myAnim.SetTrigger("Flinch"));
+            Player.localPlayer.entity.OnHit.AddListener(() => myAnim.SetTrigger("Flinch"));
         }
     }
 
@@ -137,7 +137,7 @@ public class DwarfAnimationsScript : MonoBehaviour
             Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;
             Player.localPlayer.entity.OnDeath -= () => myAnim.SetBool("Dead", true);
             Player.localPlayer.entity.OnRevive -= () => myAnim.SetBool("Dead", false);
-            Player.localPlayer.entity.OnHitEvent.RemoveAllListeners();
+            Player.localPlayer.entity.OnHit.RemoveAllListeners();
         }
     }
 

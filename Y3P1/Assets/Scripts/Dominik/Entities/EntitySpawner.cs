@@ -109,7 +109,6 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (PhotonNetwork.IsMasterClient)
             {
-                PhotonNetwork.Destroy(entity.transform.root.gameObject);
                 if (entity.canDropLoot)
                 {
                     Player.localPlayer.myInventory.DropNewItem(entity.transform.position);
