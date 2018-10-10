@@ -5,5 +5,5 @@ using System.Collections.Generic;
 public class Safe {
     public List<Item> inInv = new List<Item>();
     public int gold;
-    public Item testItem;
+    public string pathName;
 }
