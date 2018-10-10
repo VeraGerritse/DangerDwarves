@@ -671,7 +671,7 @@ public class Inventory : MonoBehaviourPunCallbacks
             {
                 if (LootRandomizer.instance != null)
                 {
-                    Item newItem = LootRandomizer.instance.DropLoot(100);
+                    Item newItem = LootRandomizer.instance.DropLoot(10 + averageILevel);
                     if (newItem == null)
                     {
                         return;
