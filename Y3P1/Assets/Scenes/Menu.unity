@@ -3556,6 +3556,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0667d78cf36eea845a7e272775b8c256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastSafeFile:
+    test: 
+  safe:
+    inInv: []
+    gold: 0
+    pathName: 
 --- !u!1 &1167396495
 GameObject:
   m_ObjectHideFlags: 0
