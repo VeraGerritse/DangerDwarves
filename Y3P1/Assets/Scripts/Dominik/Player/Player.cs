@@ -9,12 +9,16 @@ namespace Y3P1
         public static GameObject localPlayerObject;
         public static Player localPlayer;
 
-        [Header("UI")]
-
-        [SerializeField] private GameObject playerUIPrefab;
+        [Header("Player UI")]
+        [SerializeField] private GameObject playerScreenSpaceUIPrefab;
+        [SerializeField] private GameObject playerWorldSpaceUIPrefab;
         [SerializeField] private Vector3 playerUISpawnOffset = new Vector3(0, 3, 0.2f);
+
+        [Header("Cameras")]
         [SerializeField] private GameObject playerUICam;
         [SerializeField] private GameObject characterCam;
+
+        [Header("Death")]
         [SerializeField] private GameObject deathCanvas;
 
         #region Components
@@ -83,7 +87,7 @@ namespace Y3P1
 
             if (PhotonNetwork.IsConnected)
             {
-                CreatePlayerUI();
+                CreateWorldSpacePlayerUI();
             }
 
             if (!IsConnectedAndMine())
@@ -107,10 +111,24 @@ namespace Y3P1
             }
         }
 
-        private void CreatePlayerUI()
+        private void Start()
         {
-            PlayerUI playerUI = Instantiate(playerUIPrefab, transform.position + playerUISpawnOffset, Quaternion.identity, transform).GetComponent<PlayerUI>();
-            playerUI.Initialise(this, IsConnectedAndMine());
+            if (!IsConnectedAndMine())
+            {
+                CreateScreenSpacePlayerUI(entity);
+            }
+        }
+
+        private void CreateWorldSpacePlayerUI()
+        {
+            PlayerUI playerUI = Instantiate(playerWorldSpaceUIPrefab, transform.position + playerUISpawnOffset, Quaternion.identity, transform).GetComponent<PlayerUI>();
+            playerUI.Initialise(this, IsConnectedAndMine(), null);
+        }
+
+        private void CreateScreenSpacePlayerUI(Entity entity)
+        {
+            PlayerUI playerUI = Instantiate(playerScreenSpaceUIPrefab, UIManager.instance.otherPlayersUISpawn.position, Quaternion.identity, UIManager.instance.otherPlayersUISpawn).GetComponent<PlayerUI>();
+            playerUI.Initialise(this, IsConnectedAndMine(), entity);
         }
 
         private void PlayerController_OnDodge(bool dodgeStart)

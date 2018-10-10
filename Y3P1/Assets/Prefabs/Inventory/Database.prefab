@@ -115,7 +115,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0bde3acf8ffc14e4aadc79409de51403, type: 3}
   helmetObject:
   - {fileID: 727557903423277189, guid: a1efd5470e995374694b1980c3adccff, type: 3}
-  - {fileID: 3406883770648804476, guid: dc1d13192ebeafe4db451921434928f0, type: 3}
+  - {fileID: 2692977427856111209, guid: dc1d13192ebeafe4db451921434928f0, type: 3}
   trinketNames:
   - Arcane Orb
   - Transcendence

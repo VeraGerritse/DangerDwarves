@@ -9,6 +9,7 @@ public class PlayerUI : MonoBehaviour
     private Player target;
 
     [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private HealthBar healthBar;
 
     private void Update()
     {
@@ -18,7 +19,7 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    public void Initialise(Player target, bool local)
+    public void Initialise(Player target, bool local, Entity entity)
     {
         if (!target)
         {
@@ -29,6 +30,11 @@ public class PlayerUI : MonoBehaviour
         if (nameText)
         {
             nameText.text = local ? "" : target.photonView.Owner.NickName;
+        }
+
+        if (entity && healthBar)
+        {
+            healthBar.Initialise(entity);
         }
 
         isInitialised = true;

@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
 
     public static bool hasOpenUI;
 
+    public Transform otherPlayersUISpawn;
+
     private void Awake()
     {
         if (!instance)
