@@ -86,6 +86,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2c396ab04836bc445b9cae6ad436b9d7, type: 3}
   axeObject:
   - {fileID: 5980796425491674147, guid: edce065c4f7d2e64db6390cafb86c7ed, type: 3}
+  - {fileID: 5980796425491674147, guid: c669be2b4a229374c890df3aed91f6ff, type: 3}
   swordNames:
   - Sword
   - Greatsword

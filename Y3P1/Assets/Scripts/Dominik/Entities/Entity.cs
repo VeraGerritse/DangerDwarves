@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using Photon.Pun;
 using System;
+using Photon.Realtime;
 
 public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -84,6 +85,17 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     {
         OnRevive();
         health.ResetHealth();
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        photonView.RPC("SyncHealth", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void SyncHealth()
+    {
+        health.UpdateHealth();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
