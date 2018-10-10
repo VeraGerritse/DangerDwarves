@@ -36,38 +36,79 @@ public class LootRandomizer : MonoBehaviour {
 
     public Item DropLoot(int currentItemLevel)
     {
+        int dontDrop = Random.Range(0, 100);
+        if(dontDrop < 50)
+        {
+            return null;
+        }
+
         int drop = Random.Range(0, 100);
         if(drop < 50)
         {
             return LootGold(currentItemLevel);
         }
 
-        int randomType = Random.Range(0, amountTypes);
+        int randomType = Random.Range(0, 3);
         Item newItem = null;
         switch (randomType)
         {
             case 0:
-                newItem = LootCrossbow(currentItemLevel);
-                break;
+                newItem = LootWeapon(currentItemLevel);
+                break;         
             case 1:
-                newItem = LootAxe(currentItemLevel);
-                break;
-            case 2:
-                newItem = LootHammer(currentItemLevel);
-                break;
-            case 3:
-                newItem = LootSword(currentItemLevel);
-                break;
-            case 4:
                 newItem = LootHelmet(currentItemLevel);
                 break;
-            case 5:
+            case 2:
                 newItem = LootTrinket(currentItemLevel);
                 break;
         }     
+        return newItem;
+    }
+
+    private Item LootWeapon(int cI)
+    {
+        int randomType = Random.Range(0, 5);
+        Item newItem = null;
+        switch (randomType)
+        {
+            case 0:
+                newItem = LootCrossbow(cI);
+                break;
+            case 1:
+                newItem = LootAxe(cI);
+                break;
+            case 2:
+                newItem = LootHammer(cI);
+                break;
+            case 3:
+                newItem = LootSword(cI);
+                break;
+            case 4:
+                newItem = LootOtherWeapon(cI);
+                break;
+        }
 
         return newItem;
     }
+
+    private Item LootOtherWeapon(int currentItemLevel)
+    {
+        Item otherWeapon = new Weapon_Melee();
+        int rarity = Rarity();
+        int nIL = NewItemLevel(rarity, currentItemLevel);
+        int myItem = Database.hostInstance.OW();
+        bool rOL = false;
+        if (rarity >= 2)
+        {
+            rOL = true;
+        }
+        string secun = Database.hostInstance.GetMeleeSecundary(rOL);
+        otherWeapon.StartUp(Database.hostInstance.GetOWName(myItem), rarity, Database.hostInstance.GetOWSprite(myItem), NewStats(nIL), Database.hostInstance.GetOWObject(myItem), nIL);
+        otherWeapon.StartWeapon(BaseDamage(nIL), FireRate(), secun, SecundaryFR(), ChargeTime(), Force(), 1, 0, Buff(secun), Single(secun));
+        otherWeapon.StartMelee(Range(), 0);
+        return otherWeapon;
+    }
+
     private Item LootGold(int currentItemLevel)
     {
         Item newItem = new Gold();
@@ -84,19 +125,6 @@ public class LootRandomizer : MonoBehaviour {
         Item testItem = new Weapon_Melee();
         int rarity = Rarity();
         int nIL = NewItemLevel(rarity, currentItemLevel);
-        int degreesSecun = Degrees();
-        int degreesPri = Degrees();
-        int amountSecun = 1;
-        int amountPrim = 1;
-
-        if (degreesSecun != 0)
-        {
-            amountSecun = AmountSecun();
-        }
-        if (degreesPri != 0)
-        {
-            amountPrim = AmountPrimary();
-        }
 
         bool rOL = false;
         if (rarity >= 2)

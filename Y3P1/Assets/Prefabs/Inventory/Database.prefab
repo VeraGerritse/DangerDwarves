@@ -64,10 +64,24 @@ MonoBehaviour:
   singleSecondary:
   - Arrow_Animated
   - Arrow_Volley
+  oWNames:
+  - Pickaxe
+  - Torch
+  oWSprite:
+  - {fileID: 21300000, guid: c5ead9b7a2fa9074cb23976e823511e1, type: 3}
+  - {fileID: 21300000, guid: f2ebb1d647b49bb46a559f9874a42a74, type: 3}
+  oWObject:
+  - {fileID: 5980796425491674147, guid: c669be2b4a229374c890df3aed91f6ff, type: 3}
+  - {fileID: 5980796425491674147, guid: b2d30bc724e18014f99f542c82a36f73, type: 3}
   crossbowNames:
   - Bow
   - Crossbow
   - LongBow
+  - Eagles descent
+  - Wind fire
+  - Hunters crossbow
+  - Dragon string
+  - CrossPath
   crossbowSprite:
   - {fileID: 21300000, guid: 09373a73ee29b0e47b2538b286123831, type: 3}
   - {fileID: 21300000, guid: 378230571bbf3c4499cb85633d3afffd, type: 3}
@@ -75,8 +89,13 @@ MonoBehaviour:
   - {fileID: 5980796425491674147, guid: 11c494545ececfd42a01d9632e35e826, type: 3}
   axeNames:
   - Axe
-  - Greataxe
+  - Great Axe
   - Dwarven Axe
+  - Splitter
+  - Lockjaw
+  - Soul splitter
+  - Heavy Axe
+  - War Axe
   axeSprite:
   - {fileID: 21300000, guid: b5c92ae8f029add43a9023b8f4918c06, type: 3}
   - {fileID: 21300000, guid: 4c0f0e71da702d84c9f34e28484d7001, type: 3}
@@ -86,11 +105,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2c396ab04836bc445b9cae6ad436b9d7, type: 3}
   axeObject:
   - {fileID: 5980796425491674147, guid: edce065c4f7d2e64db6390cafb86c7ed, type: 3}
-  - {fileID: 5980796425491674147, guid: c669be2b4a229374c890df3aed91f6ff, type: 3}
   swordNames:
   - Sword
   - Greatsword
-  - Great holy amazing blade
+  - Orc Slasher
+  - Mist Slasher
+  - Blade of the dephts
+  - Molten Blade
+  - Needle
+  - Short Sword
+  - Long Sword
+  - Bastard Sword
   swordSprite:
   - {fileID: 21300000, guid: 1d2acff5fd149f140ad3afc8f644bd11, type: 3}
   - {fileID: 21300000, guid: 83cc72fd9307d904fac3b34ba6812253, type: 3}
@@ -101,27 +126,43 @@ MonoBehaviour:
   - Hammer
   - Dwarven Hammer
   - Doomhammer
-  - Skull Crusher
+  - The Buster
+  - Skull Smasher
+  - War Hammer
+  - Mjolnir
+  - Meat Mallet
+  - Molten Hammer
+  - Dust Bringer
   hammerSprite:
   - {fileID: 21300000, guid: 8a4044b5546cdff4794a2a78bba18d4d, type: 3}
   - {fileID: 21300000, guid: 7f4d7586b71bc87449ea18483b51c4b1, type: 3}
   hammerObject:
   - {fileID: 5980796425491674147, guid: af6855acc7d5fc143aae18749f17179c, type: 3}
-  - {fileID: 5980796425491674147, guid: b2d30bc724e18014f99f542c82a36f73, type: 3}
   helmetNames:
   - helmet
   - Warrior Helmet
   - Commander Helmet
+  - Helmet of the Dwarven King
+  - Kings Skull
+  - Dwarven Helmet
+  - Melucius
   helmetSprite:
   - {fileID: 21300000, guid: 90b457ad05104f14397228dfc0b450b2, type: 3}
   - {fileID: 21300000, guid: 0bde3acf8ffc14e4aadc79409de51403, type: 3}
   helmetObject:
   - {fileID: 727557903423277189, guid: a1efd5470e995374694b1980c3adccff, type: 3}
-  - {fileID: 2692977427856111209, guid: dc1d13192ebeafe4db451921434928f0, type: 3}
+  - {fileID: 2789109688068099712, guid: dc1d13192ebeafe4db451921434928f0, type: 3}
   trinketNames:
   - Arcane Orb
   - Transcendence
   - Herlors Gift
+  - Mountains Gem
+  - The All Seeing Eye
+  - Gracedal
+  - Gem of Tharim
+  - Eye of the Light
+  - Elven Stones
+  - Kings Blessing
   trinketSprite:
   - {fileID: 21300000, guid: eee8dd7977d9a2d42aa636731903a3f9, type: 3}
   - {fileID: 21300000, guid: 24075bd85c99b0c45893e5525ed25a8e, type: 3}

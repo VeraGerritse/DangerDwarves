@@ -20,6 +20,11 @@ public class Database : MonoBehaviour {
     public List<string> secundaryBuffs = new List<string>();
     public List<string> singleSecondary = new List<string>();
 
+    [Header("Other Weapons")]
+    [SerializeField] private List<string> oWNames = new List<string>();
+    public List<Sprite> oWSprite = new List<Sprite>();
+    public List<GameObject> oWObject = new List<GameObject>();
+
     [Header("Crossbow")]
     [SerializeField] private List<string> crossbowNames = new List<string>();
     public List<Sprite> crossbowSprite = new List<Sprite>();
@@ -70,6 +75,7 @@ public class Database : MonoBehaviour {
         allGameobjects.AddRange(helmetObject);
         allGameobjects.AddRange(trinketObject);
         allGameobjects.AddRange(goldObject);
+        allGameobjects.AddRange(oWObject);
 
         allSprites.AddRange(crossbowSprite);
         allSprites.AddRange(axeSprite);
@@ -77,6 +83,12 @@ public class Database : MonoBehaviour {
         allSprites.AddRange(hammerSprite);
         allSprites.AddRange(helmetSprite);
         allSprites.AddRange(trinketSprite);
+        allSprites.AddRange(oWSprite);
+    }
+
+    public int OW()
+    {
+        return Random.Range(0, oWNames.Count);
     }
 
     // secundary's
@@ -102,6 +114,11 @@ public class Database : MonoBehaviour {
     }
 
     //names
+
+    public string GetOWName(int i)
+    {
+        return oWNames[i];
+    }
 
     public string GetCrossbowName()
     {
@@ -134,6 +151,19 @@ public class Database : MonoBehaviour {
     }
 
     //sprites
+
+    public int GetOWSprite(int o)
+    {
+        int index = 0;
+        for (int i = 0; i < allSprites.Count; i++)
+        {
+            if (oWSprite[o] == allSprites[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
 
     public int GetCrossbowSprite()
     {
@@ -243,6 +273,19 @@ public class Database : MonoBehaviour {
         for (int i = 0; i < allGameobjects.Count; i++)
         {
             if (myObj == allGameobjects[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public int GetOWObject(int o)
+    {
+        int index = 0;
+        for (int i = 0; i < allGameobjects.Count; i++)
+        {
+            if (oWObject[o] == allGameobjects[i])
             {
                 index = i;
             }
