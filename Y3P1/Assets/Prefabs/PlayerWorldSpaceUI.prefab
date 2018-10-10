@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!224 &76978031622603581 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+    type: 3}
+  m_PrefabInstance: {fileID: 4713980292210503603}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &232
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +240,6 @@ GameObject:
   m_Component:
   - component: {fileID: 538}
   - component: {fileID: 424}
-  - component: {fileID: 6957390735560402160}
   - component: {fileID: 1630565939507180901}
   m_Layer: 0
   m_Name: NameCanvas
@@ -284,25 +289,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: -1
   m_TargetDisplay: 0
---- !u!95 &6957390735560402160
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 235}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!222 &1630565939507180901
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -323,7 +309,7 @@ GameObject:
   - component: {fileID: 732}
   - component: {fileID: 733}
   m_Layer: 0
-  m_Name: PlayerUI
+  m_Name: PlayerWordSpaceUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,12 +357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 583b770bbbd48eb47892bf39252b47c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &76978031622603581 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
-    type: 3}
-  m_PrefabInstance: {fileID: 4713980292210503603}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4713980292210503603
 PrefabInstance:
   m_ObjectHideFlags: 0
