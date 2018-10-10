@@ -10,7 +10,7 @@ using Y3P1;
 public class Inventory : MonoBehaviourPunCallbacks
 {
     public List<InventorySlot> allSlots = new List<InventorySlot>();
-    [SerializeField] private List<Item> allItems = new List<Item>();
+    public List<Item> allItems = new List<Item>();
     public InventorySlot currentSlot;
     public InventorySlot lastSlot;
     public Item drag;
@@ -362,6 +362,8 @@ public class Inventory : MonoBehaviourPunCallbacks
     IEnumerator Time()
     {
         yield return new WaitForSeconds(0.1f);
+        CalculateArmor();
+        SafeManager.instance.LoadGame();
         CalculateArmor();
         UpdateGold(0);
     }
@@ -800,12 +802,13 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
 
         currentStats = together;
+        print(currentStats + " staaas");
         Player.localPlayer.entity.UpdateStats(together);
         averageILevel = iLevel / 3;
         SetInfo();
     }
 
-    public string[] Stats()
+    public string[] Stat()
     {
         return new string[] { "Stamina: <color=#00A8FF>" + currentStats.stamina.ToString(), "Strenght: <color=#00A8FF>" + currentStats.strength.ToString(), "Agility: <color=#00A8FF>" + currentStats.agility.ToString(), "Willpower: <color=#00A8FF>" + currentStats.willpower.ToString(), "Defence: <color=#00A8FF>" + currentStats.defense.ToString() };
     }
@@ -817,7 +820,12 @@ public class Inventory : MonoBehaviourPunCallbacks
 
     public void SetInfo()
     {
-        StatsInfo.instance.SetPlayerStats(Stats(), ILevel());
+        if(currentStats == null)
+        {
+            currentStats = new Stats();
+        }
+        print(currentStats+ "aaaah");
+        StatsInfo.instance.SetPlayerStats(Stat(), ILevel());
     }
 
     public bool InventoryIsOpen()
@@ -834,5 +842,43 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
         GameObject newObj = Database.hostInstance.allGameobjects[newItem.prefabIndex];
         SaveItem(newItem, newObj.name,loc);
+    }
+
+    public void LoadInventory(List<Item>saved,int gold, List<bool> isItem)
+    {
+        UpdateGold(gold);
+        if (saved == null)
+        {
+
+                return;
+
+        }
+        for (int i = 0; i < allItems.Count; i++)
+        {
+            if(i < saved.Count)
+            {
+                //allItems[i] = saved[i];
+                print(saved[i]);
+                if(isItem[i])
+                {
+                    allItems[i] = saved[i];
+                    allSlots[i].SetImage(Database.hostInstance.allSprites[allItems[i].spriteIndex]);
+                    allSlots[i].EnableImage();
+                    if (allSlots[i].slotType == InventorySlot.SlotType.weapon)
+                    {
+                        allSlots[i].EquipWeapon((Weapon)saved[i]);
+                    }
+                    if (allSlots[i].slotType == InventorySlot.SlotType.helmet)
+                    {
+                        allSlots[i].EquipHelmet((Helmet)saved[i]);
+                    }
+                    if (allSlots[i].slotType == InventorySlot.SlotType.trinket)
+                    {
+                        allSlots[i].EquipTrinket((Trinket)saved[i]);
+                    }
+                }
+
+            }
+        }
     }
 }

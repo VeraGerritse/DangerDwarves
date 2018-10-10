@@ -10,7 +10,7 @@ public class Item
     public Stats myStats;
     // public GameObject itemPrefab;
     public int prefabIndex;
-    public int itemLevel = 1;    
+    public int itemLevel = -1;    
 
     public virtual void StartUp(string name, int rarity,int Mysprite,Stats myStat,int myObj,int iLevel)
     {
