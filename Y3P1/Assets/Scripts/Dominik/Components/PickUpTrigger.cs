@@ -14,7 +14,7 @@ public class PickUpTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (checkForInput)
+        if (checkForInput && !Player.localPlayer.entity.health.isDead)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {

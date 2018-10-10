@@ -58,19 +58,28 @@ public class WeaponPrefab : ItemPrefab
 
             int collidersFound = Physics.OverlapSphereNonAlloc(transform.position, weapon.attackRange, meleeHits);
 
+            bool pvp = false;
+            for (int i = 0; i < collidersFound; i++)
+            {
+                if (meleeHits[i].transform.tag == "PvPZone")
+                {
+                    pvp = true;
+                }
+            }
+
             for (int i = 0; i < collidersFound; i++)
             {
                 Entity entity = meleeHits[i].GetComponent<Entity>();
                 if (entity)
                 {
-                    if (meleeHits[i].transform.tag != "Player")
+                    if (pvp ? meleeHits[i].transform.tag == "Player" : meleeHits[i].transform.tag != "Player")
                     {
                         Vector3 toHit = meleeHits[i].transform.position - Player.localPlayer.playerController.body.position;
                         if (Vector3.Dot(Player.localPlayer.playerController.body.forward, toHit) > 0)
                         {
                             entity.Hit(-(weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Melee)));
 
-                            if (weapon.knockBack > 0)
+                            if (weapon.knockBack > 0 && !pvp)
                             {
                                 Rigidbody rb = entity.transform.parent.GetComponent<Rigidbody>();
                                 if (rb)

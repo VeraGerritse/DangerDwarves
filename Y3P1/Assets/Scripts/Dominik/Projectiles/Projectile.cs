@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody rb;
     private PhotonView photonView;
+    private Target defaultDamageTarget;
     protected bool hitAnything;
     private Transform owner;
     public enum Target { Enemy, Player };
@@ -35,11 +36,13 @@ public class Projectile : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         photonView = GetComponent<PhotonView>();
+        defaultDamageTarget = damageTarget;
     }
 
     public virtual void OnEnable()
     {
         hitAnything = false;
+        damageTarget = defaultDamageTarget;
         Invoke("ReturnToPool", selfDestroyTime);
     }
 

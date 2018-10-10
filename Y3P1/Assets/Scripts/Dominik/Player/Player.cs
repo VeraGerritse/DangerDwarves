@@ -1,5 +1,4 @@
 ﻿using Photon.Pun;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Y3P1
@@ -82,6 +81,11 @@ namespace Y3P1
             characterCam.SetActive(IsConnectedAndMine() ? true : false);
             Destroy(IsConnectedAndMine() ? null : rb);
 
+            if (PhotonNetwork.IsConnected)
+            {
+                CreatePlayerUI();
+            }
+
             if (!IsConnectedAndMine())
             {
                 SetLayer(transform, 14);
@@ -92,11 +96,6 @@ namespace Y3P1
                     {
                         col.enabled = false;
                     }
-                }
-
-                if (PhotonNetwork.IsConnected)
-                {
-                    CreatePlayerUI();
                 }
             }
             else
@@ -111,7 +110,7 @@ namespace Y3P1
         private void CreatePlayerUI()
         {
             PlayerUI playerUI = Instantiate(playerUIPrefab, transform.position + playerUISpawnOffset, Quaternion.identity, transform).GetComponent<PlayerUI>();
-            playerUI.Initialise(this);
+            playerUI.Initialise(this, IsConnectedAndMine());
         }
 
         private void PlayerController_OnDodge(bool dodgeStart)

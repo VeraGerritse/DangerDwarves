@@ -18,7 +18,7 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
-    public void Initialise(Player target)
+    public void Initialise(Player target, bool local)
     {
         if (!target)
         {
@@ -28,7 +28,7 @@ public class PlayerUI : MonoBehaviour
         this.target = target;
         if (nameText)
         {
-            nameText.text = target.photonView.Owner.NickName;
+            nameText.text = local ? "" : target.photonView.Owner.NickName;
         }
 
         isInitialised = true;
