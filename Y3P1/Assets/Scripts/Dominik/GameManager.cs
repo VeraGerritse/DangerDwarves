@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void LeaveRoom()
     {
+        SafeManager.instance.SaveGame();
         PhotonNetwork.LeaveRoom();
     }
 

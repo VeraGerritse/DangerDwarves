@@ -40,7 +40,7 @@ public class SafeManager : MonoBehaviour {
         }
     }
 
-    void SaveGame()
+    public void SaveGame()
     {
         SafeFile();
         SavedGame(lastSafeFile);
