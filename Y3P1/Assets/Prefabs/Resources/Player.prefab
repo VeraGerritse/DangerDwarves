@@ -1169,9 +1169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2c01c9937a67c4b98c6dbcc333c415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerWorldSpaceUIPrefab: {fileID: 241, guid: 61a5a60cfa7db844ba3daff3ea02dedd,
-    type: 3}
   playerScreenSpaceUIPrefab: {fileID: 8085969611110389295, guid: 727a71f1675de5146beb8a3108e051e8,
+    type: 3}
+  playerWorldSpaceUIPrefab: {fileID: 241, guid: 61a5a60cfa7db844ba3daff3ea02dedd,
     type: 3}
   playerUISpawnOffset: {x: 0, y: 1.8, z: 0.2}
   playerUICam: {fileID: 2224781018497381817}
@@ -1402,7 +1402,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32567
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2525,7 +2525,7 @@ PrefabInstance:
     - target: {fileID: 2094361627473578287, guid: c0e03436bb6523a41ac837fa86aa5d9b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.81
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 2094361627473578287, guid: c0e03436bb6523a41ac837fa86aa5d9b,
         type: 3}
