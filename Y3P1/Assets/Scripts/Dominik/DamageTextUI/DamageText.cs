@@ -30,7 +30,7 @@ public class DamageText : MonoBehaviour
         newColor = damageText.color;
 
         transform.localScale = originalScale;
-        transform.localScale *= Mathf.Clamp((1 + Mathf.Abs(damage) / 25), 1, 2);
+        transform.localScale *= Mathf.Clamp((1 + Mathf.Abs(damage) / 50), 1, 2);
     }
 
     private void Update()
