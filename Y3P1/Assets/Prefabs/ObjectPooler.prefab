@@ -119,3 +119,8 @@ MonoBehaviour:
       type: 3}
     poolSize: 25
     autoExpand: 1
+  - poolName: TorchHit
+    poolPrefab: {fileID: 1022150738432160081, guid: 3ca7d6a528926ec43a0175bd078b5e56,
+      type: 3}
+    poolSize: 50
+    autoExpand: 1

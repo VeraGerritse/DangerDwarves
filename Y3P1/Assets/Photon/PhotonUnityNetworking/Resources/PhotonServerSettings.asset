@@ -68,4 +68,5 @@ MonoBehaviour:
   - SyncCancelBounty
   - SyncCompleteBounty
   - SyncHealth
+  - SyncReviveHealth
   DisableAutoOpenWizard: 1

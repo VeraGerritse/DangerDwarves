@@ -11,6 +11,7 @@ public class WeaponPrefab : ItemPrefab
     public MeshRenderer renderer;
     [SerializeField] private Material[] materials;
     [SerializeField] private MeleeWeaponTrail weaponTrail;
+    [SerializeField] private string prefabToSpawnOnHit;
 
     protected override void Awake()
     {
@@ -86,6 +87,11 @@ public class WeaponPrefab : ItemPrefab
                                 {
                                     rb.AddForce(toHit * weapon.knockBack, ForceMode.Impulse);
                                 }
+                            }
+
+                            if (!string.IsNullOrEmpty(prefabToSpawnOnHit))
+                            {
+                                GameObject newSpawn = ObjectPooler.instance.GrabFromPool(prefabToSpawnOnHit, meleeHits[i].transform.position, Quaternion.identity);
                             }
                         }
                     }

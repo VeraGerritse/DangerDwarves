@@ -84,18 +84,13 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     public void Revive()
     {
         OnRevive();
-        health.ResetHealth();
-    }
-
-    public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        photonView.RPC("SyncHealth", RpcTarget.All);
+        photonView.RPC("SyncReviveHealth", RpcTarget.All);
     }
 
     [PunRPC]
-    private void SyncHealth()
+    private void SyncReviveHealth()
     {
-        health.UpdateHealth();
+        health.ResetHealth();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
