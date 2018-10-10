@@ -24,6 +24,13 @@ public class Inventory : MonoBehaviourPunCallbacks
     private Stats currentStats;
     private int averageILevel = 1;
 
+    [SerializeField] private Color defaultColor;
+    [SerializeField] private Color common;
+    [SerializeField] private Color rare;
+    [SerializeField] private Color epic;
+    [SerializeField] private Color Legendary;
+
+
     public void AddSlots()
     {
         allItems.Clear();
@@ -163,6 +170,7 @@ public class Inventory : MonoBehaviourPunCallbacks
 
             RemoveItem(lastSlotIndex);
             drag = null;
+            UpdateInventoryColor();
             return;
         }
         int currentSlotIndex = 0;
@@ -240,7 +248,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
         drag = null;
         dragging = false;
-
+        UpdateInventoryColor();
     }
 
     void RemoveItem(int lSI)
@@ -357,6 +365,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     {
         allSlots[slot].EquipWeapon(null);
         CalculateArmor();
+        UpdateInventoryColor();
     }
 
     IEnumerator Time()
@@ -366,6 +375,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         SafeManager.instance.LoadGame();
         CalculateArmor();
         UpdateGold(0);
+        UpdateInventoryColor();
     }
 
     public void OpenCloseInv()
@@ -412,6 +422,7 @@ public class Inventory : MonoBehaviourPunCallbacks
                 break;
             }
         }
+        UpdateInventoryColor();
     }
 
     // for testing
@@ -604,6 +615,7 @@ public class Inventory : MonoBehaviourPunCallbacks
                     }
                 }
                 CalculateArmor();
+                UpdateInventoryColor();
             }
         }
 
@@ -645,13 +657,30 @@ public class Inventory : MonoBehaviourPunCallbacks
 
             }
             CalculateArmor();
+            UpdateInventoryColor();
         }
 
         if (Input.GetButtonDown("Tab"))
         {
             OpenCloseInv();
         }
-        if (Input.GetKeyDown(KeyCode.N))
+
+        if (Input.GetKey(KeyCode.H))
+        {
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                if (LootRandomizer.instance != null)
+                {
+                    Item newItem = LootRandomizer.instance.DropLoot(100);
+                    if (newItem == null)
+                    {
+                        return;
+                    }
+                    AddItem(newItem);
+                }
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.N))
         {
             if(LootRandomizer.instance != null)
             {
@@ -878,6 +907,38 @@ public class Inventory : MonoBehaviourPunCallbacks
                     }
                 }
 
+            }
+        }
+        UpdateInventoryColor();
+    }
+
+    private void UpdateInventoryColor()
+    {
+        print("Testing coooolors");
+        for (int i = 0; i < allSlots.Count; i++)
+        {
+            if(allItems[i] != null)
+            {
+                if(allItems[i].itemRarity == Item.ItemRarity.common)
+                {
+                    allSlots[i].GetComponent<Image>().color = common;
+                }
+                else if (allItems[i].itemRarity == Item.ItemRarity.rare)
+                {
+                    allSlots[i].GetComponent<Image>().color = rare;
+                }
+                else if (allItems[i].itemRarity == Item.ItemRarity.epic)
+                {
+                    allSlots[i].GetComponent<Image>().color = epic;
+                }
+                else if (allItems[i].itemRarity == Item.ItemRarity.legendary)
+                {
+                    allSlots[i].GetComponent<Image>().color = Legendary;
+                }
+            }
+            else
+            {
+                allSlots[i].GetComponent<Image>().color = defaultColor;
             }
         }
     }
