@@ -107,6 +107,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7f4d7586b71bc87449ea18483b51c4b1, type: 3}
   hammerObject:
   - {fileID: 5980796425491674147, guid: af6855acc7d5fc143aae18749f17179c, type: 3}
+  - {fileID: 5980796425491674147, guid: b2d30bc724e18014f99f542c82a36f73, type: 3}
   helmetNames:
   - helmet
   - Warrior Helmet
