@@ -9,7 +9,8 @@ public class InventorySlot : MonoBehaviour {
     public enum SlotType {all,weapon,helmet,trinket,nothing}
     public SlotType slotType;
     [SerializeField] private Image myItem;
-    
+    public Image myOverlay;
+
     public bool CheckSlotType()
     {
         if(slotType == SlotType.all)

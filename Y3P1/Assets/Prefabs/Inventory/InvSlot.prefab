@@ -92,6 +92,7 @@ MonoBehaviour:
   inventory: {fileID: 0}
   slotType: 0
   myItem: {fileID: 7330419138389469680}
+  myOverlay: {fileID: 860475783691005749}
 --- !u!114 &6075007996201265282
 MonoBehaviour:
   m_ObjectHideFlags: 0

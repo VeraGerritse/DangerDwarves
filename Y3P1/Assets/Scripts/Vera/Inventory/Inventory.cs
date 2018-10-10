@@ -921,24 +921,28 @@ public class Inventory : MonoBehaviourPunCallbacks
             {
                 if(allItems[i].itemRarity == Item.ItemRarity.common)
                 {
-                    allSlots[i].GetComponent<Image>().color = common;
+                    allSlots[i].myOverlay.color = common;
+                    allSlots[i].myOverlay.enabled = true;
                 }
                 else if (allItems[i].itemRarity == Item.ItemRarity.rare)
                 {
-                    allSlots[i].GetComponent<Image>().color = rare;
+                    allSlots[i].myOverlay.color = rare;
+                    allSlots[i].myOverlay.enabled = true;
                 }
                 else if (allItems[i].itemRarity == Item.ItemRarity.epic)
                 {
-                    allSlots[i].GetComponent<Image>().color = epic;
+                    allSlots[i].myOverlay.color = epic;
+                    allSlots[i].myOverlay.enabled = true;
                 }
                 else if (allItems[i].itemRarity == Item.ItemRarity.legendary)
                 {
-                    allSlots[i].GetComponent<Image>().color = Legendary;
+                    allSlots[i].myOverlay.color = Legendary;
+                    allSlots[i].myOverlay.enabled = true;
                 }
             }
             else
             {
-                allSlots[i].GetComponent<Image>().color = defaultColor;
+                allSlots[i].myOverlay.enabled = false;
             }
         }
     }
