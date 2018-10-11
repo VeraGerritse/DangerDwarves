@@ -33,6 +33,20 @@ public class DamageText : MonoBehaviour
         transform.localScale *= Mathf.Clamp((1 + Mathf.Abs(damage) / 75), 1, 2);
     }
 
+    public void Initialise(string status)
+    {
+        SetTextColor(0);
+
+        damageText.text = status;
+        transform.position += new Vector3(Random.Range(-randomSpawnOffsetX, randomSpawnOffsetX), Random.Range(-randomSpawnOffsetY, randomSpawnOffsetY), 0);
+
+        newPos = transform.position;
+        newColor = damageText.color;
+
+        transform.localScale = originalScale;
+        transform.localScale *= 0.8f;
+    }
+
     private void Update()
     {
         if (damageText.color.a > 0.1f)

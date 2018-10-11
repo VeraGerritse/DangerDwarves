@@ -22,6 +22,7 @@ public class Health
         public int maxHealth;
         public float percentageHealth;
         public int? amountHealthChanged;
+        public bool isInvinsible;
     }
 
     public void Initialise(Entity entity)
@@ -44,7 +45,7 @@ public class Health
             }
         }
         currentHealth = Mathf.Clamp(currentHealth, 0, GetMaxHealth());
-        OnHealthModified(new HealthData { currentHealth =  currentHealth, maxHealth = GetMaxHealth(), percentageHealth = GetHealthPercentage(), amountHealthChanged = amount});
+        OnHealthModified(new HealthData { currentHealth =  currentHealth, maxHealth = GetMaxHealth(), percentageHealth = GetHealthPercentage(), amountHealthChanged = amount, isInvinsible = isInvinsible});
 
         if (currentHealth <= 0 && !isDead)
         {

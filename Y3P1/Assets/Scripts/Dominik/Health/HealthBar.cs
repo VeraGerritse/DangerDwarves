@@ -59,7 +59,14 @@ public class HealthBar : MonoBehaviour
         if (healthData.amountHealthChanged != null && showDamageText)
         {
             DamageText newDamageText = ObjectPooler.instance.GrabFromPool("DamageText", transform.position, transform.rotation).GetComponent<DamageText>();
-            newDamageText.Initialise((int)healthData.amountHealthChanged);
+            if (healthData.isInvinsible)
+            {
+                newDamageText.Initialise("Dodge");
+            }
+            else
+            {
+                newDamageText.Initialise((int)healthData.amountHealthChanged);
+            }
         }
     }
 
