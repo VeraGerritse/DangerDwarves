@@ -34,6 +34,11 @@ public class HealthBar : MonoBehaviour
 
     private void Health_OnHealthModified(float percentage, int? amount)
     {
+        if (!gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
         // Check if health got decreased or added and play the according animation.
         // TODO: Add 'IncreaseHealth' animation, it just plays the decrease animation now.
         if (anim)

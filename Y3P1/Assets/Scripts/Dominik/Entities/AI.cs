@@ -33,6 +33,8 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] private int tempDamage = 10;
     [SerializeField] [Range(0, 100)] private float randomRangedAttackChance;
     [SerializeField] private float randomRangedAttackInterval = 1f;
+    [SerializeField] private bool stopWhileAttacking;
+    [SerializeField] private GameObject healthBar;
 
     [Space(10)]
 
@@ -214,6 +216,11 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         {
             ProjectileAttack();
         }
+
+        if (stopWhileAttacking)
+        {
+            agent.isStopped = true;
+        }
     }
 
     private void AnimationAttack()
@@ -371,6 +378,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         initialChaseTrigger.gameObject.SetActive(true);
         myEntity.gameObject.SetActive(true);
         agent.isStopped = false;
+        healthBar.SetActive(true);
         behaviourState = BehaviourState.Idle;
     }
 
@@ -386,6 +394,11 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         myEntity.gameObject.SetActive(false);
         agent.isStopped = true;
         anim.SetTrigger("Spider_death");
+    }
+
+    public void DisableHealthbar()
+    {
+        healthBar.SetActive(false);
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)

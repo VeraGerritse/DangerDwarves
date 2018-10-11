@@ -32,4 +32,9 @@ public class AnimationEventsSpider : MonoBehaviour
             Photon.Pun.PhotonNetwork.Destroy(ai.gameObject);
         }
     }
+
+    public void DisableHealthbar()
+    {
+        ai.DisableHealthbar();
+    }
 }
