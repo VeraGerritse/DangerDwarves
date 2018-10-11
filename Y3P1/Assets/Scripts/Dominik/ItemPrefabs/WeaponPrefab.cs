@@ -161,7 +161,7 @@ public class WeaponPrefab : ItemPrefab
     }
 
     [PunRPC]
-    private void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float force, int damage, int amountOfProjectiles, int coneOfFireInDegrees, Vector3 mousePos, int ownerID)
+    private void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float speed, int damage, int amountOfProjectiles, int coneOfFireInDegrees, Vector3 mousePos, int ownerID)
     {
         // Firing in a straight line.
         if (coneOfFireInDegrees == 0)
@@ -171,7 +171,7 @@ public class WeaponPrefab : ItemPrefab
                 Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, rotation).GetComponent<Projectile>();
                 newProjectile.Fire(new Projectile.FireData
                 {
-                    speed = force,
+                    speed = speed,
                     damage = damage,
                     mousePos = mousePos,
                     ownerID = ownerID
@@ -192,7 +192,7 @@ public class WeaponPrefab : ItemPrefab
                 Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, Quaternion.Euler(rot)).GetComponent<Projectile>();
                 newProjectile.Fire(new Projectile.FireData
                 {
-                    speed = force,
+                    speed = speed,
                     damage = damage,
                     mousePos = mousePos,
                     ownerID = ownerID
@@ -201,6 +201,22 @@ public class WeaponPrefab : ItemPrefab
                 rot.y += angleStep;
             }
         }
+    }
+
+    public void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, int speed, int damage)
+    {
+        photonView.RPC("FireBuffProjectile", RpcTarget.All, position, rotation, projectilePoolName, speed, damage);
+    }
+
+    [PunRPC]
+    private void FireBuffProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, int speed, int damage)
+    {
+        Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, rotation).GetComponent<Projectile>();
+        newProjectile.Fire(new Projectile.FireData
+        {
+            speed = speed,
+            damage = damage
+        });
     }
 
     [PunRPC]

@@ -129,3 +129,13 @@ MonoBehaviour:
       type: 3}
     poolSize: 50
     autoExpand: 1
+  - poolName: Windslash
+    poolPrefab: {fileID: 3716037247890611631, guid: 927556504a520ea41a0f9cddc5ec5f35,
+      type: 3}
+    poolSize: 50
+    autoExpand: 1
+  - poolName: Buff_Windslash
+    poolPrefab: {fileID: 3716037247890611631, guid: 820411f8c74da3445969ecf59352be7c,
+      type: 3}
+    poolSize: 10
+    autoExpand: 1

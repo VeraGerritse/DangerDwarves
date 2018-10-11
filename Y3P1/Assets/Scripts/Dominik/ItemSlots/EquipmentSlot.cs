@@ -6,7 +6,7 @@ public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
 {
 
     protected Item currentEquipment;
-    protected GameObject equipedItem;
+    [HideInInspector] public GameObject equipedItem;
     protected GameObject decoyEquipedItem;
 
     public event Action OnEquip = delegate { };

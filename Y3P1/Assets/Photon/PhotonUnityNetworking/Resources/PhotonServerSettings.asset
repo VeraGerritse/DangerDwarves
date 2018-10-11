@@ -70,4 +70,5 @@ MonoBehaviour:
   - SyncHealth
   - SyncReviveHealth
   - SyncRevive
+  - FireBuffProjectile
   DisableAutoOpenWizard: 1

@@ -57,10 +57,12 @@ MonoBehaviour:
   - 
   - Buff_Thorns
   - Buff_Heal
+  - Buff_Windslash
   primaryAttacks: []
   secundaryBuffs:
   - Buff_Thorns
   - Buff_Heal
+  - Buff_Windslash
   singleSecondary:
   - Arrow_Animated
   - Arrow_Volley
