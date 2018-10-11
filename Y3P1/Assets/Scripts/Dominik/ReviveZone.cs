@@ -26,7 +26,7 @@ public class ReviveZone : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
-        if (checkForInput)
+        if (checkForInput && !photonView.IsMine)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -56,27 +56,19 @@ public class ReviveZone : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !photonView.IsMine)
         {
-            Player player = other.transform.root.GetComponent<Player>();
-            if (player != this.player)
-            {
-                checkForInput = true;
-                interactIndicator.SetActive(true);
-            }
+            checkForInput = true;
+            interactIndicator.SetActive(true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !photonView.IsMine)
         {
-            Player player = other.transform.root.GetComponent<Player>();
-            if (player != this.player)
-            {
-                checkForInput = false;
-                interactIndicator.SetActive(false);
-            }
+            checkForInput = false;
+            interactIndicator.SetActive(false);
         }
     }
 
@@ -84,6 +76,7 @@ public class ReviveZone : MonoBehaviourPunCallbacks, IPunObservable
     {
         reviveZoneObject.SetActive(b);
         reviveZoneCollider.enabled = b;
+        interactIndicator.SetActive(false);
     }
 
     public void ToggleRevive(bool b)
@@ -95,6 +88,14 @@ public class ReviveZone : MonoBehaviourPunCallbacks, IPunObservable
     private void Revive()
     {
         reviving = false;
+        photonView.RPC("SyncRevive", RpcTarget.All);
+        NotificationManager.instance.NewNotification("<color=red>" + PhotonNetwork.NickName + "</color> has been revived!");
+    }
+
+    [PunRPC]
+    private void SyncRevive()
+    {
+        ToggleReviveZone(false);
         player.Respawn(false);
     }
 
