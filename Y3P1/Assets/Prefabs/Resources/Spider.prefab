@@ -319,6 +319,9 @@ MonoBehaviour:
   randomRangedAttackInterval: 1
   stopWhileAttacking: 0
   healthBar: {fileID: 4528157252122662173}
+  deathAnimation: Spider_death
+  walkAnimation: Is Walking
+  hitAnimation: Spider_hit
   anim: {fileID: 388493675155602467}
   initialChaseTrigger: {fileID: 2835736222214007849}
 --- !u!195 &2064121580250200424

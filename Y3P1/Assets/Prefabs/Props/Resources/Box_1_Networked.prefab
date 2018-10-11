@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 274281806561154788}
   - component: {fileID: 7468111864040099976}
   - component: {fileID: 5452511651209801439}
+  - component: {fileID: 6775507204971711961}
   m_Layer: 0
   m_Name: Box_1_Networked
   m_TagString: Untagged
@@ -66,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityID: 0
+  instaDestroyOnDeath: 1
   health:
     isImmortal: 0
     isInvinsible: 0
@@ -79,7 +81,7 @@ MonoBehaviour:
     willpower: 0
     defense: 0
   canDropLoot: 1
-  OnHitEvent:
+  OnHit:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -106,6 +108,19 @@ MonoBehaviour:
   viewIdField: 999
   InstantiationId: 999
   isRuntimeInstantiated: 0
+--- !u!65 &6775507204971711961
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271214002197388943}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.40535736, y: 0.6907778, z: 0.41120565}
+  m_Center: {x: 0, y: 0.39115787, z: 0}
 --- !u!1001 &3091396008332545978
 PrefabInstance:
   m_ObjectHideFlags: 0

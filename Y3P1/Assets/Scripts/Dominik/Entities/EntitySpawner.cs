@@ -8,10 +8,8 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
 
     private bool canSpawn = true;
     private Collider spawnTrigger;
-    private List<Entity> spawnedEntities = new List<Entity>();
 
-    //[SerializeField] private string entityObjectPoolName;
-    [SerializeField] private GameObject entityPrefab;
+    [SerializeField] private List<GameObject> entityPrefabs = new List<GameObject>();
 
     [Header("Spawn Settings")]
     [SerializeField] private bool spawnOnAwake;
@@ -73,11 +71,11 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
             spawnTrigger.enabled = false;
         }
 
-        photonView.RPC("SpawnEntities", RpcTarget.All);
+        photonView.RPC("SpawnEntities", RpcTarget.All, entityPrefabs[Random.Range(0, entityPrefabs.Count)].name);
     }
 
     [PunRPC]
-    private void SpawnEntities()
+    private void SpawnEntities(string entity)
     {
         if (!PhotonNetwork.IsMasterClient)
         {
@@ -86,10 +84,9 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
 
         for (int i = 0; i < spawnAmount; i++)
         {
-            Entity newEntity = PhotonNetwork.InstantiateSceneObject(entityPrefab.name, GetRandomPos(), transform.rotation).GetComponentInChildren<Entity>();
+            Entity newEntity = PhotonNetwork.InstantiateSceneObject(entity, GetRandomPos(), transform.rotation).GetComponentInChildren<Entity>();
             newEntity.health.isImmortal = spawnImmortal;
 
-            spawnedEntities.Add(newEntity);
             //TODO: Find a way to get rid of this buffered RPC, a cleaner solution is to send the data to whoever connects.
             photonView.RPC("SetEntityInfo", RpcTarget.AllBuffered, newEntity.photonView.ViewID);
         }

@@ -36,6 +36,11 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] private bool stopWhileAttacking;
     [SerializeField] private GameObject healthBar;
 
+    [Header("Animation Names")]
+    [SerializeField] private string deathAnimation;
+    [SerializeField] private string walkAnimation;
+    [SerializeField] private string hitAnimation;
+
     [Space(10)]
 
     [SerializeField] private Animator anim;
@@ -97,7 +102,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void HandleIdling()
     {
-        anim.SetBool("Is Walking", false);
+        anim.SetBool(walkAnimation, false);
     }
 
     private void HandleChasing()
@@ -114,12 +119,12 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             }
 
             agent.isStopped = false;
-            anim.SetBool("Is Walking", true);
+            anim.SetBool(walkAnimation, true);
         }
         else
         {
             agent.isStopped = true;
-            anim.SetBool("Is Walking", false);
+            anim.SetBool(walkAnimation, false);
         }
 
         RandomRangedAttack();
@@ -156,7 +161,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     private void HandleAttacking()
     {
         agent.isStopped = true;
-        anim.SetBool("Is Walking", false);
+        anim.SetBool(walkAnimation, false);
 
         if (target)
         {
@@ -276,7 +281,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
         if (behaviourState == BehaviourState.Attack)
         {
-            anim.SetTrigger("Spider_hit");
+            anim.SetTrigger(hitAnimation);
         }
     }
 
@@ -393,7 +398,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         initialChaseTrigger.gameObject.SetActive(false);
         myEntity.gameObject.SetActive(false);
         agent.isStopped = true;
-        anim.SetTrigger("Spider_death");
+        anim.SetTrigger(deathAnimation);
     }
 
     public void DisableHealthbar()
