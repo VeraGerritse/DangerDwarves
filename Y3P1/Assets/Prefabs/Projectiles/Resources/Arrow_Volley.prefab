@@ -93,8 +93,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myPoolName: Arrow_Volley
+  damageTarget: 0
   selfDestroyTime: 5
-  prefabToSpawnOnHit: 
+  prefabToSpawnOnHit: HitMarker
   prefabToSpawnOnDeath: 
   stayOnOwner: 0
   volleyArrowPrefab: VolleyArrow

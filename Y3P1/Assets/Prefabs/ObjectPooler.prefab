@@ -124,3 +124,8 @@ MonoBehaviour:
       type: 3}
     poolSize: 50
     autoExpand: 1
+  - poolName: HitMarker
+    poolPrefab: {fileID: 1329845292236604, guid: fe4137c4da3e9b74295cca847ef85543,
+      type: 3}
+    poolSize: 50
+    autoExpand: 1

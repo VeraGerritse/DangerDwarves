@@ -188,7 +188,10 @@ MonoBehaviour:
   renderer: {fileID: 3203448194516171166}
   materials: []
   weaponTrail: {fileID: 2483850538173498881}
-  prefabToSpawnOnHit: 
+  prefabToSpawnOnHit: HitMarker
+  hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 16897
 --- !u!114 &1045404800596999195
 MonoBehaviour:
   m_ObjectHideFlags: 0

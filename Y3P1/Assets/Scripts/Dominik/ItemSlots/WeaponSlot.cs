@@ -39,6 +39,7 @@ public class WeaponSlot : EquipmentSlot
         if (local)
         {
             Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
+            Player.localPlayer.entity.OnDeath += Entity_OnDeath;
         }
     }
 
@@ -171,6 +172,15 @@ public class WeaponSlot : EquipmentSlot
         canAttack = b ? false : true;
     }
 
+    private void Entity_OnDeath()
+    {
+        if (isChargingSecondary)
+        {
+            OnStopChargeSecondary(currentWeapon);
+            isChargingSecondary = false;
+        }
+    }
+
     public void AnimationEventOnUsePrimaryCall()
     {
         OnUsePrimary();
@@ -209,5 +219,6 @@ public class WeaponSlot : EquipmentSlot
     public override void OnDisable()
     {
         Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;
+        Player.localPlayer.entity.OnDeath -= Entity_OnDeath;
     }
 }

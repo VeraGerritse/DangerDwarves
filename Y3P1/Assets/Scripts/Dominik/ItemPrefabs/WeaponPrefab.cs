@@ -12,6 +12,7 @@ public class WeaponPrefab : ItemPrefab
     [SerializeField] private Material[] materials;
     [SerializeField] private MeleeWeaponTrail weaponTrail;
     [SerializeField] private string prefabToSpawnOnHit;
+    [SerializeField] private LayerMask hitLayerMask;
 
     protected override void Awake()
     {
@@ -57,7 +58,7 @@ public class WeaponPrefab : ItemPrefab
         {
             Weapon_Melee weapon = WeaponSlot.currentWeapon as Weapon_Melee;
 
-            int collidersFound = Physics.OverlapSphereNonAlloc(transform.position, weapon.attackRange, meleeHits);
+            int collidersFound = Physics.OverlapSphereNonAlloc(transform.position, weapon.attackRange, meleeHits, hitLayerMask);
 
             bool pvp = false;
             for (int i = 0; i < collidersFound; i++)
@@ -70,13 +71,13 @@ public class WeaponPrefab : ItemPrefab
 
             for (int i = 0; i < collidersFound; i++)
             {
-                Entity entity = meleeHits[i].GetComponent<Entity>();
-                if (entity)
+                Vector3 toHit = meleeHits[i].transform.position - Player.localPlayer.playerController.body.position;
+                if (Vector3.Dot(Player.localPlayer.playerController.body.forward, toHit) > 0)
                 {
-                    if (pvp ? meleeHits[i].transform.tag == "Player" : meleeHits[i].transform.tag != "Player")
+                    Entity entity = meleeHits[i].GetComponent<Entity>();
+                    if (entity)
                     {
-                        Vector3 toHit = meleeHits[i].transform.position - Player.localPlayer.playerController.body.position;
-                        if (Vector3.Dot(Player.localPlayer.playerController.body.forward, toHit) > 0)
+                        if (pvp ? meleeHits[i].transform.tag == "Player" : meleeHits[i].transform.tag != "Player")
                         {
                             entity.Hit(-(weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Melee)));
 
@@ -88,12 +89,12 @@ public class WeaponPrefab : ItemPrefab
                                     rb.AddForce(toHit * weapon.knockBack, ForceMode.Impulse);
                                 }
                             }
-
-                            if (!string.IsNullOrEmpty(prefabToSpawnOnHit))
-                            {
-                                GameObject newSpawn = ObjectPooler.instance.GrabFromPool(prefabToSpawnOnHit, meleeHits[i].transform.position, Quaternion.identity);
-                            }
                         }
+                    }
+
+                    if (!string.IsNullOrEmpty(prefabToSpawnOnHit))
+                    {
+                        GameObject newSpawn = ObjectPooler.instance.GrabFromPool(prefabToSpawnOnHit, meleeHits[i].ClosestPoint(transform.position), Quaternion.identity);
                     }
                 }
             }

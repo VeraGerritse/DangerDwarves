@@ -2,9 +2,12 @@
 using UnityEngine.Events;
 using Photon.Pun;
 using System;
+using Photon.Realtime;
 
 public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
+
+    [HideInInspector] public Collider myCollider;
 
     [SerializeField] private int entityID;
     [SerializeField] private bool instaDestroyOnDeath;
@@ -18,6 +21,11 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     [Space(10)]
 
     public UnityEvent OnHit;
+
+    private void Awake()
+    {
+        myCollider = GetComponent<Collider>();
+    }
 
     public override void OnEnable()
     {
@@ -54,6 +62,8 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     {
         this.stats = stats;
         health.UpdateHealth();
+        //TODO: This syncs one update too late.
+        photonView.RPC("SyncHealth", RpcTarget.Others);
     }
 
     public int CalculateDamage(Weapon.DamageType damageType)
@@ -97,6 +107,17 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     {
         health.ResetHealth();
     }
+
+    [PunRPC]
+    private void SyncHealth()
+    {
+        health.UpdateHealth();
+    }
+
+    //public override void OnPlayerEnteredRoom(Player newPlayer)
+    //{
+    //    photonView.RPC("SyncHealth", RpcTarget.Others);
+    //}
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

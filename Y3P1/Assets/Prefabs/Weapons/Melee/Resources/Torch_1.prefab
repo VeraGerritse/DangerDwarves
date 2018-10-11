@@ -207,6 +207,9 @@ MonoBehaviour:
   materials: []
   weaponTrail: {fileID: 4156542603955109387}
   prefabToSpawnOnHit: TorchHit
+  hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 16897
 --- !u!114 &1045404800596999195
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &5801497519709798507 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3660478062618303682, guid: aad516b0cf35ce0469785d18b1111fd5,
+    type: 3}
+  m_PrefabInstance: {fileID: 7084072220563446953}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &286511851208296841
 GameObject:
   m_ObjectHideFlags: 0
@@ -30,12 +36,6 @@ Transform:
   m_Father: {fileID: 7106649673028893103}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &5801497519709798507 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3660478062618303682, guid: aad516b0cf35ce0469785d18b1111fd5,
-    type: 3}
-  m_PrefabInstance: {fileID: 7084072220563446953}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3716037247890611631
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myPoolName: Arrow
-  target: 0
+  damageTarget: 0
   selfDestroyTime: 5
-  prefabToSpawnOnHit: 
+  prefabToSpawnOnHit: HitMarker
   prefabToSpawnOnDeath: 
   stayOnOwner: 0
 --- !u!114 &9156334626702542129

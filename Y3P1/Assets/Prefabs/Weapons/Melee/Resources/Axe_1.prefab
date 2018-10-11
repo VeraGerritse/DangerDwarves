@@ -190,7 +190,10 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 1fe5fbfc50e1feb478e5b63022716c23, type: 2}
   - {fileID: 2100000, guid: 613aeca4d573d534e8f445844e20a49e, type: 2}
   weaponTrail: {fileID: 2483850538173498881}
-  prefabToSpawnOnHit: 
+  prefabToSpawnOnHit: HitMarker
+  hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 16897
 --- !u!114 &1045404800596999195
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,15 @@ public class Health
     [SerializeField] private int baseHealth = 100;
     [HideInInspector] public int currentHealth;
 
-    public event Action<float, int?> OnHealthModified = delegate { };
+    public event Action<HealthData> OnHealthModified = delegate { };
+
+    public struct HealthData
+    {
+        public int currentHealth;
+        public int maxHealth;
+        public float percentageHealth;
+        public int? amountHealthChanged;
+    }
 
     public void Initialise(Entity entity)
     {
@@ -36,7 +44,7 @@ public class Health
             }
         }
         currentHealth = Mathf.Clamp(currentHealth, 0, GetMaxHealth());
-        OnHealthModified(GetHealthPercentage(), amount);
+        OnHealthModified(new HealthData { currentHealth =  currentHealth, maxHealth = GetMaxHealth(), percentageHealth = GetHealthPercentage(), amountHealthChanged = amount});
 
         if (currentHealth <= 0 && !isDead)
         {
@@ -68,13 +76,13 @@ public class Health
     public void UpdateHealth()
     {
         currentHealth = Mathf.Clamp(currentHealth, 0, GetMaxHealth());
-        OnHealthModified(GetHealthPercentage(), null);
+        OnHealthModified(new HealthData { currentHealth = currentHealth, maxHealth = GetMaxHealth(), percentageHealth = GetHealthPercentage(), amountHealthChanged = null });
     }
 
     public void ResetHealth()
     {
         isDead = false;
         currentHealth = GetMaxHealth();
-        OnHealthModified(GetHealthPercentage(), null);
+        OnHealthModified(new HealthData { currentHealth = currentHealth, maxHealth = GetMaxHealth(), percentageHealth = GetHealthPercentage(), amountHealthChanged = null });
     }
 }

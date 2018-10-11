@@ -29,11 +29,11 @@ public class Projectile_Volley : Projectile
 
     public override void OnDisable()
     {
-        base.OnDisable();
-
         if (hitAnything)
         {
             SpawnVolley();
         }
+
+        base.OnDisable();
     }
 }

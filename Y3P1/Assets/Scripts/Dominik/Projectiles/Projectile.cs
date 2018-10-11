@@ -11,6 +11,7 @@ public class Projectile : MonoBehaviour
     protected bool hitAnything;
     private Transform owner;
     public enum Target { Enemy, Player };
+    private Collider hitCollider;
 
     [SerializeField] private string myPoolName;
     public Target damageTarget;
@@ -41,8 +42,6 @@ public class Projectile : MonoBehaviour
 
     public virtual void OnEnable()
     {
-        hitAnything = false;
-        damageTarget = defaultDamageTarget;
         Invoke("ReturnToPool", selfDestroyTime);
     }
 
@@ -75,6 +74,8 @@ public class Projectile : MonoBehaviour
         Entity entity = other.GetComponent<Entity>();
         if (entity)
         {
+            hitCollider = entity.myCollider;
+
             switch (damageTarget)
             {
                 case Target.Enemy:
@@ -97,6 +98,7 @@ public class Projectile : MonoBehaviour
 
         if (other.tag == "Environment")
         {
+            hitCollider = other;
             HandleHitEnvironment();
             return;
         }
@@ -118,9 +120,10 @@ public class Projectile : MonoBehaviour
 
     public virtual void HandleHitEnvironment()
     {
-        hitAnything = true;
         SpawnPrefabOnHit();
         OnEnvironmentHit(this);
+
+        hitAnything = true;
         ReturnToPool();
     }
 
@@ -128,7 +131,7 @@ public class Projectile : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(prefabToSpawnOnHit))
         {
-            GameObject newSpawn = ObjectPooler.instance.GrabFromPool(prefabToSpawnOnHit, transform.position, Quaternion.identity);
+            GameObject newSpawn = ObjectPooler.instance.GrabFromPool(prefabToSpawnOnHit, hitCollider.ClosestPoint(transform.position), Quaternion.identity);
 
             AOEDamage aoeComponent = newSpawn.GetComponent<AOEDamage>();
             if (aoeComponent)
@@ -150,10 +153,18 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public virtual void OnDisable()
+    private void ResetProjectile()
     {
         rb.velocity = Vector3.zero;
+        hitCollider = null;
+        hitAnything = false;
+        damageTarget = defaultDamageTarget;
         CancelInvoke();
+    }
+
+    public virtual void OnDisable()
+    {
+        ResetProjectile();
 
         if (!string.IsNullOrEmpty(prefabToSpawnOnDeath))
         {

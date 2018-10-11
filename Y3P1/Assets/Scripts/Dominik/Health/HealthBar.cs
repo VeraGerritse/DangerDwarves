@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class HealthBar : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Image backgroundHealthBar;
     [SerializeField] private float backgroundLerpTime = 1;
     [SerializeField] private bool showDamageText = true;
+    [SerializeField] private TextMeshProUGUI healthText;
 
     private void Awake()
     {
@@ -32,7 +34,7 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    private void Health_OnHealthModified(float percentage, int? amount)
+    private void Health_OnHealthModified(Health.HealthData healthData)
     {
         if (!gameObject.activeInHierarchy)
         {
@@ -43,16 +45,21 @@ public class HealthBar : MonoBehaviour
         // TODO: Add 'IncreaseHealth' animation, it just plays the decrease animation now.
         if (anim)
         {
-            anim.SetTrigger(foregroundHealthBar.fillAmount > percentage ? "DecreaseHealth" : "DecreaseHealth");
+            anim.SetTrigger(foregroundHealthBar.fillAmount > healthData.percentageHealth ? "DecreaseHealth" : "DecreaseHealth");
         }
 
-        foregroundHealthBar.fillAmount = percentage;
-        StartCoroutine(LerpBackgroundHealthBar(percentage));
+        foregroundHealthBar.fillAmount = healthData.percentageHealth;
+        StartCoroutine(LerpBackgroundHealthBar(healthData.percentageHealth));
 
-        if (amount != null && showDamageText)
+        if (healthText)
+        {
+            healthText.text = healthData.currentHealth + "/" + healthData.maxHealth;
+        }
+
+        if (healthData.amountHealthChanged != null && showDamageText)
         {
             DamageText newDamageText = ObjectPooler.instance.GrabFromPool("DamageText", transform.position, transform.rotation).GetComponent<DamageText>();
-            newDamageText.Initialise((int)amount);
+            newDamageText.Initialise((int)healthData.amountHealthChanged);
         }
     }
 
