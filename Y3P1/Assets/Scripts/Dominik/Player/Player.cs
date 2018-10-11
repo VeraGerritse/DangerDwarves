@@ -36,6 +36,7 @@ namespace Y3P1
         [HideInInspector] public DwarfAnimationsScript dwarfAnimController;
         [HideInInspector] public IKControl iKControl;
         [HideInInspector] public PlayerAppearance playerAppearance;
+        [HideInInspector] public ReviveZone reviveZone;
         #endregion
 
         private void Awake()
@@ -65,6 +66,7 @@ namespace Y3P1
             dwarfAnimEvents = GetComponentInChildren<AnimationEventsDwarf>();
             iKControl = GetComponentInChildren<IKControl>();
             playerAppearance = GetComponentInChildren<PlayerAppearance>();
+            reviveZone = GetComponentInChildren<ReviveZone>();
         }
 
         private void Initialise()
@@ -140,12 +142,14 @@ namespace Y3P1
         private void Entity_OnDeath()
         {
             deathCanvas.SetActive(true);
+            reviveZone.ToggleReviveZone(true);
             NotificationManager.instance.NewNotification("<color=red>" + PhotonNetwork.NickName + "</color> has been downed!");
         }
 
         public void Respawn(bool hub)
         {
             deathCanvas.SetActive(false);
+            reviveZone.ToggleReviveZone(false);
             localPlayer.entity.Revive();
 
             if (hub)
