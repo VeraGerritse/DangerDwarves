@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &528443720 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1474018264146894573, guid: 23cc839ecc11619429b2844d711570af,
+    type: 3}
+  m_PrefabInstance: {fileID: 6015702396544195205}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &87917254
 GameObject:
   m_ObjectHideFlags: 0
@@ -4816,12 +4822,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 150293179}
   m_Enabled: 1
---- !u!4 &528443720 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1474018264146894573, guid: 23cc839ecc11619429b2844d711570af,
-    type: 3}
-  m_PrefabInstance: {fileID: 6015702396544195205}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &941459610
 GameObject:
   m_ObjectHideFlags: 0
