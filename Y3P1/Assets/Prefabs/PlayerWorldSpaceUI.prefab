@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 732}
   - component: {fileID: 733}
   m_Layer: 0
-  m_Name: PlayerWordSpaceUI
+  m_Name: PlayerWorldSpaceUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -345,6 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameText: {fileID: 742}
+  healthBar: {fileID: 0}
 --- !u!114 &733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,6 +490,11 @@ PrefabInstance:
       value: -0.34999847
       objectReference: {fileID: 0}
     - target: {fileID: 6730427843804710381, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6962073245237199128, guid: ae10adcbca2c84d469fdfd990e1d6eab,
         type: 3}
       propertyPath: m_IsActive
       value: 0

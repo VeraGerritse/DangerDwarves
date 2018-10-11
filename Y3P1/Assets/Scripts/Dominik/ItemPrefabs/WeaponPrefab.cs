@@ -203,13 +203,13 @@ public class WeaponPrefab : ItemPrefab
         }
     }
 
-    public void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, int speed, int damage)
+    public void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float speed, int damage)
     {
         photonView.RPC("FireBuffProjectile", RpcTarget.All, position, rotation, projectilePoolName, speed, damage);
     }
 
     [PunRPC]
-    private void FireBuffProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, int speed, int damage)
+    private void FireBuffProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float speed, int damage)
     {
         Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, rotation).GetComponent<Projectile>();
         newProjectile.Fire(new Projectile.FireData
