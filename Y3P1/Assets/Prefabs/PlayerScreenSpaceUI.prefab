@@ -706,6 +706,11 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 7464071726623558371}
+    - target: {fileID: 6962073245237199128, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2788670990308533371, guid: ae10adcbca2c84d469fdfd990e1d6eab, type: 3}
     - {fileID: 2626245686083579127, guid: ae10adcbca2c84d469fdfd990e1d6eab, type: 3}
