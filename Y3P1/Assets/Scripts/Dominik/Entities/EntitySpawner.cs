@@ -18,7 +18,6 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] private float spawnTriggerRange;
     [SerializeField] private float spawnAmount;
 
-    // Using start to give buffered rpc's a chance to get here before this gets executed.
     private void Start()
     {
         if (spawnOnAwake)
@@ -102,17 +101,6 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         Entity entity = pv.GetComponent<Entity>();
-        entity.OnDeath += () =>
-        {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                if (entity.canDropLoot)
-                {
-                    Player.localPlayer.myInventory.DropNewItem(entity.transform.position);
-                }
-            }
-        };
-
         EntityManager.instance.AddToAliveTargets(entity);
     }
 

@@ -108,7 +108,7 @@ namespace Y3P1
             {
                 playerAppearance.RandomizeAppearance();
                 playerController.OnDodge += PlayerController_OnDodge;
-                entity.OnDeath += () => Entity_OnDeath();
+                entity.OnDeath.AddListener(() => Entity_OnDeath());
                 DontDestroyOnLoad(gameObject);
             }
         }

@@ -17,24 +17,32 @@ public class DwarfAnimationsScript : MonoBehaviour
         {
             initialised = true;
 
-            WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
-            WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
-            WeaponSlot.OnStartChargeSecondary += WeaponSlot_OnStartChargeSecondary;
-            WeaponSlot.OnStopChargeSecondary += WeaponSlot_OnStopChargeSecondary;
-            WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
-
-            Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
-            Player.localPlayer.entity.OnDeath += () => myAnim.SetBool("Dead", true);
-            Player.localPlayer.entity.OnRevive += () => myAnim.SetBool("Dead", false);
-            Player.localPlayer.entity.OnHit.AddListener(() => myAnim.SetTrigger("Flinch"));
+            SetupWeaponSlotEvents();
+            SetupPlayerEvents();
         }
     }
-
 
     private void Awake()
     {
         myAnim = GetComponent<Animator>();
         myIKControl = GetComponent<IKControl>();
+    }
+
+    private void SetupWeaponSlotEvents()
+    {
+        WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
+        WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
+        WeaponSlot.OnStartChargeSecondary += WeaponSlot_OnStartChargeSecondary;
+        WeaponSlot.OnStopChargeSecondary += WeaponSlot_OnStopChargeSecondary;
+        WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
+    }
+
+    private void SetupPlayerEvents()
+    {
+        Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
+        Player.localPlayer.entity.OnDeath.AddListener(() => myAnim.SetBool("Dead", true));
+        Player.localPlayer.entity.OnRevive.AddListener(() => myAnim.SetBool("Dead", false));
+        Player.localPlayer.entity.OnHit.AddListener(() => myAnim.SetTrigger("Flinch"));
     }
 
     private void PlayerController_OnDodge(bool dodgeStart)
@@ -132,12 +140,8 @@ public class DwarfAnimationsScript : MonoBehaviour
             WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
             WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
             WeaponSlot.OnStartChargeSecondary -= WeaponSlot_OnStartChargeSecondary;
+            WeaponSlot.OnStopChargeSecondary -= WeaponSlot_OnStopChargeSecondary;
             WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
-
-            Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;
-            Player.localPlayer.entity.OnDeath -= () => myAnim.SetBool("Dead", true);
-            Player.localPlayer.entity.OnRevive -= () => myAnim.SetBool("Dead", false);
-            Player.localPlayer.entity.OnHit.RemoveAllListeners();
         }
     }
 

@@ -8,9 +8,8 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 {
 
     private Entity target;
-    private Entity targetEntity;
-    private NavMeshAgent agent;
     private Entity myEntity;
+    private NavMeshAgent agent;
     private Collider[] hits = new Collider[10];
     private AttackAnimation currentAttack;
     private Vector3 toTarget;
@@ -25,26 +24,29 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     public enum BehaviourState { Idle, Chase, Attack };
     public BehaviourState behaviourState;
 
+    [Header("Stats")]
     [SerializeField] private List<AttackAnimation> attacks = new List<AttackAnimation>();
     [SerializeField] private float attackDistance;
     [SerializeField] private float attackRangeLookAtSpeed;
     [SerializeField] private float damageRange;
     [SerializeField] private Transform damagePoint;
+    [SerializeField] private LayerMask damageLayerMask;
     [SerializeField] private int tempDamage = 10;
     [SerializeField] [Range(0, 100)] private float randomRangedAttackChance;
     [SerializeField] private float randomRangedAttackInterval = 1f;
     [SerializeField] private bool stopWhileAttacking;
-    [SerializeField] private GameObject healthBar;
 
-    [Header("Animation Names")]
+    [Space(10)]
+
+    [SerializeField] private GameObject healthBar;
+    [SerializeField] private CollisionEventZone initialChaseTrigger;
+
+    [Header("Animation")]
+    [SerializeField] private Animator anim;
     [SerializeField] private string deathAnimation;
     [SerializeField] private string walkAnimation;
     [SerializeField] private string hitAnimation;
 
-    [Space(10)]
-
-    [SerializeField] private Animator anim;
-    [SerializeField] private CollisionEventZone initialChaseTrigger;
 
     [System.Serializable]
     private struct AttackAnimation
@@ -62,7 +64,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         agent = GetComponent<NavMeshAgent>();
         myEntity = GetComponentInChildren<Entity>();
         myEntity.OnHit.AddListener(() => Hit());
-        myEntity.OnDeath += () => Die();
+        myEntity.OnDeath.AddListener(() => Die());
 
         initialChaseTrigger.OnZoneEnterEvent.AddListener(() =>
         {
@@ -235,7 +237,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             return;
         }
 
-        int collidersFound = Physics.OverlapSphereNonAlloc(damagePoint.position, damageRange, hits);
+        int collidersFound = Physics.OverlapSphereNonAlloc(damagePoint.position, damageRange, hits, damageLayerMask);
 
         for (int i = 0; i < collidersFound; i++)
         {
@@ -252,17 +254,18 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void ProjectileAttack()
     {
-        photonView.RPC("SpawnProjectile", RpcTarget.All, currentAttack.projectilePoolName, 8, tempDamage);
-    }
-
-    [PunRPC]
-    private void SpawnProjectile(string attackPoolName, int speed, int damage)
-    {
-        Projectile newProjectile = ObjectPooler.instance.GrabFromPool(attackPoolName, damagePoint.position, damagePoint.rotation).GetComponent<Projectile>();
-        newProjectile.Fire(new Projectile.FireData
+        if (!PhotonNetwork.IsMasterClient)
         {
-            speed = speed,
-            damage = damage
+            return;
+        }
+
+        ProjectileManager.instance.FireProjectile(new ProjectileManager.ProjectileData
+        {
+            spawnPosition = damagePoint.position,
+            spawnRotation = damagePoint.rotation,
+            projectilePool = currentAttack.projectilePoolName,
+            speed = 8,
+            damage = tempDamage
         });
     }
 
@@ -311,7 +314,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         target = PhotonView.Find(targetID).GetComponent<Entity>();
         if (target)
         {
-            target.OnDeath += Target_OnDeath;
+            target.OnDeath.AddListener(Target_OnDeath);
             initialChaseTrigger.gameObject.SetActive(false);
             SetState(target ? BehaviourState.Chase : BehaviourState.Idle);
         }
@@ -376,7 +379,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
         if (target)
         {
-            target.OnDeath -= Target_OnDeath;
+            target.OnDeath.AddListener(Target_OnDeath);
             target = null;
         }
 
@@ -389,7 +392,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private bool TargetIsDead()
     {
-        return targetEntity.health.isDead;
+        return target.health.isDead;
     }
 
     private void Die()

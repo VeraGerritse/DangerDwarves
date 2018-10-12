@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System;
 using UnityEngine;
 using Y3P1;
 
@@ -6,6 +7,8 @@ public class WeaponPrefab : ItemPrefab
 {
 
     private Collider[] meleeHits = new Collider[30];
+    private Action startMelee;
+    private Action endMelee;
 
     public Transform projectileSpawn;
     public MeshRenderer renderer;
@@ -24,8 +27,10 @@ public class WeaponPrefab : ItemPrefab
             WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
             WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
 
-            WeaponSlot.OnStartMelee += () => SetWeaponTrail(true);
-            WeaponSlot.OnEndMelee += () => SetWeaponTrail(false);
+            startMelee = delegate { SetWeaponTrail(true); };
+            endMelee = delegate { SetWeaponTrail(false); };
+            WeaponSlot.OnStartMelee += startMelee;
+            WeaponSlot.OnEndMelee += endMelee;
         }
 
         projectileSpawn = transform.GetChild(0).transform;
@@ -42,16 +47,20 @@ public class WeaponPrefab : ItemPrefab
         if (WeaponSlot.currentWeapon is Weapon_Ranged)
         {
             Weapon_Ranged weapon = WeaponSlot.currentWeapon as Weapon_Ranged;
-            photonView.RPC("FireProjectile", RpcTarget.All,
-                projectileSpawn.position,
-                projectileSpawn.rotation,
-                weapon.primaryProjectile,
-                weapon.force,
-                weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Ranged),
-                weapon.amountOfProjectiles,
-                weapon.coneOfFireInDegrees,
-                PlayerController.mouseInWorldPos,
-                Player.localPlayer.photonView.ViewID);
+
+            ProjectileManager.ProjectileData data = new ProjectileManager.ProjectileData
+            {
+                spawnPosition = projectileSpawn.position,
+                spawnRotation = projectileSpawn.rotation,
+                projectilePool = weapon.primaryProjectile,
+                speed = weapon.force,
+                damage = weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Ranged),
+                amount = weapon.amountOfProjectiles,
+                coneOfFireInDegrees = weapon.coneOfFireInDegrees,
+                mousePos = PlayerController.mouseInWorldPos,
+                projectileOwnerID = Player.localPlayer.photonView.ViewID
+            };
+            ProjectileManager.instance.FireProjectile(data);
         }
         // Melee Attack.
         else
@@ -109,16 +118,20 @@ public class WeaponPrefab : ItemPrefab
         }
 
         Weapon weapon = WeaponSlot.currentWeapon;
-        photonView.RPC("FireProjectile", RpcTarget.All,
-            secondaryType == Weapon.SecondaryType.Attack ? projectileSpawn.position : Player.localPlayer.transform.position,
-            secondaryType == Weapon.SecondaryType.Attack ? projectileSpawn.rotation : Player.localPlayer.transform.rotation,
-            weapon.secondaryProjectile,
-            weapon.secondaryForce,
-            weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Secondary),
-            weapon.secondaryAmountOfProjectiles,
-            weapon.secondaryConeOfFireInDegrees,
-            PlayerController.mouseInWorldPos,
-            Player.localPlayer.photonView.ViewID);
+
+        ProjectileManager.ProjectileData data = new ProjectileManager.ProjectileData
+        {
+            spawnPosition = (secondaryType == Weapon.SecondaryType.Attack) ? projectileSpawn.position : Player.localPlayer.transform.position,
+            spawnRotation = (secondaryType == Weapon.SecondaryType.Attack) ? projectileSpawn.rotation : Player.localPlayer.transform.rotation,
+            projectilePool = weapon.secondaryProjectile,
+            speed = weapon.secondaryForce,
+            damage = weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Secondary),
+            amount = weapon.secondaryAmountOfProjectiles,
+            coneOfFireInDegrees = weapon.secondaryConeOfFireInDegrees,
+            mousePos = PlayerController.mouseInWorldPos,
+            projectileOwnerID = Player.localPlayer.photonView.ViewID
+        };
+        ProjectileManager.instance.FireProjectile(data);
     }
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
@@ -141,7 +154,7 @@ public class WeaponPrefab : ItemPrefab
         {
             if (materials.Length > 0)
             {
-                int randomMat = Random.Range(0, materials.Length);
+                int randomMat = UnityEngine.Random.Range(0, materials.Length);
                 renderer.material = materials[randomMat];
                 (myItem as Weapon).materialIndex = randomMat;
 
@@ -158,65 +171,6 @@ public class WeaponPrefab : ItemPrefab
     private void SyncMaterial(int index)
     {
         SetWeaponMaterial(index);
-    }
-
-    [PunRPC]
-    private void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float speed, int damage, int amountOfProjectiles, int coneOfFireInDegrees, Vector3 mousePos, int ownerID)
-    {
-        // Firing in a straight line.
-        if (coneOfFireInDegrees == 0)
-        {
-            for (int i = 0; i < amountOfProjectiles; i++)
-            {
-                Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, rotation).GetComponent<Projectile>();
-                newProjectile.Fire(new Projectile.FireData
-                {
-                    speed = speed,
-                    damage = damage,
-                    mousePos = mousePos,
-                    ownerID = ownerID
-                });
-            }
-        }
-        // Evenly divide (multiple) projectiles within the cone of fire.
-        else
-        {
-            float angleStep = coneOfFireInDegrees / amountOfProjectiles;
-            float startingAngle = coneOfFireInDegrees / 2 - angleStep / 2;
-
-            Vector3 rot = rotation.eulerAngles;
-            rot.y -= startingAngle;
-
-            for (int i = 0; i < amountOfProjectiles; i++)
-            {
-                Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, Quaternion.Euler(rot)).GetComponent<Projectile>();
-                newProjectile.Fire(new Projectile.FireData
-                {
-                    speed = speed,
-                    damage = damage,
-                    mousePos = mousePos,
-                    ownerID = ownerID
-                });
-
-                rot.y += angleStep;
-            }
-        }
-    }
-
-    public void FireProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float speed, int damage)
-    {
-        photonView.RPC("FireBuffProjectile", RpcTarget.All, position, rotation, projectilePoolName, speed, damage);
-    }
-
-    [PunRPC]
-    private void FireBuffProjectile(Vector3 position, Quaternion rotation, string projectilePoolName, float speed, int damage)
-    {
-        Projectile newProjectile = ObjectPooler.instance.GrabFromPool(projectilePoolName, position, rotation).GetComponent<Projectile>();
-        newProjectile.Fire(new Projectile.FireData
-        {
-            speed = speed,
-            damage = damage
-        });
     }
 
     [PunRPC]
@@ -246,8 +200,8 @@ public class WeaponPrefab : ItemPrefab
             WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
             WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
 
-            WeaponSlot.OnStartMelee -= () => SetWeaponTrail(true);
-            WeaponSlot.OnEndMelee -= () => SetWeaponTrail(false);
+            WeaponSlot.OnStartMelee -= startMelee;
+            WeaponSlot.OnEndMelee -= endMelee;
         }
     }
 

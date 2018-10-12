@@ -353,6 +353,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviourState: 0
+  damageLayerMask:
+    serializedVersion: 2
+    m_Bits: 16896
   attacks:
   - attackName: Demon_Attack_Melee
     attackChance: 100

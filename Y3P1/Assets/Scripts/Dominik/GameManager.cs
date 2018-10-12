@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject bountyManagerPrefab;
+    [SerializeField] private GameObject projectileManagerPrefab;
+    [SerializeField] private GameObject notificationManagerPrefab;
 
     private void Awake()
     {
@@ -35,6 +37,16 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (!FindObjectOfType<BountyManager>())
             {
                 PhotonNetwork.InstantiateSceneObject(bountyManagerPrefab.name, Vector3.zero, Quaternion.identity);
+            }
+
+            if (!FindObjectOfType<ProjectileManager>())
+            {
+                PhotonNetwork.InstantiateSceneObject(projectileManagerPrefab.name, Vector3.zero, Quaternion.identity);
+            }
+
+            if (!FindObjectOfType<NotificationManager>())
+            {
+                PhotonNetwork.InstantiateSceneObject(notificationManagerPrefab.name, Vector3.zero, Quaternion.identity);
             }
         }
     }

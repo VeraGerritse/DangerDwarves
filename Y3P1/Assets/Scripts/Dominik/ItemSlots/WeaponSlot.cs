@@ -39,7 +39,7 @@ public class WeaponSlot : EquipmentSlot
         if (local)
         {
             Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
-            Player.localPlayer.entity.OnDeath += Entity_OnDeath;
+            Player.localPlayer.entity.OnDeath.AddListener(Entity_OnDeath);
         }
     }
 
@@ -219,6 +219,6 @@ public class WeaponSlot : EquipmentSlot
     public override void OnDisable()
     {
         Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;
-        Player.localPlayer.entity.OnDeath -= Entity_OnDeath;
+        Player.localPlayer.entity.OnDeath.RemoveListener(Entity_OnDeath);
     }
 }

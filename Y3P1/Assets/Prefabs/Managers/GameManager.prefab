@@ -47,3 +47,7 @@ MonoBehaviour:
     type: 3}
   bountyManagerPrefab: {fileID: 1443447783173548153, guid: e9d8a821f480a96439d97b8f2a3ba186,
     type: 3}
+  projectileManagerPrefab: {fileID: 997464665473520863, guid: 953925e6864a55d44bb9c0eaffe2d0f2,
+    type: 3}
+  notificationManagerPrefab: {fileID: 5786067977797153831, guid: 74280ff55a76feb4187d4e599d8cdbff,
+    type: 3}

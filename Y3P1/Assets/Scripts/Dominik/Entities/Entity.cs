@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using Photon.Pun;
+﻿using Photon.Pun;
 using System;
-using Photon.Realtime;
+using UnityEngine;
+using UnityEngine.Events;
+using Y3P1;
 
 public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -15,12 +15,12 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     public Health health;
     public Stats stats;
     public bool canDropLoot;
-    public event Action OnDeath = delegate { };
-    public event Action OnRevive = delegate { };
 
     [Space(10)]
 
     public UnityEvent OnHit;
+    public UnityEvent OnDeath;
+    public UnityEvent OnRevive;
 
     private void Awake()
     {
@@ -86,11 +86,19 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Kill()
     {
-        OnDeath();
+        OnDeath.Invoke();
         EntityManager.instance.RemoveFromAliveTargets(this);
         BountyManager.instance.RegisterKill(entityID);
 
-        if (PhotonNetwork.IsMasterClient && instaDestroyOnDeath)
+        if (instaDestroyOnDeath)
+        {
+            DestroyEntity();
+        }
+    }
+
+    public void DestroyEntity()
+    {
+        if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.Destroy(transform.root.gameObject);
         }
@@ -98,7 +106,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Revive()
     {
-        OnRevive();
+        OnRevive.Invoke();
         photonView.RPC("SyncReviveHealth", RpcTarget.All);
     }
 
@@ -112,6 +120,14 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     private void SyncHealth()
     {
         health.UpdateHealth();
+    }
+
+    private void OnDestroy()
+    {
+        if (PhotonNetwork.IsMasterClient && canDropLoot)
+        {
+            Player.localPlayer.myInventory.DropNewItem(transform.position);
+        }
     }
 
     //public override void OnPlayerEnteredRoom(Player newPlayer)

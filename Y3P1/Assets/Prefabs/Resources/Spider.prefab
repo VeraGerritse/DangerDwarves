@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb944ea6121cec94a9147d0853eaa725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCollider: {fileID: 0}
   entityID: 1
   instaDestroyOnDeath: 0
   health:
@@ -297,6 +298,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviourState: 0
+  damageLayerMask:
+    serializedVersion: 2
+    m_Bits: 16896
   attacks:
   - attackName: Attack
     attackChance: 60

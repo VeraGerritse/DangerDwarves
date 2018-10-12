@@ -6,8 +6,8 @@ public class WeaponBuff : MonoBehaviourPunCallbacks
 {
 
     private Projectile projectile;
-    private Vector3 spawnPos;
-    private Quaternion spawnRot;
+    private Vector3 spawnPosition;
+    private Quaternion spawnRotation;
     private enum ProjectileRotation { Identity, Player };
 
     [SerializeField] private string projecileToSpawnOnAttack;
@@ -31,12 +31,19 @@ public class WeaponBuff : MonoBehaviourPunCallbacks
     {
         WeaponPrefab wp = Player.localPlayer.weaponSlot.equipedItem.GetComponent<WeaponPrefab>();
 
-        spawnPos = spawnAtCursor ? PlayerController.mouseInWorldPos : wp.projectileSpawn.position;
-        spawnPos += spawnOffset;
-        spawnRot = projectileRotation == ProjectileRotation.Player ? Player.localPlayer.playerController.body.transform.rotation : Quaternion.identity;
-        spawnRot.eulerAngles += spawnRotOffset;
+        spawnPosition = spawnAtCursor ? PlayerController.mouseInWorldPos : wp.projectileSpawn.position;
+        spawnPosition += spawnOffset;
+        spawnRotation = projectileRotation == ProjectileRotation.Player ? Player.localPlayer.playerController.body.transform.rotation : Quaternion.identity;
+        spawnRotation.eulerAngles += spawnRotOffset;
 
-        wp.FireProjectile(spawnPos, spawnRot, projecileToSpawnOnAttack, speed, projectile.fireData.damage);
+        ProjectileManager.instance.FireProjectile(new ProjectileManager.ProjectileData
+        {
+            spawnPosition = spawnPosition,
+            spawnRotation = spawnRotation,
+            projectilePool = projecileToSpawnOnAttack,
+            speed = speed,
+            damage = projectile.fireData.damage
+        });
     }
 
     public override void OnDisable()
