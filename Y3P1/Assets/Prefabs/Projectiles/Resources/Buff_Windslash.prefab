@@ -9362,7 +9362,7 @@ MonoBehaviour:
   spawnAtCursor: 0
   spawnOffset: {x: 0, y: 0, z: 0}
   spawnRotOffset: {x: 0, y: 0, z: 0}
-  speed: 7
+  speed: 6
   projectileRotation: 1
 --- !u!114 &9156334626702542129
 MonoBehaviour:

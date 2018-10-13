@@ -102,4 +102,18 @@ public class TrinketPrefab : ItemPrefab
     {
         Player.localPlayer.trinketSlot.OnEquip -= TrinketSlot_OnEquip;
     }
+
+    public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        base.OnPhotonSerializeView(stream, info);
+
+        if (stream.IsWriting)
+        {
+            stream.SendNext(renderer.enabled);
+        }
+        else
+        {
+            renderer.enabled = (bool)stream.ReceiveNext();
+        }
+    }
 }

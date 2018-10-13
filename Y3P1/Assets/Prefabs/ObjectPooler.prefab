@@ -139,18 +139,8 @@ MonoBehaviour:
       type: 3}
     poolSize: 10
     autoExpand: 1
-  - poolName: Explosion_2
+  - poolName: Buff_Hammershock
     poolPrefab: {fileID: 1329845292236604, guid: e1e6b85a251dba14c9c4cae7a0d5be77,
       type: 3}
     poolSize: 25
-    autoExpand: 1
-  - poolName: Thunderstorm
-    poolPrefab: {fileID: 3716037247890611631, guid: 0ed25a7ed0e576748b18bec5170bf518,
-      type: 3}
-    poolSize: 50
-    autoExpand: 1
-  - poolName: Buff_Thunderstorm
-    poolPrefab: {fileID: 3716037247890611631, guid: a201849f01eea09428fd0002cb63e361,
-      type: 3}
-    poolSize: 10
     autoExpand: 1

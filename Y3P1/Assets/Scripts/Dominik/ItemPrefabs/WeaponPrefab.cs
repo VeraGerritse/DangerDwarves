@@ -50,10 +50,10 @@ public class WeaponPrefab : ItemPrefab
 
             ProjectileManager.ProjectileData data = new ProjectileManager.ProjectileData
             {
-                spawnPosition = projectileSpawn.position,
+                spawnPosition = ProjectileManager.instance.GetProjectileSpawn(this, weapon.primaryProjectile),
                 spawnRotation = projectileSpawn.rotation,
                 projectilePool = weapon.primaryProjectile,
-                speed = weapon.force,
+                speed = ProjectileManager.instance.GetProjectileSpeed(weapon.force, weapon.primaryProjectile),
                 damage = weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Ranged),
                 amount = weapon.amountOfProjectiles,
                 coneOfFireInDegrees = weapon.coneOfFireInDegrees,
@@ -121,10 +121,10 @@ public class WeaponPrefab : ItemPrefab
 
         ProjectileManager.ProjectileData data = new ProjectileManager.ProjectileData
         {
-            spawnPosition = (secondaryType == Weapon.SecondaryType.Attack) ? projectileSpawn.position : Player.localPlayer.transform.position,
+            spawnPosition = ProjectileManager.instance.GetProjectileSpawn(this, weapon.secondaryProjectile),
             spawnRotation = (secondaryType == Weapon.SecondaryType.Attack) ? projectileSpawn.rotation : Player.localPlayer.transform.rotation,
             projectilePool = weapon.secondaryProjectile,
-            speed = weapon.secondaryForce,
+            speed = ProjectileManager.instance.GetProjectileSpeed(weapon.secondaryForce, weapon.secondaryProjectile),
             damage = weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Secondary),
             amount = weapon.secondaryAmountOfProjectiles,
             coneOfFireInDegrees = weapon.secondaryConeOfFireInDegrees,

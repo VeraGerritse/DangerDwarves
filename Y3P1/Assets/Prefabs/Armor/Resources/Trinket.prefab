@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e841a428c9a1e2b4cac954b1da9b9c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDecoy: 0
   myItem:
     itemName: 
     itemRarity: 0
@@ -184,10 +185,10 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  Synchronization: 0
+  Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 1382385189353862357}
   viewIdField: 1
   InstantiationId: 1
   isRuntimeInstantiated: 0
@@ -297,6 +298,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrinketParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7521248314403949717, guid: e5d34500079386b44bbc8bd9ad12d542,
+        type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5d34500079386b44bbc8bd9ad12d542, type: 3}

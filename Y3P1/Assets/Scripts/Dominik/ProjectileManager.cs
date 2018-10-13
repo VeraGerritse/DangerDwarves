@@ -1,10 +1,22 @@
-﻿using UnityEngine;
-using Photon.Pun;
+﻿using Photon.Pun;
+using System.Collections.Generic;
+using UnityEngine;
+using Y3P1;
 
-public class ProjectileManager : MonoBehaviourPunCallbacks 
+public class ProjectileManager : MonoBehaviourPunCallbacks
 {
 
     public static ProjectileManager instance;
+
+    [System.Serializable]
+    public struct ProjectileSettings
+    {
+        public string projectilePool;
+        public enum ProjectileSpawn { Weapon, Mouse, Player };
+        public ProjectileSpawn projectileSpawn;
+        public bool freezePosition;
+    }
+    [SerializeField] private List<ProjectileSettings> projectileSettings = new List<ProjectileSettings>();
 
     public class ProjectileData
     {
@@ -86,5 +98,47 @@ public class ProjectileManager : MonoBehaviourPunCallbacks
                 rot.y += angleStep;
             }
         }
+    }
+
+    public Vector3 GetProjectileSpawn(WeaponPrefab weaponPrefab, string projectilePool)
+    {
+        Vector3 pos = Vector3.zero;
+
+        for (int i = 0; i < projectileSettings.Count; i++)
+        {
+            if (projectileSettings[i].projectilePool == projectilePool)
+            {
+                switch (projectileSettings[i].projectileSpawn)
+                {
+                    case ProjectileSettings.ProjectileSpawn.Weapon:
+
+                        pos = weaponPrefab.projectileSpawn.position;
+                        break;
+                    case ProjectileSettings.ProjectileSpawn.Mouse:
+
+                        pos = PlayerController.mouseInWorldPos;
+                        break;
+                    case ProjectileSettings.ProjectileSpawn.Player:
+
+                        pos = Player.localPlayer.transform.position;
+                        break;
+                }
+            }
+        }
+
+        return pos;
+    }
+
+    public float GetProjectileSpeed(float defaultSpeed, string projectilePool)
+    {
+        for (int i = 0; i < projectileSettings.Count; i++)
+        {
+            if (projectileSettings[i].projectilePool == projectilePool && projectileSettings[i].freezePosition)
+            {
+                return 0;
+            }
+        }
+
+        return defaultSpeed;
     }
 }
