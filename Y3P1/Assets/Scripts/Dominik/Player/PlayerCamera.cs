@@ -8,15 +8,14 @@ public class PlayerCamera : MonoBehaviour
     private Vector3 offset;
 
     [HideInInspector] public Camera cameraComponent;
-    [HideInInspector] public Transform camLookAtPoint;
 
     [SerializeField] private bool lerp = true;
     [SerializeField] private float moveSpeed = 1f;
+    public Transform camLookAtPoint;
 
     private void Awake()
     {
-        cameraComponent = GetComponent<Camera>();
-        camLookAtPoint = transform.GetChild(0);
+        cameraComponent = GetComponentInChildren<Camera>();
     }
 
     public void Initialise(bool local)

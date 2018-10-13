@@ -37,6 +37,7 @@ namespace Y3P1
         [HideInInspector] public IKControl iKControl;
         [HideInInspector] public PlayerAppearance playerAppearance;
         [HideInInspector] public ReviveZone reviveZone;
+        [HideInInspector] public CameraShake cameraShake;
         #endregion
 
         private void Awake()
@@ -67,6 +68,7 @@ namespace Y3P1
             iKControl = GetComponentInChildren<IKControl>();
             playerAppearance = GetComponentInChildren<PlayerAppearance>();
             reviveZone = GetComponentInChildren<ReviveZone>();
+            cameraShake = GetComponentInChildren<CameraShake>();
         }
 
         private void Initialise()
@@ -109,6 +111,7 @@ namespace Y3P1
                 playerAppearance.RandomizeAppearance();
                 playerController.OnDodge += PlayerController_OnDodge;
                 entity.OnDeath.AddListener(() => Entity_OnDeath());
+                entity.OnHit.AddListener(() => cameraShake.Trauma = 0.5f);
                 DontDestroyOnLoad(gameObject);
             }
         }

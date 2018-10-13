@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using UnityEngine;
+using Y3P1;
 
 public class AOEDamage : MonoBehaviourPunCallbacks
 {
@@ -8,6 +9,7 @@ public class AOEDamage : MonoBehaviourPunCallbacks
     private float nextDamageTick;
     private int damage;
     private Projectile parentProjectile;
+    private Collider collider;
 
     [SerializeField] private string myPoolName;
     [SerializeField] private float damageRange = 2;
@@ -19,6 +21,8 @@ public class AOEDamage : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        collider = GetComponent<Collider>();
+
         // This means that this object is childed to a Projectile so that it can receive that projectiles data when it gets fired.
         if (initialiseInParent)
         {
@@ -64,6 +68,15 @@ public class AOEDamage : MonoBehaviourPunCallbacks
         }
 
         int collidersFound = Physics.OverlapSphereNonAlloc(transform.position, damageRange, entitiesInRange);
+
+        if (!continuousDamage && collider)
+        {
+            Vector3 viewPos = Player.localPlayer.playerCam.cameraComponent.WorldToViewportPoint(transform.position);
+            if (viewPos.x >= 0 && viewPos.x <= 1 && viewPos.y >= 0 && viewPos.y <= 1)
+            {
+                Player.localPlayer.cameraShake.Trauma = 1f;
+            }
+        }
 
         for (int i = 0; i < collidersFound; i++)
         {
