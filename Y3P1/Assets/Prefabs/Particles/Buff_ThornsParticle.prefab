@@ -9134,11 +9134,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myPoolName: 
+  hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 16897
   damageRange: 1.85
   damageMultiplier: 0.5
   continuousDamage: 1
   damageInterval: 0.5
   initialiseInParent: 1
+  pushToCenter: 0
+  pushToCenterForce: 0
+  damageTarget: 0
 --- !u!199 &3693932671327322725
 ParticleSystemRenderer:
   serializedVersion: 6
