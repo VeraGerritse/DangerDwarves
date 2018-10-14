@@ -222,6 +222,7 @@ MonoBehaviour:
   myCollider: {fileID: 0}
   entityID: 4
   instaDestroyOnDeath: 0
+  rb: {fileID: 1898242398378090830}
   health:
     isImmortal: 0
     isInvinsible: 0
@@ -236,6 +237,16 @@ MonoBehaviour:
     defense: 0
   canDropLoot: 1
   OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnRevive:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -353,9 +364,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviourState: 0
-  damageLayerMask:
-    serializedVersion: 2
-    m_Bits: 16896
   attacks:
   - attackName: Demon_Attack_Melee
     attackChance: 100
@@ -365,16 +373,19 @@ MonoBehaviour:
   attackRangeLookAtSpeed: 5
   damageRange: 0.65
   damagePoint: {fileID: 854608063657418639}
+  damageLayerMask:
+    serializedVersion: 2
+    m_Bits: 16896
   tempDamage: 15
   randomRangedAttackChance: 25
   randomRangedAttackInterval: 1
   stopWhileAttacking: 0
   healthBar: {fileID: 4528157252122662173}
+  initialChaseTrigger: {fileID: 2835736222214007849}
+  anim: {fileID: 5234120141802487857}
   deathAnimation: Demon_Death
   walkAnimation: Demon_Walking
   hitAnimation: Demon_Hit
-  anim: {fileID: 5234120141802487857}
-  initialChaseTrigger: {fileID: 2835736222214007849}
 --- !u!195 &2064121580250200424
 NavMeshAgent:
   m_ObjectHideFlags: 0

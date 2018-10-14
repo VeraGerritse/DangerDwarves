@@ -167,6 +167,7 @@ MonoBehaviour:
   myCollider: {fileID: 0}
   entityID: 1
   instaDestroyOnDeath: 0
+  rb: {fileID: 1898242398378090830}
   health:
     isImmortal: 0
     isInvinsible: 0
@@ -181,6 +182,16 @@ MonoBehaviour:
     defense: 0
   canDropLoot: 1
   OnHit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnRevive:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -298,9 +309,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviourState: 0
-  damageLayerMask:
-    serializedVersion: 2
-    m_Bits: 16896
   attacks:
   - attackName: Attack
     attackChance: 60
@@ -318,16 +326,19 @@ MonoBehaviour:
   attackRangeLookAtSpeed: 5
   damageRange: 0.65
   damagePoint: {fileID: 854608063657418639}
+  damageLayerMask:
+    serializedVersion: 2
+    m_Bits: 16896
   tempDamage: 10
   randomRangedAttackChance: 25
   randomRangedAttackInterval: 1
   stopWhileAttacking: 0
   healthBar: {fileID: 4528157252122662173}
+  initialChaseTrigger: {fileID: 2835736222214007849}
+  anim: {fileID: 388493675155602467}
   deathAnimation: Spider_death
   walkAnimation: Is Walking
   hitAnimation: Spider_hit
-  anim: {fileID: 388493675155602467}
-  initialChaseTrigger: {fileID: 2835736222214007849}
 --- !u!195 &2064121580250200424
 NavMeshAgent:
   m_ObjectHideFlags: 0

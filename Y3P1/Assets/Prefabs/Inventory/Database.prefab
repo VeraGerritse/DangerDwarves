@@ -59,12 +59,14 @@ MonoBehaviour:
   - Buff_Heal
   - Buff_Windslash
   - Buff_Hammershock
+  - Buff_Dazzle
   primaryAttacks: []
   secundaryBuffs:
   - Buff_Thorns
   - Buff_Heal
   - Buff_Windslash
   - Buff_Hammershock
+  - Buff_Dazzle
   singleSecondary:
   - Arrow_Animated
   - Arrow_Volley

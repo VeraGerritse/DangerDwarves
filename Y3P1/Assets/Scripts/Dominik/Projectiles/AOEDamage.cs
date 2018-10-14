@@ -11,11 +11,14 @@ public class AOEDamage : MonoBehaviourPunCallbacks
     private Projectile parentProjectile;
 
     [SerializeField] private string myPoolName;
+    [SerializeField] private LayerMask hitLayerMask;
     [SerializeField] private float damageRange = 2;
     [SerializeField] private float damageMultiplier = 1;
     [SerializeField] private bool continuousDamage;
     [SerializeField] private float damageInterval;
     [SerializeField] private bool initialiseInParent;
+    [SerializeField] private bool pushToCenter;
+    [SerializeField] private float pushToCenterForce;
     [SerializeField] private Projectile.Target damageTarget;
 
     private void Awake()
@@ -59,13 +62,7 @@ public class AOEDamage : MonoBehaviourPunCallbacks
 
     private void TriggerAOE(int damage)
     {
-        if (!photonView.IsMine)
-        {
-            return;
-        }
-
-        int collidersFound = Physics.OverlapSphereNonAlloc(transform.position, damageRange, entitiesInRange);
-
+        // Camera Shake.
         if (!continuousDamage)
         {
             Vector3 viewPos = Player.localPlayer.playerCam.cameraComponent.WorldToViewportPoint(transform.position);
@@ -74,6 +71,13 @@ public class AOEDamage : MonoBehaviourPunCallbacks
                 Player.localPlayer.cameraShake.Trauma = 1f;
             }
         }
+
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+
+        int collidersFound = Physics.OverlapSphereNonAlloc(transform.position, damageRange, entitiesInRange, hitLayerMask);
 
         for (int i = 0; i < collidersFound; i++)
         {
@@ -98,6 +102,10 @@ public class AOEDamage : MonoBehaviourPunCallbacks
                         break;
                 }
 
+                if (pushToCenter)
+                {
+                    entity.KnockBack(transform.position - entity.transform.position, pushToCenterForce);
+                }
             }
         }
     }

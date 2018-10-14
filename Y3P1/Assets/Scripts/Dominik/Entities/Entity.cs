@@ -11,6 +11,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField] private int entityID;
     [SerializeField] private bool instaDestroyOnDeath;
+    [SerializeField] private Rigidbody rb;
 
     public Health health;
     public Stats stats;
@@ -34,16 +35,16 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Hit(int amount)
     {
-        if (amount <= 0)
-        {
-            OnHit.Invoke();
-        }
         photonView.RPC("HitRPC", RpcTarget.All, CalculateAmount(amount));
     }
 
     [PunRPC]
     private void HitRPC(int amount)
     {
+        if (amount <= 0)
+        {
+            OnHit.Invoke();
+        }
         health.ModifyHealth(amount);
     }
 
@@ -120,6 +121,22 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     private void SyncHealth()
     {
         health.UpdateHealth();
+    }
+
+    public void KnockBack(Vector3 direction, float force)
+    {
+        if (!rb)
+        {
+            return;
+        }
+
+        photonView.RPC("KnockBackRPC", RpcTarget.All, direction, force);
+    }
+
+    [PunRPC]
+    private void KnockBackRPC(Vector3 direction, float force)
+    {
+        rb.AddForce(direction * force, ForceMode.Impulse);
     }
 
     private void OnDestroy()

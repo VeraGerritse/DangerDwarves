@@ -72,6 +72,9 @@ MonoBehaviour:
   - projectilePool: Buff_Windslash
     projectileSpawn: 2
     freezePosition: 1
+  - projectilePool: Buff_Dazzle
+    projectileSpawn: 1
+    freezePosition: 1
 --- !u!114 &5769053136309210999
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,24 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!224 &6445159585247828165 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
-    type: 3}
-  m_PrefabInstance: {fileID: 1804775200451949643}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1129828346626576813 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1632042074742679014, guid: ae10adcbca2c84d469fdfd990e1d6eab,
-    type: 3}
-  m_PrefabInstance: {fileID: 1804775200451949643}
-  m_PrefabAsset: {fileID: 0}
-  m_Script: {fileID: 11500000, guid: 206c3631fccebf841b3a96f5f115de29, type: 3}
 --- !u!224 &549299838207358254 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2203483087077638501, guid: ae10adcbca2c84d469fdfd990e1d6eab,
     type: 3}
   m_PrefabInstance: {fileID: 1804775200451949643}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5546799059658843132 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6192987289836115895, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+    type: 3}
+  m_PrefabInstance: {fileID: 1804775200451949643}
+  m_PrefabAsset: {fileID: 0}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &2980124315090395709
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,6 +172,13 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2461618777977229473 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4261166414810637546, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+    type: 3}
+  m_PrefabInstance: {fileID: 1804775200451949643}
+  m_PrefabAsset: {fileID: 0}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &5692939137978712533
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,6 +463,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 6368289305768057118}
   healthBar: {fileID: 1129828346626576813}
+--- !u!224 &6445159585247828165 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+    type: 3}
+  m_PrefabInstance: {fileID: 1804775200451949643}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1129828346626576813 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1632042074742679014, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+    type: 3}
+  m_PrefabInstance: {fileID: 1804775200451949643}
+  m_PrefabAsset: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 206c3631fccebf841b3a96f5f115de29, type: 3}
 --- !u!1001 &1804775200451949643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -711,6 +725,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1632042074742679014, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+        type: 3}
+      propertyPath: foregroundHealthBar
+      value: 
+      objectReference: {fileID: 5546799059658843132}
+    - target: {fileID: 1632042074742679014, guid: ae10adcbca2c84d469fdfd990e1d6eab,
+        type: 3}
+      propertyPath: backgroundHealthBar
+      value: 
+      objectReference: {fileID: 2461618777977229473}
     m_RemovedComponents:
     - {fileID: 2788670990308533371, guid: ae10adcbca2c84d469fdfd990e1d6eab, type: 3}
     - {fileID: 2626245686083579127, guid: ae10adcbca2c84d469fdfd990e1d6eab, type: 3}

@@ -92,11 +92,7 @@ public class WeaponPrefab : ItemPrefab
 
                             if (weapon.knockBack > 0 && !pvp)
                             {
-                                Rigidbody rb = entity.transform.parent.GetComponent<Rigidbody>();
-                                if (rb)
-                                {
-                                    rb.AddForce(toHit * weapon.knockBack, ForceMode.Impulse);
-                                }
+                                entity.KnockBack(toHit, weapon.knockBack);
                             }
                         }
                     }

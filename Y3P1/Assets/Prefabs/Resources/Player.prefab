@@ -1093,6 +1093,7 @@ MonoBehaviour:
   myCollider: {fileID: 0}
   entityID: 0
   instaDestroyOnDeath: 0
+  rb: {fileID: 0}
   health:
     isImmortal: 0
     isInvinsible: 0
@@ -1442,6 +1443,7 @@ MonoBehaviour:
   playerUISpawnOffset: {x: 0, y: 1.8, z: 0.2}
   playerUICam: {fileID: 2224781018497381817}
   characterCam: {fileID: 3178491925162334216}
+  cameraShake: {fileID: 2892370508811539411}
   deathCanvas: {fileID: 1963476409204493732}
   weaponChargeCanvas: {fileID: 0}
   dwarfAnimEvents: {fileID: 0}
@@ -1458,7 +1460,6 @@ MonoBehaviour:
   iKControl: {fileID: 0}
   playerAppearance: {fileID: 0}
   reviveZone: {fileID: 0}
-  cameraShake: {fileID: 0}
 --- !u!114 &7267311020839716367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1853,6 +1854,9 @@ MonoBehaviour:
   - Type: 1
     SynchronizeType: 2
     Name: Chargelenght
+  - Type: 9
+    SynchronizeType: 2
+    Name: MeleeAbilityCharging
   m_SynchronizeLayers:
   - SynchronizeType: 2
     LayerIndex: 0

@@ -144,3 +144,8 @@ MonoBehaviour:
       type: 3}
     poolSize: 25
     autoExpand: 1
+  - poolName: Buff_Dazzle
+    poolPrefab: {fileID: 1329845292236604, guid: b402170624543d448bc8383fb825a38e,
+      type: 3}
+    poolSize: 25
+    autoExpand: 1
