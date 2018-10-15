@@ -77,7 +77,7 @@ MonoBehaviour:
     isImmortal: 0
     isInvinsible: 0
     isDead: 0
-    baseHealth: 100
+    baseHealth: 50
     currentHealth: 0
   stats:
     stamina: 0
@@ -142,8 +142,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 8741191265366256677}
-  viewIdField: 1
-  InstantiationId: 1
+  viewIdField: 24
+  InstantiationId: 24
   isRuntimeInstantiated: 0
 --- !u!65 &3481017381108286403
 BoxCollider:

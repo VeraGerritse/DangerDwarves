@@ -1282,6 +1282,12 @@ MonoBehaviour:
   lerp: 1
   moveSpeed: 4
   camLookAtPoint: {fileID: 3094226481808898937}
+  zoomSensitivity: 50
+  zoomSpeed: 5
+  maxZoomIn: 20
+  maxZoomOut: 80
+  maxZoomInRotationX: 50
+  maxZoomOutRotationX: 60
 --- !u!1 &7795172968561417109
 GameObject:
   m_ObjectHideFlags: 0
