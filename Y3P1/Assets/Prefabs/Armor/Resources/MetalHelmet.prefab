@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8676818531126917720}
   - component: {fileID: 15746287887452255}
   - component: {fileID: 4897103100366131703}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PickUpTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4555522520552425865}
   - component: {fileID: 1020885972926360302}
   - component: {fileID: 1181897410327462403}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: MetalHelmet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
