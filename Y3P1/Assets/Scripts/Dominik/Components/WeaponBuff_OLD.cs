@@ -2,7 +2,7 @@
 using UnityEngine;
 using Y3P1;
 
-public class WeaponBuff : MonoBehaviourPunCallbacks
+public class WeaponBuff_OLD : MonoBehaviourPunCallbacks
 {
 
     private Projectile projectile;

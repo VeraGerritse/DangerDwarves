@@ -69,6 +69,7 @@ public class ReviveZone : MonoBehaviourPunCallbacks, IPunObservable
         {
             checkForInput = false;
             interactIndicator.SetActive(false);
+            ToggleRevive(false);
         }
     }
 
@@ -81,22 +82,29 @@ public class ReviveZone : MonoBehaviourPunCallbacks, IPunObservable
 
     public void ToggleRevive(bool b)
     {
-        reviving = b;
-        progressPanel.SetActive(b);
+        if (!Player.localPlayer.entity.health.isDead)
+        {
+            reviving = b;
+            progressPanel.SetActive(b);
+        }
     }
 
     private void Revive()
     {
         reviving = false;
-        photonView.RPC("SyncRevive", RpcTarget.All);
-        NotificationManager.instance.NewNotification("<color=red>" + PhotonNetwork.NickName + "</color> has been revived!");
+        photonView.RPC("SyncRevive", RpcTarget.All, player.photonView.ViewID);
     }
 
     [PunRPC]
-    private void SyncRevive()
+    private void SyncRevive(int id)
     {
         ToggleReviveZone(false);
-        player.Respawn(false);
+
+        if (Player.localPlayer.photonView.ViewID == id)
+        {
+            player.Respawn(false);
+            NotificationManager.instance.NewNotification("<color=red>" + PhotonNetwork.NickName + "</color> has been revived!");
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

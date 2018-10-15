@@ -28,7 +28,7 @@ public class Health
     public void Initialise(Entity entity)
     {
         myEntity = entity;
-        ResetHealth();
+        ResetHealth(100);
     }
 
     public void ModifyHealth(int amount)
@@ -80,10 +80,11 @@ public class Health
         OnHealthModified(new HealthData { currentHealth = currentHealth, maxHealth = GetMaxHealth(), percentageHealth = GetHealthPercentage(), amountHealthChanged = null });
     }
 
-    public void ResetHealth()
+    public void ResetHealth(int percentage)
     {
         isDead = false;
-        currentHealth = GetMaxHealth();
+        float newHealth = ((float)Mathf.Clamp(percentage, 0, 100) / 100) * GetMaxHealth();
+        currentHealth = (int)newHealth;
         OnHealthModified(new HealthData { currentHealth = currentHealth, maxHealth = GetMaxHealth(), percentageHealth = GetHealthPercentage(), amountHealthChanged = null });
     }
 }

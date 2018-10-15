@@ -48,11 +48,24 @@ public class WeaponPrefab : ItemPrefab
         {
             Weapon_Ranged weapon = WeaponSlot.currentWeapon as Weapon_Ranged;
 
+            string projectile = weapon.primaryProjectile;
+            switch (WeaponSlot.currentBuff.buffType)
+            {
+                case WeaponBuff.BuffType.None:
+
+                    projectile = weapon.primaryProjectile;
+                    break;
+                case WeaponBuff.BuffType.Fire:
+
+                    projectile = weapon.primaryProjectile + "_Buffed_Fire";
+                    break;
+            }
+
             ProjectileManager.ProjectileData data = new ProjectileManager.ProjectileData
             {
                 spawnPosition = ProjectileManager.instance.GetProjectileSpawn(this, weapon.primaryProjectile),
                 spawnRotation = projectileSpawn.rotation,
-                projectilePool = weapon.primaryProjectile,
+                projectilePool = projectile,
                 speed = ProjectileManager.instance.GetProjectileSpeed(weapon.force, weapon.primaryProjectile),
                 damage = weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Ranged),
                 amount = weapon.amountOfProjectiles,

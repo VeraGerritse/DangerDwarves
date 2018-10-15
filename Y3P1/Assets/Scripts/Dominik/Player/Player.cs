@@ -110,8 +110,10 @@ namespace Y3P1
             {
                 playerAppearance.RandomizeAppearance();
                 playerController.OnDodge += PlayerController_OnDodge;
+
                 entity.OnDeath.AddListener(() => Entity_OnDeath());
                 entity.OnHit.AddListener(() => cameraShake.Trauma = 0.5f);
+
                 DontDestroyOnLoad(gameObject);
             }
         }
@@ -153,7 +155,7 @@ namespace Y3P1
         {
             deathCanvas.SetActive(false);
             reviveZone.ToggleReviveZone(false);
-            localPlayer.entity.Revive();
+            localPlayer.entity.Revive(hub ? 100 : 50);
 
             if (hub)
             {

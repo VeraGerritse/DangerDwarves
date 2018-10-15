@@ -375,6 +375,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         CalculateArmor();
         SafeManager.instance.LoadGame();
         CalculateArmor();
+        Player.localPlayer.entity.health.ResetHealth(100);
         UpdateGold(0);
         UpdateInventoryColor();
         for (int i = 0; i < allSlots.Count; i++)

@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Y3P1;
 
@@ -26,6 +27,8 @@ public class WeaponSlot : EquipmentSlot
 
     private bool isChargingSecondary;
     private float secondaryChargeCounter;
+
+    public static WeaponBuff currentBuff = new WeaponBuff();
 
     [SerializeField] private Transform rangedWeaponSpawn;
     [SerializeField] private Transform meleeWeaponSpawn;

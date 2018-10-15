@@ -149,3 +149,8 @@ MonoBehaviour:
       type: 3}
     poolSize: 25
     autoExpand: 1
+  - poolName: Arrow_Buffed_Fire
+    poolPrefab: {fileID: 3716037247890611631, guid: d53bd97401332594693c202d028720db,
+      type: 3}
+    poolSize: 100
+    autoExpand: 1

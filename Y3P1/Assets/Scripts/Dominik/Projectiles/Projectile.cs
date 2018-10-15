@@ -133,7 +133,7 @@ public class Projectile : MonoBehaviour
         {
             GameObject newSpawn = ObjectPooler.instance.GrabFromPool(prefabToSpawnOnHit, hitCollider.ClosestPoint(transform.position), Quaternion.identity);
 
-            AOEDamage aoeComponent = newSpawn.GetComponent<AOEDamage>();
+            AOEEffect aoeComponent = newSpawn.GetComponent<AOEEffect>();
             if (aoeComponent)
             {
                 aoeComponent.Initialise(fireData.damage);

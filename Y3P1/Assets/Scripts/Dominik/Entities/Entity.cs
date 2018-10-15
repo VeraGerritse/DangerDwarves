@@ -108,16 +108,16 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    public void Revive()
+    public void Revive(int healthPercentage)
     {
         OnRevive.Invoke();
-        photonView.RPC("SyncReviveHealth", RpcTarget.All);
+        photonView.RPC("SyncReviveHealth", RpcTarget.All, healthPercentage);
     }
 
     [PunRPC]
-    private void SyncReviveHealth()
+    private void SyncReviveHealth(int percentage)
     {
-        health.ResetHealth();
+        health.ResetHealth(percentage);
     }
 
     [PunRPC]
