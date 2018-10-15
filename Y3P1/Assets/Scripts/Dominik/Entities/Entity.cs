@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Y3P1;
@@ -16,8 +17,14 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     public enum EntityType { Humanoid, Prop, Chest, Box };
     [SerializeField] private EntityType entityType;
 
+    [Space(10)]
+
     public Health health;
     public Stats stats;
+    public StatusEffects statusEffects;
+
+    [Space(10)]
+
     public bool canDropLoot;
 
     [Space(10)]
@@ -34,11 +41,22 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     public override void OnEnable()
     {
         health.Initialise(this);
+        statusEffects.Initialise(this);
     }
 
-    public void Hit(int amount)
+    private void Update()
+    {
+        statusEffects.HandleEffects();
+    }
+
+    public void Hit(int amount, List<WeaponSlot.WeaponBuff> weaponBuffs = null)
     {
         photonView.RPC("HitRPC", RpcTarget.All, CalculateAmount(amount), health.isInvinsible);
+
+        if (weaponBuffs != null)
+        {
+            statusEffects.ApplyWeaponBuffs(weaponBuffs);
+        }
     }
 
     [PunRPC]
@@ -49,6 +67,12 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
             OnHit.Invoke();
         }
         health.ModifyHealth(amount);
+    }
+
+    [PunRPC]
+    public void SyncStatusEffects(int effectType, float duration)
+    {
+        statusEffects.AddEffect(effectType, duration);
     }
 
     private int CalculateAmount(int amount)

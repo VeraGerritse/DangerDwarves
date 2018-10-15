@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using System;
 using UnityEngine;
+using Y3P1;
 
 public class Projectile : MonoBehaviour
 {
@@ -106,11 +107,12 @@ public class Projectile : MonoBehaviour
 
     public virtual void HandleHitEntity(Entity entity)
     {
-        if (photonView.IsMine)
+        if (fireData.ownerID == Player.localPlayer.photonView.ViewID)
         {
-            entity.Hit(-fireData.damage);
-            OnEntityHit(this);
+            entity.Hit(-fireData.damage, WeaponSlot.weaponBuffs);
         }
+
+        OnEntityHit(this);
 
         SpawnPrefabOnHit();
 

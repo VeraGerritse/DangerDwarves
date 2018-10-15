@@ -73,4 +73,5 @@ MonoBehaviour:
   - FireBuffProjectile
   - FireProjectileRPC
   - KnockBackRPC
+  - SyncStatusEffects
   DisableAutoOpenWizard: 1

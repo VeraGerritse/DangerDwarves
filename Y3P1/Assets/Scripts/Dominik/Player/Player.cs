@@ -126,6 +126,15 @@ namespace Y3P1
             }
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                // Test buff weapon.
+                weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { statusEffectDuration = 3, endTime = Time.time + 3 }, 3);
+            }
+        }
+
         private void CreateWorldSpacePlayerUI()
         {
             PlayerUI playerUI = Instantiate(playerWorldSpaceUIPrefab, transform.position + playerUISpawnOffset, Quaternion.identity, transform).GetComponent<PlayerUI>();

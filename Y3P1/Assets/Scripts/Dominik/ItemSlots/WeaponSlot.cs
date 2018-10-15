@@ -28,7 +28,18 @@ public class WeaponSlot : EquipmentSlot
     private bool isChargingSecondary;
     private float secondaryChargeCounter;
 
-    public static WeaponBuff currentBuff = new WeaponBuff();
+    public static List<WeaponBuff> weaponBuffs = new List<WeaponBuff>();
+    public struct WeaponBuff
+    {
+        public StatusEffects.StatusEffectType type;
+        public float statusEffectDuration;
+        public float endTime;
+
+        public void AddDuration(float amount)
+        {
+            endTime += amount;
+        }
+    }
 
     [SerializeField] private Transform rangedWeaponSpawn;
     [SerializeField] private Transform meleeWeaponSpawn;
@@ -65,6 +76,8 @@ public class WeaponSlot : EquipmentSlot
         {
             StopAllAttacks();
         }
+
+        HandleWeaponBuffTimers();
     }
 
     private void HandlePrimaryAttack()
@@ -145,6 +158,31 @@ public class WeaponSlot : EquipmentSlot
                 }
             }
         }
+    }
+
+    private void HandleWeaponBuffTimers()
+    {
+        for (int i = weaponBuffs.Count - 1; i >= 0; i--)
+        {
+            if (Time.time >= weaponBuffs[i].endTime)
+            {
+                weaponBuffs.Remove(weaponBuffs[i]);
+            }
+        }
+    }
+
+    public void AddBuff(WeaponBuff buff, float duration)
+    {
+        for (int i = 0; i < weaponBuffs.Count; i++)
+        {
+            if (weaponBuffs[i].type == buff.type)
+            {
+                weaponBuffs[i].AddDuration(duration);
+                return;
+            }
+        }
+
+        weaponBuffs.Add(buff);
     }
 
     private bool CanAttack()
