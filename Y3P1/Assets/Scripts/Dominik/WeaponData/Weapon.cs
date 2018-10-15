@@ -28,10 +28,22 @@ public abstract class Weapon : Item
         {
             return null;
         }
-        string[] wI = new string[] {"Secondary: ", "Attack: <color=#00A8FF>" + ProjectalName(secondaryProjectile), "Arrows: <color=#00A8FF>" + secondaryAmountOfProjectiles.ToString(), "Casting time: <color=#00A8FF>" + secondaryChargeupTime.ToString("F1") };
+        string[] wI;
+        if (IsRanged())
+        {
+            wI = new string[] { "Secondary: ", "Attack: <color=#00A8FF>" + ProjectalName(secondaryProjectile), "Arrows: <color=#00A8FF>" + secondaryAmountOfProjectiles.ToString(), "Casting time: <color=#00A8FF>" + secondaryChargeupTime.ToString("F1") };
+        }
+        else
+        {
+            wI = new string[] { "Secondary: ", "Attack: <color=#00A8FF>" + ProjectalName(secondaryProjectile), "Casting time: <color=#00A8FF>" + secondaryChargeupTime.ToString("F1") };
+        }
         return wI;
     }
 
+    public virtual bool IsRanged()
+    {
+        return false;
+    }
     string ProjectalName(string name)
     {
         string[] x = name.Split('_');

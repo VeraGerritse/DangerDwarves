@@ -6,7 +6,7 @@ using Y3P1;
 
 public class InventorySlot : MonoBehaviour {
     [SerializeField] private Inventory inventory;
-    public enum SlotType {all,weapon,helmet,trinket,nothing}
+    public enum SlotType {all,weapon,helmet,trinket,nothing,hotkey}
     public SlotType slotType;
     [SerializeField] private Image myItem;
     public Image myOverlay;
@@ -62,19 +62,27 @@ public class InventorySlot : MonoBehaviour {
         myItem.enabled = false;
     }
 
-    private void Start()
+    private void Awake()
     {
+        StartCoroutine(Time());
+    }
+
+    private IEnumerator Time()
+    {
+        yield return new WaitForSeconds(0.1f);
         inventory = Player.localPlayer.myInventory;
+
         if (inventory == null)
         {
             Debug.Log("No inventory Found");
             Destroy(gameObject);
-            return;
+ 
         }
-
-        //myItem = GetComponentInChildren<Image>();
-        //myItem.enabled = false;
-        //inventory.AddSlots();
+        else if (slotType == SlotType.hotkey)
+        {
+            inventory.allSlots.Add(this);
+            inventory.allItems.Add(null);
+        }
     }
 
     public void OnMouseEnter()

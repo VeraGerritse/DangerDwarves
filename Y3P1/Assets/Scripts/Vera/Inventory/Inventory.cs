@@ -11,6 +11,7 @@ public class Inventory : MonoBehaviourPunCallbacks
 {
     public List<InventorySlot> allSlots = new List<InventorySlot>();
     public List<Item> allItems = new List<Item>();
+    [SerializeField] private List<InventorySlot> hotkeySlots = new List<InventorySlot>();
     public InventorySlot currentSlot;
     public InventorySlot lastSlot;
     public Item drag;
@@ -329,7 +330,7 @@ public class Inventory : MonoBehaviourPunCallbacks
                 return true;
             }
         }
-        else if (allSlots[currentSlotIndex].slotType == InventorySlot.SlotType.all)
+        else if (allSlots[currentSlotIndex].slotType == InventorySlot.SlotType.all || allSlots[currentSlotIndex].slotType == InventorySlot.SlotType.hotkey)
         {
             if (allSlots[lastSlotIndex].slotType == InventorySlot.SlotType.weapon && allItems[currentSlotIndex] != null)
             {
@@ -370,11 +371,58 @@ public class Inventory : MonoBehaviourPunCallbacks
 
     IEnumerator Time()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.15f);
         CalculateArmor();
         SafeManager.instance.LoadGame();
         CalculateArmor();
         UpdateGold(0);
+        UpdateInventoryColor();
+        for (int i = 0; i < allSlots.Count; i++)
+        {
+            if(allSlots[i].slotType == InventorySlot.SlotType.hotkey)
+            {
+                hotkeySlots.Add(allSlots[i]);
+            }
+        }
+        hotkeySlots.Reverse();
+    }
+
+    private void EquipToHotkey(int toSlot)
+    {
+        int ind = GetIndex(currentSlot);
+        if(currentSlot == null)
+        {
+            return;
+        }
+        if (currentSlot.slotType == InventorySlot.SlotType.hotkey )
+        {
+            return;
+        }
+
+        int slot = toSlot - 1;
+        int index = GetIndex(hotkeySlots[slot]);
+
+        if(allItems[index] == null)
+        {
+            allItems[index] = allItems[ind];
+            allItems[ind] = null;
+            allSlots[ind].DisableImage();
+            allSlots[index].SetImage(Database.hostInstance.allSprites[allItems[index].spriteIndex]);
+            allSlots[index].EnableImage();
+        }
+        else
+        {
+            if(allSlots[ind].slotType == InventorySlot.SlotType.helmet && allItems[index] is Helmet || allSlots[ind].slotType == InventorySlot.SlotType.weapon && allItems[index] is Weapon|| allSlots[ind].slotType == InventorySlot.SlotType.trinket && allItems[index] is Trinket || allSlots[ind].slotType == InventorySlot.SlotType.all)
+            {
+                Item temp = allItems[ind];
+                allItems[ind] = allItems[index];
+                allItems[index] = temp;
+                allSlots[ind].EnableImage();
+                allSlots[index].SetImage(Database.hostInstance.allSprites[allItems[index].spriteIndex]);
+                allSlots[ind].SetImage(Database.hostInstance.allSprites[allItems[ind].spriteIndex]);
+            }
+
+        }
         UpdateInventoryColor();
     }
 
@@ -397,6 +445,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             Player.localPlayer.myInventory.totalGoldAmount = 999999999;
         }
+        UIManager.instance.UpdateGold(Player.localPlayer.myInventory.totalGoldAmount);
         StatsInfo.instance.UpdateGold(Player.localPlayer.myInventory.totalGoldAmount);
     }
 
@@ -454,18 +503,65 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             RemoveAllItems();
         }
-
-        if(currentSlot != null)
+        if (Input.GetButtonDown("One"))
         {
-            int index = -1;
-            for (int i = 0; i < allSlots.Count; i++)
+            if (InventoryIsOpen())
             {
-                if (currentSlot == allSlots[i])
-                {
-                    index = i;
-                }
+                EquipToHotkey(1);
             }
-            if(allItems[index] != null)
+            else
+            {
+                HotKeyAction(1);
+            }
+        }
+        if (Input.GetButtonDown("Two"))
+        {
+            if (InventoryIsOpen())
+            {
+                EquipToHotkey(2);
+            }
+            else
+            {
+                HotKeyAction(2);
+            }
+        }
+        if (Input.GetButtonDown("Three"))
+        {
+            if (InventoryIsOpen())
+            {
+                EquipToHotkey(3);
+            }
+            else
+            {
+                HotKeyAction(3);
+            }
+        }
+        if (Input.GetButtonDown("Four"))
+        {
+            if (InventoryIsOpen())
+            {
+                EquipToHotkey(4);
+            }
+            else
+            {
+                HotKeyAction(4);
+            }
+        }
+        if (Input.GetButtonDown("Five"))
+        {
+            if (InventoryIsOpen())
+            {
+                EquipToHotkey(5);
+            }
+            else
+            {
+                HotKeyAction(5);
+            }
+        }
+        if (currentSlot != null)
+        {
+            int index = GetIndex(currentSlot);
+            if (allItems[index] != null)
             {
                 allItems[index].SendInfo();
             }
@@ -483,137 +579,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             if (Input.GetButtonDown("Fire2"))
             {
-                if (Player.localPlayer.dwarfAnimController.CanEquipRanged())
-                {
-                    int index = 0;
-                    for (int i = 0; i < allSlots.Count; i++)
-                    {
-                        if (currentSlot == allSlots[i])
-                        {
-                            index = i;
-                        }
-                    }
-
-
-                    if (allItems[index] != null)
-                    {
-                        bool unEquip = false;
-                        if (allSlots[index].slotType != InventorySlot.SlotType.all)
-                        {
-                            unEquip = true;
-                        }
-
-
-
-                        int newSlot = 0;
-                        int type = 0;
-                        if (allItems[index] is Weapon)
-                        {
-                            for (int i = 0; i < allSlots.Count; i++)
-                            {
-                                if (allSlots[i].slotType == InventorySlot.SlotType.weapon)
-                                {
-                                    newSlot = i;
-                                    type = 1;
-                                }
-                            }
-                        }
-                        else if (allItems[index] is Helmet)
-                        {
-                            for (int i = 0; i < allSlots.Count; i++)
-                            {
-                                if (allSlots[i].slotType == InventorySlot.SlotType.helmet)
-                                {
-                                    newSlot = i;
-                                    type = 2;
-                                }
-                            }
-                        }
-                        else if (allItems[index] is Trinket)
-                        {
-                            for (int i = 0; i < allSlots.Count; i++)
-                            {
-                                if (allSlots[i].slotType == InventorySlot.SlotType.trinket)
-                                {
-                                    newSlot = i;
-                                    type = 3;
-                                }
-                            }
-                        }
-                        if (type != 0)
-                        {
-                            if (allItems[newSlot] == null)
-                            {
-
-                            }
-
-                            if (unEquip)
-                            {
-                                if (!CheckFull())
-                                {
-                                    if (type == 1)
-                                    {
-                                        allSlots[newSlot].EquipWeapon(null);
-                                        CalculateArmor();
-                                    }
-                                    if (type == 2)
-                                    {
-                                        allSlots[newSlot].EquipHelmet(null);
-                                        CalculateArmor();
-                                    }
-                                    if (type == 3)
-                                    {
-                                        allSlots[newSlot].EquipTrinket(null);
-                                        CalculateArmor();
-                                    }
-                                    AddItem(allItems[index]);
-                                    RemoveItem(index);
-                                }
-                            }
-                            else
-                            {
-                                Item temp = allItems[index];
-                                allItems[index] = allItems[newSlot];
-                                allItems[newSlot] = temp;
-                                if (type == 1)
-                                {
-                                    allSlots[newSlot].EquipWeapon((Weapon)allItems[newSlot]);
-                                    CalculateArmor();
-                                }
-                                if (type == 2)
-                                {
-                                    allSlots[newSlot].EquipHelmet((Helmet)allItems[newSlot]);
-                                    CalculateArmor();
-                                }
-                                if (type == 3)
-                                {
-                                    allSlots[newSlot].EquipTrinket((Trinket)allItems[newSlot]);
-                                    CalculateArmor();
-                                }
-                            }
-
-                            if (allItems[newSlot] != null)
-                            {
-                                allSlots[newSlot].EnableImage();
-                                allSlots[newSlot].SetImage(Database.hostInstance.allSprites[allItems[newSlot].spriteIndex]);
-                            }
-                            else
-                            {
-                                allSlots[newSlot].DisableImage();
-                            }
-                            if (allItems[index] != null)
-                            {
-                                allSlots[index].EnableImage();
-                                allSlots[index].SetImage(Database.hostInstance.allSprites[allItems[index].spriteIndex]);
-                            }
-                            else
-                            {
-                                allSlots[index].DisableImage();
-                            }
-                            drag = null;
-                        }
-                    }
-                }
+                EquipItem(GetIndex(currentSlot));
                 CalculateArmor();
                 UpdateInventoryColor();
             }
@@ -671,7 +637,7 @@ public class Inventory : MonoBehaviourPunCallbacks
             {
                 if (LootRandomizer.instance != null)
                 {
-                    Item newItem = LootRandomizer.instance.DropLoot(10 + averageILevel);
+                    Item newItem = LootRandomizer.instance.DropLoot(10 + averageILevel,true);
                     if (newItem == null)
                     {
                         return;
@@ -684,12 +650,15 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             if(LootRandomizer.instance != null)
             {
-                Item newItem = LootRandomizer.instance.DropLoot(averageILevel);
-                if (newItem == null)
+                for (int i = 0; i < allSlots.Count; i++)
                 {
-                    return;
+                    Item newItem = LootRandomizer.instance.DropLoot(averageILevel, true);
+                    if (newItem == null)
+                    {
+                        return;
+                    }
+                    AddItem(newItem);
                 }
-                AddItem(newItem);
             }
         }
         if (Input.GetKeyDown(KeyCode.M))
@@ -707,6 +676,164 @@ public class Inventory : MonoBehaviourPunCallbacks
             onMouse.sprite = Database.hostInstance.allSprites[drag.spriteIndex];
             onMouse.transform.position = Input.mousePosition;
         }
+    }
+
+    private void HotKeyAction(int ind)
+    {
+
+        int index = GetIndex(hotkeySlots[ind - 1]);
+        if (allItems[index] == null)
+        {
+
+            return;
+        }
+        if(allItems[index] is Weapon|| allItems[index] is Helmet || allItems[index] is Trinket)
+        {
+
+            EquipItem(index);
+            return;
+        }
+        NotificationManager.instance.NewNotification("aaaaah");
+    }
+
+    private int GetIndex(InventorySlot slot)
+    {
+        int index = -1;
+        for (int i = 0; i < allSlots.Count; i++)
+        {
+            if (slot == allSlots[i])
+            {
+                index = i;
+            }
+        }
+
+        return index;
+    }
+
+    private void EquipItem(int slotToEquip)
+    {
+        if (Player.localPlayer.dwarfAnimController.CanEquipRanged())
+        {
+            if (allItems[slotToEquip] != null)
+            {
+                bool unEquip = false;
+                if (allSlots[slotToEquip].slotType != InventorySlot.SlotType.all && allSlots[slotToEquip].slotType != InventorySlot.SlotType.hotkey)
+                {
+                    unEquip = true;
+                }
+
+
+
+                int newSlot = 0;
+                int type = 0;
+                if (allItems[slotToEquip] is Weapon)
+                {
+                    for (int i = 0; i < allSlots.Count; i++)
+                    {
+                        if (allSlots[i].slotType == InventorySlot.SlotType.weapon)
+                        {
+                            newSlot = i;
+                            type = 1;
+                        }
+                    }
+                }
+                else if (allItems[slotToEquip] is Helmet)
+                {
+                    for (int i = 0; i < allSlots.Count; i++)
+                    {
+                        if (allSlots[i].slotType == InventorySlot.SlotType.helmet)
+                        {
+                            newSlot = i;
+                            type = 2;
+                        }
+                    }
+                }
+                else if (allItems[slotToEquip] is Trinket)
+                {
+                    for (int i = 0; i < allSlots.Count; i++)
+                    {
+                        if (allSlots[i].slotType == InventorySlot.SlotType.trinket)
+                        {
+                            newSlot = i;
+                            type = 3;
+                        }
+                    }
+                }
+                if (type != 0)
+                {
+                    if (allItems[newSlot] == null)
+                    {
+
+                    }
+
+                    if (unEquip)
+                    {
+                        if (!CheckFull())
+                        {
+                            if (type == 1)
+                            {
+                                allSlots[newSlot].EquipWeapon(null);
+                                CalculateArmor();
+                            }
+                            if (type == 2)
+                            {
+                                allSlots[newSlot].EquipHelmet(null);
+                                CalculateArmor();
+                            }
+                            if (type == 3)
+                            {
+                                allSlots[newSlot].EquipTrinket(null);
+                                CalculateArmor();
+                            }
+                            AddItem(allItems[slotToEquip]);
+                            RemoveItem(slotToEquip);
+                        }
+                    }
+                    else
+                    {
+                        Item temp = allItems[slotToEquip];
+                        allItems[slotToEquip] = allItems[newSlot];
+                        allItems[newSlot] = temp;
+                        if (type == 1)
+                        {
+                            allSlots[newSlot].EquipWeapon((Weapon)allItems[newSlot]);
+                            CalculateArmor();
+                        }
+                        if (type == 2)
+                        {
+                            allSlots[newSlot].EquipHelmet((Helmet)allItems[newSlot]);
+                            CalculateArmor();
+                        }
+                        if (type == 3)
+                        {
+                            allSlots[newSlot].EquipTrinket((Trinket)allItems[newSlot]);
+                            CalculateArmor();
+                        }
+                    }
+
+                    if (allItems[newSlot] != null)
+                    {
+                        allSlots[newSlot].EnableImage();
+                        allSlots[newSlot].SetImage(Database.hostInstance.allSprites[allItems[newSlot].spriteIndex]);
+                    }
+                    else
+                    {
+                        allSlots[newSlot].DisableImage();
+                    }
+                    if (allItems[slotToEquip] != null)
+                    {
+                        allSlots[slotToEquip].EnableImage();
+                        allSlots[slotToEquip].SetImage(Database.hostInstance.allSprites[allItems[slotToEquip].spriteIndex]);
+                    }
+                    else
+                    {
+                        allSlots[slotToEquip].DisableImage();
+                    }
+                    drag = null;
+                }
+            }
+        }
+        UpdateInventoryColor();
     }
 
     public bool CheckFull()
@@ -864,7 +991,7 @@ public class Inventory : MonoBehaviourPunCallbacks
 
     public void DropNewItem(Vector3 loc)
     {
-        Item newItem = LootRandomizer.instance.DropLoot(averageILevel);
+        Item newItem = LootRandomizer.instance.DropLoot(averageILevel,false);
         if(newItem == null)
         {
             return;

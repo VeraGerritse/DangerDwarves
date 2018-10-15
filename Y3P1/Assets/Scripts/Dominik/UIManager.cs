@@ -24,4 +24,10 @@ public class UIManager : MonoBehaviour
             Destroy(this);
         }
     }
+
+    public void UpdateGold(int Amount)
+    {
+        string newString = "<color=yellow>Gold:</color> " + Amount.ToString();
+        goldText.text = newString;
+    }
 }

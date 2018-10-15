@@ -26,28 +26,27 @@ public class LootRandomizer : MonoBehaviour {
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            DropLoot(1);
-        }
+
     }
 
 
 
-    public Item DropLoot(int currentItemLevel)
+    public Item DropLoot(int currentItemLevel, bool guaranteed)
     {
         int dontDrop = Random.Range(0, 100);
-        if(dontDrop < 50)
+        if (!guaranteed)
         {
-            return null;
-        }
+            if (dontDrop < 50)
+            {
+                return null;
+            }
 
-        int drop = Random.Range(0, 100);
-        if(drop < 50)
-        {
-            return LootGold(currentItemLevel);
+            int drop = Random.Range(0, 100);
+            if (drop < 50)
+            {
+                return LootGold(currentItemLevel);
+            }
         }
-
         int randomType = Random.Range(0, 3);
         Item newItem = null;
         switch (randomType)

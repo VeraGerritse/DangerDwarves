@@ -23,4 +23,8 @@ public class Weapon_Ranged : Weapon
         amountOfProjectiles = aP;
         coneOfFireInDegrees = dP;
     }
+    public override bool IsRanged()
+    {
+        return true;
+    }
 }
