@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
 
 public class UIManager : MonoBehaviour 
 {
@@ -8,6 +10,8 @@ public class UIManager : MonoBehaviour
     public static bool hasOpenUI;
 
     public Transform otherPlayersUISpawn;
+    [SerializeField] private List<InventorySlot> hotbarSlots = new List<InventorySlot>();
+    [SerializeField] private TextMeshProUGUI goldText;
 
     private void Awake()
     {
