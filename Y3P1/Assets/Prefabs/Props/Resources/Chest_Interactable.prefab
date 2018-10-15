@@ -73,6 +73,7 @@ MonoBehaviour:
   entityID: 0
   instaDestroyOnDeath: 0
   rb: {fileID: 0}
+  entityType: 2
   health:
     isImmortal: 0
     isInvinsible: 0

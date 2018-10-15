@@ -9,9 +9,12 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     [HideInInspector] public Collider myCollider;
 
+
     [SerializeField] private int entityID;
     [SerializeField] private bool instaDestroyOnDeath;
     [SerializeField] private Rigidbody rb;
+    private enum EntityType { Humanoid, Prop, Chest, Box };
+    [SerializeField] private EntityType entityType;
 
     public Health health;
     public Stats stats;
@@ -35,13 +38,13 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Hit(int amount)
     {
-        photonView.RPC("HitRPC", RpcTarget.All, CalculateAmount(amount));
+        photonView.RPC("HitRPC", RpcTarget.All, CalculateAmount(amount), health.isInvinsible);
     }
 
     [PunRPC]
-    private void HitRPC(int amount)
+    private void HitRPC(int amount, bool isInvinsible)
     {
-        if (amount <= 0)
+        if (amount <= 0 && !isInvinsible)
         {
             OnHit.Invoke();
         }

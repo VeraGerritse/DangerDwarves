@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &3091396008332940602 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 50bc4574ea1c4e74a98db767a48c9d99,
+    type: 3}
+  m_PrefabInstance: {fileID: 3091396008332545978}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1271214002197388943
 GameObject:
   m_ObjectHideFlags: 0
@@ -67,6 +73,7 @@ MonoBehaviour:
   entityID: 0
   instaDestroyOnDeath: 1
   rb: {fileID: 0}
+  entityType: 3
   health:
     isImmortal: 0
     isInvinsible: 0
@@ -197,12 +204,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.46, z: 0}
   m_TimeToStationary: 0.5
---- !u!4 &3091396008332940602 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 50bc4574ea1c4e74a98db767a48c9d99,
-    type: 3}
-  m_PrefabInstance: {fileID: 3091396008332545978}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3091396008332545978
 PrefabInstance:
   m_ObjectHideFlags: 0
