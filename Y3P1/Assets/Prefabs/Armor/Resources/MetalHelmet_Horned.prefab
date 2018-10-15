@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1716607382079633661}
   - component: {fileID: 1716607382078830813}
   - component: {fileID: 1716607382077733405}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: HelmHorn (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2576511404622276426}
   - component: {fileID: 2576511404625667946}
   - component: {fileID: 2576511404624700842}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: HelmHorn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 6108682156763806813}
   - component: {fileID: 3214399563421240922}
   - component: {fileID: 8023768738635274226}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PickUpTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 1410842664645234572}
   - component: {fileID: 2487900244323380459}
   - component: {fileID: 4380550102032385030}
-  m_Layer: 9
+  m_Layer: 12
   m_Name: MetalHelmet_Horned
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,8 +340,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 3612009276717665155}
-  viewIdField: 19
-  InstantiationId: 19
+  viewIdField: 24
+  InstantiationId: 24
   isRuntimeInstantiated: 0
 --- !u!54 &2487900244323380459
 Rigidbody:

@@ -17,6 +17,15 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] private float spawnRange;
     [SerializeField] private float spawnTriggerRange;
     [SerializeField] private float spawnAmount;
+    [SerializeField] private GameObject spawnPreview;
+
+    private void Awake()
+    {
+        if (spawnPreview)
+        {
+            spawnPreview.SetActive(false);
+        }
+    }
 
     private void Start()
     {
@@ -83,7 +92,7 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
 
         for (int i = 0; i < spawnAmount; i++)
         {
-            Entity newEntity = PhotonNetwork.InstantiateSceneObject(entity, GetRandomPos(), transform.rotation).GetComponentInChildren<Entity>();
+            Entity newEntity = PhotonNetwork.InstantiateSceneObject(entity, spawnRange == 0 ? transform.position : GetRandomPos(), transform.rotation).GetComponentInChildren<Entity>();
             newEntity.health.isImmortal = spawnImmortal;
 
             //TODO: Find a way to get rid of this buffered RPC, a cleaner solution is to send the data to whoever connects.
