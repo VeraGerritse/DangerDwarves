@@ -13,7 +13,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] private int entityID;
     [SerializeField] private bool instaDestroyOnDeath;
     [SerializeField] private Rigidbody rb;
-    private enum EntityType { Humanoid, Prop, Chest, Box };
+    public enum EntityType { Humanoid, Prop, Chest, Box };
     [SerializeField] private EntityType entityType;
 
     public Health health;
@@ -146,7 +146,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (PhotonNetwork.IsMasterClient && canDropLoot)
         {
-            Player.localPlayer.myInventory.DropNewItem(transform.position);
+            Player.localPlayer.myInventory.DropNewItem(transform.position,entityType);
         }
     }
 

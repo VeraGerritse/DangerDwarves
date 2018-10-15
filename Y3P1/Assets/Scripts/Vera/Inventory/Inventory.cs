@@ -637,7 +637,7 @@ public class Inventory : MonoBehaviourPunCallbacks
             {
                 if (LootRandomizer.instance != null)
                 {
-                    Item newItem = LootRandomizer.instance.DropLoot(10 + averageILevel,true);
+                    Item newItem = LootRandomizer.instance.DropLoot(10 + averageILevel,3);
                     if (newItem == null)
                     {
                         return;
@@ -652,7 +652,7 @@ public class Inventory : MonoBehaviourPunCallbacks
             {
                 for (int i = 0; i < allSlots.Count; i++)
                 {
-                    Item newItem = LootRandomizer.instance.DropLoot(averageILevel, true);
+                    Item newItem = LootRandomizer.instance.DropLoot(averageILevel, 3);
                     if (newItem == null)
                     {
                         return;
@@ -989,9 +989,22 @@ public class Inventory : MonoBehaviourPunCallbacks
         return canvas.enabled;
     }
 
-    public void DropNewItem(Vector3 loc)
+    public void DropNewItem(Vector3 loc , Entity.EntityType type)
     {
-        Item newItem = LootRandomizer.instance.DropLoot(averageILevel,false);
+        Item newItem = null;
+        if (type == Entity.EntityType.Humanoid)
+        {
+           newItem  = LootRandomizer.instance.DropLoot(averageILevel, 1);
+        }
+        else if (type == Entity.EntityType.Box)
+        {
+            newItem = LootRandomizer.instance.DropLoot(averageILevel, 2);
+        }
+        else if(type == Entity.EntityType.Chest)
+        {
+            newItem = LootRandomizer.instance.DropLoot(averageILevel, 3);
+        }
+
         if(newItem == null)
         {
             return;

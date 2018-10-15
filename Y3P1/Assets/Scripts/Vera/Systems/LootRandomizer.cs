@@ -31,18 +31,25 @@ public class LootRandomizer : MonoBehaviour {
 
 
 
-    public Item DropLoot(int currentItemLevel, bool guaranteed)
+    public Item DropLoot(int currentItemLevel, int type)
     {
         int dontDrop = Random.Range(0, 100);
-        if (!guaranteed)
+        int goldChance = 50;
+        if (type != 3)
         {
-            if (dontDrop < 50)
+            if(type == 1)
             {
-                return null;
+                if (dontDrop < 50)
+                {
+                    return null;
+                }
             }
-
+            if(type == 2)
+            {
+                goldChance = 75;
+            }
             int drop = Random.Range(0, 100);
-            if (drop < 50)
+            if (drop < goldChance)
             {
                 return LootGold(currentItemLevel);
             }
