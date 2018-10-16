@@ -75,6 +75,14 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         statusEffects.AddEffect(effectType, duration);
     }
 
+    public void UpdateStats(Stats stats)
+    {
+        this.stats = stats;
+        health.UpdateHealth();
+        //TODO: This syncs one update too late.
+        photonView.RPC("SyncHealth", RpcTarget.Others);
+    }
+
     private int CalculateAmount(int amount)
     {
         // Heals dont get affected by stats.
@@ -84,14 +92,6 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         return (int)Mathf.Clamp((amount + (stats.DefenseEffectiveness * stats.defense)), -99999999999999999, 0);
-    }
-
-    public void UpdateStats(Stats stats)
-    {
-        this.stats = stats;
-        health.UpdateHealth();
-        //TODO: This syncs one update too late.
-        photonView.RPC("SyncHealth", RpcTarget.Others);
     }
 
     public int CalculateDamage(Weapon.DamageType damageType)

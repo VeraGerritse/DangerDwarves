@@ -30,7 +30,7 @@ public class DamageText : MonoBehaviour
         newColor = damageText.color;
 
         transform.localScale = originalScale;
-        transform.localScale *= Mathf.Clamp((1 + Mathf.Abs(damage) / 75), 1, 2);
+        transform.localScale *= Remap(Mathf.Abs(damage), 0, 10000, 1, 4f);
     }
 
     public void Initialise(string status)
@@ -83,5 +83,10 @@ public class DamageText : MonoBehaviour
         {
             damageText.color = Color.green;
         }
+    }
+
+    public float Remap(float value, float from1, float to1, float from2, float to2)
+    {
+        return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
 }
