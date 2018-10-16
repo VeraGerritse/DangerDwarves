@@ -140,7 +140,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
 
         Vector3 lookAtTarget = new Vector3(mouseInWorldPos.x, body.position.y, mouseInWorldPos.z);
-        body.LookAt(lookAtTarget);
+        //body.LookAt(lookAtTarget); // <-- Instant rotation, no smoothing.
+        Quaternion rotation = Quaternion.LookRotation(lookAtTarget - body.position, Vector3.up);
+        body.rotation = Quaternion.Slerp(body.rotation, rotation, Time.deltaTime * 10);
     }
 
     // Adds a continuous force to the player and locks his movement and rotation abilities when dodging.

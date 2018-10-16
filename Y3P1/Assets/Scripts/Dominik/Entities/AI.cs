@@ -137,29 +137,6 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    private void RandomRangedAttack()
-    {
-        if (target && rangedAttacks.Count != 0)
-        {
-            if (Time.time >= nextRandomRangedTime)
-            {
-                nextRandomRangedTime = Time.time + randomRangedAttackInterval;
-
-                toTarget = target.transform.position - transform.position;
-
-                float angle = Vector3.Angle(toTarget, transform.forward);
-                if (angle < 20)
-                {
-                    randomRangedAttack = Random.Range(0, 101);
-                    if (randomRangedAttack < randomRangedAttackChance)
-                    {
-                        StartRandomRangedAttack();
-                    }
-                }
-            }
-        }
-    }
-
     private void HandleAttacking()
     {
         agent.isStopped = true;
@@ -193,6 +170,29 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             else
             {
                 SetState(BehaviourState.Chase);
+            }
+        }
+    }
+
+    private void RandomRangedAttack()
+    {
+        if (target && rangedAttacks.Count != 0)
+        {
+            if (Time.time >= nextRandomRangedTime)
+            {
+                nextRandomRangedTime = Time.time + randomRangedAttackInterval;
+
+                toTarget = target.transform.position - transform.position;
+
+                float angle = Vector3.Angle(toTarget, transform.forward);
+                if (angle < 20)
+                {
+                    randomRangedAttack = Random.Range(0, 101);
+                    if (randomRangedAttack < randomRangedAttackChance)
+                    {
+                        StartRandomRangedAttack();
+                    }
+                }
             }
         }
     }
