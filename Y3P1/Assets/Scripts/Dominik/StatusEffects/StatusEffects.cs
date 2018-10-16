@@ -9,7 +9,7 @@ public class StatusEffects
     private Entity myEntity;
     public static float tickRate = 1f;
     private float nextTick;
-    public enum StatusEffectType { Burn, Slow, ArmorBreak, WeaponBreak };
+    public enum StatusEffectType { Bleed, Slow, ArmorBreak, WeaponBreak };
 
     public event Action<StatusEffectType> OnEffectStarted = delegate { };
     public event Action<StatusEffectType> OnEffectEnded = delegate { };
@@ -46,7 +46,7 @@ public class StatusEffects
 
         switch (type)
         {
-            case StatusEffectType.Burn:
+            case StatusEffectType.Bleed:
 
                 newEffect = new StatusEffect_Burn();
                 break;

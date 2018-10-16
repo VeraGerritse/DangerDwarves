@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using Y3P1;
 using TMPro;
+using System.Collections.Generic;
 
 public class PlayerStatusCanvas : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class PlayerStatusCanvas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI localPlayerNameText; 
     [SerializeField] private TextMeshProUGUI localPlayerHealthText;
 
+    [Space(10)]
+
+    [SerializeField] private List<StatusEffectIcon> weaponBuffIcons = new List<StatusEffectIcon>();
+
     public void Start()
     {
         playerHealthBar = GetComponentInChildren<HealthBar>();
@@ -25,6 +30,9 @@ public class PlayerStatusCanvas : MonoBehaviour
 
         WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
         WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
+
+        WeaponSlot.OnWeaponBuffAdded += WeaponSlot_OnWeaponBuffAdded;
+        WeaponSlot.OnWeaponBuffRemoved += WeaponSlot_OnWeaponBuffRemoved;
     }
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
@@ -69,8 +77,40 @@ public class PlayerStatusCanvas : MonoBehaviour
         localPlayerInfoPanel.SetActive(b);
     }
 
+    private void WeaponSlot_OnWeaponBuffAdded(StatusEffects.StatusEffectType type, float duration)
+    {
+        ToggleWeaponBuffIcon(type, true, duration);
+    }
+
+    private void WeaponSlot_OnWeaponBuffRemoved(StatusEffects.StatusEffectType type)
+    {
+        ToggleWeaponBuffIcon(type, false);
+    }
+
+    private void ToggleWeaponBuffIcon(StatusEffects.StatusEffectType type, bool toggle, float? duration = null)
+    {
+        for (int i = 0; i < weaponBuffIcons.Count; i++)
+        {
+            if (weaponBuffIcons[i].type == type)
+            {
+                if (toggle)
+                {
+                    weaponBuffIcons[i].Activate(duration);
+                }
+                else
+                {
+                    weaponBuffIcons[i].gameObject.SetActive(false);
+                }
+            }
+        }
+    }
+
     private void OnDisable()
     {
+        WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
         WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
+
+        WeaponSlot.OnWeaponBuffAdded -= WeaponSlot_OnWeaponBuffAdded;
+        WeaponSlot.OnWeaponBuffRemoved -= WeaponSlot_OnWeaponBuffRemoved;
     }
 }

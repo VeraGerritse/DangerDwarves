@@ -46,7 +46,7 @@ public class StatusEffect_Burn : StatusEffect
     public override void Initialise(Entity entity, float duration)
     {
         base.Initialise(entity, duration);
-        type = StatusEffects.StatusEffectType.Burn;
+        type = StatusEffects.StatusEffectType.Bleed;
     }
 
     public override void TriggerEffect()

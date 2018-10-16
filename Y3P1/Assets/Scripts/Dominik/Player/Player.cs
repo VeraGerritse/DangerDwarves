@@ -131,9 +131,9 @@ namespace Y3P1
             if (Input.GetKeyDown(KeyCode.T))
             {
                 // Test buff weapon.
-                weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Burn, statusEffectDuration = 3, endTime = Time.time + 3 }, 3);
-                weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Slow, statusEffectDuration = 3, endTime = Time.time + 3 }, 3);
-                weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.ArmorBreak, statusEffectDuration = 3, endTime = Time.time + 3 }, 3);
+                weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Bleed, statusEffectDuration = 3, endTime = Time.time + 3 }, 3);
+                weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Slow, statusEffectDuration = 3, endTime = Time.time + 4 }, 4);
+                weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.ArmorBreak, statusEffectDuration = 3, endTime = Time.time + 5 }, 5);
                 weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.WeaponBreak, statusEffectDuration = 3, endTime = Time.time + 3 }, 3);
             }
         }

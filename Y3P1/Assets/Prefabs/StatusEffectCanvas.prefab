@@ -157,6 +157,7 @@ GameObject:
   - component: {fileID: 4483862841464354331}
   - component: {fileID: 5953055894949822335}
   - component: {fileID: 8689403077018463867}
+  - component: {fileID: 9201510727749640216}
   m_Layer: 5
   m_Name: StatusEffect_ArmorBreak
   m_TagString: Untagged
@@ -220,6 +221,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &9201510727749640216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332125538383628843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb85c5f773e3c848bac3336b7e2300c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  durationFill: {fileID: 0}
 --- !u!1 &2925473909919193740
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +309,7 @@ GameObject:
   - component: {fileID: 1469107247406087027}
   - component: {fileID: 6629870225454656365}
   - component: {fileID: 541341797712246858}
+  - component: {fileID: 2388646164320228984}
   m_Layer: 5
   m_Name: StatusEffect_WeaponBreak
   m_TagString: Untagged
@@ -357,6 +373,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &2388646164320228984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5170935663176715073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb85c5f773e3c848bac3336b7e2300c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  durationFill: {fileID: 0}
 --- !u!1 &5729910091687364082
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,10 +481,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a86a83cb492b742871bc0f76624e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  burnIcon: {fileID: 6774020567990149048}
-  slowIcon: {fileID: 9094017609829836730}
-  armorBreakIcon: {fileID: 2332125538383628843}
-  weaponBreakIcon: {fileID: 5170935663176715073}
+  statusEffectIcons:
+  - {fileID: 8174982618047809333}
+  - {fileID: 5429180846806075042}
+  - {fileID: 9201510727749640216}
+  - {fileID: 2388646164320228984}
 --- !u!1 &6420320871718590936
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,8 +570,9 @@ GameObject:
   - component: {fileID: 6823143128156930886}
   - component: {fileID: 7356968459212756549}
   - component: {fileID: 9167082468071573135}
+  - component: {fileID: 8174982618047809333}
   m_Layer: 5
-  m_Name: StatusEffect_Burn
+  m_Name: StatusEffect_Bleed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -602,6 +634,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &8174982618047809333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6774020567990149048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb85c5f773e3c848bac3336b7e2300c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  durationFill: {fileID: 0}
 --- !u!1 &7547538631648066841
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,6 +732,7 @@ GameObject:
   - component: {fileID: 3155886523075367259}
   - component: {fileID: 3114169707684314170}
   - component: {fileID: 8902854683070066233}
+  - component: {fileID: 5429180846806075042}
   m_Layer: 5
   m_Name: StatusEffect_Slow
   m_TagString: Untagged
@@ -749,3 +796,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &5429180846806075042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9094017609829836730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beb85c5f773e3c848bac3336b7e2300c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  durationFill: {fileID: 0}

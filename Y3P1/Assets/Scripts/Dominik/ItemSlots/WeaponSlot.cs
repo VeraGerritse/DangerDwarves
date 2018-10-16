@@ -28,17 +28,15 @@ public class WeaponSlot : EquipmentSlot
     private bool isChargingSecondary;
     private float secondaryChargeCounter;
 
+    public static event Action<StatusEffects.StatusEffectType, float> OnWeaponBuffAdded = delegate { };
+    public static event Action<StatusEffects.StatusEffectType> OnWeaponBuffRemoved = delegate { };
+
     public static List<WeaponBuff> weaponBuffs = new List<WeaponBuff>();
-    public struct WeaponBuff
+    public class WeaponBuff
     {
         public StatusEffects.StatusEffectType type;
         public float statusEffectDuration;
         public float endTime;
-
-        public void AddDuration(float amount)
-        {
-            endTime += amount;
-        }
     }
 
     [SerializeField] private Transform rangedWeaponSpawn;
@@ -166,6 +164,7 @@ public class WeaponSlot : EquipmentSlot
         {
             if (Time.time >= weaponBuffs[i].endTime)
             {
+                OnWeaponBuffRemoved(weaponBuffs[i].type);
                 weaponBuffs.Remove(weaponBuffs[i]);
             }
         }
@@ -177,12 +176,14 @@ public class WeaponSlot : EquipmentSlot
         {
             if (weaponBuffs[i].type == buff.type)
             {
-                weaponBuffs[i].AddDuration(duration);
+                OnWeaponBuffAdded(buff.type, duration);
+                weaponBuffs[i].endTime += duration;
                 return;
             }
         }
 
         weaponBuffs.Add(buff);
+        OnWeaponBuffAdded(buff.type, duration);
     }
 
     private bool CanAttack()

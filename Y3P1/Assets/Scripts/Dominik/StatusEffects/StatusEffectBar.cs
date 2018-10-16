@@ -1,17 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class StatusEffectBar : MonoBehaviour 
+public class StatusEffectBar : MonoBehaviour
 {
 
     private bool initialised;
     private Entity myEntity;
 
-    [SerializeField] private GameObject burnIcon;
-    [SerializeField] private GameObject slowIcon;
-    [SerializeField] private GameObject armorBreakIcon;
-    [SerializeField] private GameObject weaponBreakIcon;
+    [SerializeField] private List<StatusEffectIcon> statusEffectIcons = new List<StatusEffectIcon>();
 
     private void Awake()
     {
@@ -45,24 +41,19 @@ public class StatusEffectBar : MonoBehaviour
 
     private void ToggleEffectIcon(StatusEffects.StatusEffectType type, bool toggle)
     {
-        switch (type)
+        for (int i = 0; i < statusEffectIcons.Count; i++)
         {
-            case StatusEffects.StatusEffectType.Burn:
-
-                burnIcon.SetActive(toggle);
-                break;
-            case StatusEffects.StatusEffectType.Slow:
-
-                slowIcon.SetActive(toggle);
-                break;
-            case StatusEffects.StatusEffectType.ArmorBreak:
-
-                armorBreakIcon.SetActive(toggle);
-                break;
-            case StatusEffects.StatusEffectType.WeaponBreak:
-
-                weaponBreakIcon.SetActive(toggle);
-                break;
+            if (statusEffectIcons[i].type == type)
+            {
+                if (toggle)
+                {
+                    statusEffectIcons[i].Activate();
+                }
+                else
+                {
+                    statusEffectIcons[i].gameObject.SetActive(false);
+                }
+            }
         }
     }
 
