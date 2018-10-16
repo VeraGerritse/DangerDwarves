@@ -12,6 +12,9 @@ public class StatusEffects
     private float nextTick;
     public enum StatusEffectType { Burn };
 
+    public event Action<StatusEffectType> OnEffectStarted = delegate { };
+    public event Action<StatusEffectType> OnEffectEnded = delegate { };
+
     private List<StatusEffect> activeEffects = new List<StatusEffect>();
 
     public void Initialise(Entity entity)
@@ -52,6 +55,7 @@ public class StatusEffects
 
         newEffect.Initialise(myEntity, duration);
         activeEffects.Add(newEffect);
+        OnEffectStarted(type);
     }
 
     public void HandleEffects()
@@ -73,6 +77,7 @@ public class StatusEffects
             }
             else
             {
+                OnEffectEnded(activeEffects[i].type);
                 activeEffects.Remove(activeEffects[i]);
             }
         }

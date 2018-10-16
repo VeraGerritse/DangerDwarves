@@ -7,6 +7,7 @@ public class HealthBar : MonoBehaviour
 {
 
     private bool initialised;
+    private Entity myEntity;
     private Animator anim;
 
     [SerializeField] private Image foregroundHealthBar;
@@ -29,7 +30,9 @@ public class HealthBar : MonoBehaviour
     {
         if (entity)
         {
-            entity.health.OnHealthModified += Health_OnHealthModified;
+            myEntity = entity;
+
+            myEntity.health.OnHealthModified += Health_OnHealthModified;
             initialised = true;
         }
     }
@@ -83,5 +86,13 @@ public class HealthBar : MonoBehaviour
         }
 
         backgroundHealthBar.fillAmount = percentage;
+    }
+
+    private void OnDisable()
+    {
+        if (initialised)
+        {
+            myEntity.health.OnHealthModified -= Health_OnHealthModified;
+        }
     }
 }
