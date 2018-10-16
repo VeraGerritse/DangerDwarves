@@ -51,6 +51,18 @@ public class StatusEffectBar : MonoBehaviour
 
                 burnIcon.SetActive(toggle);
                 break;
+            case StatusEffects.StatusEffectType.Slow:
+
+                slowIcon.SetActive(toggle);
+                break;
+            case StatusEffects.StatusEffectType.ArmorBreak:
+
+                armorBreakIcon.SetActive(toggle);
+                break;
+            case StatusEffects.StatusEffectType.WeaponBreak:
+
+                weaponBreakIcon.SetActive(toggle);
+                break;
         }
     }
 

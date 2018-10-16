@@ -21,7 +21,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public Health health;
     public Stats stats;
-    public StatusEffects statusEffects;
+    public StatusEffects statusEffects = new StatusEffects();
 
     [Space(10)]
 
@@ -83,7 +83,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
             return amount;
         }
 
-        return (int)Mathf.Clamp((amount + stats.defense), -99999999999999999, 0);
+        return (int)Mathf.Clamp((amount + (stats.DefenseEffectiveness * stats.defense)), -99999999999999999, 0);
     }
 
     public void UpdateStats(Stats stats)
@@ -100,13 +100,13 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         {
             case Weapon.DamageType.Melee:
 
-                return stats.strength + (int)(0.2 * stats.agility);
+                return (int)(stats.DamageEffectiveness * (stats.strength + (int)(0.2 * stats.agility)));
             case Weapon.DamageType.Ranged:
 
-                return stats.agility + (int)(0.2 * stats.strength);
+                return (int)(stats.DamageEffectiveness * (stats.agility + (int)(0.2 * stats.strength)));
             case Weapon.DamageType.Secondary:
 
-                return stats.willpower + (int)(0.5 * stats.strength) + (int)(0.5 * stats.agility);
+                return (int)(stats.DamageEffectiveness * (stats.willpower + (int)(0.5 * stats.strength) + (int)(0.5 * stats.agility)));
         }
 
         return 0;
@@ -188,6 +188,9 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(health.isDead);
             stream.SendNext(health.currentHealth);
 
+            stream.SendNext(stats.DefenseEffectiveness);
+            stream.SendNext(stats.DamageEffectiveness);
+
             stream.SendNext(stats.stamina);
             stream.SendNext(stats.strength);
             stream.SendNext(stats.agility);
@@ -200,6 +203,9 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
             health.isInvinsible = (bool)stream.ReceiveNext();
             health.isDead = (bool)stream.ReceiveNext();
             health.currentHealth = (int)stream.ReceiveNext();
+
+            stats.DefenseEffectiveness = (float)stream.ReceiveNext();
+            stats.DamageEffectiveness = (float)stream.ReceiveNext();
 
             stats.stamina = (int)stream.ReceiveNext();
             stats.strength = (int)stream.ReceiveNext();

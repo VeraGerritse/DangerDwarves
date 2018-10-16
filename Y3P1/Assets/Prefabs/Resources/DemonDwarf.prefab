@@ -223,6 +223,7 @@ MonoBehaviour:
   entityID: 4
   instaDestroyOnDeath: 0
   rb: {fileID: 1898242398378090830}
+  entityType: 0
   health:
     isImmortal: 0
     isInvinsible: 0
@@ -230,11 +231,11 @@ MonoBehaviour:
     baseHealth: 100
     currentHealth: 0
   stats:
-    stamina: 0
-    strength: 0
-    agility: 0
-    willpower: 0
-    defense: 0
+    stamina: 5
+    strength: 15
+    agility: 15
+    willpower: 15
+    defense: 5
   canDropLoot: 1
   OnHit:
     m_PersistentCalls:
@@ -368,6 +369,7 @@ MonoBehaviour:
   - attackName: Demon_Attack_Melee
     attackChance: 100
     attackType: 0
+    damageType: 0
     projectilePoolName: 
   attackDistance: 3.75
   attackRangeLookAtSpeed: 5
@@ -376,7 +378,6 @@ MonoBehaviour:
   damageLayerMask:
     serializedVersion: 2
     m_Bits: 16896
-  tempDamage: 15
   randomRangedAttackChance: 25
   randomRangedAttackInterval: 1
   stopWhileAttacking: 0

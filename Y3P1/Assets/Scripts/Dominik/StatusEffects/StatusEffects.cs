@@ -3,14 +3,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
 public class StatusEffects
 {
 
     private Entity myEntity;
     public static float tickRate = 1f;
     private float nextTick;
-    public enum StatusEffectType { Burn };
+    public enum StatusEffectType { Burn, Slow, ArmorBreak, WeaponBreak };
 
     public event Action<StatusEffectType> OnEffectStarted = delegate { };
     public event Action<StatusEffectType> OnEffectEnded = delegate { };
@@ -51,6 +50,18 @@ public class StatusEffects
 
                 newEffect = new StatusEffect_Burn();
                 break;
+            case StatusEffectType.Slow:
+
+                newEffect = new StatusEffect_Slow();
+                break;
+            case StatusEffectType.ArmorBreak:
+
+                newEffect = new StatusEffect_ArmorBreak();
+                break;
+            case StatusEffectType.WeaponBreak:
+
+                newEffect = new StatusEffect_WeaponBreak();
+                break;
         }
 
         newEffect.Initialise(myEntity, duration);
@@ -78,53 +89,8 @@ public class StatusEffects
             else
             {
                 OnEffectEnded(activeEffects[i].type);
+                activeEffects[i].EndEffect();
                 activeEffects.Remove(activeEffects[i]);
-            }
-        }
-    }
-
-    public abstract class StatusEffect
-    {
-        protected Entity entity;
-        public StatusEffectType type;
-        public float duration;
-        private float remainingDuration;
-
-        public virtual void Initialise(Entity entity, float duration)
-        {
-            this.entity = entity;
-
-            this.duration = duration;
-            remainingDuration = duration;
-        }
-
-        public virtual void TriggerEffect()
-        {
-            remainingDuration -= StatusEffects.tickRate;
-        }
-
-        public void Refresh()
-        {
-            remainingDuration = duration;
-        }
-
-        public bool HasEnded()
-        {
-            return remainingDuration <= 0;
-        }
-    }
-
-    public class StatusEffect_Burn : StatusEffect
-    {
-        public int damage = 5;
-
-        public override void TriggerEffect()
-        {
-            base.TriggerEffect();
-
-            if (PhotonNetwork.IsMasterClient)
-            {
-                entity.Hit(-damage);
             }
         }
     }

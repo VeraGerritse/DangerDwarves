@@ -31,7 +31,6 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] private float damageRange;
     [SerializeField] private Transform damagePoint;
     [SerializeField] private LayerMask damageLayerMask;
-    [SerializeField] private int tempDamage = 10;
     [SerializeField] [Range(0, 100)] private float randomRangedAttackChance;
     [SerializeField] private float randomRangedAttackInterval = 1f;
     [SerializeField] private bool stopWhileAttacking;
@@ -56,6 +55,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         public int attackChance;
         public enum AttackType { Animation, Projectile };
         public AttackType attackType;
+        public Weapon.DamageType damageType;
         public string projectilePoolName;
     }
 
@@ -246,7 +246,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if (entity.transform.tag == "Player")
                 {
-                    entity.Hit(-tempDamage);
+                    entity.Hit(-myEntity.CalculateDamage(currentAttack.damageType));
                 }
             }
         }
@@ -265,7 +265,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             spawnRotation = damagePoint.rotation,
             projectilePool = currentAttack.projectilePoolName,
             speed = 8,
-            damage = tempDamage
+            damage = myEntity.CalculateDamage(currentAttack.damageType)
         });
     }
 

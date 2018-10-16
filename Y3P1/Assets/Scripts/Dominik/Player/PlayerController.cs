@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private bool canControl = true;
 
     public Transform body;
-    [SerializeField] private float moveSpeed;
+    public float moveSpeed;
     [SerializeField] private float dodgeSpeed;
     [SerializeField] private float dodgeCooldown = 1;
     [SerializeField] private float recoilImpactForce = 5f;
