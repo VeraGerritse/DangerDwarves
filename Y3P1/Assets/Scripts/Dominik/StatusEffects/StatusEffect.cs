@@ -80,7 +80,7 @@ public class StatusEffect_Slow : StatusEffect
             return;
         }
 
-        playerController = entity.transform.root.GetComponentInChildren<PlayerController>();
+        playerController = entity.transform.parent.GetComponent<PlayerController>();
         if (playerController)
         {
             preSlowMovespeed = playerController.moveSpeed;
@@ -103,7 +103,7 @@ public class StatusEffect_Slow : StatusEffect
                 }
                 if (playerController)
                 {
-                    playerController.moveSpeed = slowPercentage / 100 * playerController.moveSpeed;
+                    playerController.AdjustMoveSpeed(slowPercentage / 100 * playerController.moveSpeed);
                 }
 
                 active = true;
@@ -123,7 +123,7 @@ public class StatusEffect_Slow : StatusEffect
             }
             if (playerController)
             {
-                playerController.moveSpeed = preSlowMovespeed;
+                playerController.AdjustMoveSpeed(preSlowMovespeed);
             }
         }
     }

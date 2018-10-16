@@ -28,8 +28,8 @@ public class WeaponSlot : EquipmentSlot
     private bool isChargingSecondary;
     private float secondaryChargeCounter;
 
-    public static event Action<StatusEffects.StatusEffectType, float> OnWeaponBuffAdded = delegate { };
-    public static event Action<StatusEffects.StatusEffectType> OnWeaponBuffRemoved = delegate { };
+    public event Action<StatusEffects.StatusEffectType, float> OnWeaponBuffAdded = delegate { };
+    public event Action<StatusEffects.StatusEffectType> OnWeaponBuffRemoved = delegate { };
 
     public static List<WeaponBuff> weaponBuffs = new List<WeaponBuff>();
     public class WeaponBuff
@@ -176,8 +176,8 @@ public class WeaponSlot : EquipmentSlot
         {
             if (weaponBuffs[i].type == buff.type)
             {
-                OnWeaponBuffAdded(buff.type, duration);
                 weaponBuffs[i].endTime += duration;
+                OnWeaponBuffAdded(buff.type, weaponBuffs[i].endTime - Time.time);
                 return;
             }
         }

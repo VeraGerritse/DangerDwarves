@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using UnityEngine;
 using Y3P1;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
 
     public static Vector3 mouseInWorldPos;
@@ -162,6 +163,17 @@ public class PlayerController : MonoBehaviour
             body.rotation = Quaternion.Slerp(body.rotation, dodgeRotation, Time.deltaTime * 10);
             Player.localPlayer.rb.AddForce(dodgeVelocity * Time.deltaTime * dodgeSpeed, ForceMode.Force);
         }
+    }
+
+    public void AdjustMoveSpeed(float value)
+    {
+        photonView.RPC("SyncMoveSpeed", RpcTarget.All, value);
+    }
+
+    [PunRPC]
+    private void SyncMoveSpeed(float value)
+    {
+        moveSpeed = value;
     }
 
     private void StartDodge()

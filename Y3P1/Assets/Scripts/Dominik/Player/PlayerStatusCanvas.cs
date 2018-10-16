@@ -31,8 +31,10 @@ public class PlayerStatusCanvas : MonoBehaviour
         WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
         WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
 
-        WeaponSlot.OnWeaponBuffAdded += WeaponSlot_OnWeaponBuffAdded;
-        WeaponSlot.OnWeaponBuffRemoved += WeaponSlot_OnWeaponBuffRemoved;
+        Player.localPlayer.weaponSlot.OnWeaponBuffAdded += WeaponSlot_OnWeaponBuffAdded;
+        Player.localPlayer.weaponSlot.OnWeaponBuffRemoved += WeaponSlot_OnWeaponBuffRemoved;
+
+        //NotificationManager.instance.NewNotification(Photon.Pun.PhotonNetwork.NickName);
     }
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
@@ -110,7 +112,7 @@ public class PlayerStatusCanvas : MonoBehaviour
         WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
         WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
 
-        WeaponSlot.OnWeaponBuffAdded -= WeaponSlot_OnWeaponBuffAdded;
-        WeaponSlot.OnWeaponBuffRemoved -= WeaponSlot_OnWeaponBuffRemoved;
+        Player.localPlayer.weaponSlot.OnWeaponBuffAdded -= WeaponSlot_OnWeaponBuffAdded;
+        Player.localPlayer.weaponSlot.OnWeaponBuffRemoved -= WeaponSlot_OnWeaponBuffRemoved;
     }
 }
