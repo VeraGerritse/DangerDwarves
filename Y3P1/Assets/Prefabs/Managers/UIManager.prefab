@@ -3406,14 +3406,6 @@ MonoBehaviour:
   - {fileID: 5562245453263056925}
   - {fileID: 3606711496595687960}
   - {fileID: 6598059648707609564}
-  bleedIcon: {fileID: 8352011426621648570}
-  bleedDurationFill: {fileID: 2280405805620819491}
-  slowIcon: {fileID: 516004542351986613}
-  slowDurationFill: {fileID: 8608086267712041511}
-  armorBreakIcon: {fileID: 827838177500977039}
-  armorBreakDurationFill: {fileID: 2423127900157733264}
-  weaponBreakIcon: {fileID: 7040168176072571668}
-  weaponBreakDurationFill: {fileID: 8668580712230009681}
 --- !u!1 &6351558676661190527
 GameObject:
   m_ObjectHideFlags: 0
@@ -4360,6 +4352,11 @@ PrefabInstance:
       propertyPath: slotType
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7260631635722526445, guid: 47b31a7e08931e948b6ae02c5130a6a9,
+        type: 3}
+      propertyPath: index
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b31a7e08931e948b6ae02c5130a6a9, type: 3}
 --- !u!1001 &357202152936359245
@@ -4482,6 +4479,11 @@ PrefabInstance:
         type: 3}
       propertyPath: slotType
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260631635722526445, guid: 47b31a7e08931e948b6ae02c5130a6a9,
+        type: 3}
+      propertyPath: index
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b31a7e08931e948b6ae02c5130a6a9, type: 3}
@@ -4621,6 +4623,11 @@ PrefabInstance:
       propertyPath: slotType
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7260631635722526445, guid: 47b31a7e08931e948b6ae02c5130a6a9,
+        type: 3}
+      propertyPath: index
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b31a7e08931e948b6ae02c5130a6a9, type: 3}
 --- !u!1001 &7619670047475825448
@@ -4759,6 +4766,11 @@ PrefabInstance:
       propertyPath: slotType
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7260631635722526445, guid: 47b31a7e08931e948b6ae02c5130a6a9,
+        type: 3}
+      propertyPath: index
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b31a7e08931e948b6ae02c5130a6a9, type: 3}
 --- !u!1001 &7771854220953595267
@@ -4896,6 +4908,11 @@ PrefabInstance:
         type: 3}
       propertyPath: slotType
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260631635722526445, guid: 47b31a7e08931e948b6ae02c5130a6a9,
+        type: 3}
+      propertyPath: index
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47b31a7e08931e948b6ae02c5130a6a9, type: 3}

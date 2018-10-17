@@ -11,7 +11,8 @@ public class SafeManager : MonoBehaviour {
     public static SafeManager instance;
     public SafeFile lastSafeFile;
     public Safe safe;
-    
+
+    private bool loaded;
 
     private void Start()
     {
@@ -42,8 +43,11 @@ public class SafeManager : MonoBehaviour {
 
     public void SaveGame()
     {
-        SafeFile();
-        SavedGame(lastSafeFile);
+        if (loaded)
+        {
+            SafeFile();
+            SavedGame(lastSafeFile);
+        }
     }
 
     private void OnApplicationQuit()
@@ -109,6 +113,7 @@ public class SafeManager : MonoBehaviour {
 
     public void LoadFile()
     {
+        loaded = true;
         List<bool> isItem = new List<bool>();
         for (int i = 0; i < safe.inInv.Count; i++)
         {
@@ -117,18 +122,15 @@ public class SafeManager : MonoBehaviour {
                 if(safe.inInv[i].itemLevel != -1)
                 {
                     isItem.Add(true);
-                    print(safe.inInv.Count - 1 + "true");
                 }
                 else
                 {
                     isItem.Add(false);
-                    print(safe.inInv.Count - 1 + "false");
                 }
             }
             else
             {
                 isItem.Add(false);
-                print(safe.inInv.Count - 1 + "false");
             }
             //print(isItem[ isItem.Count - 1] + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAh");
         }
