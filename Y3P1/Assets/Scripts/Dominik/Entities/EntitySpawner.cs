@@ -90,7 +90,6 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
         {
             return;
         }
-        Player.localPlayer.myInventory.aIL.CalculateLevel();
         NotificationManager.instance.NewNotification(Player.localPlayer.myInventory.aIL.averageILevel.ToString());
         for (int i = 0; i < spawnAmount; i++)
         {
