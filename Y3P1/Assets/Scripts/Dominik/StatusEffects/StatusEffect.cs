@@ -1,5 +1,6 @@
 ﻿using Photon.Pun;
 using UnityEngine.AI;
+using UnityEngine;
 
 public abstract class StatusEffect
 {
@@ -41,12 +42,15 @@ public abstract class StatusEffect
 
 public class StatusEffect_Burn : StatusEffect
 {
+    private Rigidbody rb;
+
     public int damage = 5;
 
     public override void Initialise(Entity entity, float duration)
     {
         base.Initialise(entity, duration);
         type = StatusEffects.StatusEffectType.Bleed;
+        rb = entity.transform.parent.GetComponent<Rigidbody>();
     }
 
     public override void TriggerEffect()
@@ -55,7 +59,13 @@ public class StatusEffect_Burn : StatusEffect
 
         if (PhotonNetwork.IsMasterClient)
         {
-            entity.Hit(-damage);
+            if (rb)
+            {
+                if (rb.velocity != Vector3.zero)
+                {
+                    entity.Hit(-damage);
+                }
+            }
         }
     }
 }
@@ -191,6 +201,27 @@ public class StatusEffect_WeaponBreak : StatusEffect
         if (PhotonNetwork.IsMasterClient)
         {
             entity.stats.DamageEffectiveness = 1;
+        }
+    }
+}
+
+public class StatusEffect_Poison : StatusEffect
+{
+    public int damage = 5;
+
+    public override void Initialise(Entity entity, float duration)
+    {
+        base.Initialise(entity, duration);
+        type = StatusEffects.StatusEffectType.Bleed;
+    }
+
+    public override void TriggerEffect()
+    {
+        base.TriggerEffect();
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            entity.Hit(-damage);
         }
     }
 }

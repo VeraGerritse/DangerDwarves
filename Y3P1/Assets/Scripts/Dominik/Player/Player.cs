@@ -137,6 +137,7 @@ namespace Y3P1
                     weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Slow, statusEffectDuration = 3, endTime = Time.time + 4 }, 4);
                     weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.ArmorBreak, statusEffectDuration = 3, endTime = Time.time + 5 }, 5);
                     weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.WeaponBreak, statusEffectDuration = 3, endTime = Time.time + 3 }, 3);
+                    weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Poison, statusEffectDuration = 3, endTime = Time.time + 3.5f }, 3.5f);
                 }
             }
         }
