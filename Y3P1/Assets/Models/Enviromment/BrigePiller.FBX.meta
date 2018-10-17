@@ -3,24 +3,34 @@ guid: 25b5e5b569e5a6a44b7e05f0aab2ec05
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: brides
-    100002: //RootNode
-    100004: reling
-    100006: sidepeace
-    400000: brides
-    400002: //RootNode
-    400004: reling
-    400006: sidepeace
+    100000: Box010
+    100002: Box012
+    100004: brides
+    100006: //RootNode
+    100008: reling
+    100010: sidepeace
+    400000: Box010
+    400002: Box012
+    400004: brides
+    400006: //RootNode
+    400008: reling
+    400010: sidepeace
     2100000: No Name
-    2300000: brides
-    2300002: reling
-    2300004: sidepeace
-    3300000: brides
-    3300002: reling
-    3300004: sidepeace
+    2300000: Box010
+    2300002: Box012
+    2300004: brides
+    2300006: reling
+    2300008: sidepeace
+    3300000: Box010
+    3300002: Box012
+    3300004: brides
+    3300006: reling
+    3300008: sidepeace
     4300000: brides
     4300002: reling
     4300004: sidepeace
+    4300006: Box010
+    4300008: Box012
   externalObjects: {}
   materials:
     importMaterials: 1
