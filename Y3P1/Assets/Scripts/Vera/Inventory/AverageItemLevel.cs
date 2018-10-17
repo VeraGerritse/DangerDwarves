@@ -5,26 +5,29 @@ using Photon.Pun;
 using Y3P1;
 
 public class AverageItemLevel : MonoBehaviourPunCallbacks {
-    public int averageILevel;
-    public int test;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            CalculateLevel();
-            NotificationManager.instance.NewNotification(test.ToString());
-        }
-    }
+    public int averageILevel = 2;
+    private float AllLvl;
+    private float allPlayers;
 
     public void CalculateLevel()
     {
+        AllLvl = 0;
+        allPlayers = 0;
         photonView.RPC("GetLevel", RpcTarget.All);
     }
 
     [PunRPC]
     private void GetLevel()
     {
-        test += 1;
+        photonView.RPC("Level", RpcTarget.All, Player.localPlayer.myInventory.averageILevel);
+    }
+
+    [PunRPC]
+    private void Level(int avr)
+    {
+        AllLvl += avr;
+        allPlayers += 1;
+
+        averageILevel = Mathf.RoundToInt(AllLvl / allPlayers);
     }
 }

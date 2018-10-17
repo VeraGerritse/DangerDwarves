@@ -76,4 +76,5 @@ MonoBehaviour:
   - SyncStatusEffects
   - SyncMoveSpeed
   - GetLevel
+  - Level
   DisableAutoOpenWizard: 1

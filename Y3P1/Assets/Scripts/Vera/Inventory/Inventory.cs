@@ -18,12 +18,13 @@ public class Inventory : MonoBehaviourPunCallbacks
     private bool dragging;
     [SerializeField] private Image onMouse;
     [SerializeField] private List<Item> startingItems = new List<Item>();
+    [SerializeField] private AverageItemLevel aIL;
     private bool isInitialised;
     private Canvas canvas;
     public int totalGoldAmount;
 
     private Stats currentStats;
-    private int averageILevel = 1;
+    public int averageILevel = 1;
 
     [SerializeField] private Color defaultColor;
     [SerializeField] private Color common;
@@ -994,8 +995,8 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             currentStats = new Stats();
         }
-        print(currentStats+ "aaaah");
         StatsInfo.instance.SetPlayerStats(Stat(), ILevel());
+        aIL.CalculateLevel();
     }
 
     public bool InventoryIsOpen()
