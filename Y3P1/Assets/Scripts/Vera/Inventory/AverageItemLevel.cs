@@ -8,7 +8,7 @@ public class AverageItemLevel : MonoBehaviourPunCallbacks {
     public int averageILevel = 2;
     private float AllLvl;
     private float allPlayers;
-
+    private bool done;
 
     private void Update()
     {
@@ -26,16 +26,20 @@ public class AverageItemLevel : MonoBehaviourPunCallbacks {
 
     public void CalculateLevel()
     {
-        photonView.RPC("GetLevel", RpcTarget.All);
+
+            photonView.RPC("GetLevel", RpcTarget.All);
     }
 
 
     [PunRPC]
     private void GetLevel()
     {
-        AllLvl = 0;
-        allPlayers = 0;
-        photonView.RPC("Level", RpcTarget.All, Player.localPlayer.myInventory.averageILevel);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            AllLvl = 0;
+            allPlayers = 0;
+        }
+            photonView.RPC("Level", RpcTarget.All, Player.localPlayer.myInventory.averageILevel);
     }
 
     [PunRPC]
@@ -45,5 +49,21 @@ public class AverageItemLevel : MonoBehaviourPunCallbacks {
         allPlayers += 1;
 
         averageILevel = Mathf.RoundToInt(AllLvl / allPlayers);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            NotificationManager.instance.NewNotification(averageILevel.ToString() + "    " + allPlayers.ToString());
+            Pauze();
+        }
+    }
+
+    private void Pauze()
+    {
+            photonView.RPC("SetSame", RpcTarget.AllBuffered, averageILevel);
+    }
+
+    [PunRPC]
+    private void SetSame(int average)
+    {
+        averageILevel = average;
     }
 }

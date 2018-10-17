@@ -78,4 +78,5 @@ MonoBehaviour:
   - GetLevel
   - Level
   - ResetLevel
+  - SetSame
   DisableAutoOpenWizard: 1
