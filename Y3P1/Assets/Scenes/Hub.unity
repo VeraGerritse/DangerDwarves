@@ -3199,7 +3199,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityPrefabs:
   - {fileID: 6357796064771890802, guid: 2f50cc6e5b4ebe848aebd32344845c0f, type: 3}
-  - {fileID: 6357796064771890802, guid: d0330d00309a8c7408631cd6947cb30e, type: 3}
   - {fileID: 5235892731197639727, guid: 58c56fb8ee4a8f846bee53972e8096b0, type: 3}
   - {fileID: 5235892731197639727, guid: 50ba9472d0d22e24f8096be195357cab, type: 3}
   - {fileID: 5235892731197639727, guid: 537611df2efad1f41a56d9a46620a528, type: 3}
