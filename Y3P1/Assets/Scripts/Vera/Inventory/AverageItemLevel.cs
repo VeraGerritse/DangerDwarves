@@ -4,21 +4,22 @@ using UnityEngine;
 using Photon.Pun;
 using Y3P1;
 
-public class AverageItemLevel : MonoBehaviourPunCallbacks {
-    public int averageILevel = 2;
+public class AverageItemLevel : MonoBehaviourPunCallbacks
+{
+
+    public int averageILevel;
     private float AllLvl;
     private float allPlayers;
     private bool done;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKeyDown(KeyCode.G) && PhotonNetwork.IsMasterClient)
         {
             CalculateLevel();
-
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) && photonView.IsMine)
         {
             NotificationManager.instance.NewNotification(averageILevel.ToString() + "    " + allPlayers.ToString());
         }
@@ -26,44 +27,29 @@ public class AverageItemLevel : MonoBehaviourPunCallbacks {
 
     public void CalculateLevel()
     {
-
-            photonView.RPC("GetLevel", RpcTarget.All);
+        AllLvl = 0;
+        allPlayers = 0;
+        photonView.RPC("GetLevel", RpcTarget.All);
     }
-
 
     [PunRPC]
     private void GetLevel()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            AllLvl = 0;
-            allPlayers = 0;
-        }
-            photonView.RPC("Level", RpcTarget.All, Player.localPlayer.myInventory.averageILevel);
+        photonView.RPC("Level", RpcTarget.MasterClient, Player.localPlayer.myInventory.averageILevel);
     }
 
     [PunRPC]
     private void Level(int avr)
     {
         AllLvl += avr;
-        allPlayers += 1;
+        allPlayers = PhotonNetwork.PlayerList.Length;
 
         averageILevel = Mathf.RoundToInt(AllLvl / allPlayers);
+
         if (PhotonNetwork.IsMasterClient)
         {
             NotificationManager.instance.NewNotification(averageILevel.ToString() + "    " + allPlayers.ToString());
-            Pauze();
+
         }
-    }
-
-    private void Pauze()
-    {
-            photonView.RPC("SetSame", RpcTarget.AllBuffered, averageILevel);
-    }
-
-    [PunRPC]
-    private void SetSame(int average)
-    {
-        averageILevel = average;
     }
 }

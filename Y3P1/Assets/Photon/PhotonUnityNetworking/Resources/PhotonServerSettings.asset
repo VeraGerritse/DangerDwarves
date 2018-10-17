@@ -79,4 +79,5 @@ MonoBehaviour:
   - Level
   - ResetLevel
   - SetSame
+  - ResetAVR
   DisableAutoOpenWizard: 1
