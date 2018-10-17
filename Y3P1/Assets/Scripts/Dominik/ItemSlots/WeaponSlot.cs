@@ -1,6 +1,8 @@
 ﻿using Photon.Pun;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using Y3P1;
 
@@ -251,11 +253,11 @@ public class WeaponSlot : EquipmentSlot
 
     protected override void ParentEquipment(int equipmentID, int parentID)
     {
-        photonView.RPC("ParentWeapon", RpcTarget.AllBuffered, equipmentID, parentID);
+        photonView.RPC("ParentWeapon", RpcTarget.AllBuffered, equipmentID, parentID, ObjectToByteArray(currentEquipment));
     }
 
     [PunRPC]
-    private void ParentWeapon(int equipmentID, int parentID)
+    private void ParentWeapon(int equipmentID, int parentID, byte[] itemData)
     {
         PhotonView pv = PhotonNetwork.GetPhotonView(equipmentID);
         if (pv)
@@ -263,6 +265,8 @@ public class WeaponSlot : EquipmentSlot
             pv.transform.SetParent(PhotonNetwork.GetPhotonView(parentID).transform);
             pv.transform.localPosition = Vector3.zero;
             pv.transform.localRotation = Quaternion.identity;
+
+            pv.transform.GetComponent<ItemPrefab>().myItem = (Item)ByteArrayToObject(itemData);
         }
     }
 
@@ -270,5 +274,31 @@ public class WeaponSlot : EquipmentSlot
     {
         Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;
         Player.localPlayer.entity.OnDeath.RemoveListener(Entity_OnDeath);
+    }
+
+    private byte[] ObjectToByteArray(object obj)
+    {
+        if (obj == null)
+        {
+            return null;
+        }
+
+        BinaryFormatter bf = new BinaryFormatter();
+        using (MemoryStream ms = new MemoryStream())
+        {
+            bf.Serialize(ms, obj);
+            return ms.ToArray();
+        }
+    }
+
+    private object ByteArrayToObject(byte[] bytes)
+    {
+        MemoryStream memStream = new MemoryStream();
+        BinaryFormatter binForm = new BinaryFormatter();
+        memStream.Write(bytes, 0, bytes.Length);
+        memStream.Seek(0, SeekOrigin.Begin);
+        object obj = binForm.Deserialize(memStream);
+
+        return obj;
     }
 }
