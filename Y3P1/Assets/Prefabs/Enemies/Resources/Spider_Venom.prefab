@@ -30,7 +30,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f124ca309d77db6469e43ae72b696ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &778487205452455885
+--- !u!114 &4112827205533381333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582726747072028094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 5348062616096111896}
+  viewIdField: 1
+  InstantiationId: 1
+  isRuntimeInstantiated: 0
+--- !u!114 &5348062616096111896
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71,28 +93,6 @@ MonoBehaviour:
     LayerIndex: 0
   - SynchronizeType: 2
     LayerIndex: 1
---- !u!114 &4112827205533381333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1582726747072028094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 778487205452455885}
-  viewIdField: 1
-  InstantiationId: 1
-  isRuntimeInstantiated: 0
 --- !u!1 &3334337596991883072 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7972216441462917839, guid: ae10adcbca2c84d469fdfd990e1d6eab,
@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 776066093795406611}
   - component: {fileID: 325642131086690028}
   m_Layer: 0
-  m_Name: Spider 1
+  m_Name: Spider_Venom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

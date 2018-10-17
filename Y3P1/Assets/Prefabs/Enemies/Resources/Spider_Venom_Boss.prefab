@@ -338,11 +338,23 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 8069895923709421515}
   viewIdField: 1
   InstantiationId: 1
   isRuntimeInstantiated: 0
---- !u!114 &4942933245341938069
+--- !u!114 &5352770297257870855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5315404721701831209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f124ca309d77db6469e43ae72b696ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8069895923709421515
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -383,18 +395,6 @@ MonoBehaviour:
     LayerIndex: 0
   - SynchronizeType: 2
     LayerIndex: 1
---- !u!114 &5352770297257870855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5315404721701831209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f124ca309d77db6469e43ae72b696ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5555774175546103283
 GameObject:
   m_ObjectHideFlags: 0
