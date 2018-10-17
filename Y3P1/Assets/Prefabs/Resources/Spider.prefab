@@ -176,11 +176,11 @@ MonoBehaviour:
     baseHealth: 100
     currentHealth: 0
   stats:
-    stamina: 5
-    strength: 5
-    agility: 5
-    willpower: 5
-    defense: 2
+    stamina: 10
+    strength: 7
+    agility: 9
+    willpower: 8
+    defense: 10
   canDropLoot: 1
   OnHit:
     m_PersistentCalls:
