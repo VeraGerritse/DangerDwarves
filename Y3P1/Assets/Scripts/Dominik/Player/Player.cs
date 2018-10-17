@@ -128,16 +128,28 @@ namespace Y3P1
 
         private void Update()
         {
+            // Test buff weapon.
             if (photonView.IsMine)
             {
-                if (Input.GetKeyDown(KeyCode.T))
+                if (Input.GetKeyDown(KeyCode.F1))
                 {
-                    // Test buff weapon.
-                    weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Bleed, statusEffectDuration = 3, endTime = Time.time + 3 }, 3);
-                    weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Slow, statusEffectDuration = 3, endTime = Time.time + 4 }, 4);
+                    weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Bleed, statusEffectDuration = 3, endTime = Time.time + 5 }, 5);
+                }
+                if (Input.GetKeyDown(KeyCode.F2))
+                {
+                    weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Slow, statusEffectDuration = 3, endTime = Time.time + 5 }, 5);
+                }
+                if (Input.GetKeyDown(KeyCode.F3))
+                {
                     weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.ArmorBreak, statusEffectDuration = 3, endTime = Time.time + 5 }, 5);
-                    weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.WeaponBreak, statusEffectDuration = 3, endTime = Time.time + 3 }, 3);
-                    weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Poison, statusEffectDuration = 3, endTime = Time.time + 3.5f }, 3.5f);
+                }
+                if (Input.GetKeyDown(KeyCode.F4))
+                {
+                    weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.WeaponBreak, statusEffectDuration = 3, endTime = Time.time + 5 }, 5);
+                }
+                if (Input.GetKeyDown(KeyCode.F5))
+                {
+                    weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Poison, statusEffectDuration = 3, endTime = Time.time + 5 }, 5);
                 }
             }
         }

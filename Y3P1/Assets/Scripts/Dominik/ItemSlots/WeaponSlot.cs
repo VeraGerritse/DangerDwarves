@@ -23,7 +23,6 @@ public class WeaponSlot : EquipmentSlot
     public static event Action<Weapon> OnStopChargeSecondary = delegate { };
 
     private float nextPrimaryTime;
-    private float nextSecondaryTime;
     private float currentHits;
     public static int hitsRequiredToSecondary = 15;
 
@@ -54,6 +53,15 @@ public class WeaponSlot : EquipmentSlot
         {
             Player.localPlayer.playerController.OnDodge += PlayerController_OnDodge;
             Player.localPlayer.entity.OnDeath.AddListener(Entity_OnDeath);
+
+            OnUsePrimary += () =>
+            {
+                if (!string.IsNullOrEmpty(currentWeapon.secondaryProjectile))
+                {
+                    currentHits++;
+                }
+            };
+            OnUseSecondary += (Weapon.SecondaryType t) => currentHits = 0;
         }
     }
 
@@ -121,11 +129,10 @@ public class WeaponSlot : EquipmentSlot
         {
             if (Input.GetMouseButtonDown(1))
             {
-                if (currentHits == hitsRequiredToSecondary)
+                if (currentHits >= hitsRequiredToSecondary)
                 {
                     if (currentWeapon.secondaryChargeupTime == 0)
                     {
-                        currentHits = 0;
                         OnUseSecondary(currentWeapon.secondaryType);
                     }
                     else
@@ -151,7 +158,6 @@ public class WeaponSlot : EquipmentSlot
 
                         if (secondaryChargeCounter >= currentWeapon.secondaryChargeupTime)
                         {
-                            nextSecondaryTime = Time.time + currentWeapon.secondaryFireRate;
                             OnUseSecondary(currentWeapon.secondaryType);
                         }
                     }

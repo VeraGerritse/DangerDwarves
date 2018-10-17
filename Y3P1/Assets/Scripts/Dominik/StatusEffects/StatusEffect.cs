@@ -212,7 +212,7 @@ public class StatusEffect_Poison : StatusEffect
     public override void Initialise(Entity entity, float duration)
     {
         base.Initialise(entity, duration);
-        type = StatusEffects.StatusEffectType.Bleed;
+        type = StatusEffects.StatusEffectType.Poison;
     }
 
     public override void TriggerEffect()

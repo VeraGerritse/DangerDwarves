@@ -9,11 +9,13 @@ public class PlayerStatusCanvas : MonoBehaviour
 
     private HealthBar playerHealthBar;
     private float weaponSecondaryTimer;
+    private float weaponSecondaryBarFill;
 
     [SerializeField] private Image weaponSecondaryBar;
     [SerializeField] private GameObject localPlayerInfoPanel;
     [SerializeField] private TextMeshProUGUI localPlayerNameText; 
     [SerializeField] private TextMeshProUGUI localPlayerHealthText;
+    [SerializeField] private GameObject noSecondaryText;
 
     [Space(10)]
 
@@ -23,14 +25,17 @@ public class PlayerStatusCanvas : MonoBehaviour
     {
         playerHealthBar = GetComponentInChildren<HealthBar>();
         playerHealthBar.Initialise(Player.localPlayer.entity);
-        if (WeaponSlot.currentWeapon != null)
-        {
-            weaponSecondaryTimer = string.IsNullOrEmpty(WeaponSlot.currentWeapon.secondaryProjectile) ? 0 : 1;
-        }
 
-        WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
+        InitialiseEvents();
+
+        weaponSecondaryBar.fillAmount = 0;
+    }
+
+    private void InitialiseEvents()
+    {
         WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
         WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
+        WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
 
         Player.localPlayer.weaponSlot.OnWeaponBuffAdded += WeaponSlot_OnWeaponBuffAdded;
         Player.localPlayer.weaponSlot.OnWeaponBuffRemoved += WeaponSlot_OnWeaponBuffRemoved;
@@ -38,34 +43,33 @@ public class PlayerStatusCanvas : MonoBehaviour
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
     {
-        //if (weapon != null)
-        //{
-        //    weaponSecondaryTimer = string.IsNullOrEmpty(weapon.secondaryProjectile) ? 0 : 1;
-        //}
+        if (weapon != null && !string.IsNullOrEmpty(weapon.secondaryProjectile))
+        {
+            noSecondaryText.SetActive(false);
+        }
+        else
+        {
+            noSecondaryText.SetActive(true);
+        }
     }
 
     private void WeaponSlot_OnUsePrimary()
     {
-        weaponSecondaryBar.fillAmount += (1 / WeaponSlot.hitsRequiredToSecondary);
+        weaponSecondaryBarFill += 1 / (float)WeaponSlot.hitsRequiredToSecondary;
     }
 
     private void WeaponSlot_OnUseSecondary(Weapon.SecondaryType secondaryType)
     {
-        //weaponSecondaryTimer = 0;
+        weaponSecondaryBarFill = 0;
         weaponSecondaryBar.fillAmount = 0;
     }
 
     private void Update()
     {
-        //if (WeaponSlot.currentWeapon != null && !string.IsNullOrEmpty(WeaponSlot.currentWeapon.secondaryProjectile))
-        //{
-        //    weaponSecondaryTimer = (weaponSecondaryTimer < 1) ? weaponSecondaryTimer += 1 / WeaponSlot.currentWeapon.secondaryFireRate * Time.deltaTime : 1;
-        //    weaponSecondaryBar.fillAmount = weaponSecondaryTimer;
-        //}
-        //else
-        //{
-        //    weaponSecondaryBar.fillAmount = 0;
-        //}
+        if (weaponSecondaryBar.fillAmount < 1)
+        {
+            weaponSecondaryBar.fillAmount = Mathf.Lerp(weaponSecondaryBar.fillAmount, weaponSecondaryBarFill, Time.deltaTime * 10);
+        }
 
         if (localPlayerInfoPanel.activeInHierarchy)
         {
@@ -114,8 +118,9 @@ public class PlayerStatusCanvas : MonoBehaviour
 
     private void OnDisable()
     {
-        WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
+        WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
         WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
+        WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
 
         Player.localPlayer.weaponSlot.OnWeaponBuffAdded -= WeaponSlot_OnWeaponBuffAdded;
         Player.localPlayer.weaponSlot.OnWeaponBuffRemoved -= WeaponSlot_OnWeaponBuffRemoved;
