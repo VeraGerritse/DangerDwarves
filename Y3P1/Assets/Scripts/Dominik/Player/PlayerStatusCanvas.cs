@@ -29,38 +29,43 @@ public class PlayerStatusCanvas : MonoBehaviour
         }
 
         WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
+        WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
         WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
 
         Player.localPlayer.weaponSlot.OnWeaponBuffAdded += WeaponSlot_OnWeaponBuffAdded;
         Player.localPlayer.weaponSlot.OnWeaponBuffRemoved += WeaponSlot_OnWeaponBuffRemoved;
-
-        //NotificationManager.instance.NewNotification(Photon.Pun.PhotonNetwork.NickName);
     }
 
     private void WeaponSlot_OnEquipWeapon(Weapon weapon)
     {
-        if (weapon != null)
-        {
-            weaponSecondaryTimer = string.IsNullOrEmpty(weapon.secondaryProjectile) ? 0 : 1;
-        }
+        //if (weapon != null)
+        //{
+        //    weaponSecondaryTimer = string.IsNullOrEmpty(weapon.secondaryProjectile) ? 0 : 1;
+        //}
+    }
+
+    private void WeaponSlot_OnUsePrimary()
+    {
+        weaponSecondaryBar.fillAmount += (1 / WeaponSlot.hitsRequiredToSecondary);
     }
 
     private void WeaponSlot_OnUseSecondary(Weapon.SecondaryType secondaryType)
     {
-        weaponSecondaryTimer = 0;
+        //weaponSecondaryTimer = 0;
+        weaponSecondaryBar.fillAmount = 0;
     }
 
     private void Update()
     {
-        if (WeaponSlot.currentWeapon != null && !string.IsNullOrEmpty(WeaponSlot.currentWeapon.secondaryProjectile))
-        {
-            weaponSecondaryTimer = (weaponSecondaryTimer < 1) ? weaponSecondaryTimer += 1 / WeaponSlot.currentWeapon.secondaryFireRate * Time.deltaTime : 1;
-            weaponSecondaryBar.fillAmount = weaponSecondaryTimer;
-        }
-        else
-        {
-            weaponSecondaryBar.fillAmount = 0;
-        }
+        //if (WeaponSlot.currentWeapon != null && !string.IsNullOrEmpty(WeaponSlot.currentWeapon.secondaryProjectile))
+        //{
+        //    weaponSecondaryTimer = (weaponSecondaryTimer < 1) ? weaponSecondaryTimer += 1 / WeaponSlot.currentWeapon.secondaryFireRate * Time.deltaTime : 1;
+        //    weaponSecondaryBar.fillAmount = weaponSecondaryTimer;
+        //}
+        //else
+        //{
+        //    weaponSecondaryBar.fillAmount = 0;
+        //}
 
         if (localPlayerInfoPanel.activeInHierarchy)
         {

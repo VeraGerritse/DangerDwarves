@@ -11,7 +11,7 @@ public class Inventory : MonoBehaviourPunCallbacks
 {
     public List<InventorySlot> allSlots = new List<InventorySlot>();
     public List<Item> allItems = new List<Item>();
-    [SerializeField] private List<InventorySlot> hotkeySlots = new List<InventorySlot>();
+    public List<InventorySlot> hotkeySlots = new List<InventorySlot>();
     public InventorySlot currentSlot;
     public InventorySlot lastSlot;
     public Item drag;
@@ -386,6 +386,23 @@ public class Inventory : MonoBehaviourPunCallbacks
             }
         }
         hotkeySlots.Reverse();
+        OrderHotKeySlots();
+    }
+
+    private void OrderHotKeySlots()
+    {
+        List<HotKeySlot> tempHK = new List<HotKeySlot>();
+        for (int i = 0; i < hotkeySlots.Count; i++)
+        {
+            tempHK.Add((HotKeySlot)hotkeySlots[i]);
+        }
+        for (int i = 0; i < tempHK.Count; i++)
+        {
+            if(tempHK[i].index < 1)
+            {
+                hotkeySlots[tempHK[i].index - 1] = tempHK[i];
+            }
+        }
     }
 
     private void EquipToHotkey(int toSlot)

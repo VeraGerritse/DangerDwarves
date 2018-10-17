@@ -10,6 +10,8 @@ public class InventorySlot : MonoBehaviour {
     public SlotType slotType;
     [SerializeField] private Image myItem;
     public Image myOverlay;
+    public int index = -1;
+
 
     public bool CheckSlotType()
     {
@@ -69,7 +71,7 @@ public class InventorySlot : MonoBehaviour {
 
     private IEnumerator Time()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
         inventory = Player.localPlayer.myInventory;
 
         if (inventory == null)

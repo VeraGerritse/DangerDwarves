@@ -106,7 +106,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
                 return (int)(stats.DamageEffectiveness * (stats.agility + (int)(0.2 * stats.strength)));
             case Weapon.DamageType.Secondary:
 
-                return (int)(stats.DamageEffectiveness * (stats.willpower + (int)(0.5 * stats.strength) + (int)(0.5 * stats.agility)));
+                return (int)(stats.DamageEffectiveness * (stats.willpower * 2 + (int)(0.5 * stats.strength) + (int)(0.5 * stats.agility)));
         }
 
         return 0;

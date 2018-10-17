@@ -24,6 +24,8 @@ public class WeaponSlot : EquipmentSlot
 
     private float nextPrimaryTime;
     private float nextSecondaryTime;
+    private float currentHits;
+    public static int hitsRequiredToSecondary = 15;
 
     private bool isChargingSecondary;
     private float secondaryChargeCounter;
@@ -119,11 +121,11 @@ public class WeaponSlot : EquipmentSlot
         {
             if (Input.GetMouseButtonDown(1))
             {
-                if (Time.time >= nextSecondaryTime)
+                if (currentHits == hitsRequiredToSecondary)
                 {
                     if (currentWeapon.secondaryChargeupTime == 0)
                     {
-                        nextSecondaryTime = Time.time + currentWeapon.secondaryFireRate;
+                        currentHits = 0;
                         OnUseSecondary(currentWeapon.secondaryType);
                     }
                     else
