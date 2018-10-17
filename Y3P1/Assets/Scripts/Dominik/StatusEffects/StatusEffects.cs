@@ -48,7 +48,7 @@ public class StatusEffects
         {
             case StatusEffectType.Bleed:
 
-                newEffect = new StatusEffect_Burn();
+                newEffect = new StatusEffect_Bleed();
                 break;
             case StatusEffectType.Slow:
 

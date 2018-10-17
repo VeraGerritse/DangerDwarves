@@ -20,8 +20,6 @@ public abstract class Weapon : Item
     public int secondaryAmountOfProjectiles = 1;
     public int secondaryConeOfFireInDegrees = 0;
 
-    public enum DamageType { Melee, Ranged, Secondary };
-
     public override string[] WeaponInfo()
     {
         if(secondaryProjectile == "")

@@ -1,5 +1,4 @@
 ﻿using Photon.Pun;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,7 +8,6 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 {
 
     [HideInInspector] public Collider myCollider;
-
 
     [SerializeField] private int entityID;
     [SerializeField] private bool instaDestroyOnDeath;
@@ -49,9 +47,9 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         statusEffects.HandleEffects();
     }
 
-    public void Hit(int amount, List<WeaponSlot.WeaponBuff> weaponBuffs = null)
+    public void Hit(int amount, Stats.DamageType damageType, List<WeaponSlot.WeaponBuff> weaponBuffs = null)
     {
-        photonView.RPC("HitRPC", RpcTarget.All, CalculateAmount(amount), health.isInvinsible);
+        photonView.RPC("HitRPC", RpcTarget.All, CalculateAmount(amount), health.isInvinsible, (int)damageType);
 
         if (weaponBuffs != null)
         {
@@ -60,13 +58,13 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    private void HitRPC(int amount, bool isInvinsible)
+    private void HitRPC(int amount, bool isInvinsible, int damageType)
     {
         if (amount <= 0 && !isInvinsible)
         {
             OnHit.Invoke();
         }
-        health.ModifyHealth(amount);
+        health.ModifyHealth(amount, (Stats.DamageType)damageType);
     }
 
     [PunRPC]
@@ -94,17 +92,17 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         return (int)Mathf.Clamp((amount + (stats.DefenseEffectiveness * stats.defense)), -99999999999999999, 0);
     }
 
-    public int CalculateDamage(Weapon.DamageType damageType)
+    public int CalculateDamage(Stats.DamageType damageType)
     {
         switch (damageType)
         {
-            case Weapon.DamageType.Melee:
+            case Stats.DamageType.Melee:
 
                 return (int)(stats.DamageEffectiveness * (stats.strength + (int)(0.2 * stats.agility)));
-            case Weapon.DamageType.Ranged:
+            case Stats.DamageType.Ranged:
 
                 return (int)(stats.DamageEffectiveness * (stats.agility + (int)(0.2 * stats.strength)));
-            case Weapon.DamageType.Secondary:
+            case Stats.DamageType.Secondary:
 
                 return (int)(stats.DamageEffectiveness * (stats.willpower * 2 + (int)(0.5 * stats.strength) + (int)(0.5 * stats.agility)));
         }

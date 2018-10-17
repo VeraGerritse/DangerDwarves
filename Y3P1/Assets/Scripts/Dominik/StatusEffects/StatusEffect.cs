@@ -40,7 +40,7 @@ public abstract class StatusEffect
     }
 }
 
-public class StatusEffect_Burn : StatusEffect
+public class StatusEffect_Bleed : StatusEffect
 {
     private Rigidbody rb;
 
@@ -63,7 +63,7 @@ public class StatusEffect_Burn : StatusEffect
             {
                 if (rb.velocity != Vector3.zero)
                 {
-                    entity.Hit(-damage);
+                    entity.Hit(-damage, Stats.DamageType.Bleed);
                 }
             }
         }
@@ -221,7 +221,7 @@ public class StatusEffect_Poison : StatusEffect
 
         if (PhotonNetwork.IsMasterClient)
         {
-            entity.Hit(-damage);
+            entity.Hit(-damage, Stats.DamageType.Poison);
         }
     }
 }

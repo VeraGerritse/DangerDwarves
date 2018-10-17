@@ -23,4 +23,14 @@ public class Stats
     public int agility;
     public int willpower;
     public int defense;
+
+    public enum DamageType
+    {
+        Melee,
+        Ranged,
+        Secondary,
+        AOE,
+        Bleed,
+        Poison
+    };
 }

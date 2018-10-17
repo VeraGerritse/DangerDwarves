@@ -19,23 +19,23 @@ public class DamageText : MonoBehaviour
         originalScale = transform.localScale;
     }
 
-    public void Initialise(int damage)
+    public void Initialise(Health.HealthData healthData)
     {
-        SetTextColor(damage);
+        SetTextColor(healthData);
 
-        damageText.text = Mathf.Abs(damage).ToString();
+        damageText.text = Mathf.Abs((int)healthData.amountHealthChanged).ToString();
         transform.position += new Vector3(Random.Range(-randomSpawnOffsetX, randomSpawnOffsetX), Random.Range(-randomSpawnOffsetY, randomSpawnOffsetY), 0);
 
         newPos = transform.position;
         newColor = damageText.color;
 
         transform.localScale = originalScale;
-        transform.localScale *= Remap(Mathf.Abs(damage), 0, 10000, 1, 4f);
+        transform.localScale *= Remap(Mathf.Abs((int)healthData.amountHealthChanged), 0, 10000, 1, 4f);
     }
 
     public void Initialise(string status)
     {
-        SetTextColor(0);
+        SetTextColor(new Health.HealthData { amountHealthChanged = 0 });
 
         damageText.text = status;
         transform.position += new Vector3(Random.Range(-randomSpawnOffsetX, randomSpawnOffsetX), Random.Range(-randomSpawnOffsetY, randomSpawnOffsetY), 0);
@@ -66,20 +66,46 @@ public class DamageText : MonoBehaviour
         }
     }
 
-    private void SetTextColor(int damage)
+    private void SetTextColor(Health.HealthData healthData)
     {
         // Damage.
-        if (damage < 0)
+        if (healthData.amountHealthChanged < 0)
         {
-            damageText.color = Color.red;
+            switch (healthData.damageType)
+            {
+                case Stats.DamageType.Melee:
+
+                    damageText.color = Color.red;
+                    break;
+                case Stats.DamageType.Ranged:
+
+                    damageText.color = Color.red;
+                    break;
+                case Stats.DamageType.Secondary:
+
+                    damageText.color = Color.red;
+                    break;
+                case Stats.DamageType.AOE:
+
+                    damageText.color = Color.red;
+                    break;
+                case Stats.DamageType.Bleed:
+
+                    damageText.color = new Color(1, 0.44f, 0.25f, 1);
+                    break;
+                case Stats.DamageType.Poison:
+
+                    damageText.color = Color.yellow;
+                    break;
+            }
         }
         // Nothing.
-        else if (damage == 0)
+        else if (healthData.amountHealthChanged == 0)
         {
             damageText.color = Color.white;
         }
         // Heal.
-        else if (damage > 0)
+        else if (healthData.amountHealthChanged > 0)
         {
             damageText.color = Color.green;
         }

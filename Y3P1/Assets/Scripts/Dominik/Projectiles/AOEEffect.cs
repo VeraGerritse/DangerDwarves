@@ -108,14 +108,14 @@ public class AOEEffect : MonoBehaviourPunCallbacks
 
                 if (entity.transform.tag != "Player")
                 {
-                    entity.Hit(-damage);
+                    entity.Hit(-damage, Stats.DamageType.AOE);
                 }
                 break;
             case Projectile.Target.Player:
 
                 if (entity.transform.tag == "Player")
                 {
-                    entity.Hit(-damage);
+                    entity.Hit(-damage, Stats.DamageType.AOE);
                 }
                 break;
         }

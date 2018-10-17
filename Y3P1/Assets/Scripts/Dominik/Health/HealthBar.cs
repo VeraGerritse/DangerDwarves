@@ -68,7 +68,7 @@ public class HealthBar : MonoBehaviour
             }
             else
             {
-                newDamageText.Initialise((int)healthData.amountHealthChanged);
+                newDamageText.Initialise(healthData);
             }
         }
     }

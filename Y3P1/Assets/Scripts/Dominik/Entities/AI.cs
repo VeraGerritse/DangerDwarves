@@ -55,7 +55,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         public int attackChance;
         public enum AttackType { Animation, Projectile };
         public AttackType attackType;
-        public Weapon.DamageType damageType;
+        public Stats.DamageType damageType;
         public string projectilePoolName;
     }
 
@@ -246,7 +246,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if (entity.transform.tag == "Player")
                 {
-                    entity.Hit(-myEntity.CalculateDamage(currentAttack.damageType));
+                    entity.Hit(-myEntity.CalculateDamage(currentAttack.damageType), currentAttack.damageType);
                 }
             }
         }

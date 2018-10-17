@@ -54,7 +54,7 @@ public class WeaponPrefab : ItemPrefab
                 spawnRotation = projectileSpawn.rotation,
                 projectilePool = weapon.primaryProjectile,
                 speed = ProjectileManager.instance.GetProjectileSpeed(weapon.force, weapon.primaryProjectile),
-                damage = weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Ranged),
+                damage = weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Stats.DamageType.Ranged),
                 amount = weapon.amountOfProjectiles,
                 coneOfFireInDegrees = weapon.coneOfFireInDegrees,
                 mousePos = PlayerController.mouseInWorldPos,
@@ -88,7 +88,7 @@ public class WeaponPrefab : ItemPrefab
                     {
                         if (pvp ? meleeHits[i].transform.tag == "Player" : meleeHits[i].transform.tag != "Player")
                         {
-                            entity.Hit(-(weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Melee)), WeaponSlot.weaponBuffs);
+                            entity.Hit(-(weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Stats.DamageType.Melee)), Stats.DamageType.Melee, WeaponSlot.weaponBuffs);
 
                             if (weapon.knockBack > 0 && !pvp)
                             {
@@ -121,7 +121,7 @@ public class WeaponPrefab : ItemPrefab
             spawnRotation = (secondaryType == Weapon.SecondaryType.Attack) ? projectileSpawn.rotation : Player.localPlayer.transform.rotation,
             projectilePool = weapon.secondaryProjectile,
             speed = ProjectileManager.instance.GetProjectileSpeed(weapon.secondaryForce, weapon.secondaryProjectile),
-            damage = weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Weapon.DamageType.Secondary),
+            damage = weapon.baseDamage + Player.localPlayer.entity.CalculateDamage(Stats.DamageType.Secondary),
             amount = weapon.secondaryAmountOfProjectiles,
             coneOfFireInDegrees = weapon.secondaryConeOfFireInDegrees,
             mousePos = PlayerController.mouseInWorldPos,

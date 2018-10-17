@@ -22,7 +22,8 @@ public class Projectile_Volley : Projectile
             projectile.Fire(new FireData
             {
                 speed = Random.Range(0.8f * volleyArrowSpeed, 1.2f * volleyArrowSpeed),
-                damage = fireData.damage
+                damage = fireData.damage,
+                ownerID = fireData.ownerID
             });
         }
     }

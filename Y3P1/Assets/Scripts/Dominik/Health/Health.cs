@@ -23,6 +23,7 @@ public class Health
         public float percentageHealth;
         public int? amountHealthChanged;
         public bool isInvinsible;
+        public Stats.DamageType damageType;
     }
 
     public void Initialise(Entity entity)
@@ -31,7 +32,7 @@ public class Health
         ResetHealth(100);
     }
 
-    public void ModifyHealth(int amount)
+    public void ModifyHealth(int amount, Stats.DamageType damageType)
     {
         if (amount >= 0)
         {
@@ -45,7 +46,15 @@ public class Health
             }
         }
         currentHealth = Mathf.Clamp(currentHealth, 0, GetMaxHealth());
-        OnHealthModified(new HealthData { currentHealth =  currentHealth, maxHealth = GetMaxHealth(), percentageHealth = GetHealthPercentage(), amountHealthChanged = amount, isInvinsible = isInvinsible});
+        OnHealthModified(new HealthData
+        {
+            currentHealth = currentHealth,
+            maxHealth = GetMaxHealth(),
+            percentageHealth = GetHealthPercentage(),
+            amountHealthChanged = amount,
+            isInvinsible = isInvinsible,
+            damageType = damageType
+        });
 
         if (currentHealth <= 0 && !isDead)
         {

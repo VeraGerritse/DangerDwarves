@@ -109,7 +109,7 @@ public class Projectile : MonoBehaviour
     {
         if (fireData.ownerID == Player.localPlayer.photonView.ViewID)
         {
-            entity.Hit(-fireData.damage, WeaponSlot.weaponBuffs);
+            entity.Hit(-fireData.damage, Stats.DamageType.Ranged, WeaponSlot.weaponBuffs);
         }
 
         OnEntityHit(this);
