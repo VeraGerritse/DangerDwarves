@@ -20,6 +20,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private string prefabToSpawnOnHit;
     [SerializeField] private string prefabToSpawnOnDeath;
     [SerializeField] private bool stayOnOwner;
+    [SerializeField] private bool isEnemyProjectile;
 
     [Header("Status Effect Module")]
     [SerializeField] private bool applyStatusEffect;
@@ -115,6 +116,11 @@ public class Projectile : MonoBehaviour
         if (fireData.ownerID == Player.localPlayer.photonView.ViewID)
         {
             entity.Hit(-fireData.damage, Stats.DamageType.Ranged, WeaponSlot.weaponBuffs);
+            HandleProjectileStatusEffects(entity);
+        }
+
+        if (isEnemyProjectile)
+        {
             HandleProjectileStatusEffects(entity);
         }
 

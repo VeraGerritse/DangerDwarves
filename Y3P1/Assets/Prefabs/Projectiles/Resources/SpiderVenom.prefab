@@ -4682,7 +4682,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.1
+  m_Radius: 0.15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4247674038721876242
 Rigidbody:
@@ -4718,6 +4718,7 @@ MonoBehaviour:
   prefabToSpawnOnHit: SpiderVenomHit
   prefabToSpawnOnDeath: 
   stayOnOwner: 0
+  isEnemyProjectile: 1
   applyStatusEffect: 1
   effectToApply: 4
   effectDuration: 2
