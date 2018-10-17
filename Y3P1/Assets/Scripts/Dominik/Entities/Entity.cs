@@ -110,7 +110,11 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
             return amount;
         }
 
-        return (int)Mathf.Clamp((amount + (stats.DefenseEffectiveness * stats.defense)), -99999999999999999, 0);
+        float incomingDamage = Mathf.Abs(amount);
+        float damageCoeff = Mathf.Min(0.99f, Mathf.Pow(incomingDamage / (stats.DefenseEffectiveness * stats.defense * 0.15f), 0.2f));
+        float reducedDamage = damageCoeff * incomingDamage;
+
+        return (int)Mathf.Clamp(-reducedDamage, -99999999999999999, -1);
     }
 
     public int CalculateDamage(Stats.DamageType damageType)
