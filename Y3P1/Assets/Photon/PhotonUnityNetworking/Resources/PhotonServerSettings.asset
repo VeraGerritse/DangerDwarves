@@ -75,4 +75,5 @@ MonoBehaviour:
   - KnockBackRPC
   - SyncStatusEffects
   - SyncMoveSpeed
+  - GetLevel
   DisableAutoOpenWizard: 1
