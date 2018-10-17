@@ -134,6 +134,15 @@ public class Inventory : MonoBehaviourPunCallbacks
         photonView.RPC("DropItem", RpcTarget.AllBuffered, objName, saved, loc);
     }
 
+    [PunRPC]
+    private void ResetAVR()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            aIL.CalculateLevel();
+        }
+    }
+
     public void StopDragging()
     {
         if (drag == null || !CheckAvailability())
@@ -517,7 +526,11 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             return;
         }
-
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            photonView.RPC("ResetAVR", RpcTarget.MasterClient);
+            NotificationManager.instance.NewNotification("aaaaaaaaaaaaaaaaaaaaaaaaaaaaah");
+        }
         if (Input.GetKeyDown(KeyCode.K))
         {
             photonView.RPC("AddGold", RpcTarget.All, Random.Range(500, 1000)); 
@@ -999,7 +1012,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         currentStats = together;
         Player.localPlayer.entity.UpdateStats(together);
         averageILevel = Mathf.RoundToInt(iLevel / 3);
-        aIL.CalculateLevel();
+        //photonView.RPC("ResetAVR", RpcTarget.MasterClient);
         SetInfo();
     }
 
@@ -1020,7 +1033,7 @@ public class Inventory : MonoBehaviourPunCallbacks
             currentStats = new Stats();
         }
         StatsInfo.instance.SetPlayerStats(Stat(), ILevel());
-        aIL.CalculateLevel();
+        photonView.RPC("ResetAVR", RpcTarget.MasterClient);
     }
 
     public bool InventoryIsOpen()
