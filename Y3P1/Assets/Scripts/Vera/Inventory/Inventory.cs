@@ -417,7 +417,15 @@ public class Inventory : MonoBehaviourPunCallbacks
         int slot = toSlot - 1;
         int index = GetIndex(hotkeySlots[slot]);
 
-        if(allItems[index] == null)
+        if(allItems[ind] == null && allItems[index] != null)
+        {
+            allItems[ind] = allItems[index];
+            allItems[index] = null;
+            allSlots[index].DisableImage();
+            allSlots[ind].SetImage(Database.hostInstance.allSprites[allItems[ind].spriteIndex]);
+            allSlots[ind].EnableImage();
+        }
+        if(allItems[index] == null && allItems[ind] != null)
         {
             allItems[index] = allItems[ind];
             allItems[ind] = null;
@@ -648,8 +656,28 @@ public class Inventory : MonoBehaviourPunCallbacks
 
         if (Input.GetKey(KeyCode.H))
         {
-            if (Input.GetKeyDown(KeyCode.N))
+            if (Input.GetKey(KeyCode.B))
             {
+                if (Input.GetKeyDown(KeyCode.N))
+                {
+
+                    if (LootRandomizer.instance != null)
+                    {
+                        for (int i = 0; i < 10; i++)
+                        {
+                            Item newItem = LootRandomizer.instance.DropLoot(100 + averageILevel, 3);
+                            if (newItem == null)
+                            {
+                                return;
+                            }
+                            AddItem(newItem);
+                        }
+                    }
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.N))
+            {
+
                 if (LootRandomizer.instance != null)
                 {
                     Item newItem = LootRandomizer.instance.DropLoot(10 + averageILevel,3);
@@ -708,7 +736,6 @@ public class Inventory : MonoBehaviourPunCallbacks
             EquipItem(index);
             return;
         }
-        NotificationManager.instance.NewNotification("aaaaah");
     }
 
     private int GetIndex(InventorySlot slot)
@@ -896,7 +923,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         Stats trinket = null;
         Stats weapon = null;
 
-        int iLevel = 0;
+        float iLevel = 0;
         
 
         int helmetSlot = -1;
@@ -973,9 +1000,8 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
 
         currentStats = together;
-        print(currentStats + " staaas");
         Player.localPlayer.entity.UpdateStats(together);
-        averageILevel = iLevel / 3;
+        averageILevel = Mathf.RoundToInt(iLevel / 3);
         SetInfo();
     }
 

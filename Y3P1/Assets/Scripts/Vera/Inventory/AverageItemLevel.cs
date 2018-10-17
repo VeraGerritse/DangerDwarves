@@ -9,6 +9,15 @@ public class AverageItemLevel : MonoBehaviourPunCallbacks {
     private float AllLvl;
     private float allPlayers;
 
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            NotificationManager.instance.NewNotification(averageILevel.ToString());
+        }
+    }
+
     public void CalculateLevel()
     {
         AllLvl = 0;

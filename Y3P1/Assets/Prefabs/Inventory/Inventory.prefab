@@ -7713,7 +7713,9 @@ MonoBehaviour:
     itemLevel: 1
   onMouse: {fileID: 4215865613476731664}
   startingItems: []
+  aIL: {fileID: 5189594823551533629}
   totalGoldAmount: 0
+  averageILevel: 1
   defaultColor: {r: 0.2924528, g: 0.20743668, b: 0.16415983, a: 1}
   common: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 0.78431374}
   rare: {r: 0.43867922, g: 0.5597484, b: 1, a: 0.78431374}
@@ -7754,7 +7756,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   averageILevel: 0
-  test: 0
 --- !u!1 &6778395464049259097
 GameObject:
   m_ObjectHideFlags: 0
