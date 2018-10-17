@@ -391,11 +391,7 @@ public class Inventory : MonoBehaviourPunCallbacks
 
     private void OrderHotKeySlots()
     {
-        List<HotKeySlot> tempHK = new List<HotKeySlot>();
-        for (int i = 0; i < hotkeySlots.Count; i++)
-        {
-            tempHK.Add((HotKeySlot)hotkeySlots[i]);
-        }
+        List<InventorySlot> tempHK = hotkeySlots;
         for (int i = 0; i < tempHK.Count; i++)
         {
             if(tempHK[i].index < 1)
