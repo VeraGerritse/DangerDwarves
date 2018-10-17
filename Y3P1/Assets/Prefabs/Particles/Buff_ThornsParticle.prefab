@@ -9143,6 +9143,9 @@ MonoBehaviour:
   effectInterval: 0.5
   damageRange: 1.85
   damageMultiplier: 0.5
+  applyStatusEffect: 1
+  effectToApply: 3
+  effectDuration: 0.5
   pushToCenter: 0
   pushToCenterForce: 0
 --- !u!199 &3693932671327322725

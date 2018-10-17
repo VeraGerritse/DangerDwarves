@@ -21,6 +21,11 @@ public class Projectile : MonoBehaviour
     [SerializeField] private string prefabToSpawnOnDeath;
     [SerializeField] private bool stayOnOwner;
 
+    [Header("Status Effect Module")]
+    [SerializeField] private bool applyStatusEffect;
+    [SerializeField] private StatusEffects.StatusEffectType effectToApply;
+    [SerializeField] private float effectDuration;
+
     public event Action<Projectile> OnFire = delegate { };
     public event Action<Projectile> OnEntityHit = delegate { };
     public event Action<Projectile> OnEnvironmentHit = delegate { };
@@ -110,6 +115,7 @@ public class Projectile : MonoBehaviour
         if (fireData.ownerID == Player.localPlayer.photonView.ViewID)
         {
             entity.Hit(-fireData.damage, Stats.DamageType.Ranged, WeaponSlot.weaponBuffs);
+            HandleProjectileStatusEffects(entity);
         }
 
         OnEntityHit(this);
@@ -127,6 +133,14 @@ public class Projectile : MonoBehaviour
 
         hitAnything = true;
         ReturnToPool();
+    }
+
+    private void HandleProjectileStatusEffects(Entity entity)
+    {
+        if (applyStatusEffect)
+        {
+            entity.photonView.RPC("SyncStatusEffects", RpcTarget.All, (int)effectToApply, effectDuration);
+        }
     }
 
     private void SpawnPrefabOnHit()

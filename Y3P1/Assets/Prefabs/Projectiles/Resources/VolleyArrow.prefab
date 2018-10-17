@@ -92,6 +92,9 @@ MonoBehaviour:
   prefabToSpawnOnHit: HitMarker
   prefabToSpawnOnDeath: 
   stayOnOwner: 0
+  applyStatusEffect: 1
+  effectToApply: 0
+  effectDuration: 2
 --- !u!114 &9156334626702542129
 MonoBehaviour:
   m_ObjectHideFlags: 0

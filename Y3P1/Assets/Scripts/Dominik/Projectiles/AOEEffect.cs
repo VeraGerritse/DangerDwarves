@@ -23,6 +23,11 @@ public class AOEEffect : MonoBehaviourPunCallbacks
     [SerializeField] private float damageRange = 2;
     [SerializeField] private float damageMultiplier = 1;
 
+    [Header("Status Effect Module")]
+    [SerializeField] private bool applyStatusEffect;
+    [SerializeField] private StatusEffects.StatusEffectType effectToApply;
+    [SerializeField] private float effectDuration;
+
     [Header("Knockback Module")]
     [SerializeField] private bool pushToCenter;
     [SerializeField] private float pushToCenterForce;
@@ -83,6 +88,7 @@ public class AOEEffect : MonoBehaviourPunCallbacks
             if (entity)
             {
                 DamageModule(entity);
+                StatusEffectModule(entity);
                 KnockbackModule(entity);
             }
         }
@@ -126,6 +132,14 @@ public class AOEEffect : MonoBehaviourPunCallbacks
         if (pushToCenter)
         {
             entity.KnockBack(transform.position - entity.transform.position, pushToCenterForce);
+        }
+    }
+
+    private void StatusEffectModule(Entity entity)
+    {
+        if (applyStatusEffect)
+        {
+            entity.photonView.RPC("SyncStatusEffects", RpcTarget.All, (int)effectToApply, effectDuration);
         }
     }
 

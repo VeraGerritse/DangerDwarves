@@ -9281,14 +9281,17 @@ MonoBehaviour:
   hitLayerMask:
     serializedVersion: 2
     m_Bits: 16897
+  damageTarget: 0
+  initialiseInParent: 1
+  continuousEffect: 0
+  effectInterval: 0
   damageRange: 2
   damageMultiplier: 1
-  continuousDamage: 0
-  damageInterval: 0
-  initialiseInParent: 1
+  applyStatusEffect: 1
+  effectToApply: 1
+  effectDuration: 5
   pushToCenter: 1
   pushToCenterForce: 4
-  damageTarget: 0
 --- !u!199 &199756426985724656
 ParticleSystemRenderer:
   serializedVersion: 6
