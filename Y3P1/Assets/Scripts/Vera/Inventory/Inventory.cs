@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     private bool dragging;
     [SerializeField] private Image onMouse;
     [SerializeField] private List<Item> startingItems = new List<Item>();
-    [SerializeField] private AverageItemLevel aIL;
+    public AverageItemLevel aIL;
     private bool isInitialised;
     private Canvas canvas;
     public int totalGoldAmount;
@@ -656,10 +656,8 @@ public class Inventory : MonoBehaviourPunCallbacks
 
         if (Input.GetKey(KeyCode.H))
         {
-            if (Input.GetKey(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.B))
             {
-                if (Input.GetKeyDown(KeyCode.N))
-                {
 
                     if (LootRandomizer.instance != null)
                     {
@@ -673,7 +671,6 @@ public class Inventory : MonoBehaviourPunCallbacks
                             AddItem(newItem);
                         }
                     }
-                }
             }
             else if (Input.GetKeyDown(KeyCode.N))
             {
@@ -1035,15 +1032,15 @@ public class Inventory : MonoBehaviourPunCallbacks
         Item newItem = null;
         if (type == Entity.EntityType.Humanoid)
         {
-           newItem  = LootRandomizer.instance.DropLoot(averageILevel, 1);
+           newItem  = LootRandomizer.instance.DropLoot(aIL.averageILevel, 1);
         }
         else if (type == Entity.EntityType.Box)
         {
-            newItem = LootRandomizer.instance.DropLoot(averageILevel, 2);
+            newItem = LootRandomizer.instance.DropLoot(aIL.averageILevel, 2);
         }
         else if(type == Entity.EntityType.Chest)
         {
-            newItem = LootRandomizer.instance.DropLoot(averageILevel, 3);
+            newItem = LootRandomizer.instance.DropLoot(aIL.averageILevel, 3);
         }
 
         if(newItem == null)

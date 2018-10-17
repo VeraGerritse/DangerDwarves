@@ -32,6 +32,11 @@ public class Health
         ResetHealth(100);
     }
 
+    public void LevelHealth(int aIL)
+    {
+        baseHealth = Mathf.RoundToInt((baseHealth * (aIL / 10 - 0.1f + 1)) + UnityEngine.Random.Range(0, 10));
+    }
+
     public void ModifyHealth(int amount, Stats.DamageType damageType)
     {
         if (amount >= 0)

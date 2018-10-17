@@ -38,6 +38,8 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnEnable()
     {
+        LevelStats(Player.localPlayer.myInventory.aIL.averageILevel);
+        health.LevelHealth(Player.localPlayer.myInventory.aIL.averageILevel);
         health.Initialise(this);
         statusEffects.Initialise(this);
     }
@@ -71,6 +73,25 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     public void SyncStatusEffects(int effectType, float duration)
     {
         statusEffects.AddEffect(effectType, duration);
+    }
+
+    public void LevelStats(float aIL)
+    {
+        float multiplier = aIL / 10 + 1 - 0.1f;
+        stats.agility = Mathf.RoundToInt(stats.agility * multiplier);
+        stats.agility += Random.Range(0, 3);
+
+        stats.willpower = Mathf.RoundToInt(stats.willpower * multiplier);
+        stats.willpower += Random.Range(0, 3);
+
+        stats.strength = Mathf.RoundToInt(stats.strength * multiplier);
+        stats.strength += Random.Range(0, 3);
+
+        stats.stamina = Mathf.RoundToInt(stats.stamina * multiplier);
+        stats.stamina += Random.Range(0, 3);
+
+        stats.defense = Mathf.RoundToInt(stats.defense * multiplier);
+        stats.defense += Random.Range(0, 3);
     }
 
     public void UpdateStats(Stats stats)

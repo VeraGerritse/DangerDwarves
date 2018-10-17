@@ -14,20 +14,22 @@ public class AverageItemLevel : MonoBehaviourPunCallbacks {
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
+            CalculateLevel();
             NotificationManager.instance.NewNotification(averageILevel.ToString());
         }
     }
 
     public void CalculateLevel()
     {
-        AllLvl = 0;
-        allPlayers = 0;
+
         photonView.RPC("GetLevel", RpcTarget.All);
     }
 
     [PunRPC]
     private void GetLevel()
     {
+        AllLvl = 0;
+        allPlayers = 0;
         photonView.RPC("Level", RpcTarget.All, Player.localPlayer.myInventory.averageILevel);
     }
 
