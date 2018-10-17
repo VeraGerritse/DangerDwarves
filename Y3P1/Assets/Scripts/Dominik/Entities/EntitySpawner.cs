@@ -85,11 +85,13 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     private void SpawnEntities(string entity)
     {
+        
         if (!PhotonNetwork.IsMasterClient)
         {
             return;
         }
-
+        Player.localPlayer.myInventory.aIL.CalculateLevel();
+        NotificationManager.instance.NewNotification(Player.localPlayer.myInventory.aIL.averageILevel.ToString());
         for (int i = 0; i < spawnAmount; i++)
         {
             Entity newEntity = PhotonNetwork.InstantiateSceneObject(entity, spawnRange == 0 ? transform.position : GetRandomPos(), transform.rotation).GetComponentInChildren<Entity>();

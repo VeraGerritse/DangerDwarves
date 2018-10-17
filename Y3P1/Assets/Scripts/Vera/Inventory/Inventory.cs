@@ -999,6 +999,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         currentStats = together;
         Player.localPlayer.entity.UpdateStats(together);
         averageILevel = Mathf.RoundToInt(iLevel / 3);
+        aIL.CalculateLevel();
         SetInfo();
     }
 

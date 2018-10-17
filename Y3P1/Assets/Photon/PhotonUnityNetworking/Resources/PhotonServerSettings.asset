@@ -77,4 +77,5 @@ MonoBehaviour:
   - SyncMoveSpeed
   - GetLevel
   - Level
+  - ResetLevel
   DisableAutoOpenWizard: 1
