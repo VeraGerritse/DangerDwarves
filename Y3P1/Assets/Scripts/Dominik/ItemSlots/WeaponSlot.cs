@@ -198,7 +198,7 @@ public class WeaponSlot : EquipmentSlot
 
     private bool CanAttack()
     {
-        if (canAttack && !Player.localPlayer.myInventory.InventoryIsOpen() && !UIManager.hasOpenUI && !Player.localPlayer.entity.health.isDead)
+        if (canAttack && !Player.localPlayer.myInventory.InventoryIsOpen() && !UIManager.HasOpenUI && !Player.localPlayer.entity.health.isDead)
         {
             return true;
         }
@@ -253,7 +253,8 @@ public class WeaponSlot : EquipmentSlot
 
     protected override void ParentEquipment(int equipmentID, int parentID)
     {
-        photonView.RPC("ParentWeapon", RpcTarget.AllBuffered, equipmentID, parentID, ObjectToByteArray(currentEquipment));
+        ByteObjectConverter boc = new ByteObjectConverter();
+        photonView.RPC("ParentWeapon", RpcTarget.AllBuffered, equipmentID, parentID, boc.ObjectToByteArray(currentEquipment));
     }
 
     [PunRPC]
@@ -266,7 +267,8 @@ public class WeaponSlot : EquipmentSlot
             pv.transform.localPosition = Vector3.zero;
             pv.transform.localRotation = Quaternion.identity;
 
-            pv.transform.GetComponent<ItemPrefab>().myItem = (Item)ByteArrayToObject(itemData);
+            ByteObjectConverter boc = new ByteObjectConverter();
+            pv.transform.GetComponent<ItemPrefab>().myItem = (Item)boc.ByteArrayToObject(itemData);
         }
     }
 
@@ -274,31 +276,5 @@ public class WeaponSlot : EquipmentSlot
     {
         Player.localPlayer.playerController.OnDodge -= PlayerController_OnDodge;
         Player.localPlayer.entity.OnDeath.RemoveListener(Entity_OnDeath);
-    }
-
-    private byte[] ObjectToByteArray(object obj)
-    {
-        if (obj == null)
-        {
-            return null;
-        }
-
-        BinaryFormatter bf = new BinaryFormatter();
-        using (MemoryStream ms = new MemoryStream())
-        {
-            bf.Serialize(ms, obj);
-            return ms.ToArray();
-        }
-    }
-
-    private object ByteArrayToObject(byte[] bytes)
-    {
-        MemoryStream memStream = new MemoryStream();
-        BinaryFormatter binForm = new BinaryFormatter();
-        memStream.Write(bytes, 0, bytes.Length);
-        memStream.Seek(0, SeekOrigin.Begin);
-        object obj = binForm.Deserialize(memStream);
-
-        return obj;
     }
 }

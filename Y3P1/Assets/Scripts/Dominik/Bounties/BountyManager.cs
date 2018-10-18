@@ -176,6 +176,11 @@ public class BountyManager : MonoBehaviourPunCallbacks
         activeBountyOverview.SetActive(activeBounty == null ? false : true);
     }
 
+    public bool HasOpenUI()
+    {
+        return bountyCanvas.activeInHierarchy;
+    }
+
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         if (activeBounty != null)

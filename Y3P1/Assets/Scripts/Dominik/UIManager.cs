@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using Y3P1;
 
 public class UIManager : MonoBehaviour 
 {
 
     public static UIManager instance;
 
-    public static bool hasOpenUI;
+    private bool hasOpenUI;
+    public static bool HasOpenUI
+    {
+        get { return BountyManager.instance.HasOpenUI() && SceneManager.instance.HasOpenUI(); }
+    }
 
     public Transform otherPlayersUISpawn;
     [SerializeField] private List<InventorySlot> hotbarSlots = new List<InventorySlot>();
-    [SerializeField] private TextMeshProUGUI goldText;
 
     private void Awake()
     {
@@ -23,11 +26,5 @@ public class UIManager : MonoBehaviour
         {
             Destroy(this);
         }
-    }
-
-    public void UpdateGold(int Amount)
-    {
-        string newString = "<color=yellow>Gold:</color> " + Amount.ToString();
-        goldText.text = newString;
     }
 }

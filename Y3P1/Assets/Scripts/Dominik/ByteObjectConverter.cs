@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public static class ByteSerializer
+public class ByteObjectConverter
 {
 
-    private static byte[] ObjectToByteArray(object obj)
+    public byte[] ObjectToByteArray(object obj)
     {
         if (obj == null)
         {
@@ -19,7 +19,7 @@ public static class ByteSerializer
         }
     }
 
-    private static object ByteArrayToObject(byte[] bytes)
+    public object ByteArrayToObject(byte[] bytes)
     {
         MemoryStream memStream = new MemoryStream();
         BinaryFormatter binForm = new BinaryFormatter();

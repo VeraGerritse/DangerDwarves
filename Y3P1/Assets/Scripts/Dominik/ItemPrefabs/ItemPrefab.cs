@@ -41,8 +41,10 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
         SetRarityParticleColors();
     }
 
-    public virtual void Drop()
+    public virtual void Drop(Item itemData)
     {
+        myItem = itemData;
+
         isDropped = true;
 
         interactCollider.SetActive(true);

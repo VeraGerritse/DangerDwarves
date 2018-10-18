@@ -30,9 +30,9 @@ public class TrinketPrefab : ItemPrefab
         particle.gameObject.SetActive(true);
     }
 
-    public override void Drop()
+    public override void Drop(Item itemData)
     {
-        base.Drop();
+        base.Drop(itemData);
 
         SetColors();
         renderer.enabled = true;

@@ -90,7 +90,6 @@ namespace Y3P1
             isPaused = !isPaused;
 
             pausePanel.SetActive(isPaused);
-            UIManager.hasOpenUI = isPaused;
             SettingsManager.instance.ToggleSettingsPanel(false);
             if (stopTimeScaleWhenPaused)
             {
@@ -211,6 +210,11 @@ namespace Y3P1
             {
                 return false;
             }
+        }
+
+        public bool HasOpenUI()
+        {
+            return pausePanel.activeInHierarchy;
         }
 
         public void QuitGame()

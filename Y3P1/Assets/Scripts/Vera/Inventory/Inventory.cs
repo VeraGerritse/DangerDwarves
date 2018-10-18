@@ -97,8 +97,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     private void RI(byte[] item, int id)
     {
         GameObject itemIG = PhotonNetwork.GetPhotonView(id).gameObject;
-        itemIG.GetComponent<ItemPrefab>().myItem = (Item)ByteArrayToObject(item);
-        itemIG.GetComponent<ItemPrefab>().Drop();
+        itemIG.GetComponent<ItemPrefab>().Drop((Item)ByteArrayToObject(item));
     }
 
     private byte[] ObjectToByteArray(object obj)
@@ -477,7 +476,6 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             Player.localPlayer.myInventory.totalGoldAmount = 999999999;
         }
-        UIManager.instance.UpdateGold(Player.localPlayer.myInventory.totalGoldAmount);
         StatsInfo.instance.UpdateGold(Player.localPlayer.myInventory.totalGoldAmount);
     }
 
