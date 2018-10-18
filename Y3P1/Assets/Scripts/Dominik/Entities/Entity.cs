@@ -24,6 +24,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     [Space(10)]
 
     public bool canDropLoot;
+    [SerializeField] private bool scaleWithWorld;
 
     [Space(10)]
 
@@ -38,10 +39,14 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnEnable()
     {
-        LevelStats(Player.localPlayer.myInventory.aIL.averageILevel);
-        health.LevelHealth(Player.localPlayer.myInventory.aIL.averageILevel);
         health.Initialise(this);
         statusEffects.Initialise(this);
+
+        if (scaleWithWorld)
+        {
+            LevelStats(Player.localPlayer.myInventory.aIL.averageILevel);
+            health.LevelHealth(Player.localPlayer.myInventory.aIL.averageILevel);
+        }
     }
 
     private void Update()

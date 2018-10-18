@@ -89,6 +89,7 @@ MonoBehaviour:
     willpower: 8
     defense: 10
   canDropLoot: 1
+  scaleWithWorld: 1
   OnHit:
     m_PersistentCalls:
       m_Calls: []
