@@ -145,14 +145,14 @@ public class AOEEffect : MonoBehaviourPunCallbacks
 
                     if (entity.transform.tag != "Player")
                     {
-                        entity.photonView.RPC("SyncStatusEffects", RpcTarget.All, (int)effectToApply, effectDuration);
+                        entity.photonView.RPC("SyncStatusEffects", RpcTarget.All, (int)effectToApply, effectDuration, damage);
                     }
                     break;
                 case Projectile.Target.Player:
 
                     if (entity.transform.tag == "Player")
                     {
-                        entity.photonView.RPC("SyncStatusEffects", RpcTarget.All, (int)effectToApply, effectDuration);
+                        entity.photonView.RPC("SyncStatusEffects", RpcTarget.All, (int)effectToApply, effectDuration, damage);
                     }
                     break;
             }

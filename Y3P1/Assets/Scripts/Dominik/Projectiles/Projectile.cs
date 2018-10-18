@@ -145,7 +145,7 @@ public class Projectile : MonoBehaviour
     {
         if (applyStatusEffect)
         {
-            entity.photonView.RPC("SyncStatusEffects", RpcTarget.All, (int)effectToApply, effectDuration);
+            entity.photonView.RPC("SyncStatusEffects", RpcTarget.All, (int)effectToApply, effectDuration, fireData.damage);
         }
     }
 

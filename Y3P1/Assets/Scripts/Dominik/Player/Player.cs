@@ -152,6 +152,20 @@ namespace Y3P1
                     weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = StatusEffects.StatusEffectType.Poison, statusEffectDuration = 3, endTime = Time.time + 5 }, 5);
                 }
             }
+
+            // Test OP items.
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                if (LootRandomizer.instance != null)
+                {
+                    Item newItem = LootRandomizer.instance.DropLoot(10000, 3);
+                    if (newItem == null)
+                    {
+                        return;
+                    }
+                    myInventory.AddItem(newItem);
+                }
+            }
         }
 
         private void CreateWorldSpacePlayerUI()

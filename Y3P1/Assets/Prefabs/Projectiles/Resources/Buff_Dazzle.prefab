@@ -9265,6 +9265,10 @@ MonoBehaviour:
   prefabToSpawnOnHit: 
   prefabToSpawnOnDeath: 
   stayOnOwner: 0
+  isEnemyProjectile: 0
+  applyStatusEffect: 0
+  effectToApply: 0
+  effectDuration: 0
 --- !u!114 &8013572108609657672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9289,7 +9293,7 @@ MonoBehaviour:
   damageMultiplier: 1
   applyStatusEffect: 1
   effectToApply: 1
-  effectDuration: 5
+  effectDuration: 4
   pushToCenter: 1
   pushToCenterForce: 4
 --- !u!199 &199756426985724656

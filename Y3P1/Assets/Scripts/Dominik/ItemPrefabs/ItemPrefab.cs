@@ -32,11 +32,11 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
     {
         // If you join a game and a dropped item has no name it means that this player already received the data sync RPC in a previous login and cannot get it again 
         // on another login. To prevent weird things from happening, disable the item. Other players can still see it.
-        //if (!transform.parent && string.IsNullOrEmpty(myItem.itemName))
-        //{
-        //    gameObject.SetActive(false);
-        //    return;
-        //}
+        if (isDropped && !transform.parent && string.IsNullOrEmpty(myItem.itemName))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
 
         SetRarityParticleColors();
     }

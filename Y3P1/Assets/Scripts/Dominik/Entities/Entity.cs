@@ -70,9 +70,9 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    public void SyncStatusEffects(int effectType, float duration)
+    public void SyncStatusEffects(int effectType, float duration, int value = -1)
     {
-        statusEffects.AddEffect(effectType, duration);
+        statusEffects.AddEffect(effectType, duration, value);
     }
 
     public void LevelStats(float aIL)

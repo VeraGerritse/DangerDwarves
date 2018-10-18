@@ -25,11 +25,11 @@ public class StatusEffects
     {
         for (int i = 0; i < weaponBuffs.Count; i++)
         {
-            myEntity.photonView.RPC("SyncStatusEffects", RpcTarget.All, (int)weaponBuffs[i].type, weaponBuffs[i].statusEffectDuration);
+            myEntity.photonView.RPC("SyncStatusEffects", RpcTarget.All, (int)weaponBuffs[i].type, weaponBuffs[i].statusEffectDuration, -1);
         }
     }
 
-    public void AddEffect(int effectType, float duration)
+    public void AddEffect(int effectType, float duration, int value = -1)
     {
         StatusEffectType type = (StatusEffectType)effectType;
 
@@ -68,7 +68,7 @@ public class StatusEffects
                 break;
         }
 
-        newEffect.Initialise(myEntity, duration);
+        newEffect.Initialise(myEntity, duration, value);
         activeEffects.Add(newEffect);
         OnEffectStarted(type);
     }

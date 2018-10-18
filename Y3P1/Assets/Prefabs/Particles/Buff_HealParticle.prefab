@@ -18522,7 +18522,10 @@ MonoBehaviour:
   continuousEffect: 1
   effectInterval: 0.5
   damageRange: 2.8
-  damageMultiplier: -0.5
+  damageMultiplier: -0.3
+  applyStatusEffect: 0
+  effectToApply: 0
+  effectDuration: 0
   pushToCenter: 0
   pushToCenterForce: 0
 --- !u!199 &3693932671327322725

@@ -11,7 +11,7 @@ public abstract class StatusEffect
     public StatusEffects.StatusEffectType type;
     public float duration;
 
-    public virtual void Initialise(Entity entity, float duration)
+    public virtual void Initialise(Entity entity, float duration, int value = -1)
     {
         this.entity = entity;
 
@@ -46,11 +46,18 @@ public class StatusEffect_Bleed : StatusEffect
 
     public int damage = 5;
 
-    public override void Initialise(Entity entity, float duration)
+    public override void Initialise(Entity entity, float duration, int value = -1)
     {
         base.Initialise(entity, duration);
         type = StatusEffects.StatusEffectType.Bleed;
-        rb = entity.transform.parent.GetComponent<Rigidbody>();
+        if (entity.transform.parent != null)
+        {
+            rb = entity.transform.parent.GetComponent<Rigidbody>();
+        }
+        if (value != -1)
+        {
+            damage = Mathf.RoundToInt(0.3f * value);
+        }
     }
 
     public override void TriggerEffect()
@@ -76,9 +83,9 @@ public class StatusEffect_Slow : StatusEffect
     private NavMeshAgent agent;
     private PlayerController playerController;
 
-    public float slowPercentage = 50f;
+    public float slowPercentage = 40f;
 
-    public override void Initialise(Entity entity, float duration)
+    public override void Initialise(Entity entity, float duration, int value = -1)
     {
         base.Initialise(entity, duration);
         type = StatusEffects.StatusEffectType.Slow;
@@ -141,9 +148,9 @@ public class StatusEffect_Slow : StatusEffect
 
 public class StatusEffect_ArmorBreak : StatusEffect
 {
-    public float armorEffectiveness = 0.5f;
+    public float armorEffectiveness = 0.35f;
 
-    public override void Initialise(Entity entity, float duration)
+    public override void Initialise(Entity entity, float duration, int value = -1)
     {
         base.Initialise(entity, duration);
         type = StatusEffects.StatusEffectType.ArmorBreak;
@@ -176,7 +183,7 @@ public class StatusEffect_WeaponBreak : StatusEffect
 {
     public float damageEffectiveness = 0.5f;
 
-    public override void Initialise(Entity entity, float duration)
+    public override void Initialise(Entity entity, float duration, int value = -1)
     {
         base.Initialise(entity, duration);
         type = StatusEffects.StatusEffectType.WeaponBreak;
@@ -209,10 +216,14 @@ public class StatusEffect_Poison : StatusEffect
 {
     public int damage = 5;
 
-    public override void Initialise(Entity entity, float duration)
+    public override void Initialise(Entity entity, float duration, int value = -1)
     {
         base.Initialise(entity, duration);
         type = StatusEffects.StatusEffectType.Poison;
+        if (value != -1)
+        {
+            damage = Mathf.RoundToInt(0.3f * value);
+        }
     }
 
     public override void TriggerEffect()

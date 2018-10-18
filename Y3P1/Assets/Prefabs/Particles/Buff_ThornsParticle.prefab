@@ -9142,7 +9142,7 @@ MonoBehaviour:
   continuousEffect: 1
   effectInterval: 0.5
   damageRange: 1.85
-  damageMultiplier: 0.5
+  damageMultiplier: 0.3
   applyStatusEffect: 1
   effectToApply: 3
   effectDuration: 0.5
