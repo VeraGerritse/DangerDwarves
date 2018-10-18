@@ -326,9 +326,9 @@ MonoBehaviour:
     attackType: 1
     damageType: 1
     projectilePoolName: SpiderVenom
-  attackDistance: 3.75
-  attackRangeLookAtSpeed: 5
-  damageRange: 0.65
+  attackDistance: 4.5
+  attackRangeLookAtSpeed: 10
+  damageRange: 1.5
   damagePoint: {fileID: 1967757368984014290}
   damageLayerMask:
     serializedVersion: 2
