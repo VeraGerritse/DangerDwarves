@@ -254,7 +254,7 @@ public class WeaponSlot : EquipmentSlot
     protected override void ParentEquipment(int equipmentID, int parentID)
     {
         ByteObjectConverter boc = new ByteObjectConverter();
-        photonView.RPC("ParentWeapon", RpcTarget.AllBuffered, equipmentID, parentID, boc.ObjectToByteArray(currentEquipment));
+        photonView.RPC("ParentWeapon", RpcTarget.All, equipmentID, parentID, boc.ObjectToByteArray(currentEquipment));
     }
 
     [PunRPC]
@@ -270,6 +270,12 @@ public class WeaponSlot : EquipmentSlot
             ByteObjectConverter boc = new ByteObjectConverter();
             pv.transform.GetComponent<ItemPrefab>().myItem = (Item)boc.ByteArrayToObject(itemData);
         }
+    }
+
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    {
+        int[] ids = GetEquipedItemIDs(currentEquipment is Weapon_Ranged ? rangedWeaponSpawn : meleeWeaponSpawn);
+        ParentEquipment(ids[0], ids[1]);
     }
 
     public override void OnDisable()

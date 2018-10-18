@@ -20,11 +20,12 @@ public class TrinketSlot : EquipmentSlot
 
     protected override void ParentEquipment(int equipmentID, int parentID)
     {
-        photonView.RPC("ParentTrinket", RpcTarget.AllBuffered, equipmentID, parentID);
+        ByteObjectConverter boc = new ByteObjectConverter();
+        photonView.RPC("ParentTrinket", RpcTarget.All, equipmentID, parentID, boc.ObjectToByteArray(currentEquipment));
     }
 
     [PunRPC]
-    private void ParentTrinket(int equipmentID, int parentID)
+    private void ParentTrinket(int equipmentID, int parentID, byte[] itemData)
     {
         PhotonView pv = PhotonNetwork.GetPhotonView(equipmentID);
         if (pv)
@@ -32,6 +33,15 @@ public class TrinketSlot : EquipmentSlot
             pv.transform.SetParent(PhotonNetwork.GetPhotonView(parentID).transform);
             pv.transform.localPosition = Vector3.zero;
             pv.transform.localRotation = Quaternion.identity;
+
+            ByteObjectConverter boc = new ByteObjectConverter();
+            pv.transform.GetComponent<ItemPrefab>().myItem = (Item)boc.ByteArrayToObject(itemData);
         }
+    }
+
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    {
+        int[] ids = GetEquipedItemIDs(trinketSpawn);
+        ParentEquipment(ids[0], ids[1]);
     }
 }

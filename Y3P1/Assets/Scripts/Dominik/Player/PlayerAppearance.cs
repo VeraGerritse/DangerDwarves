@@ -94,6 +94,6 @@ public class PlayerAppearance : MonoBehaviourPunCallbacks
     // Sync appearance when someone enters the room.
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        photonView.RPC("SetAppearance", RpcTarget.AllBuffered, beardObjectDropdown.value, beardMatDropdown.value, bodyMatDropdown.value);
+        photonView.RPC("SetAppearance", RpcTarget.All, beardObjectDropdown.value, beardMatDropdown.value, bodyMatDropdown.value);
     }
 }

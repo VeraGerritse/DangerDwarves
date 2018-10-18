@@ -1,6 +1,7 @@
 ﻿using Photon.Pun;
 using UnityEngine;
 using System;
+using Photon.Realtime;
 
 public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
 {
@@ -68,4 +69,17 @@ public abstract class EquipmentSlot : MonoBehaviourPunCallbacks
     }
 
     protected abstract void ParentEquipment(int equipmentID, int parentID);
+
+    protected int[] GetEquipedItemIDs(Transform spawnpoint)
+    {
+        if (currentEquipment == null)
+        {
+            return null;
+        }
+
+        int equipmentID = equipedItem.GetComponent<PhotonView>().ViewID;
+        int spawnpointID = spawnpoint.GetComponent<PhotonView>().ViewID;
+
+        return new int[] { equipmentID, spawnpointID };
+    }
 }

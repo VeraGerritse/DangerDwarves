@@ -71,7 +71,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             Entity entity = initialChaseTrigger.eventCaller.GetComponentInChildren<Entity>();
             if (!entity.health.isDead)
             {
-                photonView.RPC("SetTarget", RpcTarget.AllBuffered, entity.photonView.ViewID);
+                photonView.RPC("SetTarget", RpcTarget.All, entity.photonView.ViewID);
             }
         });
 

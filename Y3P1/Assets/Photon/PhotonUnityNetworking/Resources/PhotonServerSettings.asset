@@ -80,4 +80,7 @@ MonoBehaviour:
   - ResetLevel
   - SetSame
   - ResetAVR
+  - SyncDroppedItemData
+  - SyncDroppedItems
+  - DropItems
   DisableAutoOpenWizard: 1
