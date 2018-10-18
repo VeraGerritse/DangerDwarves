@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!4 &5239755765221889827 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 5841a316613e5324da20e19c96998c76,
+    type: 3}
+  m_PrefabInstance: {fileID: 5239755765222018467}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &327867910785691635
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6227434496965981065}
+  - component: {fileID: 7101482590897411018}
+  m_Layer: 0
+  m_Name: Lantern_Solo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6227434496965981065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327867910785691635}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -2.8073075, y: -0.039104283, z: -6.5918393}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5239755765221889827}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7101482590897411018
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327867910785691635}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.30519438, y: 0.29482403, z: 0.5321772}
+  m_Center: {x: 0.015555382, y: -0.005184725, z: 0.25990158}
+--- !u!1001 &5239755765222018467
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  m_Modification:
+    m_TransformParent: {fileID: 6227434496965981065}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.3269999
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.007999957
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.55400014
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_Name
+      value: Lantern_Solo
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2de82bde487fded4b84d88d930cb8fc9, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5841a316613e5324da20e19c96998c76, type: 3}
