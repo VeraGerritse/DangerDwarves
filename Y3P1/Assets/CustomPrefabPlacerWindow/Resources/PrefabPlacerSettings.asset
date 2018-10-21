@@ -1,0 +1,231 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd1d34e98538ea94bb8ee235cbd5895b, type: 3}
+  m_Name: PrefabPlacerSettings
+  m_EditorClassIdentifier: 
+  zeroOutPosition: 0
+  zeroOutRotation: 0
+  spawnAtScreenCenter: 1
+  prefabs:
+  - prefab: {fileID: 934104082460550842, guid: e375770484c57cf448daac1474c85cd4, type: 3}
+    editorWindowName: Wall Corner Small
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 1148991953930651003, guid: 946aaddc1e3743841b7c7edf902a0496,
+      type: 3}
+    editorWindowName: Wall Corner Big
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 7374707076012696774, guid: a945feb0320096943b0f1533238e84f9,
+      type: 3}
+    editorWindowName: Stairs
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 2178640116657171037, guid: 73821ab76dd51a24e9ec1de8fec24475,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 8097682403240398581, guid: bc8cf7a858378794381af614f62dacad,
+      type: 3}
+    editorWindowName: Wall
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 4794263340108619587, guid: 194dd59929e980443abc56f208125c35,
+      type: 3}
+    editorWindowName: Wall End
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 3389146207350835722, guid: d4e76cc1cfd234a4b85e459adfcaba81,
+      type: 3}
+    editorWindowName: Pillar
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 2064648942731819761, guid: 53b9756c27552f34eb7bf76e6cdb730f,
+      type: 3}
+    editorWindowName: Ground 1
+    editorButtonColor: {r: 1, g: 0.81239533, b: 0.13679248, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 7476630297232857174, guid: b83eb283e36848245bfbc84797eb2906,
+      type: 3}
+    editorWindowName: Ground 2
+    editorButtonColor: {r: 1, g: 0.8117647, b: 0.13725491, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 5496019365768312710, guid: 3345062642c61674595cfa1d38920ae7,
+      type: 3}
+    editorWindowName: Ground 3
+    editorButtonColor: {r: 1, g: 0.8117647, b: 0.13725491, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 7428797580688087927, guid: 0139a9ec0c578464d8caf420eea56261,
+      type: 3}
+    editorWindowName: Ground 4
+    editorButtonColor: {r: 1, g: 0.8117647, b: 0.13725491, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 8661661467337631753, guid: 531839ede6d3e4d4e928c63b76500b07,
+      type: 3}
+    editorWindowName: Ground 5
+    editorButtonColor: {r: 1, g: 0.8117647, b: 0.13725491, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 4356301040548569912, guid: 253813d429987424d8641d0aaf8e6372,
+      type: 3}
+    editorWindowName: Ground 6
+    editorButtonColor: {r: 1, g: 0.8117647, b: 0.13725491, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 4055044590689200724, guid: 201a1b1de8b2db6488151f19de45c3ed,
+      type: 3}
+    editorWindowName: Ground 6
+    editorButtonColor: {r: 1, g: 0.8117647, b: 0.13725491, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 200957646521602742, guid: 4ec17ac0a01b42941837e6dfd5ba8a48, type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 0, b: 0, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 200957646521602742, guid: 13e66f6488440e44bb7c9846ec94dc05, type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 0, b: 0, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 1945978765162522799, guid: b82c79f14eb37eb4a833a61131a7bdc9,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 0, b: 0, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 2232629593291262992, guid: 05f755ec19972fb43bbb0232e309712c,
+      type: 3}
+    editorWindowName: Grill Squared
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 1721443873760492736, guid: dd19630b6599fb9459e78d33fc53b0f9,
+      type: 3}
+    editorWindowName: Grill Rounded
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 3782786785732045556, guid: 7b5beae23ef357b4bbb8f5b1ac61e5a4,
+      type: 3}
+    editorWindowName: Plank
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 2352387991327279391, guid: a06c268b21765f54a96f04c53694ba8d,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 8467360810294722130, guid: 7abde025046050a4688c2d66ec073d73,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 8514203308222385786, guid: 531e87c330f72c648b67bba1d0e86eba,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 4070376093777496992, guid: 65ae9090a876fb545905939d07eaa0c2,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 2393454711005824047, guid: eaf390eb02e749a49a32ddcaee0adf5c,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 1271214002197388943, guid: 7e50812c0a44fe04383c61e545bef853,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 1964743917076907797, guid: 09442eee38b3c4448862e37949b7447f,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 3415985011641258817, guid: 8795830c957f31a4b8eb31069d8a0ce0,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 5454794072556842701, guid: ff08046c397f50e459068dff5a97ad4e,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 9198351622957362943, guid: c164bb2a27dbc7241b54f87a40c234f8,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 5797281217746775910, guid: 46bee45319a3d9549bbbd93ce00da385,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 6642792202548248166, guid: f3eb6094fbd8e9042a5f35ecd34d158b,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 783621519163441753, guid: f35487802cffd9848b957c012b6078f5, type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 3741289052965386034, guid: 0e2662363b0a8224db02ffbdffa4bab0,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 8683131132846087353, guid: 18019d5be156d6241a5482a53ce0167d,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 327867910785691635, guid: 6039a3297e607de44b83ef5b2b4f6362, type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 5728918954840133123, guid: 76d8b15105f850b42a599b2d813d5ae5,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 2614629676945019313, guid: 539c66c26fb82614089ca5b87aa018b0,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 846668680226655171, guid: c7f4bd690b0192e468286533ccd2c047, type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 5896606256559871722, guid: 7e115cdc4d5d379449a4a47f44f52dd5,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 6816888503921913938, guid: 393df2b896a0d194fa181851f00bf51b,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 5228031288648095949, guid: 4f01196da540c1b438b30974a305224f,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 339966654761738711, guid: b1ba7abbe4cf4e541b74265c39e5d331, type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
+  - prefab: {fileID: 4603365770331493046, guid: e1cb9e815e7a0374387b223969200fb2,
+      type: 3}
+    editorWindowName: 
+    editorButtonColor: {r: 1, g: 1, b: 1, a: 1}
+    editorButtonFontStyle: 0
