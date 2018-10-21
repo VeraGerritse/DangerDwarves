@@ -1,11 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!4 &6197606704724135676 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: f3e74ec92483bb74a8d5642544d45662,
-    type: 3}
-  m_PrefabInstance: {fileID: 6197606704724530300}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5896606256559871722
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3154229478298774650}
-  - component: {fileID: 5210013541772374414}
+  - component: {fileID: 2182042304894230788}
   m_Layer: 0
-  m_Name: Stool_1
-  m_TagString: Untagged
+  m_Name: Small_Table
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3154229478298774650
 Transform:
@@ -38,8 +32,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5210013541772374414
-BoxCollider:
+--- !u!136 &2182042304894230788
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -48,9 +42,16 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.79066867, y: 0.7906663, z: 0.6860028}
-  m_Center: {x: -0.010128856, y: 0.003375369, z: 0.32581434}
+  m_Radius: 0.38
+  m_Height: 0.84
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.33}
+--- !u!4 &6197606704724135676 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: f3e74ec92483bb74a8d5642544d45662,
+    type: 3}
+  m_PrefabInstance: {fileID: 6197606704724530300}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6197606704724530300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -120,6 +121,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: f3e74ec92483bb74a8d5642544d45662, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: f3e74ec92483bb74a8d5642544d45662, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3e74ec92483bb74a8d5642544d45662, type: 3}
