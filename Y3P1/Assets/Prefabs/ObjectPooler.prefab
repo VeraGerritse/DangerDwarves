@@ -149,3 +149,8 @@ MonoBehaviour:
       type: 3}
     poolSize: 25
     autoExpand: 1
+  - poolName: WoodDestroyParticle
+    poolPrefab: {fileID: 6786492363065038976, guid: e233232d0b516a746aaca35060647ff2,
+      type: 3}
+    poolSize: 25
+    autoExpand: 1

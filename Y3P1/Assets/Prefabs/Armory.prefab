@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!224 &6113413327622585514 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3693032907576296631, guid: 47b31a7e08931e948b6ae02c5130a6a9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7464572187865577501}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &5437717976849830438 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3693032907576296631, guid: 47b31a7e08931e948b6ae02c5130a6a9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8662373082679875217}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &360604737
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,7 +694,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6928972274716427054}
+      - m_Target: {fileID: 8774704978626725111}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -691,14 +703,14 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 8774704978626725111}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 8150208036920842497}
+        m_MethodName: TogglePanel
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 6928972274716427054}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1812,6 +1824,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4873213519511141624}
+  - component: {fileID: 8150208036920842497}
   m_Layer: 0
   m_Name: Armory
   m_TagString: Untagged
@@ -1835,6 +1848,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8150208036920842497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443447783173548153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7168e49679023f340b384cbb2be63e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  armoryCanvas: {fileID: 8937157484079933446}
+  rerollSecondaryCostText: {fileID: 9220749460524722743}
+  rerollStatsCostText: {fileID: 9222553578239095511}
 --- !u!1 &1887349466009952648
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,7 +2290,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.0001449585, y: 19.699997}
-  m_SizeDelta: {x: 59.100006, y: -59.51001}
+  m_SizeDelta: {x: 218.4, y: -59.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3756353234303813221
 CanvasRenderer:
@@ -2858,8 +2886,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.752047, g: 0.9433962, b: 0.91550344, a: 0.2}
-    m_HighlightedColor: {r: 1, g: 0.5613208, b: 0.5613208, a: 0.5019608}
-    m_PressedColor: {r: 1, g: 0.3066038, b: 0.3066038, a: 0.101960786}
+    m_HighlightedColor: {r: 0.56078434, g: 1, b: 0.9831485, a: 0.5019608}
+    m_PressedColor: {r: 0.30588233, g: 1, b: 0.927018, a: 0.101960786}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -2877,7 +2905,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6928972274716427054}
+      - m_Target: {fileID: 8774704978626725111}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -2886,14 +2914,14 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8774704978626725111}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 8150208036920842497}
+        m_MethodName: TogglePanel
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 6928972274716427054}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3008,8 +3036,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0001449585, y: 19.699997}
-  m_SizeDelta: {x: 59.100006, y: -59.51001}
+  m_AnchoredPosition: {x: -0, y: 19.699997}
+  m_SizeDelta: {x: 218.4, y: -59.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2526510775265592086
 CanvasRenderer:
@@ -4198,8 +4226,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.752047, g: 0.9433962, b: 0.91550344, a: 0.2}
-    m_HighlightedColor: {r: 1, g: 0.5613208, b: 0.5613208, a: 0.5019608}
-    m_PressedColor: {r: 1, g: 0.3066038, b: 0.3066038, a: 0.101960786}
+    m_HighlightedColor: {r: 0.56078434, g: 1, b: 0.9831485, a: 0.5019608}
+    m_PressedColor: {r: 0.30588233, g: 1, b: 0.927018, a: 0.101960786}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4217,17 +4245,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7769121341245055462}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 8774704978626725111}
         m_MethodName: SetActive
         m_Mode: 6
@@ -4239,14 +4256,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8150208036920842497}
+        m_MethodName: TogglePanel
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7769121341245055462}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!224 &5437717976849830438 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3693032907576296631, guid: 47b31a7e08931e948b6ae02c5130a6a9,
-    type: 3}
-  m_PrefabInstance: {fileID: 8662373082679875217}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7590395668672693587
 GameObject:
   m_ObjectHideFlags: 0
@@ -4776,17 +4798,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7769121341245055462}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 8774704978626725111}
         m_MethodName: SetActive
         m_Mode: 6
@@ -4798,14 +4809,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 8150208036920842497}
+        m_MethodName: TogglePanel
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7769121341245055462}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!224 &6113413327622585514 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3693032907576296631, guid: 47b31a7e08931e948b6ae02c5130a6a9,
-    type: 3}
-  m_PrefabInstance: {fileID: 7464572187865577501}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8774704978626725111
 GameObject:
   m_ObjectHideFlags: 0
@@ -5079,7 +5095,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8723255479367566334
 RectTransform:
   m_ObjectHideFlags: 0

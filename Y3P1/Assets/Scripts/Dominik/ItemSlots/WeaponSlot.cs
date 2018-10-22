@@ -202,7 +202,6 @@ public class WeaponSlot : EquipmentSlot
         {
             return true;
         }
-
         return false;
     }
 

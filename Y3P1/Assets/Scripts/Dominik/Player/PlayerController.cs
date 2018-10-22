@@ -35,13 +35,24 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
 
         CreateMouseHitPlane();
+        InitialiseEvents();
+    }
 
+    private void InitialiseEvents()
+    {
         Player.localPlayer.entity.OnDeath.AddListener(() =>
         {
             canControl = false;
             Player.localPlayer.rb.velocity = Vector3.zero;
         });
         Player.localPlayer.entity.OnRevive.AddListener(() => canControl = true);
+
+        Player.localPlayer.reviveZone.OnStartRevive += () =>
+        {
+            canControl = false;
+            Player.localPlayer.rb.velocity = Vector3.zero;
+        };
+        Player.localPlayer.reviveZone.OnEndRevive += () => canControl = true;
     }
 
     private void Update()

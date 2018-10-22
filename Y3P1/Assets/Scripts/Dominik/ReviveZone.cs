@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Y3P1;
@@ -17,6 +18,9 @@ public class ReviveZone : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] private Image progressImage;
     [SerializeField] private GameObject progressPanel;
     [SerializeField] private GameObject interactIndicator;
+
+    public event Action OnStartRevive = delegate { };
+    public event Action OnEndRevive = delegate { };
 
     private void Awake()
     {
@@ -86,6 +90,15 @@ public class ReviveZone : MonoBehaviourPunCallbacks, IPunObservable
         {
             reviving = b;
             progressPanel.SetActive(b);
+
+            if (b)
+            {
+                OnStartRevive();
+            }
+            else
+            {
+                OnEndRevive();
+            }
         }
     }
 

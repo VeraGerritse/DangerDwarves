@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 using Y3P1;
 
-public class PlayerCamera : MonoBehaviour 
+public class PlayerCamera : MonoBehaviour
 {
 
     private Transform target;
     private Vector3 offset;
     private float fov;
+    private float defaultFOV;
+
+    private float overrideFOV;
+    private bool overridingFOV;
+    private bool lockFOVOverride;
 
     [HideInInspector] public Camera cameraComponent;
 
@@ -24,6 +29,7 @@ public class PlayerCamera : MonoBehaviour
     {
         cameraComponent = GetComponentInChildren<Camera>();
         fov = cameraComponent.fieldOfView;
+        defaultFOV = fov;
     }
 
     public void Initialise(bool local)
@@ -38,6 +44,9 @@ public class PlayerCamera : MonoBehaviour
         offset = target.position - transform.position;
 
         transform.SetParent(lerp ? null : transform);
+
+        Player.localPlayer.entity.OnDeath.AddListener(() => OverrideFOV(40, true));
+        Player.localPlayer.entity.OnRevive.AddListener(() => OverrideFOV(defaultFOV, false));
     }
 
     private void Update()
@@ -53,11 +62,26 @@ public class PlayerCamera : MonoBehaviour
         }
     }
 
+    private void OverrideFOV(float newFOV, bool locked)
+    {
+        overrideFOV = newFOV;
+        lockFOVOverride = locked;
+        overridingFOV = true;
+    }
+
     private void ZoomCam()
     {
         fov -= Input.GetAxis("Mouse ScrollWheel") * zoomSensitivity;
+        fov = overridingFOV ? overrideFOV : fov;
         fov = Mathf.Clamp(fov, maxZoomIn, maxZoomOut);
 
         cameraComponent.fieldOfView = Mathf.Lerp(cameraComponent.fieldOfView, fov, Time.deltaTime * zoomSpeed);
+        if (overridingFOV && cameraComponent.fieldOfView - overrideFOV < 0.1f)
+        {
+            if (!lockFOVOverride)
+            {
+                overridingFOV = false;
+            }
+        }
     }
 }

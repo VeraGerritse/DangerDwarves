@@ -2,7 +2,7 @@
 using UnityEngine;
 using Y3P1;
 
-public class UIManager : MonoBehaviour 
+public class UIManager : MonoBehaviour
 {
 
     public static UIManager instance;
@@ -10,7 +10,14 @@ public class UIManager : MonoBehaviour
     private bool hasOpenUI;
     public static bool HasOpenUI
     {
-        get { return BountyManager.instance.HasOpenUI() && SceneManager.instance.HasOpenUI(); }
+        get
+        {
+            if (BountyManager.instance.HasOpenUI() || SceneManager.instance.HasOpenUI() || ArmoryManager.instance.HasOpenUI())
+            {
+                return true;
+            }
+            return false;
+        }
     }
 
     public Transform otherPlayersUISpawn;
