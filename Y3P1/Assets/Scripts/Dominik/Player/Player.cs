@@ -170,7 +170,7 @@ namespace Y3P1
 
         private void CreateWorldSpacePlayerUI()
         {
-            PlayerUI playerUI = Instantiate(playerWorldSpaceUIPrefab, transform.position + playerUISpawnOffset, Quaternion.identity, transform).GetComponent<PlayerUI>();
+            PlayerUI playerUI = Instantiate(playerWorldSpaceUIPrefab, transform.position + playerUISpawnOffset, Quaternion.identity, playerController.body).GetComponent<PlayerUI>();
             playerUI.Initialise(this, IsConnectedAndMine(), null);
         }
 
