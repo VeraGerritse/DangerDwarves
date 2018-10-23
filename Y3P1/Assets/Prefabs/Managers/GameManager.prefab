@@ -51,3 +51,5 @@ MonoBehaviour:
     type: 3}
   notificationManagerPrefab: {fileID: 5786067977797153831, guid: 74280ff55a76feb4187d4e599d8cdbff,
     type: 3}
+  droppedItemManagerPrefab: {fileID: 2594003719998655150, guid: f15171e57ee224241b2f36a6a53f40c3,
+    type: 3}

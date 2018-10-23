@@ -21,11 +21,6 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
-
-        //if (!photonView.IsMine)
-        //{
-        //    Player.localPlayer.SetLayer(transform, 14);
-        //}
     }
 
     private void Start()
@@ -38,7 +33,10 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
             return;
         }
 
-        SetRarityParticleColors();
+        if (!string.IsNullOrEmpty(myItem.itemName))
+        {
+            SetRarityParticleColors();
+        }
     }
 
     public virtual void Drop(Item itemData)
@@ -54,6 +52,8 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
         transform.Rotate(new Vector3(0, Random.Range(0, 360), 0), Space.World);
 
         SpawnDroppedItemLabel();
+
+        //DroppedItemManager.instance.RegisterDroppedItem(photonView.ViewID, myItem);
     }
 
     private void SpawnDroppedItemLabel()
@@ -76,12 +76,13 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     private void PickUpDestroy()
     {
+        //DroppedItemManager.instance.RemoveDroppedItem(photonView.ViewID);
+        droppedItemLabel.anim.SetTrigger("Pickup");
+
         if (PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.Destroy(gameObject);
         }
-
-        droppedItemLabel.anim.SetTrigger("Pickup");
     }
 
     private void SetRarityParticleColors()

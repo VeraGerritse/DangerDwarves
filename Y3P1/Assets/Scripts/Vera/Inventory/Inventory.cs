@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -32,6 +33,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     [SerializeField] private Color epic;
     [SerializeField] private Color Legendary;
 
+    public event Action<Item> OnRightClickInventorySlot = delegate { };
 
     public void AddSlots()
     {
@@ -531,7 +533,7 @@ public class Inventory : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            photonView.RPC("AddGold", RpcTarget.All, Random.Range(500, 1000)); 
+            photonView.RPC("AddGold", RpcTarget.All, UnityEngine.Random.Range(500, 1000)); 
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
@@ -613,6 +615,13 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             if (Input.GetButtonDown("Fire2"))
             {
+                OnRightClickInventorySlot(allItems[GetIndex(currentSlot)]);
+
+                if (ArmoryManager.instance.HasOpenUI())
+                {
+                    return;
+                }
+
                 EquipItem(GetIndex(currentSlot));
                 CalculateArmor();
                 UpdateInventoryColor();
@@ -1109,31 +1118,34 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             if(allItems[i] != null)
             {
-                if(allItems[i].itemRarity == Item.ItemRarity.common)
-                {
-                    allSlots[i].myOverlay.color = common;
-                    allSlots[i].myOverlay.enabled = true;
-                }
-                else if (allItems[i].itemRarity == Item.ItemRarity.rare)
-                {
-                    allSlots[i].myOverlay.color = rare;
-                    allSlots[i].myOverlay.enabled = true;
-                }
-                else if (allItems[i].itemRarity == Item.ItemRarity.epic)
-                {
-                    allSlots[i].myOverlay.color = epic;
-                    allSlots[i].myOverlay.enabled = true;
-                }
-                else if (allItems[i].itemRarity == Item.ItemRarity.legendary)
-                {
-                    allSlots[i].myOverlay.color = Legendary;
-                    allSlots[i].myOverlay.enabled = true;
-                }
+                allSlots[i].myOverlay.color = GetSlotColor(allItems[i].itemRarity);
+                allSlots[i].myOverlay.enabled = true;
             }
             else
             {
                 allSlots[i].myOverlay.enabled = false;
             }
+        }
+    }
+
+    public Color GetSlotColor(Item.ItemRarity rarity)
+    {
+        switch (rarity)
+        {
+            case Item.ItemRarity.common:
+
+                return common;
+            case Item.ItemRarity.rare:
+
+                return rare;
+            case Item.ItemRarity.epic:
+
+                return epic;
+            case Item.ItemRarity.legendary:
+
+                return Legendary;
+            default:
+                return defaultColor;
         }
     }
 }
