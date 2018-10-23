@@ -313,7 +313,7 @@ public class LootRandomizer : MonoBehaviour {
         return false;
     }
 
-    private Stats NewStats(int itemLvl)
+    public Stats NewStats(int itemLvl)
     {
         Stats nS = new Stats();
         float ilvl = itemLvl;

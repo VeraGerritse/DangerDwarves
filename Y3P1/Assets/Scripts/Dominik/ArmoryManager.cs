@@ -19,12 +19,15 @@ public class ArmoryManager : MonoBehaviour
     [SerializeField] private Image rerollSecondarySlotItemImage;
     [SerializeField] private Image rerollSecondarySlotItemRarityImage;
     [SerializeField] private TextMeshProUGUI currentSecondaryText;
+    [SerializeField] private Animator rerollSecondaryAnim;
 
     [Header("Reroll Stats")]
     [SerializeField] private GameObject rerollStatsPanel;
     [SerializeField] private TextMeshProUGUI rerollStatsCostText;
     [SerializeField] private Image rerollStatsSlotItemImage;
     [SerializeField] private Image rerollStatsSlotItemRarityImage;
+    [SerializeField] private TextMeshProUGUI currentStatsText;
+    [SerializeField] private Animator rerollStatsAnim;
 
     private void Awake()
     {
@@ -99,13 +102,26 @@ public class ArmoryManager : MonoBehaviour
         rarityImage.color = Player.localPlayer.myInventory.GetSlotColor(selectedItem.itemRarity);
         rarityImage.enabled = true;
 
-        currentSecondaryText.text = serviceType == ServiceType.RerollSecondary ? (selectedItem as Weapon).secondaryProjectile : "";
+        if (serviceType == ServiceType.RerollSecondary)
+        {
+            currentSecondaryText.text = (selectedItem as Weapon).secondaryProjectile;
+        }
+        else
+        {
+            currentStatsText.text = "Stamina: <color=yellow>" + selectedItem.myStats.stamina + "</color>\n" +
+                                    "Stength: <color=yellow>" + selectedItem.myStats.strength + "</color>\n" +
+                                    "Agility: <color=yellow>" + selectedItem.myStats.agility + "</color>\n" +
+                                    "Willpower: <color=yellow>" + selectedItem.myStats.willpower + "</color>\n" +
+                                    "Defense: <color=yellow>" + selectedItem.myStats.defense + "</color>";
+        }
     }
 
     public void RerollSecondaryButton()
     {
         if (selectedItem != null && Player.localPlayer.myInventory.totalGoldAmount >= CalculateRerollSecondaryCost())
         {
+            rerollSecondaryAnim.SetTrigger("RerollSecondary");
+
             if (selectedItem is Weapon_Melee)
             {
                 (selectedItem as Weapon).secondaryProjectile = Database.hostInstance.GetMeleeSecundary(selectedItem.itemRarity == Item.ItemRarity.legendary);
@@ -120,6 +136,17 @@ public class ArmoryManager : MonoBehaviour
         }
     }
 
+    public void RerollStatsButton()
+    {
+        if (selectedItem != null && Player.localPlayer.myInventory.totalGoldAmount >= CalculateRerollStatsCost())
+        {
+            rerollStatsAnim.SetTrigger("RerollStats");
+            selectedItem.myStats = LootRandomizer.instance.NewStats(selectedItem.itemLevel);
+            Player.localPlayer.myInventory.UpdateGold(-CalculateRerollStatsCost());
+            SelectItem(selectedItem);
+        }
+    }
+
     private void ResetSelectedItemSlots()
     {
         rerollSecondaryCostText.text = "No Weapon Selected";
@@ -130,6 +157,11 @@ public class ArmoryManager : MonoBehaviour
         rerollStatsSlotItemRarityImage.enabled = false;
 
         currentSecondaryText.text = "";
+        currentStatsText.text = "Stamina:\n" +
+                                "Stength:\n" +
+                                "Agility:\n" +
+                                "Willpower:\n" +
+                                "Defense:";
     }
 
     private int CalculateRerollSecondaryCost()
@@ -139,7 +171,7 @@ public class ArmoryManager : MonoBehaviour
 
     private int CalculateRerollStatsCost()
     {
-        return selectedItem != null ? selectedItem.itemLevel * 10000 : 0;
+        return selectedItem != null ? selectedItem.itemLevel * 3000 : 0;
     }
 
     public bool HasOpenUI()
