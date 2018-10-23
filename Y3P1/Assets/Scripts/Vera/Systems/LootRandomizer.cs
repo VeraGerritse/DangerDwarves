@@ -126,6 +126,14 @@ public class LootRandomizer : MonoBehaviour {
         return newItem;
     }
 
+    private Item LootPotion()
+    {
+        Item newPotion = new Potion();
+        int rarity = Rarity();
+        //newPotion.StartUp("", rarity, /* int sprite */, null, /* Database.hostInstance.GetPotionObject(rarity) */, 1);
+        return newPotion;
+    }
+
     private Item LootAxe(int currentItemLevel)
     {
         Item testItem = new Weapon_Melee();

@@ -94,6 +94,7 @@ public class ReviveZone : MonoBehaviourPunCallbacks, IPunObservable
             if (b)
             {
                 OnStartRevive();
+                NotificationManager.instance.NewNotification("TEST: " + Player.localPlayer.photonView.Owner.NickName + " is reviving.");
             }
             else
             {

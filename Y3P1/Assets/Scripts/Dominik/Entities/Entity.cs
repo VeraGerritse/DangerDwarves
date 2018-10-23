@@ -161,13 +161,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     public void Revive(int healthPercentage)
     {
         OnRevive.Invoke();
-        photonView.RPC("SyncReviveHealth", RpcTarget.All, healthPercentage);
-    }
-
-    [PunRPC]
-    private void SyncReviveHealth(int percentage)
-    {
-        health.ResetHealth(percentage);
+        health.ResetHealth(healthPercentage);
     }
 
     [PunRPC]
@@ -199,11 +193,6 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
             Player.localPlayer.myInventory.DropNewItem(transform.position,entityType);
         }
     }
-
-    //public override void OnPlayerEnteredRoom(Player newPlayer)
-    //{
-    //    photonView.RPC("SyncHealth", RpcTarget.Others);
-    //}
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

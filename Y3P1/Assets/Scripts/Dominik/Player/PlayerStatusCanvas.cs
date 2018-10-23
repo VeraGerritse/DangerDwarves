@@ -77,15 +77,15 @@ public class PlayerStatusCanvas : MonoBehaviour
         }
     }
 
-    public void TogglePlayerInfoPanel(bool b)
+    public void TogglePlayerInfoPanel(bool toggle)
     {
-        if (b)
+        if (toggle)
         {
             localPlayerNameText.text = Player.localPlayer.photonView.Owner.NickName;
             localPlayerHealthText.text = "HP: " + Player.localPlayer.entity.health.GetHealthString();
         }
 
-        localPlayerInfoPanel.SetActive(b);
+        localPlayerInfoPanel.SetActive(toggle);
     }
 
     private void WeaponSlot_OnWeaponBuffAdded(StatusEffects.StatusEffectType type, float duration)

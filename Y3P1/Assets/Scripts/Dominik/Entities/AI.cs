@@ -46,7 +46,6 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] private string walkAnimation;
     [SerializeField] private string hitAnimation;
 
-
     [System.Serializable]
     private struct AttackAnimation
     {
