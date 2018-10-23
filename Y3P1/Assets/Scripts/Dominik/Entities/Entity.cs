@@ -103,8 +103,6 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
     {
         this.stats = stats;
         health.UpdateHealth();
-        //TODO: This syncs one update too late.
-        photonView.RPC("SyncHealth", RpcTarget.Others);
     }
 
     private int CalculateAmount(int amount)

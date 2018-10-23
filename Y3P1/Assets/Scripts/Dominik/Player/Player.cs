@@ -96,6 +96,8 @@ namespace Y3P1
 
             if (!IsConnectedAndMine())
             {
+                CreateScreenSpacePlayerUI(entity);
+
                 SetLayer(transform, 14);
 
                 foreach (Collider col in GetComponentsInChildren<Collider>())
@@ -115,14 +117,6 @@ namespace Y3P1
                 entity.OnHit.AddListener(() => cameraShake.Trauma = 0.5f);
 
                 DontDestroyOnLoad(gameObject);
-            }
-        }
-
-        private void Start()
-        {
-            if (!IsConnectedAndMine())
-            {
-                CreateScreenSpacePlayerUI(entity);
             }
         }
 

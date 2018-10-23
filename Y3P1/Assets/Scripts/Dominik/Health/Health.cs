@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -92,6 +93,8 @@ public class Health
     {
         currentHealth = Mathf.Clamp(currentHealth, 0, GetMaxHealth());
         OnHealthModified(new HealthData { currentHealth = currentHealth, maxHealth = GetMaxHealth(), percentageHealth = GetHealthPercentage(), amountHealthChanged = null });
+
+        myEntity.photonView.RPC("SyncHealth", RpcTarget.Others);
     }
 
     public void ResetHealth(int percentage)
@@ -100,5 +103,7 @@ public class Health
         float newHealth = ((float)Mathf.Clamp(percentage, 0, 100) / 100) * GetMaxHealth();
         currentHealth = (int)newHealth;
         OnHealthModified(new HealthData { currentHealth = currentHealth, maxHealth = GetMaxHealth(), percentageHealth = GetHealthPercentage(), amountHealthChanged = null });
+
+        myEntity.photonView.RPC("SyncHealth", RpcTarget.Others);
     }
 }
