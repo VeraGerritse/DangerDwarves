@@ -85,19 +85,28 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     private void SpawnEntities(string entity)
     {
-        
         if (!PhotonNetwork.IsMasterClient)
         {
             return;
         }
+
         NotificationManager.instance.NewNotification(Player.localPlayer.myInventory.aIL.averageILevel.ToString());
         for (int i = 0; i < spawnAmount; i++)
         {
-            Entity newEntity = PhotonNetwork.InstantiateSceneObject(entity, spawnRange == 0 ? transform.position : GetRandomPos(), transform.rotation).GetComponentInChildren<Entity>();
-            newEntity.health.isImmortal = spawnImmortal;
+            Vector3 spawnPos = spawnRange == 0 ? transform.position : GetRandomPos();
+            if (spawnPos != Vector3.zero)
+            {
+                Entity newEntity = PhotonNetwork.InstantiateSceneObject(entity, spawnPos, transform.rotation).GetComponentInChildren<Entity>();
+                newEntity.health.isImmortal = spawnImmortal;
 
-            //TODO: Find a way to get rid of this buffered RPC, a cleaner solution is to send the data to whoever connects.
-            photonView.RPC("SetEntityInfo", RpcTarget.AllBuffered, newEntity.photonView.ViewID);
+                //TODO: Find a way to get rid of this buffered RPC, a cleaner solution is to send the data to whoever connects.
+                photonView.RPC("SetEntityInfo", RpcTarget.AllBuffered, newEntity.photonView.ViewID);
+            }
+            else
+            {
+                // This happens when GetRandomPos() couldnt find a valid position to spawn an entity.
+                // Lets just skip this spawn if this happens.
+            }
         }
     }
 
@@ -123,9 +132,9 @@ public class EntitySpawner : MonoBehaviourPunCallbacks, IPunObservable
         while (!foundValidPos)
         {
             tries++;
-            if (tries >= 10)
+            if (tries >= 25)
             {
-                Debug.LogWarning("EntitySpawner couldn't find a valid spawn position in " + tries + " tries so it returned Vector.zero");
+                Debug.LogWarning("EntitySpawner couldn't find a valid spawn position in " + tries + " tries so it returned Vector3.zero");
                 return validPos;
             }
 

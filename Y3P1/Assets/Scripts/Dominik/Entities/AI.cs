@@ -11,55 +11,40 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     private Entity myEntity;
     private NavMeshAgent agent;
     private Collider[] hits = new Collider[10];
-    private AttackAnimation currentAttack;
+    private AISettings.AttackAnimation currentAttack;
     private Vector3 toTarget;
     private float randomRangedAttack;
-    private List<AttackAnimation> rangedAttacks;
+    private List<AISettings.AttackAnimation> rangedAttacks;
     private float nextRandomRangedTime;
 
     private bool canAttack = true;
     private bool canLookAtTarget = true;
     private bool canMove = true;
 
-    public enum BehaviourState { Idle, Chase, Attack };
-    public BehaviourState behaviourState;
+    [SerializeField] private AISettings settings;
 
-    [Header("Stats")]
-    [SerializeField] private List<AttackAnimation> attacks = new List<AttackAnimation>();
-    [SerializeField] private float attackDistance;
-    [SerializeField] private float attackRangeLookAtSpeed;
-    [SerializeField] private float damageRange;
-    [SerializeField] private Transform damagePoint;
-    [SerializeField] private LayerMask damageLayerMask;
-    [SerializeField] [Range(0, 100)] private float randomRangedAttackChance;
-    [SerializeField] private float randomRangedAttackInterval = 1f;
-    [SerializeField] private bool stopWhileAttacking;
+    public enum BehaviourState { Idle, Chase, Attack };
+    [Space(10)]
+    public BehaviourState behaviourState;
 
     [Space(10)]
 
+    [SerializeField] private Transform damagePoint;
     [SerializeField] private GameObject healthBar;
     [SerializeField] private CollisionEventZone initialChaseTrigger;
-
-    [Header("Animation")]
     [SerializeField] private Animator anim;
-    [SerializeField] private string deathAnimation;
-    [SerializeField] private string walkAnimation;
-    [SerializeField] private string hitAnimation;
-
-    [System.Serializable]
-    private struct AttackAnimation
-    {
-        public string attackName;
-        [Range(0, 100)]
-        public int attackChance;
-        public enum AttackType { Animation, Projectile };
-        public AttackType attackType;
-        public Stats.DamageType damageType;
-        public string projectilePoolName;
-    }
 
     private void Awake()
     {
+        if (!settings)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                Debug.LogWarning("Destroyed entity because he had no AISettings assigned!");
+                PhotonNetwork.Destroy(gameObject);
+            }
+        }
+
         agent = GetComponent<NavMeshAgent>();
         myEntity = GetComponentInChildren<Entity>();
         myEntity.OnHit.AddListener(() => Hit());
@@ -74,7 +59,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             }
         });
 
-        GatherRangedAttacks();
+        rangedAttacks = settings.GetAllRangedAttacks();
     }
 
     private void Update()
@@ -103,7 +88,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void HandleIdling()
     {
-        anim.SetBool(walkAnimation, false);
+        anim.SetBool(settings.walkAnimation, false);
     }
 
     private void HandleChasing()
@@ -120,17 +105,17 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             }
 
             agent.isStopped = false;
-            anim.SetBool(walkAnimation, true);
+            anim.SetBool(settings.walkAnimation, true);
         }
         else
         {
             agent.isStopped = true;
-            anim.SetBool(walkAnimation, false);
+            anim.SetBool(settings.walkAnimation, false);
         }
 
         RandomRangedAttack();
 
-        if (GetDistanceToTarget() < attackDistance)
+        if (GetDistanceToTarget() < settings.attackDistance)
         {
             SetState(BehaviourState.Attack);
         }
@@ -139,7 +124,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     private void HandleAttacking()
     {
         agent.isStopped = true;
-        anim.SetBool(walkAnimation, false);
+        anim.SetBool(settings.walkAnimation, false);
 
         if (target)
         {
@@ -153,12 +138,12 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         if (canLookAtTarget)
         {
             Quaternion newRotation = Quaternion.LookRotation(toTarget);
-            transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * attackRangeLookAtSpeed);
+            transform.rotation = Quaternion.Lerp(transform.rotation, newRotation, Time.deltaTime * settings.attackRangeLookAtSpeed);
         }
 
         if (canAttack)
         {
-            if (GetDistanceToTarget() < attackDistance)
+            if (GetDistanceToTarget() < settings.attackDistance)
             {
                 float angle = Vector3.Angle(toTarget, transform.forward);
                 if (angle < 10)
@@ -179,7 +164,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (Time.time >= nextRandomRangedTime)
             {
-                nextRandomRangedTime = Time.time + randomRangedAttackInterval;
+                nextRandomRangedTime = Time.time + settings.randomRangedAttackInterval;
 
                 toTarget = target.transform.position - transform.position;
 
@@ -187,7 +172,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
                 if (angle < 20)
                 {
                     randomRangedAttack = Random.Range(0, 101);
-                    if (randomRangedAttack < randomRangedAttackChance)
+                    if (randomRangedAttack < settings.randomRangedAttackChance)
                     {
                         StartRandomRangedAttack();
                     }
@@ -200,7 +185,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     {
         canAttack = false;
         canLookAtTarget = false;
-        currentAttack = GetRandomAttack();
+        currentAttack = settings.GetRandomAttack();
         anim.SetTrigger(currentAttack.attackName);
     }
 
@@ -214,16 +199,16 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Attack()
     {
-        if (currentAttack.attackType == AttackAnimation.AttackType.Animation)
+        if (currentAttack.attackType == AISettings.AttackAnimation.AttackType.Animation)
         {
             AnimationAttack();
         }
-        else if (currentAttack.attackType == AttackAnimation.AttackType.Projectile)
+        else if (currentAttack.attackType == AISettings.AttackAnimation.AttackType.Projectile)
         {
             ProjectileAttack();
         }
 
-        if (stopWhileAttacking)
+        if (settings.stopWhileAttacking)
         {
             agent.isStopped = true;
         }
@@ -236,7 +221,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             return;
         }
 
-        int collidersFound = Physics.OverlapSphereNonAlloc(damagePoint.position, damageRange, hits, damageLayerMask);
+        int collidersFound = Physics.OverlapSphereNonAlloc(damagePoint.position, settings.damageRange, hits, settings.damageLayerMask);
 
         for (int i = 0; i < collidersFound; i++)
         {
@@ -283,7 +268,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
         if (behaviourState == BehaviourState.Attack)
         {
-            anim.SetTrigger(hitAnimation);
+            anim.SetTrigger(settings.hitAnimation);
         }
     }
 
@@ -339,33 +324,6 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         return directionToTarget.sqrMagnitude;
     }
 
-    private AttackAnimation GetRandomAttack()
-    {
-        int random = Random.Range(0, 101);
-
-        for (int i = 0; i < attacks.Count; i++)
-        {
-            if (random < attacks[i].attackChance)
-            {
-                return attacks[i];
-            }
-        }
-
-        return attacks[0];
-    }
-
-    private void GatherRangedAttacks()
-    {
-        rangedAttacks = new List<AttackAnimation>();
-        for (int i = 0; i < attacks.Count; i++)
-        {
-            if (attacks[i].attackType == AttackAnimation.AttackType.Projectile)
-            {
-                rangedAttacks.Add(attacks[i]);
-            }
-        }
-    }
-
     public override void OnDisable()
     {
         ResetAI();
@@ -400,7 +358,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         initialChaseTrigger.gameObject.SetActive(false);
         myEntity.gameObject.SetActive(false);
         agent.isStopped = true;
-        anim.SetTrigger(deathAnimation);
+        anim.SetTrigger(settings.deathAnimation);
     }
 
     public void DisableHealthbar()
@@ -439,7 +397,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         if (damagePoint)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(damagePoint.position, damageRange);
+            Gizmos.DrawWireSphere(damagePoint.position, settings.damageRange);
         }
     }
 }

@@ -263,7 +263,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7005431266955139929}
-  - component: {fileID: 3686586655783086207}
   - component: {fileID: 2258092182779552877}
   - component: {fileID: 8963391241625087901}
   - component: {fileID: 957860875436363192}
@@ -294,45 +293,6 @@ Transform:
   m_Father: {fileID: 8009400914801882507}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: -24.061, y: 108.955, z: 17.399}
---- !u!114 &3686586655783086207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4815564514871241813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ae917dbffd789743b73c1e7520bf70f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDecoy: 0
-  myItem:
-    itemName: 
-    itemRarity: 0
-    spriteIndex: 0
-    myStats:
-      stamina: 0
-      strength: 0
-      agility: 0
-      willpower: 0
-      defense: 0
-    prefabIndex: 0
-    itemLevel: 1
-  interactCollider: {fileID: 1640145632477952169}
-  objectCollider: {fileID: 957860875436363192}
-  weaponRarityParticles: []
-  dropRotationAdjustment: {x: 0, y: 0, z: 0}
-  projectileSpawn: {fileID: 4704074515940017582}
-  renderer: {fileID: 405366533542249990}
-  materials:
-  - {fileID: 2100000, guid: 7080954b9df783642b969daccde4bfa9, type: 2}
-  - {fileID: 2100000, guid: 8685bf7c607317d4f869b27368cb3b28, type: 2}
-  weaponTrail: {fileID: 2917028233209603709}
-  prefabToSpawnOnHit: HitMarker
-  hitLayerMask:
-    serializedVersion: 2
-    m_Bits: 16897
 --- !u!114 &2258092182779552877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -351,9 +311,9 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 3686586655783086207}
-  viewIdField: 13
-  InstantiationId: 13
+  - {fileID: 0}
+  viewIdField: 1
+  InstantiationId: 1
   isRuntimeInstantiated: 0
 --- !u!54 &8963391241625087901
 Rigidbody:

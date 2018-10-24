@@ -1,5 +1,98 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2350603647578516723 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5476634167408903985, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+    type: 3}
+  m_PrefabInstance: {fileID: 7827234516414196674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7340763329236710448 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 666617444421689330, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+    type: 3}
+  m_PrefabInstance: {fileID: 7827234516414196674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &8951564134759736023 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1199563291591985429, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+    type: 3}
+  m_PrefabInstance: {fileID: 7827234516414196674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3340477014524550236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350603647578516723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 7592645992629542682}
+  viewIdField: 1
+  InstantiationId: 1
+  isRuntimeInstantiated: 0
+--- !u!114 &5985033619691225926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350603647578516723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f124ca309d77db6469e43ae72b696ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7592645992629542682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350603647578516723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 9
+    SynchronizeType: 2
+    Name: Spider_hit
+  - Type: 4
+    SynchronizeType: 2
+    Name: Is Walking
+  - Type: 9
+    SynchronizeType: 2
+    Name: Attack
+  - Type: 9
+    SynchronizeType: 2
+    Name: Leap_attack
+  - Type: 9
+    SynchronizeType: 2
+    Name: Spit_attack
+  - Type: 9
+    SynchronizeType: 2
+    Name: Spider_death
+  - Type: 4
+    SynchronizeType: 2
+    Name: Spider_IsDead
+  m_SynchronizeLayers:
+  - SynchronizeType: 2
+    LayerIndex: 0
+  - SynchronizeType: 2
+    LayerIndex: 1
 --- !u!1 &3334337596991883072 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7972216441462917839, guid: ae10adcbca2c84d469fdfd990e1d6eab,
@@ -84,9 +177,9 @@ MonoBehaviour:
     currentHealth: 0
   stats:
     stamina: 10
-    strength: 10
-    agility: 10
-    willpower: 10
+    strength: 7
+    agility: 9
+    willpower: 8
     defense: 10
   canDropLoot: 1
   scaleWithWorld: 1
@@ -143,7 +236,7 @@ GameObject:
   - component: {fileID: 776066093795406611}
   - component: {fileID: 325642131086690028}
   m_Layer: 0
-  m_Name: Spider_Venom_Boss
+  m_Name: Spider_Webbing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,7 +257,7 @@ Transform:
   - {fileID: 44162951983833345}
   - {fileID: 6633259221563591420}
   - {fileID: 1967757368984014290}
-  - {fileID: 5315404721702264329}
+  - {fileID: 7340763329236710448}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -218,38 +311,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviourState: 0
-  attacks:
-  - attackName: Attack
-    attackChance: 60
-    attackType: 0
-    damageType: 0
-    projectilePoolName: 
-  - attackName: Leap_attack
-    attackChance: 75
-    attackType: 0
-    damageType: 0
-    projectilePoolName: 
-  - attackName: Spit_attack
-    attackChance: 100
-    attackType: 1
-    damageType: 1
-    projectilePoolName: SpiderVenom
-  attackDistance: 4.5
-  attackRangeLookAtSpeed: 10
-  damageRange: 1.5
+  settings: {fileID: 11400000, guid: 97a1e07aef386be4d9465c1bbd5a1737, type: 2}
   damagePoint: {fileID: 1967757368984014290}
-  damageLayerMask:
-    serializedVersion: 2
-    m_Bits: 16896
-  randomRangedAttackChance: 25
-  randomRangedAttackInterval: 1
-  stopWhileAttacking: 0
   healthBar: {fileID: 3334337596991883072}
   initialChaseTrigger: {fileID: 4019535744548290164}
-  anim: {fileID: 5315404721709232617}
-  deathAnimation: Spider_death
-  walkAnimation: Is Walking
-  hitAnimation: Spider_hit
+  anim: {fileID: 8951564134759736023}
 --- !u!195 &880443570929593141
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -303,99 +369,6 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
---- !u!1 &5315404721701831209 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8009400914801846689, guid: 50c970180abef8540bc6256ff1820366,
-    type: 3}
-  m_PrefabInstance: {fileID: 2802092038454717320}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5315404721702264329 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8009400914801882497, guid: 50c970180abef8540bc6256ff1820366,
-    type: 3}
-  m_PrefabInstance: {fileID: 2802092038454717320}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &5315404721709232617 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 8009400914809100897, guid: 50c970180abef8540bc6256ff1820366,
-    type: 3}
-  m_PrefabInstance: {fileID: 2802092038454717320}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &690184315332715594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5315404721701831209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 8069895923709421515}
-  viewIdField: 1
-  InstantiationId: 1
-  isRuntimeInstantiated: 0
---- !u!114 &5352770297257870855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5315404721701831209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f124ca309d77db6469e43ae72b696ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8069895923709421515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5315404721701831209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 9
-    SynchronizeType: 2
-    Name: Spider_hit
-  - Type: 4
-    SynchronizeType: 2
-    Name: Is Walking
-  - Type: 9
-    SynchronizeType: 2
-    Name: Attack
-  - Type: 9
-    SynchronizeType: 2
-    Name: Leap_attack
-  - Type: 9
-    SynchronizeType: 2
-    Name: Spit_attack
-  - Type: 9
-    SynchronizeType: 2
-    Name: Spider_death
-  - Type: 4
-    SynchronizeType: 2
-    Name: Spider_IsDead
-  m_SynchronizeLayers:
-  - SynchronizeType: 2
-    LayerIndex: 0
-  - SynchronizeType: 2
-    LayerIndex: 1
 --- !u!1 &5555774175546103283
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,84 +475,6 @@ Transform:
   m_Father: {fileID: 5235892731197639725}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2802092038454717320
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  m_Modification:
-    m_TransformParent: {fileID: 5235892731197639725}
-    m_Modifications:
-    - target: {fileID: 8009400914801882497, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8009400914801882497, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8009400914801882497, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8009400914801882497, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8009400914801882497, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8009400914801882497, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8009400914801882497, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8009400914801882497, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8009400914801882497, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8009400914801882497, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8009400914801882497, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8009400914801846689, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: m_Name
-      value: Enemy_Spider(Venom)(Hardened)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2258092182779552877, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: viewIdField
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2258092182779552877, guid: 50c970180abef8540bc6256ff1820366,
-        type: 3}
-      propertyPath: InstantiationId
-      value: 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 50c970180abef8540bc6256ff1820366, type: 3}
 --- !u!1001 &4676692434531601807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -733,3 +628,71 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae10adcbca2c84d469fdfd990e1d6eab, type: 3}
+--- !u!1001 &7827234516414196674
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  m_Modification:
+    m_TransformParent: {fileID: 5235892731197639725}
+    m_Modifications:
+    - target: {fileID: 666617444421689330, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666617444421689330, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666617444421689330, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666617444421689330, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666617444421689330, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666617444421689330, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666617444421689330, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 666617444421689330, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 666617444421689330, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666617444421689330, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 666617444421689330, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5476634167408903985, guid: 81fdd578c5f1b664c92fd5eaa425ea17,
+        type: 3}
+      propertyPath: m_Name
+      value: Enemy_Spider(Webbing)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 81fdd578c5f1b664c92fd5eaa425ea17, type: 3}

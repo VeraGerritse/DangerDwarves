@@ -311,38 +311,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviourState: 0
-  attacks:
-  - attackName: Attack
-    attackChance: 60
-    attackType: 0
-    damageType: 0
-    projectilePoolName: 
-  - attackName: Leap_attack
-    attackChance: 75
-    attackType: 0
-    damageType: 0
-    projectilePoolName: 
-  - attackName: Spit_attack
-    attackChance: 100
-    attackType: 1
-    damageType: 1
-    projectilePoolName: SpiderVenom
-  attackDistance: 4.5
-  attackRangeLookAtSpeed: 10
-  damageRange: 1.5
+  settings: {fileID: 11400000, guid: 97a1e07aef386be4d9465c1bbd5a1737, type: 2}
   damagePoint: {fileID: 1967757368984014290}
-  damageLayerMask:
-    serializedVersion: 2
-    m_Bits: 16896
-  randomRangedAttackChance: 25
-  randomRangedAttackInterval: 1
-  stopWhileAttacking: 0
   healthBar: {fileID: 3334337596991883072}
   initialChaseTrigger: {fileID: 4019535744548290164}
   anim: {fileID: 1582726747062644350}
-  deathAnimation: Spider_death
-  walkAnimation: Is Walking
-  hitAnimation: Spider_hit
 --- !u!195 &880443570929593141
 NavMeshAgent:
   m_ObjectHideFlags: 0
