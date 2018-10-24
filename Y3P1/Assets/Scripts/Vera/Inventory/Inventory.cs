@@ -34,6 +34,7 @@ public class Inventory : MonoBehaviourPunCallbacks
     [SerializeField] private Color Legendary;
 
     public event Action<Item> OnRightClickInventorySlot = delegate { };
+    public event Action<Item> OnHoverInventorySlot = delegate { };
 
     public void AddSlots()
     {
@@ -47,6 +48,15 @@ public class Inventory : MonoBehaviourPunCallbacks
     public void SetCurrentSlot(InventorySlot current)
     {
         currentSlot = current;
+
+        if (current)
+        {
+            OnHoverInventorySlot(allItems[GetIndex(current)]);
+        }
+        else
+        {
+            OnHoverInventorySlot(null);
+        }
     }
 
     public void SetLastSlot(InventorySlot last)

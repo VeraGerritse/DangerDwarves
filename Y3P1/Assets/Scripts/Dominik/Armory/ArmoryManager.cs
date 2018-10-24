@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Y3P1;
@@ -8,10 +9,12 @@ public class ArmoryManager : MonoBehaviour
 
     public static ArmoryManager instance;
     public static Item selectedItem;
+    public static StatSelectButton.StatToSelect selectedStat;
 
     private enum ServiceType { RerollSecondary, RerollStats };
 
     [SerializeField] private GameObject armoryCanvas;
+    [SerializeField] private GameObject hoverSlotCanvas;
 
     [Header("Reroll Secondary")]
     [SerializeField] private GameObject rerollSecondaryPanel;
@@ -28,6 +31,7 @@ public class ArmoryManager : MonoBehaviour
     [SerializeField] private Image rerollStatsSlotItemRarityImage;
     [SerializeField] private TextMeshProUGUI currentStatsText;
     [SerializeField] private Animator rerollStatsAnim;
+    [SerializeField] private List<StatSelectButton> statSelectButtons = new List<StatSelectButton>();
 
     private void Awake()
     {
@@ -46,6 +50,7 @@ public class ArmoryManager : MonoBehaviour
     private void Start()
     {
         Player.localPlayer.myInventory.OnRightClickInventorySlot += (i) => SelectItem(i);
+        Player.localPlayer.myInventory.OnHoverInventorySlot += ToggleHoverSlotCanvas;
     }
 
     private void Update()
@@ -57,12 +62,42 @@ public class ArmoryManager : MonoBehaviour
                 TogglePanel(armoryCanvas);
             }
         }
+
+        if (hoverSlotCanvas.activeInHierarchy)
+        {
+            hoverSlotCanvas.transform.position = Input.mousePosition;
+        }
     }
 
     public void TogglePanel(GameObject panel)
     {
         panel.SetActive(!panel.activeInHierarchy);
         SelectItem(null);
+    }
+
+    private void ToggleHoverSlotCanvas(Item item)
+    {
+        if (item != null)
+        {
+            if (rerollSecondaryPanel.activeInHierarchy)
+            {
+                if (item is Weapon)
+                {
+                    hoverSlotCanvas.SetActive(true);
+                    return;
+                }
+            }
+            else
+            {
+                if (item is Weapon || item is Helmet || item is Trinket)
+                {
+                    hoverSlotCanvas.SetActive(true);
+                    return;
+                }
+            }
+        }
+
+        hoverSlotCanvas.SetActive(false);
     }
 
     private void SelectItem(Item item)
@@ -104,7 +139,8 @@ public class ArmoryManager : MonoBehaviour
 
         if (serviceType == ServiceType.RerollSecondary)
         {
-            currentSecondaryText.text = (selectedItem as Weapon).secondaryProjectile;
+            string[] projectileName = (selectedItem as Weapon).secondaryProjectile.Split('_');
+            currentSecondaryText.text = projectileName[1];
         }
         else
         {
@@ -113,6 +149,21 @@ public class ArmoryManager : MonoBehaviour
                                     "Agility: <color=yellow>" + selectedItem.myStats.agility + "</color>\n" +
                                     "Willpower: <color=yellow>" + selectedItem.myStats.willpower + "</color>\n" +
                                     "Defense: <color=yellow>" + selectedItem.myStats.defense + "</color>";
+        }
+    }
+
+    public void SelectStat(StatSelectButton statButton)
+    {
+        for (int i = 0; i < statSelectButtons.Count; i++)
+        {
+            if (statSelectButtons[i].statToSelect == statButton.statToSelect)
+            {
+                statSelectButtons[i].SelectStat();
+            }
+            else
+            {
+                statSelectButtons[i].Deselect();
+            }
         }
     }
 
@@ -141,7 +192,18 @@ public class ArmoryManager : MonoBehaviour
         if (selectedItem != null && Player.localPlayer.myInventory.totalGoldAmount >= CalculateRerollStatsCost())
         {
             rerollStatsAnim.SetTrigger("RerollStats");
-            selectedItem.myStats = LootRandomizer.instance.NewStats(selectedItem.itemLevel);
+
+            Stats newStats = LootRandomizer.instance.NewStats(selectedItem.itemLevel);
+            if (selectedStat != StatSelectButton.StatToSelect.Nothing)
+            {
+                newStats.stamina = selectedStat == StatSelectButton.StatToSelect.Stamina ? Mathf.RoundToInt(1.5f * newStats.stamina) : Mathf.RoundToInt(0.9f * newStats.stamina);
+                newStats.strength = selectedStat == StatSelectButton.StatToSelect.Strength ? Mathf.RoundToInt(1.5f * newStats.strength) : Mathf.RoundToInt(0.9f * newStats.strength);
+                newStats.agility = selectedStat == StatSelectButton.StatToSelect.Agility ? Mathf.RoundToInt(1.5f * newStats.agility) : Mathf.RoundToInt(0.9f * newStats.agility);
+                newStats.willpower = selectedStat == StatSelectButton.StatToSelect.Willpower ? Mathf.RoundToInt(1.5f * newStats.willpower) : Mathf.RoundToInt(0.9f * newStats.willpower);
+                newStats.defense = selectedStat == StatSelectButton.StatToSelect.Defense ? Mathf.RoundToInt(1.5f * newStats.defense) : Mathf.RoundToInt(0.9f * newStats.defense);
+            }
+            selectedItem.myStats = newStats;
+
             Player.localPlayer.myInventory.UpdateGold(-CalculateRerollStatsCost());
             SelectItem(selectedItem);
         }
@@ -162,16 +224,17 @@ public class ArmoryManager : MonoBehaviour
                                 "Agility:\n" +
                                 "Willpower:\n" +
                                 "Defense:";
+        SelectStat(new StatSelectButton { statToSelect = StatSelectButton.StatToSelect.Nothing });
     }
 
     private int CalculateRerollSecondaryCost()
     {
-        return selectedItem != null ? selectedItem.itemLevel * 10000 : 0;
+        return selectedItem != null ? selectedItem.itemLevel * 8000 : 0;
     }
 
     private int CalculateRerollStatsCost()
     {
-        return selectedItem != null ? selectedItem.itemLevel * 3000 : 0;
+        return selectedItem != null ? selectedItem.itemLevel * 2000 : 0;
     }
 
     public bool HasOpenUI()

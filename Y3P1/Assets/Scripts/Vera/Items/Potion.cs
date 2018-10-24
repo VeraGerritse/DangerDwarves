@@ -35,90 +35,73 @@ public class Potion : Item
 
     private string GetPotionName()
     {
-        string s = "(Debug) Potion.GetPotionName() fucked up.";
-
         switch (effectType)
         {
             case StatusEffects.StatusEffectType.Bleed:
 
-                s = "Potion of Bleeding";
-                break;
+                return "Potion of Bleeding";
             case StatusEffects.StatusEffectType.Slow:
 
-                s = "Potion of Slowness";
-                break;
+                return "Potion of Slowness";
             case StatusEffects.StatusEffectType.ArmorBreak:
 
-                s = "Potion of Broken Armor";
-                break;
+                return "Potion of Broken Armor";
             case StatusEffects.StatusEffectType.WeaponBreak:
 
-                s = "Potion of Broken Weapons";
-                break;
+                return "Potion of Broken Weapons";
             case StatusEffects.StatusEffectType.Poison:
 
-                s = "Potion of Poison";
-                break;
-        }
+                return "Potion of Poison";
+            default:
 
-        return s;
+                return "StatusEffectType Not Found! (Potion.GetPotionName())";
+        }
     }
 
     private float GetBuffDuration()
     {
-        float duration = buffDuration;
-
         switch (itemRarity)
         {
             case ItemRarity.common:
 
-                duration = 4f;
-                break;
+                return 4f;
             case ItemRarity.rare:
 
-                duration = 5.5f;
-                break;
+                return 5.5f;
             case ItemRarity.epic:
 
-                duration = 7f;
-                break;
+                return 7f;
             case ItemRarity.legendary:
 
-                duration = 10f;
-                break;
-        }
+                return 10f;
+            default:
 
-        return duration;
+                return buffDuration;
+        }
     }
 
     private float GetStatusEffectDuration()
     {
-        float duration = statusEffectDuration;
-
         switch (effectType)
         {
             case StatusEffects.StatusEffectType.Bleed:
 
-                duration = 3f;
-                break;
+                return 3f;
             case StatusEffects.StatusEffectType.Slow:
 
-                duration = 2f;
-                break;
+                return 2f;
             case StatusEffects.StatusEffectType.ArmorBreak:
 
-                duration = 5f;
-                break;
+                return 5f;
             case StatusEffects.StatusEffectType.WeaponBreak:
 
-                duration = 4f;
-                break;
+                return 4f;
             case StatusEffects.StatusEffectType.Poison:
 
-                duration = 3f;
-                break;
-        }
+                return 3f;
+            default:
 
-        return duration;
+                return statusEffectDuration;
+        }
     }
 }
