@@ -18,13 +18,13 @@ MonoBehaviour:
     attackType: 0
     damageType: 0
     projectilePoolName: 
-  - attackName: Leap_Attack
+  - attackName: Leap_attack
     attackChance: 75
     attackType: 0
     damageType: 0
     projectilePoolName: 
-  - attackName: Spit_Attack
-    attackChance: 0
+  - attackName: Spit_attack
+    attackChance: 100
     attackType: 1
     damageType: 1
     projectilePoolName: SpiderVenom

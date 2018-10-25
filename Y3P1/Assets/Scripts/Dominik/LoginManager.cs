@@ -41,8 +41,11 @@ public class LoginManager : MonoBehaviourPunCallbacks
 
         dwarfHeadTracking.Initialise(true);
 
-        PhotonNetwork.GameVersion = gameVersion;
-        PhotonNetwork.ConnectUsingSettings();
+        if (!PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.GameVersion = gameVersion;
+            PhotonNetwork.ConnectUsingSettings();
+        }
     }
 
     private void Update()
