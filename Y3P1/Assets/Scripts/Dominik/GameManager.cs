@@ -86,9 +86,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-#if !UNITY_EDITOR
+#if UNITY_EDITOR
+        return;
+#else
         if (cause != DisconnectCause.DisconnectByClientLogic || cause != DisconnectCause.DisconnectByServerLogic)
         {
+            Destroy(Y3P1.Player.localPlayer.playerCam.gameObject);
             PhotonNetwork.Destroy(Y3P1.Player.localPlayerObject);
         }
 #endif
