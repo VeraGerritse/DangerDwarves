@@ -23,39 +23,45 @@ public class LoginManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject roomPanel;
     [SerializeField] private GameObject connectionProgress;
     [SerializeField] private TextMeshProUGUI roomCountText;
+    [SerializeField] private Transform dwarfLookAt;
+    [SerializeField] private HeadTracking dwarfHeadTracking;
 
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
 
         SetUpNameInputField();
-        playMenuPanel.SetActive(true);
-        roomPanel.SetActive(false);
+        //playMenuPanel.SetActive(true);
+        //roomPanel.SetActive(false);
         connectionProgress.SetActive(false);
 
         cam = Camera.main;
         camTransform = Camera.main.transform;
         camTransform.eulerAngles = Vector3.zero;
+
+        dwarfHeadTracking.Initialise(true);
+
+        PhotonNetwork.GameVersion = gameVersion;
+        PhotonNetwork.ConnectUsingSettings();
     }
 
     private void Update()
     {
-        if (roomPanel.activeInHierarchy)
+        if (PhotonNetwork.IsConnected)
         {
-            if (PhotonNetwork.IsConnected)
-            {
-                roomCountText.text = "Open rooms: <color=red>" + PhotonNetwork.CountOfRooms;
-            }
-            else
-            {
-                roomCountText.text = "Open rooms: <color=red>not connected.";
-            }
+            roomCountText.text = "Open rooms: <color=red>" + PhotonNetwork.CountOfRooms;
+        }
+        else
+        {
+            roomCountText.text = "Open rooms: <color=red>not connected.";
         }
 
         Vector3 mouseInWorldPos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
         Vector3 lookat = new Vector3(mouseInWorldPos.x / 10, mouseInWorldPos.y / 10, 10);
         Quaternion targetRotation = Quaternion.LookRotation(lookat - transform.position, Vector3.up);
         camTransform.rotation = Quaternion.Slerp(camTransform.rotation, targetRotation, Time.deltaTime * 5f);
+
+        dwarfLookAt.position = new Vector3(mouseInWorldPos.x / 10, (mouseInWorldPos.y - 15) / 10, -10);
     }
 
     private void Connect(ConnectSetting connectSetting, string roomName = null)
@@ -71,7 +77,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
 
         PhotonNetwork.OfflineMode = currentConnectSetting == ConnectSetting.Offline ? true : false;
         isConnecting = true;
-        SetUpPanelsWhenConnecting();
+        connectionProgress.SetActive(true);
 
         if (PhotonNetwork.IsConnected)
         {
@@ -147,8 +153,8 @@ public class LoginManager : MonoBehaviourPunCallbacks
 
     private void SetUpPanelsWhenConnecting()
     {
-        playMenuPanel.SetActive(false);
-        roomPanel.SetActive(false);
+        //playMenuPanel.SetActive(false);
+        //roomPanel.SetActive(false);
         connectionProgress.SetActive(true);
     }
 

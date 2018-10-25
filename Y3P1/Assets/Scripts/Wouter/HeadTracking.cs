@@ -9,6 +9,7 @@ public class HeadTracking : MonoBehaviour
     public Transform target;
     public Vector3 targetCords;
     public Quaternion mystuff;
+    public float stopLookAtDistance = 1.5f;
 
     public bool gettarget;
 
@@ -39,7 +40,7 @@ public class HeadTracking : MonoBehaviour
         targetFixed.y = headbone.transform.position.y;
 
         float dSqrToTarget = toOther.sqrMagnitude;
-        if (dSqrToTarget > 1.5f)
+        if (dSqrToTarget > stopLookAtDistance || stopLookAtDistance == 0)
         {
             //headbone.transform.LookAt(targetFixed);
 
