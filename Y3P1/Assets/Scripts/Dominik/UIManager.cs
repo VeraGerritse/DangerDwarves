@@ -33,5 +33,7 @@ public class UIManager : MonoBehaviour
         {
             Destroy(this);
         }
+
+        SettingsManager.instance.roomNameText.text = "Room Name\n<color=red>" + Photon.Pun.PhotonNetwork.CurrentRoom.Name;
     }
 }
