@@ -21,6 +21,16 @@ public class CustomPrefabPlacer : EditorWindow
         GetWindow(typeof(CustomPrefabPlacer));
     }
 
+    [MenuItem("Assets/Add To Prefab Placer")]
+    private static void AddToPrefabPlacer()
+    {
+        GameObject selected = Selection.activeGameObject;
+        if (PrefabUtility.GetPrefabObject(selected))
+        {
+            Resources.Load<PrefabPlacerSettings>("PrefabPlacerSettings").prefabs.Add(new PrefabPlacerSettings.Prefab { prefab = selected });
+        }
+    }
+
     private void OnInspectorUpdate()
     {
         Repaint();
