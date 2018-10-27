@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
+// BEWARE! Ugly af and unorganised code ahead. 
 public class LoginManager : MonoBehaviourPunCallbacks
 {
 
@@ -13,6 +14,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
     private bool solo;
     private Camera cam;
     private Transform camTransform;
+    private bool preparingOfflineMode;
 
     private enum ConnectSetting { Offline, Random, Custom };
     private ConnectSetting currentConnectSetting;
@@ -51,16 +53,8 @@ public class LoginManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (PhotonNetwork.IsConnected)
-        {
-            roomCountText.text = "Open rooms: <color=red>" + PhotonNetwork.CountOfRooms;
-            playerCountText.text = "Active dwarves: <color=red>" + Mathf.Clamp(PhotonNetwork.CountOfPlayers - 1, 0, 9999);
-        }
-        else
-        {
-            roomCountText.text = "Open rooms: <color=red>not connected.";
-            playerCountText.text = "Active dwarves: <color=red>lost count.";
-        }
+        roomCountText.text = PhotonNetwork.IsConnected ? "Open rooms: <color=red>" + PhotonNetwork.CountOfRooms : "Open rooms: <color=red>?";
+        playerCountText.text = PhotonNetwork.IsConnected ? "Active dwarves: <color=red>" + Mathf.Clamp(PhotonNetwork.CountOfPlayers - 1, 0, 9999) : "Active dwarves: <color=red>?";
 
         Vector3 mouseInWorldPos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
         Vector3 lookat = new Vector3(mouseInWorldPos.x / 10, mouseInWorldPos.y / 10, 10);
@@ -80,6 +74,13 @@ public class LoginManager : MonoBehaviourPunCallbacks
 
         currentConnectSetting = connectSetting;
         currentConnectionRoomName = roomName;
+
+        if (currentConnectSetting == ConnectSetting.Offline)
+        {
+            preparingOfflineMode = true;
+            PhotonNetwork.Disconnect();
+            return;
+        }
 
         PhotonNetwork.OfflineMode = currentConnectSetting == ConnectSetting.Offline ? true : false;
         isConnecting = true;
@@ -110,7 +111,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
                         break;
                     case ConnectSetting.Custom:
 
-                        PhotonNetwork.JoinOrCreateRoom(currentConnectionRoomName, new RoomOptions{ MaxPlayers = 10, IsVisible = false }, TypedLobby.Default);
+                        PhotonNetwork.JoinOrCreateRoom(currentConnectionRoomName, new RoomOptions { MaxPlayers = 10, IsVisible = false }, TypedLobby.Default);
                         break;
                     default:
                         PhotonNetwork.JoinRandomRoom();
@@ -152,9 +153,25 @@ public class LoginManager : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        playMenuPanel.SetActive(false);
-        roomPanel.SetActive(true);
+        //playMenuPanel.SetActive(false);
+        //roomPanel.SetActive(true);
         connectionProgress.SetActive(false);
+
+        if (preparingOfflineMode)
+        {
+            ResumeOfflineConnect();
+        }
+    }
+
+    private void ResumeOfflineConnect()
+    {
+        preparingOfflineMode = false;
+
+        PhotonNetwork.OfflineMode = true;
+        isConnecting = true;
+
+        PhotonNetwork.GameVersion = gameVersion;
+        PhotonNetwork.ConnectUsingSettings();
     }
 
     private void SetUpPanelsWhenConnecting()

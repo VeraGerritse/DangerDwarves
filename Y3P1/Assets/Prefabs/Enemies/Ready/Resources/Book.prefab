@@ -90,6 +90,7 @@ MonoBehaviour:
     defense: 5
   canDropLoot: 1
   scaleWithWorld: 1
+  registerToEntityManager: 1
   OnHit:
     m_PersistentCalls:
       m_Calls: []
@@ -217,8 +218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4939985f28fa848a1152707dbc199a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviourState: 0
   settings: {fileID: 11400000, guid: 96732ca61af9ad646b64da80b6e1b8d6, type: 2}
+  behaviourState: 0
   damagePoint: {fileID: 854608063657418639}
   healthBar: {fileID: 4528157252122662173}
   initialChaseTrigger: {fileID: 2835736222214007849}

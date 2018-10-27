@@ -90,6 +90,7 @@ MonoBehaviour:
     defense: 10
   canDropLoot: 1
   scaleWithWorld: 1
+  registerToEntityManager: 1
   OnHit:
     m_PersistentCalls:
       m_Calls: []

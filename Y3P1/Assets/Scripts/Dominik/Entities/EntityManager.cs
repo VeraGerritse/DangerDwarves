@@ -25,27 +25,27 @@ public class EntityManager : MonoBehaviourPunCallbacks
     public void AddToAliveTargets(Entity entity)
     {
         aliveTargets.Add(entity);
-        photonView.RPC("SyncAliveTargets", RpcTarget.AllBuffered, entity.gameObject.GetPhotonView().ViewID);
+        //photonView.RPC("SyncAliveTargets", RpcTarget.AllBuffered, entity.gameObject.GetPhotonView().ViewID);
     }
 
-    [PunRPC]
-    private void SyncAliveTargets(int photonViewID)
-    {
-        PhotonView targetPV = PhotonView.Find(photonViewID);
-        if (!targetPV)
-        {
-            return;
-        }
+    //[PunRPC]
+    //private void SyncAliveTargets(int photonViewID)
+    //{
+    //    PhotonView targetPV = PhotonView.Find(photonViewID);
+    //    if (!targetPV)
+    //    {
+    //        return;
+    //    }
 
-        Entity target = targetPV.gameObject.GetComponent<Entity>();
-        if (target)
-        {
-            if (!aliveTargets.Contains(target))
-            {
-                aliveTargets.Add(target);
-            }
-        }
-    }
+    //    Entity target = targetPV.gameObject.GetComponent<Entity>();
+    //    if (target)
+    //    {
+    //        if (!aliveTargets.Contains(target))
+    //        {
+    //            aliveTargets.Add(target);
+    //        }
+    //    }
+    //}
 
     public void RemoveFromAliveTargets(Entity entity)
     {

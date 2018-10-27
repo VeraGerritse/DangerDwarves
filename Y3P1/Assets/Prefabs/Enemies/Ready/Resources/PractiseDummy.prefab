@@ -1,16 +1,16 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!4 &7649003509985980965 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
-    type: 3}
-  m_PrefabInstance: {fileID: 3546699305237300127}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1156906820987892572 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4646051276855569550, guid: ae10adcbca2c84d469fdfd990e1d6eab,
     type: 3}
   m_PrefabInstance: {fileID: 5797328555185299410}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7649003509985980965 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
+    type: 3}
+  m_PrefabInstance: {fileID: 3546699305237300127}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &3041562239721752183 stripped
 Transform:
@@ -77,29 +77,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb944ea6121cec94a9147d0853eaa725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCollider: {fileID: 0}
+  entityID: 0
+  instaDestroyOnDeath: 0
+  rb: {fileID: 0}
+  entityType: 0
   health:
     isImmortal: 0
-    maxHealth: 100
+    isInvinsible: 0
+    isDead: 0
+    baseHealth: 100
+    currentHealth: 0
   stats:
     stamina: 0
     strength: 0
     agility: 0
     willpower: 0
     defense: 0
-  OnHitEvent:
+  canDropLoot: 0
+  scaleWithWorld: 0
+  registerToEntityManager: 1
+  OnHit:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6357796064771890801}
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Hit
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnRevive:
+    m_PersistentCalls:
+      m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &4393035664917871197

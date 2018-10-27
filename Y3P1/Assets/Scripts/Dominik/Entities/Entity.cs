@@ -25,6 +25,7 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
 
     public bool canDropLoot;
     [SerializeField] private bool scaleWithWorld;
+    [SerializeField] private bool registerToEntityManager;
 
     [Space(10)]
 
@@ -46,6 +47,11 @@ public class Entity : MonoBehaviourPunCallbacks, IPunObservable
         {
             LevelStats(Player.localPlayer.myInventory.aIL.averageILevel);
             health.LevelHealth(Player.localPlayer.myInventory.aIL.averageILevel);
+        }
+
+        if (registerToEntityManager)
+        {
+            EntityManager.instance.AddToAliveTargets(this);
         }
     }
 
