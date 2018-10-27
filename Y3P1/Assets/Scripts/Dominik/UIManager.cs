@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     }
 
     public Transform otherPlayersUISpawn;
+    [HideInInspector] public PlayerStatusCanvas playerStatusCanvas;
     [SerializeField] private List<InventorySlot> hotbarSlots = new List<InventorySlot>();
 
     private void Awake()
@@ -34,6 +35,7 @@ public class UIManager : MonoBehaviour
             Destroy(this);
         }
 
+        playerStatusCanvas = GetComponentInChildren<PlayerStatusCanvas>();
         SettingsManager.instance.roomNameText.text = "Room Name\n<color=red>" + Photon.Pun.PhotonNetwork.CurrentRoom.Name;
     }
 }

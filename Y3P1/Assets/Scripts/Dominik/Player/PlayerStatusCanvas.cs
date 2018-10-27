@@ -16,6 +16,7 @@ public class PlayerStatusCanvas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI localPlayerNameText; 
     [SerializeField] private TextMeshProUGUI localPlayerHealthText;
     [SerializeField] private GameObject noSecondaryText;
+    [SerializeField] private TextMeshProUGUI secondaryProgressText;
 
     [Space(10)]
 
@@ -33,7 +34,6 @@ public class PlayerStatusCanvas : MonoBehaviour
 
     private void InitialiseEvents()
     {
-        WeaponSlot.OnUsePrimary += WeaponSlot_OnUsePrimary;
         WeaponSlot.OnUseSecondary += WeaponSlot_OnUseSecondary;
         WeaponSlot.OnEquipWeapon += WeaponSlot_OnEquipWeapon;
 
@@ -46,22 +46,26 @@ public class PlayerStatusCanvas : MonoBehaviour
         if (weapon != null && !string.IsNullOrEmpty(weapon.secondaryProjectile))
         {
             noSecondaryText.SetActive(false);
+            secondaryProgressText.gameObject.SetActive(true);
         }
         else
         {
             noSecondaryText.SetActive(true);
+            secondaryProgressText.gameObject.SetActive(false);
         }
     }
 
-    private void WeaponSlot_OnUsePrimary()
+    public void Hit()
     {
         weaponSecondaryBarFill += 1 / (float)WeaponSlot.hitsRequiredToSecondary;
+        WeaponSlot.currentHits++;
     }
 
     private void WeaponSlot_OnUseSecondary(Weapon.SecondaryType secondaryType)
     {
         weaponSecondaryBarFill = 0;
         weaponSecondaryBar.fillAmount = 0;
+        WeaponSlot.currentHits = 0;
     }
 
     private void Update()
@@ -69,6 +73,11 @@ public class PlayerStatusCanvas : MonoBehaviour
         if (weaponSecondaryBar.fillAmount < 1)
         {
             weaponSecondaryBar.fillAmount = Mathf.Lerp(weaponSecondaryBar.fillAmount, weaponSecondaryBarFill, Time.deltaTime * 10);
+
+            if (secondaryProgressText.gameObject.activeInHierarchy)
+            {
+                secondaryProgressText.text = Mathf.RoundToInt(weaponSecondaryBar.fillAmount * 100) + "%";
+            }
         }
 
         if (localPlayerInfoPanel.activeInHierarchy)
@@ -118,7 +127,6 @@ public class PlayerStatusCanvas : MonoBehaviour
 
     private void OnDisable()
     {
-        WeaponSlot.OnUsePrimary -= WeaponSlot_OnUsePrimary;
         WeaponSlot.OnUseSecondary -= WeaponSlot_OnUseSecondary;
         WeaponSlot.OnEquipWeapon -= WeaponSlot_OnEquipWeapon;
 

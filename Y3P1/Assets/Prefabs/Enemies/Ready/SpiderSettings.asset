@@ -39,4 +39,4 @@ MonoBehaviour:
     m_Bits: 16896
   deathAnimation: Spider_death
   walkAnimation: Is Walking
-  hitAnimation: Spider_hit
+  hitAnimation: 

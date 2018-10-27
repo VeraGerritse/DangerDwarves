@@ -268,7 +268,10 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
         if (behaviourState == BehaviourState.Attack)
         {
-            anim.SetTrigger(settings.hitAnimation);
+            if (!string.IsNullOrEmpty(settings.hitAnimation))
+            {
+                anim.SetTrigger(settings.hitAnimation);
+            }
         }
     }
 

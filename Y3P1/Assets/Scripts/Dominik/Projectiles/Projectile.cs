@@ -116,6 +116,7 @@ public class Projectile : MonoBehaviour
         if (fireData.ownerID == Player.localPlayer.photonView.ViewID)
         {
             entity.Hit(-fireData.damage, Stats.DamageType.Ranged, WeaponSlot.weaponBuffs);
+            UIManager.instance.playerStatusCanvas.Hit();
             HandleProjectileStatusEffects(entity);
         }
 

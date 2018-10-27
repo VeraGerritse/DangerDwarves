@@ -18522,7 +18522,7 @@ MonoBehaviour:
   continuousEffect: 1
   effectInterval: 0.5
   damageRange: 2.8
-  damageMultiplier: -0.3
+  damageMultiplier: -0.1
   applyStatusEffect: 0
   effectToApply: 0
   effectDuration: 0
