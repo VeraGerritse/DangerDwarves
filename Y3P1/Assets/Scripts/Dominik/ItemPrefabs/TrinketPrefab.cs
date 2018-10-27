@@ -9,13 +9,13 @@ public class TrinketPrefab : ItemPrefab
     private Material mat;
 
     [SerializeField] private MeshRenderer renderer;
-    [SerializeField] private ParticleSystem particle;
+    //[SerializeField] private ParticleSystem particle;
 
     protected override void Awake()
     {
         base.Awake();
 
-        particleMain = particle.main;
+        //particleMain = particle.main;
     }
 
     public override void OnEnable()
@@ -27,7 +27,7 @@ public class TrinketPrefab : ItemPrefab
     {
         SetColors();
         renderer.enabled = false;
-        particle.gameObject.SetActive(true);
+        //particle.gameObject.SetActive(true);
     }
 
     public override void Drop(Item itemData)
@@ -36,7 +36,7 @@ public class TrinketPrefab : ItemPrefab
 
         SetColors();
         renderer.enabled = true;
-        particle.gameObject.SetActive(false);
+        //particle.gameObject.SetActive(false);
 
         Player.localPlayer.trinketSlot.OnEquip -= TrinketSlot_OnEquip;
     }

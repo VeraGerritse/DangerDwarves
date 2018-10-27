@@ -23,6 +23,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject roomPanel;
     [SerializeField] private GameObject connectionProgress;
     [SerializeField] private TextMeshProUGUI roomCountText;
+    [SerializeField] private TextMeshProUGUI playerCountText;
     [SerializeField] private Transform dwarfLookAt;
     [SerializeField] private HeadTracking dwarfHeadTracking;
 
@@ -53,10 +54,12 @@ public class LoginManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsConnected)
         {
             roomCountText.text = "Open rooms: <color=red>" + PhotonNetwork.CountOfRooms;
+            playerCountText.text = "Active dwarves: <color=red>" + Mathf.Clamp(PhotonNetwork.CountOfPlayers - 1, 0, 9999);
         }
         else
         {
             roomCountText.text = "Open rooms: <color=red>not connected.";
+            playerCountText.text = "Active dwarves: <color=red>lost count.";
         }
 
         Vector3 mouseInWorldPos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));

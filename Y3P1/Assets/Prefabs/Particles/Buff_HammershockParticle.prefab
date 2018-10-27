@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 491146600475507811}
   - component: {fileID: 492422456586974913}
   m_Layer: 10
-  m_Name: Embers
+  m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4551,8 +4551,8 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 94548eebb03952941a77297c5da543f0, type: 2}
-  - {fileID: 2100000, guid: 94548eebb03952941a77297c5da543f0, type: 2}
+  - {fileID: 2100000, guid: c3f8d7c8de851c24ab1efa61c785ac20, type: 2}
+  - {fileID: 2100000, guid: c3f8d7c8de851c24ab1efa61c785ac20, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4583,7 +4583,7 @@ ParticleSystemRenderer:
   m_NormalDirection: 1
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 1
+  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 0
   m_ApplyActiveColorSpace: 0
   m_VertexStreams: 000304
@@ -10076,7 +10076,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
   EmissionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     rateOverTime:
       serializedVersion: 2

@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8372213477175729722}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &4863421662986700288
 Light:
@@ -97,9 +97,10 @@ Transform:
   m_LocalRotation: {x: -0.0000015199182, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8372213477175729722}
-  m_RootOrder: 1
+  m_Children:
+  - {fileID: 7114693653296943814}
+  m_Father: {fileID: 4859345109956652402}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &8630690554053894826
 ParticleSystem:
@@ -4571,7 +4572,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 1b44428dfa412e6489771d06236a9aeb, type: 2}
+  - {fileID: 2100000, guid: 08d3d36f947385a4aa78acf266527a41, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -4603,7 +4604,7 @@ ParticleSystemRenderer:
   m_NormalDirection: 1
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
-  m_UseCustomVertexStreams: 1
+  m_UseCustomVertexStreams: 0
   m_EnableGPUInstancing: 0
   m_ApplyActiveColorSpace: 0
   m_VertexStreams: 000304
@@ -4637,12 +4638,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2931958993923099424}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.0000015199182, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8372213477175729722}
-  m_RootOrder: 2
+  m_Father: {fileID: 6777177971153283791}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &7312450687999755978
 ParticleSystem:
@@ -9248,7 +9249,7 @@ GameObject:
   - component: {fileID: 6120276539784147338}
   - component: {fileID: 544776936358731806}
   m_Layer: 10
-  m_Name: Buff_HealParticle
+  m_Name: Heal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9264,7 +9265,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1.0000005, z: 1.0000005}
-  m_Children: []
+  m_Children:
+  - {fileID: 6777177971153283791}
   m_Father: {fileID: 8372213477175729722}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
@@ -13828,7 +13830,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 1b44428dfa412e6489771d06236a9aeb, type: 2}
+  - {fileID: 2100000, guid: 08d3d36f947385a4aa78acf266527a41, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -13901,8 +13903,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4859345109956652402}
-  - {fileID: 6777177971153283791}
-  - {fileID: 7114693653296943814}
   - {fileID: 470650289771406965}
   m_Father: {fileID: 0}
   m_RootOrder: 0
