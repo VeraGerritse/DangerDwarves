@@ -18,12 +18,12 @@ MonoBehaviour:
     attackType: 0
     damageType: 0
     projectilePoolName: 
-  attackDistance: 3.75
-  attackRangeLookAtSpeed: 5
+  attackDistance: 4.5
+  attackRangeLookAtSpeed: 10
   randomRangedAttackChance: 0
   randomRangedAttackInterval: 1
   stopWhileAttacking: 0
-  damageRange: 0.65
+  damageRange: 1.5
   damageLayerMask:
     serializedVersion: 2
     m_Bits: 16896
