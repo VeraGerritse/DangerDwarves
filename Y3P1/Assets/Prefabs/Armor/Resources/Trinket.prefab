@@ -111,7 +111,6 @@ MonoBehaviour:
   weaponRarityParticles: []
   dropRotationAdjustment: {x: 0, y: 0, z: 0}
   renderer: {fileID: 727557903425214021}
-  particle: {fileID: 0}
 --- !u!114 &4555522520552425865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +243,7 @@ PrefabInstance:
     - target: {fileID: 7438276915196103829, guid: dc26b00b30a8dde44a301a75757b633b,
         type: 3}
       propertyPath: m_Radius
-      value: 1.5
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 2463123072081035247, guid: dc26b00b30a8dde44a301a75757b633b,
         type: 3}

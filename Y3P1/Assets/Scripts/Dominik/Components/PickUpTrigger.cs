@@ -21,12 +21,14 @@ public class PickUpTrigger : MonoBehaviour
                 if (myItemPrefab.myItem is Gold)
                 {
                     myItemPrefab.PickUp();
+                    Player.localPlayer.dwarfAnimController.Pickup();
                     return;
                 }
 
                 if (!Player.localPlayer.myInventory.CheckFull())
                 {
                     myItemPrefab.PickUp();
+                    Player.localPlayer.dwarfAnimController.Pickup();
                 }
             }
         }

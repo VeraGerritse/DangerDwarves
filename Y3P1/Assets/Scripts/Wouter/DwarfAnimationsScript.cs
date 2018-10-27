@@ -121,6 +121,16 @@ public class DwarfAnimationsScript : MonoBehaviour
         myAnim.SetBool("bMelee", b);
     }
 
+    public void Pickup()
+    {
+        myAnim.SetTrigger("Pickup");
+    }
+
+    public void Drink()
+    {
+        myAnim.SetTrigger("Drink");
+    }
+
     public bool CanEquipRanged()
     {
         if (myAnim.GetCurrentAnimatorStateInfo(3).IsTag("MeleeSwing"))

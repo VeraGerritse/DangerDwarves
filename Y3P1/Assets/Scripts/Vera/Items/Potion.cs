@@ -30,6 +30,7 @@ public class Potion : Item
         {
             nextDrinkTime = Time.time + potionDrinkCooldown;
             Player.localPlayer.weaponSlot.AddBuff(new WeaponSlot.WeaponBuff { type = effectType, statusEffectDuration = statusEffectDuration, endTime = Time.time + buffDuration }, buffDuration);
+            Player.localPlayer.dwarfAnimController.Drink();
         }
     }
 
