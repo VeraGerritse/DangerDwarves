@@ -12,6 +12,7 @@ public class HeadTracking : MonoBehaviour
     public float stopLookAtDistance = 1.5f;
 
     public bool gettarget;
+    public bool extrabool = true;
 
     public void Initialise(bool local)
     {
@@ -40,7 +41,7 @@ public class HeadTracking : MonoBehaviour
         targetFixed.y = headbone.transform.position.y;
 
         float dSqrToTarget = toOther.sqrMagnitude;
-        if (dSqrToTarget > stopLookAtDistance || stopLookAtDistance == 0)
+        if (dSqrToTarget > stopLookAtDistance || stopLookAtDistance == 0 && extrabool)
         {
             //headbone.transform.LookAt(targetFixed);
 

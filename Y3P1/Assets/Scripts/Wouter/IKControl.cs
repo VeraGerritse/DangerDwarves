@@ -8,6 +8,7 @@ public class IKControl : MonoBehaviour, IPunObservable
     protected Animator animator;
 
     public bool ikActive = false;
+    public bool extrabool = true;
     public Transform rightHandObj = null;
     public Transform rightHandObjRot;
     public Transform lookObj = null;
@@ -23,7 +24,7 @@ public class IKControl : MonoBehaviour, IPunObservable
         if (animator)
         {
             //if the IK is active, set the position and rotation directly to the goal. 
-            if (ikActive)
+            if (ikActive && extrabool)
             {
                 // Set the look target position, if one has been assigned
                 if (lookObj != null)
