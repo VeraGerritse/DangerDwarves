@@ -9268,6 +9268,10 @@ MonoBehaviour:
   prefabToSpawnOnHit: Explosion_2
   prefabToSpawnOnDeath: 
   stayOnOwner: 0
+  isEnemyProjectile: 0
+  applyStatusEffect: 0
+  effectToApply: 0
+  effectDuration: 0
 --- !u!114 &9156334626702542129
 MonoBehaviour:
   m_ObjectHideFlags: 0

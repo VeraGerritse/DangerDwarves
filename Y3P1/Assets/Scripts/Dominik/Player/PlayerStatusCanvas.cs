@@ -12,9 +12,6 @@ public class PlayerStatusCanvas : MonoBehaviour
     private float weaponSecondaryBarFill;
 
     [SerializeField] private Image weaponSecondaryBar;
-    [SerializeField] private GameObject localPlayerInfoPanel;
-    [SerializeField] private TextMeshProUGUI localPlayerNameText; 
-    [SerializeField] private TextMeshProUGUI localPlayerHealthText;
     [SerializeField] private GameObject noSecondaryText;
     [SerializeField] private TextMeshProUGUI secondaryProgressText;
 
@@ -79,22 +76,6 @@ public class PlayerStatusCanvas : MonoBehaviour
                 secondaryProgressText.text = Mathf.RoundToInt(weaponSecondaryBar.fillAmount * 100) + "%";
             }
         }
-
-        if (localPlayerInfoPanel.activeInHierarchy)
-        {
-            localPlayerInfoPanel.transform.position = Input.mousePosition;
-        }
-    }
-
-    public void TogglePlayerInfoPanel(bool toggle)
-    {
-        if (toggle)
-        {
-            localPlayerNameText.text = Player.localPlayer.photonView.Owner.NickName;
-            localPlayerHealthText.text = "HP: " + Player.localPlayer.entity.health.GetHealthString();
-        }
-
-        localPlayerInfoPanel.SetActive(toggle);
     }
 
     private void WeaponSlot_OnWeaponBuffAdded(StatusEffects.StatusEffectType type, float duration)

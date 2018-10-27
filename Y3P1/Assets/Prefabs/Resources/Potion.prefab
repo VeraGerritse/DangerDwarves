@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &2683806018825071588 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6923568224524243379, guid: 39200bdc0ded29a4fa4459633344c1ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 4984288264755919447}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1449439581252132947 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7909783806913818476, guid: 736c7470eb505af42b1c95fc705ea5de,
+    type: 3}
+  m_PrefabInstance: {fileID: 8779842138592546623}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &87033270630793182
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,6 +45,7 @@ Transform:
   m_Children:
   - {fileID: 4586408542952482084}
   - {fileID: 2683806018825071588}
+  - {fileID: 1449439581252132947}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -114,14 +127,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.2, z: 0.2}
-  m_Center: {x: 0, y: 0.1, z: 0}
---- !u!4 &2683806018825071588 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6923568224524243379, guid: 39200bdc0ded29a4fa4459633344c1ff,
-    type: 3}
-  m_PrefabInstance: {fileID: 4984288264755919447}
-  m_PrefabAsset: {fileID: 0}
+  m_Size: {x: 0.2, y: 0.32260042, z: 0.2}
+  m_Center: {x: 0, y: 0.16130021, z: 0}
 --- !u!1 &4038968957846317933 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2463123072081035247, guid: dc26b00b30a8dde44a301a75757b633b,
@@ -278,5 +285,74 @@ PrefabInstance:
       propertyPath: m_Name
       value: Potion_Health
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5089567038463794911, guid: 39200bdc0ded29a4fa4459633344c1ff, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 39200bdc0ded29a4fa4459633344c1ff, type: 3}
+--- !u!1001 &8779842138592546623
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  m_Modification:
+    m_TransformParent: {fileID: 549543861998598611}
+    m_Modifications:
+    - target: {fileID: 7909783806913818476, guid: 736c7470eb505af42b1c95fc705ea5de,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909783806913818476, guid: 736c7470eb505af42b1c95fc705ea5de,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909783806913818476, guid: 736c7470eb505af42b1c95fc705ea5de,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909783806913818476, guid: 736c7470eb505af42b1c95fc705ea5de,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909783806913818476, guid: 736c7470eb505af42b1c95fc705ea5de,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909783806913818476, guid: 736c7470eb505af42b1c95fc705ea5de,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909783806913818476, guid: 736c7470eb505af42b1c95fc705ea5de,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909783806913818476, guid: 736c7470eb505af42b1c95fc705ea5de,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909783806913818476, guid: 736c7470eb505af42b1c95fc705ea5de,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909783806913818476, guid: 736c7470eb505af42b1c95fc705ea5de,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909783806913818476, guid: 736c7470eb505af42b1c95fc705ea5de,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7680781366319597077, guid: 736c7470eb505af42b1c95fc705ea5de,
+        type: 3}
+      propertyPath: m_Name
+      value: PotionParticle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 736c7470eb505af42b1c95fc705ea5de, type: 3}
