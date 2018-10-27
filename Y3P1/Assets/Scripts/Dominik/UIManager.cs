@@ -36,6 +36,7 @@ public class UIManager : MonoBehaviour
         }
 
         playerStatusCanvas = GetComponentInChildren<PlayerStatusCanvas>();
-        SettingsManager.instance.roomNameText.text = "Room Name\n<color=red>" + Photon.Pun.PhotonNetwork.CurrentRoom.Name;
+
+        SettingsManager.instance.mpInfoText.text = "Room Name\n<color=red>" + Photon.Pun.PhotonNetwork.CurrentRoom.Name + "</color>\nState\n<color=red>" + Photon.Pun.PhotonNetwork.NetworkClientState;
     }
 }

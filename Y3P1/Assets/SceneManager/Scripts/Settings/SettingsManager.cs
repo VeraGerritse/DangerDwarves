@@ -11,7 +11,7 @@ public class SettingsManager : MonoBehaviour
 
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject defaultOpenSettingPanel;
-    public TextMeshProUGUI roomNameText;
+    public TextMeshProUGUI mpInfoText;
     private GameObject openSettingPanel;
 
     [Header("Default Settings")]

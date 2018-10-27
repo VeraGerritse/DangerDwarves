@@ -75,7 +75,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
         currentConnectSetting = connectSetting;
         currentConnectionRoomName = roomName;
 
-        if (currentConnectSetting == ConnectSetting.Offline)
+        if (currentConnectSetting == ConnectSetting.Offline && PhotonNetwork.IsConnected)
         {
             preparingOfflineMode = true;
             PhotonNetwork.Disconnect();
@@ -159,19 +159,8 @@ public class LoginManager : MonoBehaviourPunCallbacks
 
         if (preparingOfflineMode)
         {
-            ResumeOfflineConnect();
+            Connect(ConnectSetting.Offline);
         }
-    }
-
-    private void ResumeOfflineConnect()
-    {
-        preparingOfflineMode = false;
-
-        PhotonNetwork.OfflineMode = true;
-        isConnecting = true;
-
-        PhotonNetwork.GameVersion = gameVersion;
-        PhotonNetwork.ConnectUsingSettings();
     }
 
     private void SetUpPanelsWhenConnecting()
