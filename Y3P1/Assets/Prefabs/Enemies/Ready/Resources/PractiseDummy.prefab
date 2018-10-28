@@ -6,13 +6,13 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5797328555185299410}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &7649003509985980965 stripped
+--- !u!4 &3546699305237301877 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
     type: 3}
   m_PrefabInstance: {fileID: 3546699305237300127}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &3041562239721752183 stripped
+--- !u!4 &8154643081308552743 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6565914076569235898, guid: 0e2662363b0a8224db02ffbdffa4bab0,
     type: 3}
@@ -83,7 +83,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   entityType: 0
   health:
-    isImmortal: 0
+    isImmortal: 1
     isInvinsible: 0
     isDead: 0
     baseHealth: 100
@@ -167,8 +167,8 @@ Transform:
   m_Children:
   - {fileID: 8178971362703224468}
   - {fileID: 1156906820987892572}
-  - {fileID: 7649003509985980965}
-  - {fileID: 3041562239721752183}
+  - {fileID: 3546699305237301877}
+  - {fileID: 8154643081308552743}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

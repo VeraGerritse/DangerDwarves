@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+// Unity's GUILayout makes code look so ugly.
+// This is a simple custom inspector I wrote for the PrefabPlacerSettings to make it a bit more clear to read.
+
 [CustomEditor(typeof(PrefabPlacerSettings))]
 public class CustomPrefabPlacerSettingsInspector : Editor
 {
@@ -17,21 +20,25 @@ public class CustomPrefabPlacerSettingsInspector : Editor
     public override void OnInspectorGUI()
     {
         GUILayout.BeginVertical("box");
+
         GUILayout.BeginHorizontal();
-        settings.zeroOutPosition = EditorGUILayout.Toggle("Spawn at (0,0,0)", settings.zeroOutPosition);
+            settings.zeroOutPosition = EditorGUILayout.Toggle("Spawn at (0,0,0)", settings.zeroOutPosition);
         GUILayout.EndHorizontal();
+
         GUILayout.BeginHorizontal();
-        settings.zeroOutRotation = EditorGUILayout.Toggle("Rotate to (0,0,0)", settings.zeroOutRotation);
+            settings.zeroOutRotation = EditorGUILayout.Toggle("Rotate to (0,0,0)", settings.zeroOutRotation);
         GUILayout.EndHorizontal();
+
         GUILayout.BeginHorizontal();
-        settings.spawnAtScreenCenter = EditorGUILayout.Toggle("Spawn at screen center", settings.spawnAtScreenCenter);
+            settings.spawnAtScreenCenter = EditorGUILayout.Toggle("Spawn at screen center", settings.spawnAtScreenCenter);
         GUILayout.EndHorizontal();
+
         GUILayout.EndVertical();
 
         GUILayout.Space(5);
 
         GUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Placable Prefabs", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Placable Prefabs", EditorStyles.boldLabel);
         GUILayout.EndHorizontal();
 
         for (int i = 0; i < settings.prefabs.Count; i++)
@@ -39,23 +46,23 @@ public class CustomPrefabPlacerSettingsInspector : Editor
             GUILayout.BeginVertical("box");
 
             GUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Prefab Name:", EditorStyles.boldLabel);
-            settings.prefabs[i].editorWindowName = EditorGUILayout.TextField(settings.prefabs[i].editorWindowName);
+                EditorGUILayout.LabelField("Prefab Name:", EditorStyles.boldLabel);
+                settings.prefabs[i].editorWindowName = EditorGUILayout.TextField(settings.prefabs[i].editorWindowName);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Prefab:");
-            settings.prefabs[i].prefab = (GameObject)EditorGUILayout.ObjectField(settings.prefabs[i].prefab, typeof(GameObject), false);
+                EditorGUILayout.LabelField("Prefab:");
+                settings.prefabs[i].prefab = (GameObject)EditorGUILayout.ObjectField(settings.prefabs[i].prefab, typeof(GameObject), false);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Button Text Color:");
-            settings.prefabs[i].editorButtonColor = EditorGUILayout.ColorField(settings.prefabs[i].editorButtonColor);
+                EditorGUILayout.LabelField("Button Text Color:");
+                settings.prefabs[i].editorButtonColor = EditorGUILayout.ColorField(settings.prefabs[i].editorButtonColor);
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Button Font Style:");
-            settings.prefabs[i].editorButtonFontStyle = (FontStyle)EditorGUILayout.EnumPopup(settings.prefabs[i].editorButtonFontStyle);
+                EditorGUILayout.LabelField("Button Font Style:");
+                settings.prefabs[i].editorButtonFontStyle = (FontStyle)EditorGUILayout.EnumPopup(settings.prefabs[i].editorButtonFontStyle);
             GUILayout.EndHorizontal();
 
             GUILayout.Space(5);

@@ -30,17 +30,27 @@ public class TrinketPrefab : ItemPrefab
         //particle.gameObject.SetActive(true);
     }
 
-    public override void Drop(Item itemData)
+    [PunRPC]
+    private void SyncDropData(byte[] itemData)
     {
-        base.Drop(itemData);
+        ByteObjectConverter boc = new ByteObjectConverter();
+        myItem = (Item)boc.ByteArrayToObject(itemData);
 
-        SetColors();
+        isDropped = true;
+
+        interactCollider.SetActive(true);
+        objectCollider.enabled = true;
+
+        transform.eulerAngles += dropRotationAdjustment;
+        transform.Rotate(new Vector3(0, UnityEngine.Random.Range(0, 360), 0), Space.World);
+
+        SpawnDroppedItemLabel();
+
         renderer.enabled = true;
-        //particle.gameObject.SetActive(false);
-
         Player.localPlayer.trinketSlot.OnEquip -= TrinketSlot_OnEquip;
-    }
 
+        //DroppedItemManager.instance.RegisterDroppedItem(photonView.ViewID, myItem);
+    }
 
     [PunRPC]
     private void PickUpDestroy()

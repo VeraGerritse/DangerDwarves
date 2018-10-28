@@ -39,9 +39,17 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    public virtual void Drop(Item itemData)
+    public virtual void Drop(byte[] itemData)
     {
-        myItem = itemData;
+        // WARNING! This RPC needs to be implemented in each inherited class for this be possible to call!
+        photonView.RPC("SyncDropData", RpcTarget.AllBuffered, itemData);
+    }
+
+    [PunRPC]
+    private void SyncDropData(byte[] itemData)
+    {
+        ByteObjectConverter boc = new ByteObjectConverter();
+        myItem = (Item)boc.ByteArrayToObject(itemData);
 
         isDropped = true;
 
@@ -49,14 +57,14 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
         objectCollider.enabled = true;
 
         transform.eulerAngles += dropRotationAdjustment;
-        transform.Rotate(new Vector3(0, Random.Range(0, 360), 0), Space.World);
+        transform.Rotate(new Vector3(0, UnityEngine.Random.Range(0, 360), 0), Space.World);
 
         SpawnDroppedItemLabel();
 
         //DroppedItemManager.instance.RegisterDroppedItem(photonView.ViewID, myItem);
     }
 
-    private void SpawnDroppedItemLabel()
+    protected void SpawnDroppedItemLabel()
     {
         droppedItemLabel = ObjectPooler.instance.GrabFromPool("DroppedItemLabel", transform.position + Vector3.up * 0.5f, Quaternion.identity).GetComponent<DroppedItemLabel>();
         droppedItemLabel.SetText(myItem.itemName, myItem.itemRarity);
@@ -81,6 +89,7 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
 
         if (PhotonNetwork.IsMasterClient)
         {
+            PhotonNetwork.RemoveRPCs(photonView);
             PhotonNetwork.Destroy(gameObject);
         }
     }

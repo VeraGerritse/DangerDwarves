@@ -147,6 +147,8 @@ public class WeaponPrefab : ItemPrefab
         }
     }
 
+    // TODO: I believe this doesnt really do what i want it to do. Find a better way to sync weapon materials.
+    // We should probably just add the materialindex to get generated in the lootmanager.
     private void SetWeaponMaterial(int? index)
     {
         if (index == null)
@@ -167,6 +169,25 @@ public class WeaponPrefab : ItemPrefab
     }
 
     [PunRPC]
+    private void SyncDropData(byte[] itemData)
+    {
+        ByteObjectConverter boc = new ByteObjectConverter();
+        myItem = (Item)boc.ByteArrayToObject(itemData);
+
+        isDropped = true;
+
+        interactCollider.SetActive(true);
+        objectCollider.enabled = true;
+
+        transform.eulerAngles += dropRotationAdjustment;
+        transform.Rotate(new Vector3(0, UnityEngine.Random.Range(0, 360), 0), Space.World);
+
+        SpawnDroppedItemLabel();
+
+        //DroppedItemManager.instance.RegisterDroppedItem(photonView.ViewID, myItem);
+    }
+
+    [PunRPC]
     private void SyncMaterial(int index)
     {
         SetWeaponMaterial(index);
@@ -177,6 +198,7 @@ public class WeaponPrefab : ItemPrefab
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            PhotonNetwork.RemoveRPCs(photonView);
             PhotonNetwork.Destroy(gameObject);
         }
 

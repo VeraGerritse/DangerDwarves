@@ -450,9 +450,6 @@ MonoBehaviour:
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
   m_SynchronizeParameters:
-  - Type: 9
-    SynchronizeType: 2
-    Name: Spider_hit
   - Type: 4
     SynchronizeType: 2
     Name: Is Walking
@@ -471,10 +468,13 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 2
     Name: Spider_IsDead
+  - Type: 9
+    SynchronizeType: 0
+    Name: Spider_hitOFF
   m_SynchronizeLayers:
-  - SynchronizeType: 2
+  - SynchronizeType: 0
     LayerIndex: 0
-  - SynchronizeType: 2
+  - SynchronizeType: 0
     LayerIndex: 1
 --- !u!1001 &4676692434531601807
 PrefabInstance:

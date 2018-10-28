@@ -51,21 +51,9 @@ public class DroppedItemManager : MonoBehaviourPunCallbacks
         foreach (KeyValuePair<int, Item> droppedItem in droppedItems)
         {
             byte[] itemToDrop = boc.ObjectToByteArray(droppedItem.Value);
-            photonView.RPC("DropItem", RpcTarget.All, droppedItem.Key, itemToDrop);
+
+            ItemPrefab ip = PhotonView.Find(droppedItem.Key).GetComponent<ItemPrefab>();
+            ip.Drop(itemToDrop);
         }
-    }
-
-    [PunRPC]
-    private void DropItem(int itemPrefabID, byte[] item)
-    {
-        ItemPrefab ip = PhotonView.Find(itemPrefabID).GetComponent<ItemPrefab>();
-
-        if (string.IsNullOrEmpty(ip.myItem.itemName))
-        {
-            ByteObjectConverter boc = new ByteObjectConverter();
-            ip.Drop((Item)boc.ByteArrayToObject(item));
-        }
-
-        // I tried registering the dropped item here too but that doesnt work.
     }
 }

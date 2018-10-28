@@ -106,13 +106,13 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: Demon_Death
   m_SynchronizeLayers:
-  - SynchronizeType: 1
+  - SynchronizeType: 0
     LayerIndex: 0
-  - SynchronizeType: 1
+  - SynchronizeType: 0
     LayerIndex: 1
-  - SynchronizeType: 1
+  - SynchronizeType: 0
     LayerIndex: 2
-  - SynchronizeType: 1
+  - SynchronizeType: 0
     LayerIndex: 3
   - SynchronizeType: 0
     LayerIndex: 4
@@ -120,11 +120,11 @@ MonoBehaviour:
     LayerIndex: 5
   - SynchronizeType: 0
     LayerIndex: 6
-  - SynchronizeType: 1
+  - SynchronizeType: 0
     LayerIndex: 7
-  - SynchronizeType: 1
+  - SynchronizeType: 0
     LayerIndex: 8
-  - SynchronizeType: 1
+  - SynchronizeType: 0
     LayerIndex: 9
 --- !u!114 &4105454021737753796
 MonoBehaviour:

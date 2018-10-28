@@ -83,4 +83,5 @@ MonoBehaviour:
   - SyncDroppedItemData
   - SyncDroppedItems
   - DropItems
+  - SyncDropData
   DisableAutoOpenWizard: 1

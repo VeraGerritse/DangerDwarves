@@ -93,9 +93,11 @@ public class Inventory : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            GameObject insItem = PhotonNetwork.InstantiateSceneObject(toDrop, pos, Quaternion.identity);
-            int id = insItem.GetComponent<PhotonView>().ViewID;
-            photonView.RPC("RI", RpcTarget.AllBuffered, item, id);
+            ItemPrefab insItem = PhotonNetwork.InstantiateSceneObject(toDrop, pos, Quaternion.identity).GetComponent<ItemPrefab>();
+            insItem.Drop(item);
+
+            //int id = insItem.GetComponent<PhotonView>().ViewID;
+            //photonView.RPC("RI", RpcTarget.AllBuffered, item, id);
         }
     }
 
@@ -105,12 +107,12 @@ public class Inventory : MonoBehaviourPunCallbacks
         UpdateGold(amount);
     }
 
-    [PunRPC]
-    private void RI(byte[] item, int id)
-    {
-        GameObject itemIG = PhotonNetwork.GetPhotonView(id).gameObject;
-        itemIG.GetComponent<ItemPrefab>().Drop((Item)ByteArrayToObject(item));
-    }
+    //[PunRPC]
+    //private void RI(byte[] item, int id)
+    //{
+    //    GameObject itemIG = PhotonNetwork.GetPhotonView(id).gameObject;
+    //    itemIG.GetComponent<ItemPrefab>().Drop((Item)ByteArrayToObject(item));
+    //}
 
     private byte[] ObjectToByteArray(object obj)
     {

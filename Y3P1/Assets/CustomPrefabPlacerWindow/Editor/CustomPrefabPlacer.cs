@@ -15,12 +15,15 @@ public class CustomPrefabPlacer : EditorWindow
         }
     }
 
+    // Creates a new menu item. When clicking on this new item this PrefabPlacer window will show up.
     [MenuItem("Window/PrefabPlacer")]
     private static void ShowWindow()
     {
         GetWindow(typeof(CustomPrefabPlacer));
     }
 
+    // Creates a new menu item under the Assets folder. The 'Add To Prefab Placer' option will show up when right clicking an object.
+    // When you select this option on a prefab it will add that prefab to the PrefabPlacerSettings and showup in the PrefabPlacer window.
     [MenuItem("Assets/Add To Prefab Placer")]
     private static void AddToPrefabPlacer()
     {
@@ -42,6 +45,7 @@ public class CustomPrefabPlacer : EditorWindow
 
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
 
+        // Creates a GUI Button for every prefab in the PrefabPlacerSettings. Clicking on that button will call PlacePrefab() which.. well. places the prefab.
         for (int i = 0; i < settings.prefabs.Count; i++)
         {
             if (settings.prefabs[i].prefab)
@@ -64,6 +68,7 @@ public class CustomPrefabPlacer : EditorWindow
         EditorGUILayout.EndScrollView();
     }
 
+    // Instantiate the prefab at a certain position and rotation. Settings can be changed in the PrefabPlacerSettings ScriptableObject.
     private void PlacePrefab(GameObject prefab)
     {
         GameObject newPrefab = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
