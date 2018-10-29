@@ -16,6 +16,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
     private float randomRangedAttack;
     private List<AISettings.AttackAnimation> rangedAttacks;
     private float nextRandomRangedTime;
+    private float currentIdleTime;
 
     private bool canAttack = true;
     private bool canLookAtTarget = true;
@@ -88,7 +89,35 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
 
     private void HandleIdling()
     {
-        anim.SetBool(settings.walkAnimation, false);
+        if (myEntity.health.isDead)
+        {
+            return;
+        }
+
+        if (currentIdleTime > 0)
+        {
+            currentIdleTime -= Time.deltaTime;
+
+            anim.SetBool(settings.walkAnimation, false);
+            agent.isStopped = true;
+        }
+        else
+        {
+            if (Vector3.Distance(transform.position, agent.destination) < agent.stoppingDistance + 0.5f || agent.destination == transform.position)
+            {
+                float random = Random.value;
+                if (random < 0.5f)
+                {
+                    agent.SetDestination(GetWanderDestination());
+                    anim.SetBool(settings.walkAnimation, true);
+                    agent.isStopped = false;
+                }
+                else
+                {
+                    currentIdleTime = Random.Range(settings.minIdleTime, settings.maxIdleTime);
+                }
+            }
+        }
     }
 
     private void HandleChasing()
@@ -327,6 +356,35 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         return directionToTarget.sqrMagnitude;
     }
 
+    private Vector3 GetWanderDestination()
+    {
+        Vector3 destination = Vector3.zero;
+        int tries = 0;
+        RaycastHit hit;
+
+        while (destination == Vector3.zero)
+        {
+            tries++;
+            if (tries > 25)
+            {
+                return transform.position;
+            }
+
+            Vector3 possibleDestination = (Random.insideUnitSphere * settings.wanderRadius) + transform.position;
+
+            if (Physics.Raycast(possibleDestination, Vector3.down, out hit))
+            {
+                // If we hit the "Walkable" layer.
+                if (hit.transform.gameObject.layer == 13)
+                {
+                    destination = possibleDestination;
+                }
+            }
+        }
+
+        return destination;
+    }
+
     public override void OnDisable()
     {
         ResetAI();
@@ -347,7 +405,8 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         myEntity.gameObject.SetActive(true);
         agent.isStopped = false;
         healthBar.SetActive(true);
-        behaviourState = BehaviourState.Idle;
+        currentIdleTime = 0;
+        SetState(BehaviourState.Idle);
     }
 
     private bool TargetIsDead()
