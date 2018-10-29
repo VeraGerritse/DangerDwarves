@@ -71,7 +71,10 @@ public class PlayerCamera : MonoBehaviour
 
     private void ZoomCam()
     {
-        fov -= Input.GetAxis("Mouse ScrollWheel") * zoomSensitivity;
+        if (!UIManager.HasOpenUI)
+        {
+            fov -= Input.GetAxis("Mouse ScrollWheel") * zoomSensitivity;
+        }
         fov = overridingFOV ? overrideFOV : fov;
         fov = Mathf.Clamp(fov, maxZoomIn, maxZoomOut);
 
