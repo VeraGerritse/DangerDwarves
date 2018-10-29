@@ -85,4 +85,5 @@ MonoBehaviour:
   - DropItems
   - SyncDropData
   - SyncHealthTest
+  - LightBrazier
   DisableAutoOpenWizard: 1

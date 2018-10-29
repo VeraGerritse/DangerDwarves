@@ -30,7 +30,7 @@ MonoBehaviour:
     projectilePoolName: SpiderVenom
   attackDistance: 4.5
   attackRangeLookAtSpeed: 10
-  randomRangedAttackChance: 25
+  randomRangedAttackChance: 35
   randomRangedAttackInterval: 1
   stopWhileAttacking: 0
   damageRange: 1.5
