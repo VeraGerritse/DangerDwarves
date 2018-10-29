@@ -89,6 +89,7 @@ MonoBehaviour:
     defense: 0
   canDropLoot: 1
   scaleWithWorld: 0
+  registerToEntityManager: 0
   OnHit:
     m_PersistentCalls:
       m_Calls:
@@ -145,8 +146,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 7979497481230447716}
-  viewIdField: 24
-  InstantiationId: 24
+  viewIdField: 27
+  InstantiationId: 27
   isRuntimeInstantiated: 0
 --- !u!65 &6775507204971711961
 BoxCollider:

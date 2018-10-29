@@ -1943,8 +1943,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2288831311170850097}
-  - component: {fileID: 663189614346137677}
-  - component: {fileID: 6654093196390163641}
   m_Layer: 15
   m_Name: Dwarf
   m_TagString: Untagged
@@ -1968,43 +1966,6 @@ Transform:
   m_Father: {fileID: 2094361627473578287}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &663189614346137677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2288831311170850096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &6654093196390163641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2288831311170850096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 663189614346137677}
-  viewIdField: 7
-  InstantiationId: 7
-  isRuntimeInstantiated: 0
 --- !u!1 &3807522191048513797
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,7 +2126,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2342842255299086882}
   - component: {fileID: 7523264394422753833}
-  - component: {fileID: 946809157890264576}
   m_Layer: 15
   m_Name: RangedWeaponSpawn
   m_TagString: Untagged
@@ -2203,29 +2163,9 @@ MonoBehaviour:
   target: {fileID: 0}
   targetCords: {x: 0, y: 0, z: 0}
   mystuff: {x: 0, y: 0, z: 0, w: 0}
+  stopLookAtDistance: 1.5
   gettarget: 1
---- !u!114 &946809157890264576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5078382032786664345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 0
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  viewIdField: 4
-  InstantiationId: 4
-  isRuntimeInstantiated: 0
+  extrabool: 1
 --- !u!1 &7063572057793718434
 GameObject:
   m_ObjectHideFlags: 0
@@ -2235,7 +2175,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6203849363356442577}
-  - component: {fileID: 1871539608519032767}
   m_Layer: 15
   m_Name: HelmetSpawn
   m_TagString: Untagged
@@ -2257,28 +2196,6 @@ Transform:
   m_Father: {fileID: 2288831310382290659}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: -204.72, y: 89.99999, z: -90}
---- !u!114 &1871539608519032767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7063572057793718434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 0
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  viewIdField: 6
-  InstantiationId: 6
-  isRuntimeInstantiated: 0
 --- !u!1 &7523264394001225722
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,7 +2482,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: db16216c3f288ea4eb77dfefecada55a, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2643,7 +2560,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: db16216c3f288ea4eb77dfefecada55a, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2748,7 +2665,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1863812786065772078}
-  - component: {fileID: 9148091405936424295}
   m_Layer: 15
   m_Name: MeleeWeaponSpawn
   m_TagString: Untagged
@@ -2770,28 +2686,6 @@ Transform:
   m_Father: {fileID: 2288831310382290593}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 30.019001, y: -5.6650004, z: -17.072}
---- !u!114 &9148091405936424295
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7835171467437065180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 0
-  OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  viewIdField: 12
-  InstantiationId: 12
-  isRuntimeInstantiated: 0
 --- !u!1 &7870836611435039735
 GameObject:
   m_ObjectHideFlags: 0
