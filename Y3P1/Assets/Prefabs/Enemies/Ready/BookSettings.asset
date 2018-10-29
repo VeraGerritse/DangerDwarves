@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: BookSettings
   m_EditorClassIdentifier: 
   attacks:
-  - attackName: Demon_Attack_Melee
+  - attackName: Attack1
+    attackChance: 50
+    attackType: 0
+    damageType: 0
+    projectilePoolName: 
+  - attackName: Attack2
     attackChance: 100
     attackType: 0
     damageType: 0
@@ -27,6 +32,6 @@ MonoBehaviour:
   damageLayerMask:
     serializedVersion: 2
     m_Bits: 16896
-  deathAnimation: Demon_Death
-  walkAnimation: Demon_Walking
-  hitAnimation: Demon_Hit
+  deathAnimation: Die
+  walkAnimation: Walking
+  hitAnimation: Flinch

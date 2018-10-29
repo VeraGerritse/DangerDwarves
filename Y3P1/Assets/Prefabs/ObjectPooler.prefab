@@ -154,3 +154,13 @@ MonoBehaviour:
       type: 3}
     poolSize: 25
     autoExpand: 1
+  - poolName: WraithSmokeBall
+    poolPrefab: {fileID: 3716037247890611631, guid: 5122b6bcf33d3514d9ffb40466897abd,
+      type: 3}
+    poolSize: 25
+    autoExpand: 1
+  - poolName: WraithExplosionCircle
+    poolPrefab: {fileID: 3716037247890611631, guid: d4ec35f3e48f08d40bf3cb1a5e264f23,
+      type: 3}
+    poolSize: 15
+    autoExpand: 1
