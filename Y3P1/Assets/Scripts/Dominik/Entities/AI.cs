@@ -248,7 +248,7 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
             spawnPosition = damagePoint.position,
             spawnRotation = damagePoint.rotation,
             projectilePool = currentAttack.projectilePoolName,
-            speed = 8,
+            speed = ProjectileManager.instance.GetProjectileSpeed(8, currentAttack.projectilePoolName),
             damage = myEntity.CalculateDamage(currentAttack.damageType)
         });
     }

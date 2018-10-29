@@ -15,6 +15,7 @@ public class ProjectileManager : MonoBehaviourPunCallbacks
         public enum ProjectileSpawn { Weapon, Mouse, Player };
         public ProjectileSpawn projectileSpawn;
         public bool freezePosition;
+        public float speedOverride;
     }
     [SerializeField] private List<ProjectileSettings> projectileSettings = new List<ProjectileSettings>();
 
@@ -135,7 +136,15 @@ public class ProjectileManager : MonoBehaviourPunCallbacks
         {
             if (projectileSettings[i].projectilePool == projectilePool && projectileSettings[i].freezePosition)
             {
-                return 0;
+                if (projectileSettings[i].freezePosition)
+                {
+                    return 0;
+                }
+
+                if (projectileSettings[i].speedOverride != 0)
+                {
+                    return projectileSettings[i].speedOverride;
+                }
             }
         }
 

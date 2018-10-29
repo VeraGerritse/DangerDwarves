@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &9192393248469869831 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 59cdfb22625d1aa4cbfcebe1e1bfd09d,
+    type: 3}
+  m_PrefabInstance: {fileID: 9192393248469483399}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1271214002197388943
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,6 +89,7 @@ MonoBehaviour:
     defense: 0
   canDropLoot: 0
   scaleWithWorld: 0
+  registerToEntityManager: 0
   OnHit:
     m_PersistentCalls:
       m_Calls:
@@ -207,7 +214,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.4, y: 0.42, z: 0.41}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.46, z: 0}
   m_TimeToStationary: 0.5
@@ -223,12 +230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc8ff27d125a7a4fb40623818431b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &9192393248469869831 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 59cdfb22625d1aa4cbfcebe1e1bfd09d,
-    type: 3}
-  m_PrefabInstance: {fileID: 9192393248469483399}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9192393248469483399
 PrefabInstance:
   m_ObjectHideFlags: 0

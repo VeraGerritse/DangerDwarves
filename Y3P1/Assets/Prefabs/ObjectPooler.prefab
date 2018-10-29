@@ -164,3 +164,8 @@ MonoBehaviour:
       type: 3}
     poolSize: 15
     autoExpand: 1
+  - poolName: WraithSmokeBallHit
+    poolPrefab: {fileID: 1022150738432160081, guid: 96230f6c8ba975b40a37adbd2f98909c,
+      type: 3}
+    poolSize: 25
+    autoExpand: 1

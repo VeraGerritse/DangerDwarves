@@ -122,6 +122,7 @@ public class Projectile : MonoBehaviour
 
         if (isEnemyProjectile)
         {
+            entity.Hit(-fireData.damage, Stats.DamageType.Ranged);
             HandleProjectileStatusEffects(entity);
         }
 

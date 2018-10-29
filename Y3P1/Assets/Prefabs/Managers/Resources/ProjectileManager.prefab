@@ -48,33 +48,55 @@ MonoBehaviour:
   - projectilePool: Arrow
     projectileSpawn: 0
     freezePosition: 0
+    speedOverride: 0
   - projectilePool: Arrow_Animated
     projectileSpawn: 0
     freezePosition: 0
+    speedOverride: 0
   - projectilePool: Arrow_Explosive
     projectileSpawn: 0
     freezePosition: 0
+    speedOverride: 0
   - projectilePool: Arrow_Homing
     projectileSpawn: 0
     freezePosition: 0
+    speedOverride: 0
   - projectilePool: Arrow_Volley
     projectileSpawn: 0
     freezePosition: 0
+    speedOverride: 0
   - projectilePool: Buff_Hammershock
     projectileSpawn: 1
     freezePosition: 1
+    speedOverride: 0
   - projectilePool: Buff_Heal
     projectileSpawn: 2
     freezePosition: 1
+    speedOverride: 0
   - projectilePool: Buff_Thorns
     projectileSpawn: 2
     freezePosition: 1
+    speedOverride: 0
   - projectilePool: Buff_Windslash
     projectileSpawn: 2
     freezePosition: 1
+    speedOverride: 0
   - projectilePool: Buff_Dazzle
     projectileSpawn: 1
     freezePosition: 1
+    speedOverride: 0
+  - projectilePool: SpiderVenom
+    projectileSpawn: 0
+    freezePosition: 0
+    speedOverride: 8
+  - projectilePool: WraithSmokeBall
+    projectileSpawn: 0
+    freezePosition: 0
+    speedOverride: 12
+  - projectilePool: WraithExplosionCircle
+    projectileSpawn: 0
+    freezePosition: 1
+    speedOverride: 0
 --- !u!114 &5769053136309210999
 MonoBehaviour:
   m_ObjectHideFlags: 0
