@@ -174,10 +174,19 @@ public class AI : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (GetDistanceToTarget() < settings.attackDistance)
             {
-                float angle = Vector3.Angle(toTarget, transform.forward);
-                if (angle < 10)
+                if (GetDistanceToTarget() < 1f)
                 {
-                    StartAttack();
+                    agent.SetDestination(new Vector3(target.transform.position.x + (Random.insideUnitCircle * 4).magnitude, 0, target.transform.position.z + (Random.insideUnitCircle * 4).magnitude));
+                    agent.isStopped = false;
+                    anim.SetBool(settings.walkAnimation, true);
+                }
+                else
+                {
+                    float angle = Vector3.Angle(toTarget, transform.forward);
+                    if (angle < 10)
+                    {
+                        StartAttack();
+                    }
                 }
             }
             else
