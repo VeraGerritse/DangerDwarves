@@ -541,7 +541,6 @@ public class Inventory : MonoBehaviourPunCallbacks
         if (Input.GetKeyDown(KeyCode.V))
         {
             photonView.RPC("ResetAVR", RpcTarget.MasterClient);
-            NotificationManager.instance.NewNotification("aaaaaaaaaaaaaaaaaaaaaaaaaaaaah");
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
@@ -627,10 +626,17 @@ public class Inventory : MonoBehaviourPunCallbacks
         {
             if (Input.GetButtonDown("Fire2"))
             {
-                OnRightClickInventorySlot(allItems[GetIndex(currentSlot)]);
+                int index = GetIndex(currentSlot);
+                OnRightClickInventorySlot(allItems[index]);
 
                 if (ArmoryManager.instance.HasOpenUI())
                 {
+                    return;
+                }
+                if(allItems[index] is Potion)
+                {
+                    Potion temp = (Potion)allItems[index];
+                    temp.Drink();
                     return;
                 }
 
@@ -710,11 +716,10 @@ public class Inventory : MonoBehaviourPunCallbacks
                 if (LootRandomizer.instance != null)
                 {
                     Item newItem = LootRandomizer.instance.DropLoot(10 + averageILevel,3);
-                    if (newItem == null)
+                    if (newItem != null)
                     {
-                        return;
+                        AddItem(newItem);
                     }
-                    AddItem(newItem);
                 }
             }
         }
@@ -725,11 +730,10 @@ public class Inventory : MonoBehaviourPunCallbacks
                 for (int i = 0; i < allSlots.Count; i++)
                 {
                     Item newItem = LootRandomizer.instance.DropLoot(averageILevel, 3);
-                    if (newItem == null)
+                    if (newItem != null)
                     {
-                        return;
+                        AddItem(newItem);
                     }
-                    AddItem(newItem);
                 }
             }
         }
@@ -764,6 +768,11 @@ public class Inventory : MonoBehaviourPunCallbacks
 
             EquipItem(index);
             return;
+        }
+        if(allItems[index] is Potion)
+        {
+            Potion temp = (Potion)allItems[index];
+            temp.Drink();
         }
     }
 
@@ -1101,9 +1110,11 @@ public class Inventory : MonoBehaviourPunCallbacks
                 print(saved[i]);
                 if(isItem[i])
                 {
+
                     allItems[i] = saved[i];
                     allSlots[i].SetImage(Database.hostInstance.allSprites[allItems[i].spriteIndex]);
                     allSlots[i].EnableImage();
+                    allItems[i].Awake();
                     if (allSlots[i].slotType == InventorySlot.SlotType.weapon)
                     {
                         allSlots[i].EquipWeapon((Weapon)saved[i]);

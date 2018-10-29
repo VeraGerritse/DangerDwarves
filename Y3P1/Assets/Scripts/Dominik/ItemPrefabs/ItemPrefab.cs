@@ -13,6 +13,8 @@ public class ItemPrefab : MonoBehaviourPunCallbacks, IPunObservable
 
     public Item myItem;
 
+
+
     [SerializeField] protected GameObject interactCollider;
     [SerializeField] protected Collider objectCollider;
     [SerializeField] protected List<ParticleSystem> weaponRarityParticles = new List<ParticleSystem>();

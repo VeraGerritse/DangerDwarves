@@ -1,4 +1,5 @@
-﻿[System.Serializable]
+﻿using UnityEngine;
+[System.Serializable]
 public class Item
 {
 
@@ -10,7 +11,7 @@ public class Item
     public Stats myStats;
     // public GameObject itemPrefab;
     public int prefabIndex;
-    public int itemLevel = -1;    
+    public int itemLevel = -1;
 
     public virtual void StartUp(string name, int rarity,int Mysprite,Stats myStat,int myObj,int iLevel)
     {
@@ -34,11 +35,28 @@ public class Item
         {
             newInfo = new string[] { RarityInfo(), "Item level: <color=#00A8FF>" + itemLevel.ToString(), "Stamina: <color=#00A8FF>" + myStats.stamina.ToString(), "Strength: <color=#00A8FF>" + myStats.strength.ToString(), "Agility: <color=#00A8FF>" + myStats.agility.ToString(), "WillPower: <color=#00A8FF>" + myStats.willpower.ToString(), "Defence: <color=#00A8FF>" + myStats.defense.ToString() };
         }
+        else if (this is Potion)
+        {
+            newInfo = new string[] {"<color=white>" + itemName, itemRarity.ToString(), Database.hostInstance.potionDiscription[PotionNum()] };
+        }
         else
         {
-            newInfo = new string[] { itemRarity.ToString(), "Item level: <color=#00A8FF>" + itemLevel.ToString()};
+            NotificationManager.instance.NewNotification(itemName);
+            newInfo = new string[] { RarityInfo(), "Item level: <color=#00A8FF>" + itemLevel.ToString() };
         }
+        
         return newInfo;
+    }
+
+    public virtual int PotionNum()
+    {
+        return -1;
+    }
+
+    public virtual int StartPotion(int rarity)
+    {
+        NotificationManager.instance.NewNotification("AAAAAAAAAAAAAAAAAAAAAAAAAAh");
+        return -1;
     }
     public virtual void StartGold(int amount)
     {
@@ -101,6 +119,11 @@ public class Item
     }
 
     public virtual void StartMelee(float range,float knockback)
+    {
+
+    }
+
+    public virtual void Awake()
     {
 
     }

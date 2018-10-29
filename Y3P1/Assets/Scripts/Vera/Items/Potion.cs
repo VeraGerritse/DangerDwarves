@@ -6,6 +6,8 @@ public class Potion : Item
 {
 
     private float nextDrinkTime;
+    private int myMaterialIndex;
+    private int index;
 
     // StatusEffect type and how long the buffs sits on the inflicted target.
     public StatusEffects.StatusEffectType effectType;
@@ -15,17 +17,41 @@ public class Potion : Item
     public float buffDuration = 6f;
     public float potionDrinkCooldown = 30f;
 
-    public override void StartUp(string name, int rarity, int Mysprite, Stats myStat, int myObj, int iLevel)
+    public override void Awake()
     {
-        base.StartUp(name, rarity, Mysprite, myStat, myObj, iLevel);
+        nextDrinkTime = 0;
+    }
+
+    public override int PotionNum()
+    {
+        return index;
+    }
+
+    public override int StartPotion(int rarity)
+    {
+        nextDrinkTime = 0;
+        index = Random.Range(0, 5);
+        Database.hostInstance.GetPotionSprite(index);
+        Database.hostInstance.GetPotionObject(index);
+        effectType = (StatusEffects.StatusEffectType)index;
+
+        myMaterialIndex = Database.hostInstance.GetPotionMaterial(index);
+        spriteIndex = Database.hostInstance.GetPotionSprite(index);
+        prefabIndex = Database.hostInstance.GetPotionObject(index);
 
         itemName = GetPotionName();
+        Debug.Log(itemName);
+        itemRarity = (ItemRarity)rarity;
         statusEffectDuration = GetStatusEffectDuration();
         buffDuration = GetBuffDuration();
+        itemLevel = 1;
+
+        return index;
     }
 
     public void Drink()
     {
+        Debug.Log(buffDuration);
         if (Time.time >= nextDrinkTime)
         {
             nextDrinkTime = Time.time + potionDrinkCooldown;

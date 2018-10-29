@@ -45,8 +45,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSprites: []
   allGameobjects: []
+  allMaterials: []
   goldObject:
   - {fileID: 87033270630793182, guid: 62c7ab6c150d67943a16d26d72f863ad, type: 3}
+  potionObjects:
+  - {fileID: 87033270630793182, guid: d83d52cd2efd15b4282ce6e8b846858c, type: 3}
+  potionSprite:
+  - {fileID: 21300000, guid: bbd4d352f1557db4ba5bd385b80c2f08, type: 3}
+  potionMaterial:
+  - {fileID: 2100000, guid: 07de576b1b03ca64ca55f8c8b2ffb4c8, type: 2}
+  - {fileID: 2100000, guid: 3c71525f88a7fd643af88fbfce4aba6b, type: 2}
+  - {fileID: 2100000, guid: 806c44aa0ec2d4f4790a68391b10db91, type: 2}
+  - {fileID: 2100000, guid: 625f5cd3446241b47bc4ca210ce7e66b, type: 2}
+  - {fileID: 2100000, guid: 0aaaf767d0837744299e3245d3528d9f, type: 2}
+  potionDiscription:
+  - Applies bleeding damage to your weapon
+  - Applies slow effect to your weapon
+  - Applies armor break effect to your weapon
+  - Applies weapon break effect to your weapon
+  - Applies poison damage to your weapon
   secundaryRangedAttacks:
   - 
   - Arrow_Animated

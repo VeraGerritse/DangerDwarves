@@ -54,7 +54,7 @@ public class LootRandomizer : MonoBehaviour {
                 return LootGold(currentItemLevel);
             }
         }
-        int randomType = Random.Range(0, 3);
+        int randomType = Random.Range(0, 4);
         Item newItem = null;
         switch (randomType)
         {
@@ -66,6 +66,9 @@ public class LootRandomizer : MonoBehaviour {
                 break;
             case 2:
                 newItem = LootTrinket(currentItemLevel);
+                break;
+            case 3:
+                newItem = LootPotion();
                 break;
         }     
         return newItem;
@@ -128,9 +131,14 @@ public class LootRandomizer : MonoBehaviour {
 
     private Item LootPotion()
     {
+        if(Random.Range(0,100) < 50)
+        {
+            return null;
+        }
         Item newPotion = new Potion();
         int rarity = Rarity();
-        //newPotion.StartUp("", rarity, /* int sprite */, null, /* Database.hostInstance.GetPotionObject(rarity) */, 1);
+        int typePotion = newPotion.StartPotion(rarity);
+        //newPotion.StartUp("", rarity, Database.hostInstance.GetPotionSprite(typePotion) , null, Database.hostInstance.GetPotionObject(typePotion), 1);
         return newPotion;
     }
 

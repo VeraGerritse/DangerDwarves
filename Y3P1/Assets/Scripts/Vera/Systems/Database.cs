@@ -7,12 +7,19 @@ public class Database : MonoBehaviour {
     public static Database hostInstance;
     public List<Sprite> allSprites = new List<Sprite>();
     public List<GameObject> allGameobjects = new List<GameObject>();
-
-    [Header("Weapons")]
+    public List<Material> allMaterials = new List<Material>();
 
     [Header("Gold")]
     public List<GameObject> goldObject = new List<GameObject>();
 
+    [Header("Potions")]
+    public List<GameObject> potionObjects = new List<GameObject>();
+    public List<Sprite> potionSprite = new List<Sprite>();
+    public List<Material> potionMaterial = new List<Material>();
+    public List<string> potionDiscription = new List<string>();
+
+    [Header("Weapons")]
+    
     [Header("Attacks")]
     [SerializeField] private List<string> secundaryRangedAttacks = new List<string>();
     [SerializeField] private List<string> secundaryMeleeAttacks = new List<string>();
@@ -76,6 +83,7 @@ public class Database : MonoBehaviour {
         allGameobjects.AddRange(trinketObject);
         allGameobjects.AddRange(goldObject);
         allGameobjects.AddRange(oWObject);
+        allGameobjects.AddRange(potionObjects);
 
         allSprites.AddRange(crossbowSprite);
         allSprites.AddRange(axeSprite);
@@ -84,6 +92,9 @@ public class Database : MonoBehaviour {
         allSprites.AddRange(helmetSprite);
         allSprites.AddRange(trinketSprite);
         allSprites.AddRange(oWSprite);
+        allSprites.AddRange(potionSprite);
+
+        allMaterials.AddRange(potionMaterial);
     }
 
     public int OW()
@@ -112,7 +123,35 @@ public class Database : MonoBehaviour {
         }
         return secundaryMeleeAttacks[rand];
     }
-
+    //discriptions
+    public string GetPotionDiscription(int o)
+    {
+        if (o > potionDiscription.Count - 1)
+        {
+            o = potionDiscription.Count - 1;
+        }
+        return potionDiscription[o];
+    }
+    //getMaterials
+    public int GetPotionMaterial(int o)
+    {
+        print(o);
+        NotificationManager.instance.NewNotification(o.ToString());
+        int index = 0;
+        if (o > potionMaterial.Count - 1)
+        {
+            o = potionMaterial.Count - 1;
+        }
+        print(o);
+        for (int i = 0; i < allMaterials.Count; i++)
+        {
+            if (potionMaterial[o] == allMaterials[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
     //names
 
     public string GetOWName(int i)
@@ -151,6 +190,23 @@ public class Database : MonoBehaviour {
     }
 
     //sprites
+
+    public int GetPotionSprite(int o)
+    {
+        int index = 0;
+        if (o > potionSprite.Count - 1)
+        {
+            o = potionSprite.Count - 1;
+        }
+        for (int i = 0; i < allSprites.Count; i++)
+        {
+            if (potionSprite[o] == allSprites[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
 
     public int GetOWSprite(int o)
     {
@@ -251,6 +307,23 @@ public class Database : MonoBehaviour {
     }
 
     //objects
+
+    public int GetPotionObject(int o)
+    {
+        int index = 0;
+        if (o > potionObjects.Count - 1)
+        {
+            o = potionObjects.Count - 1;
+        }
+        for (int i = 0; i < allGameobjects.Count; i++)
+        {
+            if (oWObject[o] == allGameobjects[i])
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
 
     public int GetGoldObject(int rarity)
     {
