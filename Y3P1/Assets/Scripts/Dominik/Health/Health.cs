@@ -94,7 +94,7 @@ public class Health
         currentHealth = Mathf.Clamp(currentHealth, 0, GetMaxHealth());
         OnHealthModified(new HealthData { currentHealth = currentHealth, maxHealth = GetMaxHealth(), percentageHealth = GetHealthPercentage(), amountHealthChanged = null });
 
-        myEntity.photonView.RPC("SyncHealth", RpcTarget.Others);
+        //myEntity.photonView.RPC("SyncHealth", RpcTarget.Others);
     }
 
     public void ResetHealth(int percentage)
