@@ -84,4 +84,5 @@ MonoBehaviour:
   - SyncDroppedItems
   - DropItems
   - SyncDropData
+  - SyncHealthTest
   DisableAutoOpenWizard: 1

@@ -51,6 +51,7 @@ public class Health
                 currentHealth += amount;
             }
         }
+
         currentHealth = Mathf.Clamp(currentHealth, 0, GetMaxHealth());
         OnHealthModified(new HealthData
         {
