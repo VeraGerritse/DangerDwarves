@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 1863128687}
   - component: {fileID: 1863128685}
   - component: {fileID: 599846763727631133}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ArmoryUITrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -538,7 +538,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2585175959727040367}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,7 +653,7 @@ GameObject:
   - component: {fileID: 3072170981574618927}
   - component: {fileID: 1982247512116134460}
   - component: {fileID: 3214100479802961213}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HelpButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -775,7 +775,7 @@ GameObject:
   - component: {fileID: 340650119560357600}
   - component: {fileID: 3101993470329939513}
   - component: {fileID: 2666225409392773755}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1026,7 +1026,7 @@ GameObject:
   - component: {fileID: 5964951640126101501}
   - component: {fileID: 4877316548042468701}
   - component: {fileID: 6364979125664040523}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SlotHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1186,7 +1186,7 @@ GameObject:
   - component: {fileID: 2676005385778411227}
   - component: {fileID: 7840702479990348770}
   - component: {fileID: 3225188616810294284}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1491,7 +1491,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5765697924948115603}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1533,7 +1533,7 @@ GameObject:
   - component: {fileID: 2711408057800406964}
   - component: {fileID: 239139317772521958}
   - component: {fileID: 3757563374159379938}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1692,7 +1692,7 @@ GameObject:
   - component: {fileID: 6510855869638002130}
   - component: {fileID: 6313426526794295362}
   - component: {fileID: 3107650387890788372}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1766,7 +1766,7 @@ GameObject:
   - component: {fileID: 1101447189842582185}
   - component: {fileID: 3422080645237761690}
   - component: {fileID: 6750675598515067347}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1925,7 +1925,7 @@ GameObject:
   - component: {fileID: 8289922102868917331}
   - component: {fileID: 7927197409952038165}
   - component: {fileID: 1257133735839462763}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: StatsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2097,7 +2097,7 @@ GameObject:
   - component: {fileID: 7182927949120673440}
   - component: {fileID: 3173386642811182085}
   - component: {fileID: 8412567569515182381}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CostHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2256,7 +2256,7 @@ GameObject:
   - component: {fileID: 8410914605615526263}
   - component: {fileID: 966775669124275827}
   - component: {fileID: 1711205060038161164}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HeaderText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2413,7 +2413,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6948119007131186873}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2519,7 +2519,7 @@ GameObject:
   - component: {fileID: 6092530343740286675}
   - component: {fileID: 718801272900968010}
   - component: {fileID: 7578657691021159813}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RerollStats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2593,7 +2593,7 @@ GameObject:
   - component: {fileID: 468512320961531117}
   - component: {fileID: 3509327068207347892}
   - component: {fileID: 816529132246699382}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackgroundDetails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2666,7 +2666,7 @@ GameObject:
   - component: {fileID: 2795975185029994539}
   - component: {fileID: 3647085775696616693}
   - component: {fileID: 2194177438706227837}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SelectedOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2812,7 +2812,7 @@ GameObject:
   - component: {fileID: 2909841721080407778}
   - component: {fileID: 7949067814283806125}
   - component: {fileID: 7297698707067626145}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HeaderText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2971,7 +2971,7 @@ GameObject:
   - component: {fileID: 4196379722827802980}
   - component: {fileID: 4494201399215735575}
   - component: {fileID: 6812913612754622923}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3119,7 +3119,7 @@ GameObject:
   - component: {fileID: 2551580767532151612}
   - component: {fileID: 9132087402773757565}
   - component: {fileID: 6543343638477324942}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3278,7 +3278,7 @@ GameObject:
   - component: {fileID: 2236780519234188720}
   - component: {fileID: 7387652370014853846}
   - component: {fileID: 3725122997652401038}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SecondaryText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3437,7 +3437,7 @@ GameObject:
   - component: {fileID: 3100756233203382584}
   - component: {fileID: 3756353234303813221}
   - component: {fileID: 9220749460524722743}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CostText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3669,7 +3669,7 @@ GameObject:
   - component: {fileID: 2974848361928831307}
   - component: {fileID: 6934471707129086147}
   - component: {fileID: 5609372854166745439}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HelpPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3743,7 +3743,7 @@ GameObject:
   - component: {fileID: 6137101305002383042}
   - component: {fileID: 4264890547740688658}
   - component: {fileID: 2622317477047571196}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RerollButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3817,7 +3817,7 @@ GameObject:
   - component: {fileID: 4589189066945950338}
   - component: {fileID: 6788835384022283012}
   - component: {fileID: 946372120910125466}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SecondaryHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3976,7 +3976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7139202341885662360}
   - component: {fileID: 360408773957960226}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4034,7 +4034,7 @@ GameObject:
   - component: {fileID: 8765005399599203230}
   - component: {fileID: 7213288090066069734}
   - component: {fileID: 4793926880798931624}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4107,7 +4107,7 @@ GameObject:
   - component: {fileID: 6116239204461113537}
   - component: {fileID: 638525222512930279}
   - component: {fileID: 7671623260416277098}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RerollButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4182,7 +4182,7 @@ GameObject:
   - component: {fileID: 3035331916198751248}
   - component: {fileID: 4974479801106420771}
   - component: {fileID: 7505535259871441344}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4382,7 +4382,7 @@ GameObject:
   - component: {fileID: 124373595190706284}
   - component: {fileID: 3818394062799486153}
   - component: {fileID: 126655267928208954}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SelectedOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4456,7 +4456,7 @@ GameObject:
   - component: {fileID: 2045851358493471123}
   - component: {fileID: 2066028507336743083}
   - component: {fileID: 8672051478292308397}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4594,7 +4594,7 @@ GameObject:
   - component: {fileID: 7198188504450135445}
   - component: {fileID: 5299842505677764523}
   - component: {fileID: 5004421456453845000}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4756,7 +4756,7 @@ GameObject:
   - component: {fileID: 325937185456229205}
   - component: {fileID: 8729068229313689021}
   - component: {fileID: 7843237168790885328}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SelectedOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4829,7 +4829,7 @@ GameObject:
   - component: {fileID: 7875454785503948589}
   - component: {fileID: 5524707882298891758}
   - component: {fileID: 2611846418011490243}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4902,7 +4902,7 @@ GameObject:
   - component: {fileID: 1203751787412977757}
   - component: {fileID: 2526510775265592086}
   - component: {fileID: 9222553578239095511}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CostText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5060,7 +5060,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5735559278274369976}
   - component: {fileID: 4702112154835523295}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5117,7 +5117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6888474830690887727}
   - component: {fileID: 1422893196544897831}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ButtonLayoutGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5252,7 +5252,7 @@ GameObject:
   - component: {fileID: 5186324914285732895}
   - component: {fileID: 6123823162100301876}
   - component: {fileID: 4640745617954683585}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HelpPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5326,7 +5326,7 @@ GameObject:
   - component: {fileID: 3272893470187744687}
   - component: {fileID: 6499994043692549360}
   - component: {fileID: 2732977234620350627}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5400,7 +5400,7 @@ GameObject:
   - component: {fileID: 7713823278304926746}
   - component: {fileID: 1892518299062099707}
   - component: {fileID: 5072019473369526133}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HelpButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5521,7 +5521,7 @@ GameObject:
   - component: {fileID: 8540301448145997130}
   - component: {fileID: 7601703284422444371}
   - component: {fileID: 1596415408875416242}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5594,7 +5594,7 @@ GameObject:
   - component: {fileID: 447702870299479787}
   - component: {fileID: 8358334425245539719}
   - component: {fileID: 8639056787196197405}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Header
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5669,7 +5669,7 @@ GameObject:
   - component: {fileID: 2773470737183916447}
   - component: {fileID: 8401963951310033094}
   - component: {fileID: 1303516174137940747}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HoverSlotPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5745,7 +5745,7 @@ GameObject:
   - component: {fileID: 831746222760388607}
   - component: {fileID: 7286336696716161486}
   - component: {fileID: 4533073427480206917}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SelectStatButton (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5887,7 +5887,7 @@ GameObject:
   - component: {fileID: 7617633335629120018}
   - component: {fileID: 2897859033104714395}
   - component: {fileID: 4533823598966250319}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SelectStatButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6028,7 +6028,7 @@ GameObject:
   - component: {fileID: 3508266415246802496}
   - component: {fileID: 1508335979455559647}
   - component: {fileID: 363379748074987965}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6155,7 +6155,7 @@ GameObject:
   - component: {fileID: 3282058751420684483}
   - component: {fileID: 9187569119263907830}
   - component: {fileID: 3264243841516923224}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6324,7 +6324,7 @@ GameObject:
   - component: {fileID: 7880492995158749809}
   - component: {fileID: 2672443954826263949}
   - component: {fileID: 3802869073819272618}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SelectStatButton (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6577,7 +6577,7 @@ GameObject:
   - component: {fileID: 6311347833305029167}
   - component: {fileID: 3824483380906765095}
   - component: {fileID: 3600048319548198145}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6736,7 +6736,7 @@ GameObject:
   - component: {fileID: 7187095004998292372}
   - component: {fileID: 5148790828075845603}
   - component: {fileID: 3121202126477870240}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RerollSecondary
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6811,7 +6811,7 @@ GameObject:
   - component: {fileID: 3678905133221913444}
   - component: {fileID: 552495277396576661}
   - component: {fileID: 1335844207699184420}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RerollSecondaryPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6908,7 +6908,7 @@ GameObject:
   - component: {fileID: 4754327169501616034}
   - component: {fileID: 756584201548857749}
   - component: {fileID: 3288709105903502385}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: TextMeshPro Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7068,7 +7068,7 @@ GameObject:
   - component: {fileID: 7493317529760258874}
   - component: {fileID: 5208624668285931297}
   - component: {fileID: 4594239736704654677}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7283,7 +7283,7 @@ GameObject:
   - component: {fileID: 850196476035867585}
   - component: {fileID: 8595181338220356257}
   - component: {fileID: 7838093239070163007}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SelectStatButton (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7423,7 +7423,7 @@ GameObject:
   - component: {fileID: 8156584949829242528}
   - component: {fileID: 729161867005475724}
   - component: {fileID: 7208091893102331056}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SlotHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7584,7 +7584,7 @@ GameObject:
   - component: {fileID: 4030902348760113933}
   - component: {fileID: 7855486173950720538}
   - component: {fileID: 314169136731083777}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SelectStatButton (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7724,7 +7724,7 @@ GameObject:
   - component: {fileID: 1160059545072199042}
   - component: {fileID: 2766394308145506921}
   - component: {fileID: 6182587113030931124}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HeaderText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7884,7 +7884,7 @@ GameObject:
   - component: {fileID: 2481158525111058843}
   - component: {fileID: 6527120093896878803}
   - component: {fileID: 3701559984797298060}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: RerollStatsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7979,7 +7979,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7538602643958737447}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Middle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8021,7 +8021,7 @@ GameObject:
   - component: {fileID: 7381964288198847928}
   - component: {fileID: 6395869042022851282}
   - component: {fileID: 840901730424989556}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SelectedOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8094,7 +8094,7 @@ GameObject:
   - component: {fileID: 8618093417072975451}
   - component: {fileID: 2758344531251434781}
   - component: {fileID: 8892596242944889659}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SelectedOverlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8168,7 +8168,7 @@ GameObject:
   - component: {fileID: 3050858472788000839}
   - component: {fileID: 9137887055455671880}
   - component: {fileID: 5671006175774447358}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8305,7 +8305,7 @@ GameObject:
   - component: {fileID: 4337655879361847112}
   - component: {fileID: 6791363068314914903}
   - component: {fileID: 130081229438260562}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackgroundDetails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8378,7 +8378,7 @@ GameObject:
   - component: {fileID: 7945905611750456896}
   - component: {fileID: 1896803825461470162}
   - component: {fileID: 7913013400035900087}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HoverSlotCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8535,7 +8535,7 @@ GameObject:
   - component: {fileID: 7982669445090042802}
   - component: {fileID: 8777688327080599240}
   - component: {fileID: 2922867453342163215}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Overview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8631,7 +8631,7 @@ GameObject:
   - component: {fileID: 5988269333035466248}
   - component: {fileID: 3252742129281234715}
   - component: {fileID: 5303519348456316543}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CostHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8791,7 +8791,7 @@ GameObject:
   - component: {fileID: 4348776983574559083}
   - component: {fileID: 4868694475328415988}
   - component: {fileID: 3063633913742711804}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ArmoryCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8892,7 +8892,7 @@ GameObject:
   - component: {fileID: 5380159894264005144}
   - component: {fileID: 3700693889430188043}
   - component: {fileID: 732254580576513333}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: BackgroundDetails
   m_TagString: Untagged
   m_Icon: {fileID: 0}

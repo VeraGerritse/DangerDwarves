@@ -1,5 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!4 &2461491624410380233 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: f495b558b5e654643abdabadb44bb8ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 2461491624410246473}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &783621519163441753
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,7 +18,7 @@ GameObject:
   - component: {fileID: 3045429309397109161}
   m_Layer: 0
   m_Name: CupBoard
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,12 +51,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7945404, y: 0.80397975, z: 0.49757153}
   m_Center: {x: 0, y: 0.39204115, z: 0.0061270595}
---- !u!4 &2461491624410380233 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: f495b558b5e654643abdabadb44bb8ec,
-    type: 3}
-  m_PrefabInstance: {fileID: 2461491624410246473}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2461491624410246473
 PrefabInstance:
   m_ObjectHideFlags: 0
